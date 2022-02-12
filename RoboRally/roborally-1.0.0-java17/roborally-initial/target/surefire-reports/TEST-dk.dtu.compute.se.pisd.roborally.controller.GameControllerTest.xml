@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="dk.dtu.compute.se.pisd.roborally.controller.GameControllerTest" time="0.016" tests="1" errors="0" skipped="0" failures="1">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\sinis\OneDrive - Aelastics\Documents\Nastava\DTU Advnaced programming\Sinisa DTU 2022\project\roborally-1.0.0-java17\roborally-initial\target\test-classes;C:\Users\sinis\OneDrive - Aelastics\Documents\Nastava\DTU Advnaced programming\Sinisa DTU 2022\project\roborally-1.0.0-java17\roborally-initial\target\classes;C:\Users\sinis\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\sinis\.m2\repository\mysql\mysql-connector-java\8.0.11\mysql-connector-java-8.0.11.jar;C:\Users\sinis\.m2\repository\com\google\protobuf\protobuf-java\2.6.0\protobuf-java-2.6.0.jar;C:\Users\sinis\.m2\repository\com\google\code\gson\gson\2.8.2\gson-2.8.2.jar;C:\Users\sinis\.m2\repository\com\google\guava\guava\19.0\guava-19.0.jar;C:\Users\sinis\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.2\junit-jupiter-api-5.4.2.jar;C:\Users\sinis\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\sinis\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\sinis\.m2\repository\org\junit\platform\junit-platform-commons\1.4.2\junit-platform-commons-1.4.2.jar;C:\Users\sinis\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.2\junit-jupiter-engine-5.4.2.jar;C:\Users\sinis\.m2\repository\org\junit\platform\junit-platform-engine\1.4.2\junit-platform-engine-1.4.2.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-controls\17\javafx-controls-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-controls\17\javafx-controls-17-win.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-graphics\17\javafx-graphics-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-graphics\17\javafx-graphics-17-win.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-base\17\javafx-base-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-base\17\javafx-base-17-win.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-fxml\17\javafx-fxml-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-fxml\17\javafx-fxml-17-win.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Europe/Copenhagen"/>
+    <property name="user.country.format" value="DK"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Users\sinis\.jdks\openjdk-17.0.1\bin"/>
+    <property name="sun.java.command" value="C:\Users\sinis\AppData\Local\Temp\surefire5938166432938968218\surefirebooter738409134965153015.jar C:\Users\sinis\AppData\Local\Temp\surefire5938166432938968218 2022-02-09T00-42-03_669-jvmRun1 surefire14978195971534511847tmp surefire_09717153346637783976tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\sinis\OneDrive - Aelastics\Documents\Nastava\DTU Advnaced programming\Sinisa DTU 2022\project\roborally-1.0.0-java17\roborally-initial\target\test-classes;C:\Users\sinis\OneDrive - Aelastics\Documents\Nastava\DTU Advnaced programming\Sinisa DTU 2022\project\roborally-1.0.0-java17\roborally-initial\target\classes;C:\Users\sinis\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\sinis\.m2\repository\mysql\mysql-connector-java\8.0.11\mysql-connector-java-8.0.11.jar;C:\Users\sinis\.m2\repository\com\google\protobuf\protobuf-java\2.6.0\protobuf-java-2.6.0.jar;C:\Users\sinis\.m2\repository\com\google\code\gson\gson\2.8.2\gson-2.8.2.jar;C:\Users\sinis\.m2\repository\com\google\guava\guava\19.0\guava-19.0.jar;C:\Users\sinis\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.2\junit-jupiter-api-5.4.2.jar;C:\Users\sinis\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\sinis\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\sinis\.m2\repository\org\junit\platform\junit-platform-commons\1.4.2\junit-platform-commons-1.4.2.jar;C:\Users\sinis\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.2\junit-jupiter-engine-5.4.2.jar;C:\Users\sinis\.m2\repository\org\junit\platform\junit-platform-engine\1.4.2\junit-platform-engine-1.4.2.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-controls\17\javafx-controls-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-controls\17\javafx-controls-17-win.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-graphics\17\javafx-graphics-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-graphics\17\javafx-graphics-17-win.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-base\17\javafx-base-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-base\17\javafx-base-17-win.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-fxml\17\javafx-fxml-17.jar;C:\Users\sinis\.m2\repository\org\openjfx\javafx-fxml\17\javafx-fxml-17-win.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\sinis"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2021-10-19"/>
+    <property name="java.home" value="C:\Users\sinis\.jdks\openjdk-17.0.1"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\sinis\OneDrive - Aelastics\Documents\Nastava\DTU Advnaced programming\Sinisa DTU 2022\project\roborally-1.0.0-java17\roborally-initial"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\sinis\AppData\Local\Temp\surefire5938166432938968218\surefirebooter738409134965153015.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.1+12-39"/>
+    <property name="user.name" value="sinis"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\sinis\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\sinis\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2021.3.1"/>
+    <property name="java.version" value="17.0.1"/>
+    <property name="user.dir" value="C:\Users\sinis\OneDrive - Aelastics\Documents\Nastava\DTU Advnaced programming\Sinisa DTU 2022\project\roborally-1.0.0-java17\roborally-initial"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.language.format" value="da"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Users\sinis\.jdks\openjdk-17.0.1\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Eclipse Adoptium\jdk-17.0.1.12-hotspot\bin;C:\Python310\Scripts\;C:\Python310\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\sinis\AppData\Local\Microsoft\WindowsApps;;C:\Users\sinis\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2021.3.1\bin;;C:\Users\sinis\AppData\Roaming\npm;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="17.0.1+12-39"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="someTest" classname="dk.dtu.compute.se.pisd.roborally.controller.GameControllerTest" time="0.016">
+    <failure message="Player Player 0 should beSpace (0,4)! ==&gt; expected: &lt;dk.dtu.compute.se.pisd.roborally.model.Player@b7f23d9&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Player Player 0 should beSpace (0,4)! ==> expected: <dk.dtu.compute.se.pisd.roborally.model.Player@b7f23d9> but was: <null>
+	at dk.dtu.compute.se.pisd.roborally.controller.GameControllerTest.someTest(GameControllerTest.java:44)
+]]></failure>
+  </testcase>
+</testsuite>
