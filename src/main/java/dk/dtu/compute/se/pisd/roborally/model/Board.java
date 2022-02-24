@@ -217,16 +217,22 @@ public class Board extends Subject {
                 "Counter = " + getCounter();
     }
 
+
+    /**
+     * @param number
+     *
+     * @author Christian Andersen
+     */
     public void setCounter(int number){
         counter = number;
     }
 
+    /**
+     * @return
+     *
+     * @author Christian Andersen
+     */
     public int getCounter(){
         return counter;
     }
-
-    // TODO Assignment V1: add a counter along with a getter and a setter, so the
-    //      state the board (game) contains the number of moves, which then can
-    //      be used to extend the status message including the number of
-
 }
