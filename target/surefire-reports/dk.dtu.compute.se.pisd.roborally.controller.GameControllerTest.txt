@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: dk.dtu.compute.se.pisd.roborally.controller.GameControllerTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.016 s <<< FAILURE! - in dk.dtu.compute.se.pisd.roborally.controller.GameControllerTest
-someTest  Time elapsed: 0.016 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: Player Player 0 should beSpace (0,4)! ==> expected: <dk.dtu.compute.se.pisd.roborally.model.Player@b7f23d9> but was: <null>
-	at dk.dtu.compute.se.pisd.roborally.controller.GameControllerTest.someTest(GameControllerTest.java:44)
-
