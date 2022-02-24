@@ -43,6 +43,7 @@ public class GameController {
      * happening on the board. This method should eventually be deleted!
      *
      * @param space the space to which the current player should move
+     * @author Christian Andersen
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
         if(space.getPlayer() != null)
@@ -81,6 +82,11 @@ public class GameController {
         }
     }
 
+    /**
+     * @param player
+     *
+     * @author Christian Andersen
+     */
     public void nextPlayer(Player player){
         if(board.getPlayerNumber(player)==board.getPlayersNumber()-1)
             board.setCurrentPlayer(board.getPlayer(0));
