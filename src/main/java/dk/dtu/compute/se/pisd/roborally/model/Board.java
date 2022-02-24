@@ -57,6 +57,8 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+    private int counter = 0;
+
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
@@ -211,7 +213,23 @@ public class Board extends Subject {
         //      which is counted up every time a player makes a move; the
         //      status line should show the current player and the number
         //      of the current move!
-        return "Player = " + getCurrentPlayer().getName();
+        return "Player = " + getCurrentPlayer().getName() + "\n" +
+                "Counter = " + getCounter();
+    }
+
+    public void setCounter(int number){
+        counter = number;
+    }
+
+    public int getCounter(){
+        return counter;
+    }
+
+    public void nextPlayer(Player player){
+        if(getPlayerNumber(player)==getPlayersNumber()-1)
+            setCurrentPlayer(getPlayer(0));
+        else
+            setCurrentPlayer(getPlayer(getPlayerNumber(player)+1));
     }
 
     // TODO Assignment V1: add a counter along with a getter and a setter, so the
