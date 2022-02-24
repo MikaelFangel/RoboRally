@@ -1,0 +1,21 @@
+@startuml
+object Board
+object Robot
+object "Programming Card" as prgcard
+object "Upgrade Card" as upcard
+object "Damage Card" as dmgcard
+object "Special Programming Card" as spccard
+object "Priority Antenna" as ant
+object Timer
+object Player
+
+Board "1" -l- "2..6" Robot : \t
+Player "1" -- "1" Robot
+prgcard "20" -r- "1" Player : \t\t
+upcard "0..40" -- "0..1" Player
+spccard "0..6" -l- "0..1" Player : \t\t
+dmgcard "0..74" -- "0..1" Player
+Timer "1" -u- "1" Board
+ant "1" -l- "1" Board : \t
+
+@enduml
