@@ -49,7 +49,7 @@ public class GameController {
             return;
         space.setPlayer(board.getCurrentPlayer());
         board.setCounter(board.getCounter()+1);
-        board.nextPlayer(space.getPlayer());
+        nextPlayer(space.getPlayer());
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
         //     (if it is free()
@@ -79,6 +79,13 @@ public class GameController {
         } else {
             return false;
         }
+    }
+
+    public void nextPlayer(Player player){
+        if(board.getPlayerNumber(player)==board.getPlayersNumber()-1)
+            board.setCurrentPlayer(board.getPlayer(0));
+        else
+            board.setCurrentPlayer(board.getPlayer(board.getPlayerNumber(player)+1));
     }
 
 }

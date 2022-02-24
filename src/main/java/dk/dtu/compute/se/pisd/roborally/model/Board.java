@@ -225,13 +225,6 @@ public class Board extends Subject {
         return counter;
     }
 
-    public void nextPlayer(Player player){
-        if(getPlayerNumber(player)==getPlayersNumber()-1)
-            setCurrentPlayer(getPlayer(0));
-        else
-            setCurrentPlayer(getPlayer(getPlayerNumber(player)+1));
-    }
-
     // TODO Assignment V1: add a counter along with a getter and a setter, so the
     //      state the board (game) contains the number of moves, which then can
     //      be used to extend the status message including the number of
