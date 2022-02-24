@@ -1,0 +1,16 @@
+@startuml
+rectangle "Robo Rally" {
+    usecase (Play Robo Rally) as play
+    usecase (Do Upgrade Phase) as phase1
+    usecase (Do Programming Phase) as phase2
+    usecase (Do Activation Phase) as phase3
+    usecase (Run Register) as phase3sub
+}
+
+Player "2..6" -r- play : \t
+
+phase1 .d. play : extends
+phase2 .l. play : extends
+phase3 .u. play : extends
+phase3 .r. phase3sub : includes
+@enduml
