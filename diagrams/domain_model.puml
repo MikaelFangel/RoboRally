@@ -1,21 +1,55 @@
 @startuml
+skinparam groupInheritance 2
+
 object Board
 object Robot
 object "Programming Card" as prgcard
 object "Upgrade Card" as upcard
 object "Damage Card" as dmgcard
 object "Special Programming Card" as spccard
-object "Priority Antenna" as ant
 object Timer
-object Player
+object Player {
+    CheckPointTokens
+}
+object Deck
+object PlayerMat {
+    EnergyReserve
+    Registers
+}
 
 Board "1" -l- "2..6" Robot : \t
 Player "1" -- "1" Robot
-prgcard "20" -r- "1" Player : \t\t
-upcard "0..40" -- "0..1" Player
-spccard "0..6" -l- "0..1" Player : \t\t
-dmgcard "0..74" -- "0..1" Player
-Timer "1" -u- "1" Board
-ant "1" -l- "1" Board : \t
+Player "1" -u- "1" PlayerMat
+
+Deck "20" -- "1" PlayerMat : \t
+
+
+prgcard "20" -- "1" Deck : \t\t
+upcard "0..40" -l- "0..1" PlayerMat : \t\t
+spccard "0..6" -- "0..1" Deck : \t\t
+dmgcard "0..74" -- "0..1" Deck
+Timer "1" -- "1" Board
+
+object Space
+object Checkpoint
+object PriorityAntenna
+object WhiteGear
+object ConveyorBelt
+object Wall
+object Laser
+object PushPanel
+object EnergySpace
+object Gears
+
+Board <-- Space
+    Space <|-- Checkpoint
+    Space <|-- PriorityAntenna
+    Space <|-- WhiteGear
+    Space <|-- ConveyorBelt
+    Space <|-- Wall
+    Space <|-- Laser
+    Space <|-- PushPanel
+    Space <|-- EnergySpace
+    Space <|-- Gears
 
 @enduml
