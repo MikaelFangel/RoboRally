@@ -18,7 +18,7 @@ object PlayerMat {
 }
 
 Board "1" -l- "2..6" Robot : \t
-Player "1" -- "1" Robot
+Player "1" -r- "1" Robot
 Player "1" -u- "1" PlayerMat
 
 Deck "20" -- "1" PlayerMat : \t
@@ -28,7 +28,7 @@ prgcard "20" -- "1" Deck : \t\t
 upcard "0..40" -l- "0..1" PlayerMat : \t\t
 spccard "0..6" -- "0..1" Deck : \t\t
 dmgcard "0..74" -- "0..1" Deck
-Timer "1" -- "1" Board
+Timer "1" -l- "1" Board
 
 object Space
 object Checkpoint
@@ -42,14 +42,14 @@ object EnergySpace
 object Gears
 
 Board <-- Space
-    Space <|-- Checkpoint
-    Space <|-- PriorityAntenna
-    Space <|-- WhiteGear
-    Space <|-- ConveyorBelt
-    Space <|-- Wall
-    Space <|-- Laser
-    Space <|-- PushPanel
-    Space <|-- EnergySpace
-    Space <|-- Gears
+Space <|-- Checkpoint
+Space <|-- PriorityAntenna
+Space <|-- WhiteGear
+Space <|-- ConveyorBelt
+Space <|-- Wall
+Space <|-- Laser
+Space <|-- PushPanel
+Space <|-- EnergySpace
+Space <|-- Gears
 
 @enduml
