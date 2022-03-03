@@ -43,14 +43,8 @@ public class GameController {
      * happening on the board. This method should eventually be deleted!
      *
      * @param space the space to which the current player should move
-     * @author Christian Andersen
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-        if(space.getPlayer() != null)
-            return;
-        space.setPlayer(board.getCurrentPlayer());
-        board.setCounter(board.getCounter()+1);
-        nextPlayer(space.getPlayer());
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
         //     (if it is free()
@@ -61,19 +55,170 @@ public class GameController {
 
     }
 
-    /**
-     * A method called when no corresponding controller operation is implemented yet.
-     * This method should eventually be removed.
-     */
-    public void notImplememted() {
-        // XXX just for now to indicate that the actual method to be used by a handler
-        //     is not yet implemented
-    };
+    // XXX: V2
+    public void startProgrammingPhase() {
+        board.setPhase(Phase.PROGRAMMING);
+        board.setCurrentPlayer(board.getPlayer(0));
+        board.setStep(0);
+
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Player player = board.getPlayer(i);
+            if (player != null) {
+                for (int j = 0; j < Player.NO_REGISTERS; j++) {
+                    CommandCardField field = player.getProgramField(j);
+                    field.setCard(null);
+                    field.setVisible(true);
+                }
+                for (int j = 0; j < Player.NO_CARDS; j++) {
+                    CommandCardField field = player.getCardField(j);
+                    field.setCard(generateRandomCommandCard());
+                    field.setVisible(true);
+                }
+            }
+        }
+    }
+
+    // XXX: V2
+    private CommandCard generateRandomCommandCard() {
+        Command[] commands = Command.values();
+        int random = (int) (Math.random() * commands.length);
+        return new CommandCard(commands[random]);
+    }
+
+    // XXX: V2
+    public void finishProgrammingPhase() {
+        makeProgramFieldsInvisible();
+        makeProgramFieldsVisible(0);
+        board.setPhase(Phase.ACTIVATION);
+        board.setCurrentPlayer(board.getPlayer(0));
+        board.setStep(0);
+    }
+
+    // XXX: V2
+    private void makeProgramFieldsVisible(int register) {
+        if (register >= 0 && register < Player.NO_REGISTERS) {
+            for (int i = 0; i < board.getPlayersNumber(); i++) {
+                Player player = board.getPlayer(i);
+                CommandCardField field = player.getProgramField(register);
+                field.setVisible(true);
+            }
+        }
+    }
+
+    // XXX: V2
+    private void makeProgramFieldsInvisible() {
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Player player = board.getPlayer(i);
+            for (int j = 0; j < Player.NO_REGISTERS; j++) {
+                CommandCardField field = player.getProgramField(j);
+                field.setVisible(false);
+            }
+        }
+    }
+
+    // XXX: V2
+    public void executePrograms() {
+        board.setStepMode(false);
+        continuePrograms();
+    }
+
+    // XXX: V2
+    public void executeStep() {
+        board.setStepMode(true);
+        continuePrograms();
+    }
+
+    // XXX: V2
+    private void continuePrograms() {
+        do {
+            executeNextStep();
+        } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
+    }
+
+    // XXX: V2
+    private void executeNextStep() {
+        Player currentPlayer = board.getCurrentPlayer();
+        if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
+            int step = board.getStep();
+            if (step >= 0 && step < Player.NO_REGISTERS) {
+                CommandCard card = currentPlayer.getProgramField(step).getCard();
+                if (card != null) {
+                    Command command = card.command;
+                    executeCommand(currentPlayer, command);
+                }
+                int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
+                if (nextPlayerNumber < board.getPlayersNumber()) {
+                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+                } else {
+                    step++;
+                    if (step < Player.NO_REGISTERS) {
+                        makeProgramFieldsVisible(step);
+                        board.setStep(step);
+                        board.setCurrentPlayer(board.getPlayer(0));
+                    } else {
+                        startProgrammingPhase();
+                    }
+                }
+            } else {
+                // this should not happen
+                assert false;
+            }
+        } else {
+            // this should not happen
+            assert false;
+        }
+    }
+
+    // XXX: V2
+    private void executeCommand(@NotNull Player player, Command command) {
+        if (player != null && player.board == board && command != null) {
+            // XXX This is a very simplistic way of dealing with some basic cards and
+            //     their execution. This should eventually be done in a more elegant way
+            //     (this concerns the way cards are modelled as well as the way they are executed).
+
+            switch (command) {
+                case FORWARD:
+                    this.moveForward(player);
+                    break;
+                case RIGHT:
+                    this.turnRight(player);
+                    break;
+                case LEFT:
+                    this.turnLeft(player);
+                    break;
+                case FAST_FORWARD:
+                    this.fastForward(player);
+                    break;
+                default:
+                    // DO NOTHING (for now)
+            }
+        }
+    }
+
+    // TODO Assignment V2
+    public void moveForward(@NotNull Player player) {
+
+    }
+
+    // TODO Assignment V2
+    public void fastForward(@NotNull Player player) {
+
+    }
+
+    // TODO Assignment V2
+    public void turnRight(@NotNull Player player) {
+
+    }
+
+    // TODO Assignment V2
+    public void turnLeft(@NotNull Player player) {
+
+    }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
         CommandCard targetCard = target.getCard();
-        if (sourceCard != null & targetCard == null) {
+        if (sourceCard != null && targetCard == null) {
             target.setCard(sourceCard);
             source.setCard(null);
             return true;
@@ -83,15 +228,12 @@ public class GameController {
     }
 
     /**
-     * @param player
-     *
-     * @author Christian Andersen
+     * A method called when no corresponding controller operation is implemented yet. This
+     * should eventually be removed.
      */
-    public void nextPlayer(Player player){
-        if(board.getPlayerNumber(player)==board.getPlayersNumber()-1)
-            board.setCurrentPlayer(board.getPlayer(0));
-        else
-            board.setCurrentPlayer(board.getPlayer(board.getPlayerNumber(player)+1));
+    public void notImplemented() {
+        // XXX just for now to indicate that the actual method is not yet implemented
+        assert false;
     }
 
 }
