@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class GameController {
 
@@ -44,11 +43,11 @@ public class GameController {
      *
      * @param space the space to which the current player should move
      */
-    public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-        if(space.getPlayer() != null)
+    public void moveCurrentPlayerToSpace(@NotNull Space space) {
+        if (space.getPlayer() != null)
             return;
         space.setPlayer(board.getCurrentPlayer());
-        board.setCounter(board.getCounter()+1);
+        board.setCounter(board.getCounter() + 1);
         nextPlayer(space.getPlayer());
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
@@ -202,7 +201,11 @@ public class GameController {
 
     // TODO Assignment V2
     public void moveForward(@NotNull Player player) {
+        Space space = board.getPlayer(board.getPlayerNumber(player)).getSpace();
+        Heading heading = player.getHeading();
 
+        Space nextSpace = board.getNeighbour(space, heading);
+        player.setSpace(nextSpace);
     }
 
     // TODO Assignment V2
@@ -241,11 +244,11 @@ public class GameController {
         assert false;
     }
 
-    public void nextPlayer(Player player){
-        if(board.getPlayerNumber(player)==board.getPlayersNumber()-1)
+    public void nextPlayer(Player player) {
+        if (board.getPlayerNumber(player) == board.getPlayersNumber() - 1)
             board.setCurrentPlayer(board.getPlayer(0));
         else
-            board.setCurrentPlayer(board.getPlayer(board.getPlayerNumber(player)+1));
+            board.setCurrentPlayer(board.getPlayer(board.getPlayerNumber(player) + 1));
     }
 
 }
