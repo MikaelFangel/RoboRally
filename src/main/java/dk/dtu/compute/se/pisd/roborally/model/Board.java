@@ -57,13 +57,15 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+    private int counter;
+
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
         this.height = height;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+            for (int y = 0; y < height; y++) {
                 Space space = new Space(this, x, y);
                 spaces[x][y] = space;
             }
@@ -175,7 +177,7 @@ public class Board extends Subject {
      * (no walls or obstacles in either of the involved spaces); otherwise,
      * null will be returned.
      *
-     * @param space the space for which the neighbour should be computed
+     * @param space   the space for which the neighbour should be computed
      * @param heading the heading of the neighbour
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
@@ -208,8 +210,23 @@ public class Board extends Subject {
         // XXX: V2 changed the status so that it shows the phase, the player and the step
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep();
+                ", Step: " + getStep() + "\n" +
+                "Counter = " + getCounter();
     }
 
+    public void setCounter(int number) {
+        counter = number;
+    }
 
+    public int getCounter() {
+        return counter;
+    }
+
+    public void nextPlayer(Player player) {
+        if (getPlayerNumber(player) == getPlayersNumber() - 1)
+            setCurrentPlayer(getPlayer(0));
+        else
+            setCurrentPlayer(getPlayer(getPlayerNumber(player) + 1));
+
+    }
 }
