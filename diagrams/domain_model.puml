@@ -3,10 +3,27 @@ skinparam groupInheritance 2
 
 object Board
 object Robot
-object "Programming Card" as prgcard
+object "Programming Card" as prgcard {
+    Direction
+    Moves
+}
+
 object "Upgrade Card" as upcard
+
 object "Damage Card" as dmgcard
+object Spam
+object Worm
+object Virus
+object "Trojan Horse" as trojan
+
 object "Special Programming Card" as spccard
+object "Energy \n Routine" as energyRout
+object "Sanbox \n Routine" as sandboxRout
+object "Weasel \n Routine" as weaselRout
+object "Speed \n Routine" as speedRout
+object "Spam \n Folder" as spamFol
+object "Repeat \n Routine" as repeatRout
+
 object Timer
 object Player {
     CheckPointTokens
@@ -23,12 +40,23 @@ Player "1" -u- "1" PlayerMat
 
 Deck "20" -- "1" PlayerMat : \t
 
-
 prgcard "20" -- "1" Deck : \t\t
 upcard "0..40" -l- "0..1" PlayerMat : \t\t
-spccard "0..6" -- "0..1" Deck : \t\t
+spccard "0..6" -l- "0..1" Deck : \t\t
 dmgcard "0..74" -- "0..1" Deck
 Timer "1" -l- "1" Board
+
+dmgcard -u- Spam
+dmgcard -u- Worm
+dmgcard -u- Virus
+dmgcard -u- trojan
+
+spccard -u- energyRout
+spccard -u- sandboxRout
+spccard -u- weaselRout
+spccard -u- speedRout
+spccard -u- spamFol
+spccard -u- repeatRout
 
 object Space
 object Checkpoint
