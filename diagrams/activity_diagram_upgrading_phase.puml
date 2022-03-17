@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Upgrade phase;
+:Upgrade shop is open;
+fork
+if (Upgrade shop is full) is (<color:green>True) then
+:Remove all card from the upgradde shop;
+:Refresh shop with new card as the same number as Players;
+else (<color:red>False)
+:Player can purchase cards;
+endif
+fork again
+if (Upgrade shop is missing one or more cards) is (<color:green>True) then
+:Fill the shop with upgrades card from the upgrade deck;
+else (<color:red>False)
+:Player can purchase cards;
+endif
+end fork
+stop
+@enduml

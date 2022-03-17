@@ -3,7 +3,7 @@
 
 start
 :Start Game;
-: Select players ;
+: Select players (2-6) ;
 : Choose maps;
 while (player z hits the final checkpoint) is (<color:red>False)
 while (Players are finished purchasing) is (<color:red>False)
@@ -21,6 +21,8 @@ fork
 
 fork again
 : Player y programing robot;
+fork again
+
 
 
 end fork
@@ -28,7 +30,7 @@ endif
 
 : Activation phase;
 : All players reveals their programing choice;
-: Closed player to antenna start executing;
+: Closest player to antenna start executing;
 
 endwhile (<color:green>True);
 : player z wins!;
