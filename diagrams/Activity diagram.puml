@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Start Game;
+: Select players ;
+: Choose maps;
+while (player z hits the final checkpoint) is (<color:red>False)
+while (Players are finished purchasing) is (<color:red>False)
+: Upgrade & purchasing phase;
+: Upgrade shop is open for purchasing card;
+
+endwhile (<color:green>True)
+: Programing phase;
+if (Player runs out of time) then (<color:green>Yes)
+: Player must discard all cards;
+else (<color:red>No)
+fork
+
+: Player x programing robot;
+
+fork again
+: Player y programing robot;
+
+
+end fork
+endif
+
+: Activation phase;
+
+: All players reveals their programing choice;
+: Closed player to antenna start executing;
+
+endwhile (<color:green>True);
+: player z wins!;
+stop
+
+
+
+
+
+
+
+@enduml
