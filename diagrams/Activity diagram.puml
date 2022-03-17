@@ -27,7 +27,6 @@ end fork
 endif
 
 : Activation phase;
-
 : All players reveals their programing choice;
 : Closed player to antenna start executing;
 
