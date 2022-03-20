@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title Upgrade Phase
+
+start
+if (Number of cards in shop == number of players) then (Yes)
+    :Discard all cards in shop;
+else (No)
+endif
+
+:Replenish cards until it equals the number of players;
+
+repeat
+
+:Get player with highest priority that \n has not had a chance to buy a card yet;
+
+if (Player wants to purchase an upgrade card?) then (Yes)
+    :Purchase a upgrade card;
+else (No)
+endif
+
+repeat while (Every player has had a chance to purchase?) is (No) not (Yes)
+
+stop
+
+@enduml

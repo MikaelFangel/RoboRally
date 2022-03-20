@@ -1,5 +1,7 @@
 @startuml
 
+title Programming Phase
+
 start
 if(Cards in deck <= 9) then (true)
     :Draw 9 cards from deck;
