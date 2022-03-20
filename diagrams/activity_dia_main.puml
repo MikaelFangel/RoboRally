@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title Main
+
+start
+:Choose between 2-6 players;
+:Choose a map;
+repeat
+:Upgrade phase;
+:Programming phase;
+:Activiation phase;
+repeat while(Winner found) is (false) not (true)
+:End game;
+stop
+
+@enduml
