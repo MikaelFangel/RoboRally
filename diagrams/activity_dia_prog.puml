@@ -1,0 +1,15 @@
+@startuml
+
+start
+if(Cards in deck <= 9) then (true)
+    :Draw 9 cards from deck;
+else (false)
+    :Draw all cards;
+    :Shuffle the discard pile;
+    :Draw until 9 cards on hand;
+endif
+:Place 5 cards in the registers;
+:Discard the remaining 4 cards;
+stop
+
+@enduml
