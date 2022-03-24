@@ -53,7 +53,7 @@ public class GameController {
         //   - the counter of moves in the game should be increased by one
         //     if the player is moved
 
-        if (space != null && space.board == board) {
+        if (space.board == board) {
             Player currentPlayer = board.getCurrentPlayer();
             if (currentPlayer != null && space.getPlayer() == null) {
                 currentPlayer.setSpace(space);
@@ -180,37 +180,30 @@ public class GameController {
 
     // XXX: V2
     private void executeCommand(@NotNull Player player, Command command) {
-        if (player != null && player.board == board && command != null) {
+        if (player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
             //     (this concerns the way cards are modelled as well as the way they are executed).
 
             switch (command) {
-                case FORWARD:
-                    this.moveForward(player);
-                    break;
-                case RIGHT:
-                    this.turnRight(player);
-                    break;
-                case LEFT:
-                    this.turnLeft(player);
-                    break;
-                case FAST_FORWARD:
-                    this.fastForward(player);
-                    break;
-                default:
-                    // DO NOTHING (for now)
+                case FORWARD -> this.moveForward(player);
+                case RIGHT -> this.turnRight(player);
+                case LEFT -> this.turnLeft(player);
+                case FAST_FORWARD -> this.fastForward(player);
+                default -> {
+                }
+                // DO NOTHING (for now)
             }
         }
     }
 
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
-        if (player != null && player.board == board && space != null) {
+        if (player.board == board && space != null) {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
             if (target != null) {
-                // XXX note that this removes an other player from the space, when there
+                // XXX note that this removes another player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
                 target.setPlayer(player);
@@ -224,13 +217,13 @@ public class GameController {
     }
     
     public void turnRight(@NotNull Player player) {
-        if (player != null && player.board == board) {
+        if (player.board == board) {
             player.setHeading(player.getHeading().next());
         }
     }
 
     public void turnLeft(@NotNull Player player) {
-        if (player != null && player.board == board) {
+        if (player.board == board) {
             player.setHeading(player.getHeading().prev());
         }
     }
