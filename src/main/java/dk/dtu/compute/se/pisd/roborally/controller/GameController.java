@@ -249,11 +249,4 @@ public class GameController {
         assert false;
     }
 
-    public void nextPlayer(Player player) {
-        if (board.getPlayerNumber(player) == board.getPlayersNumber() - 1)
-            board.setCurrentPlayer(board.getPlayer(0));
-        else
-            board.setCurrentPlayer(board.getPlayer(board.getPlayerNumber(player) + 1));
-    }
-
 }
