@@ -177,7 +177,7 @@ public class Board extends Subject {
      * (no walls or obstacles in either of the involved spaces); otherwise,
      * null will be returned.
      *
-     * @param space   the space for which the neighbour should be computed
+     * @param space the space for which the neighbour should be computed
      * @param heading the heading of the neighbour
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
