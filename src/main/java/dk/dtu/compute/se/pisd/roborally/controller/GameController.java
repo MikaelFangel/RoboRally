@@ -156,16 +156,18 @@ public class GameController {
                     executeCommand(currentPlayer, command);
                 }
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-                if (nextPlayerNumber < board.getPlayersNumber()) {
-                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
-                } else {
-                    step++;
-                    if (step < Player.NO_REGISTERS) {
-                        makeProgramFieldsVisible(step);
-                        board.setStep(step);
-                        board.setCurrentPlayer(board.getPlayer(0));
+                if(board.getPhase() == Phase.ACTIVATION) {
+                    if (nextPlayerNumber < board.getPlayersNumber()) {
+                        board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                     } else {
-                        startProgrammingPhase();
+                        step++;
+                        if (step < Player.NO_REGISTERS) {
+                            makeProgramFieldsVisible(step);
+                            board.setStep(step);
+                            board.setCurrentPlayer(board.getPlayer(0));
+                        } else {
+                            startProgrammingPhase();
+                        }
                     }
                 }
             } else {
@@ -190,6 +192,9 @@ public class GameController {
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
                 case FAST_FORWARD -> this.fastForward(player);
+                case OPTION_LEFT_RIGHT ->{
+                    board.setPhase(Phase.PLAYER_INTERACTION);
+                }
                 default -> {
                 }
                 // DO NOTHING (for now)
