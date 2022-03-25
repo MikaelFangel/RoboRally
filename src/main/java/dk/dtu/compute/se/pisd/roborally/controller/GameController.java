@@ -24,17 +24,16 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.plaf.IconUIResource;
+
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class GameController {
 
     final public Board board;
-
-    private boolean isInDisicionMode;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -139,6 +138,14 @@ public class GameController {
         continuePrograms();
     }
 
+    public void executeCommandAndResumeActivation(Command command) {
+        board.setPhase(Phase.ACTIVATION);
+
+        Player currentPlayer = board.getCurrentPlayer();
+        executeCommand(currentPlayer, command);
+        changePlayer(currentPlayer, board.getStep());
+    }
+
     // XXX: V2
     private void continuePrograms() {
         do {
@@ -157,21 +164,8 @@ public class GameController {
                     Command command = card.command;
                     executeCommand(currentPlayer, command);
                 }
-                int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-                if(board.getPhase() == Phase.ACTIVATION) {
-                    isInDisicionMode = false;
-                    if (nextPlayerNumber < board.getPlayersNumber()) {
-                        board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
-                    } else {
-                        step++;
-                        if (step < Player.NO_REGISTERS) {
-                            makeProgramFieldsVisible(step);
-                            board.setStep(step);
-                            board.setCurrentPlayer(board.getPlayer(0));
-                        } else {
-                            startProgrammingPhase();
-                        }
-                    }
+                if (board.getPhase() == Phase.ACTIVATION) {
+                    changePlayer(currentPlayer, step);
                 }
             } else {
                 // this should not happen
@@ -180,6 +174,22 @@ public class GameController {
         } else {
             // this should not happen
             assert false;
+        }
+    }
+
+    private void changePlayer(Player currentPlayer, int step) {
+        int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
+        if (nextPlayerNumber < board.getPlayersNumber()) {
+            board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+        } else {
+            step++;
+            if (step < Player.NO_REGISTERS) {
+                makeProgramFieldsVisible(step);
+                board.setStep(step);
+                board.setCurrentPlayer(board.getPlayer(0));
+            } else {
+                startProgrammingPhase();
+            }
         }
     }
 
@@ -194,11 +204,8 @@ public class GameController {
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
                 case FAST_FORWARD -> this.fastForward(player);
-                case OPTION_LEFT_RIGHT ->{
-                    if (!isInDisicionMode) {
-                        board.setPhase(Phase.PLAYER_INTERACTION);
-                        isInDisicionMode = true;
-                    }
+                case OPTION_LEFT_RIGHT -> {
+                    board.setPhase(Phase.PLAYER_INTERACTION);
                 }
                 default -> {
                 }
@@ -219,31 +226,23 @@ public class GameController {
                 target.setPlayer(player);
             }
         }
-        reActivateActivation();
     }
 
     public void fastForward(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
-        reActivateActivation();
     }
-    
+
     public void turnRight(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().next());
         }
-        reActivateActivation();
     }
 
     public void turnLeft(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().prev());
         }
-        reActivateActivation();
-    }
-
-    public void reActivateActivation() {
-        board.setPhase(Phase.ACTIVATION);
     }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
@@ -256,15 +255,6 @@ public class GameController {
         } else {
             return false;
         }
-    }
-
-    /**
-     * A method called when no corresponding controller operation is implemented yet. This
-     * should eventually be removed.
-     */
-    public void notImplemented() {
-        // XXX just for now to indicate that the actual method is not yet implemented
-        assert false;
     }
 
 }
