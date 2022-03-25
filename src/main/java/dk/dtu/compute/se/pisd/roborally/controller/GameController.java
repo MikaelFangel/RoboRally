@@ -34,6 +34,8 @@ public class GameController {
 
     final public Board board;
 
+    private boolean isInDisicionMode;
+
     public GameController(@NotNull Board board) {
         this.board = board;
     }
@@ -157,6 +159,7 @@ public class GameController {
                 }
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
                 if(board.getPhase() == Phase.ACTIVATION) {
+                    isInDisicionMode = false;
                     if (nextPlayerNumber < board.getPlayersNumber()) {
                         board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                     } else {
@@ -186,14 +189,16 @@ public class GameController {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
             //     (this concerns the way cards are modelled as well as the way they are executed).
-
             switch (command) {
                 case FORWARD -> this.moveForward(player);
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
                 case FAST_FORWARD -> this.fastForward(player);
                 case OPTION_LEFT_RIGHT ->{
-                    board.setPhase(Phase.PLAYER_INTERACTION);
+                    if (!isInDisicionMode) {
+                        board.setPhase(Phase.PLAYER_INTERACTION);
+                        isInDisicionMode = true;
+                    }
                 }
                 default -> {
                 }
@@ -214,23 +219,31 @@ public class GameController {
                 target.setPlayer(player);
             }
         }
+        reActivateActivation();
     }
 
     public void fastForward(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
+        reActivateActivation();
     }
     
     public void turnRight(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().next());
         }
+        reActivateActivation();
     }
 
     public void turnLeft(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().prev());
         }
+        reActivateActivation();
+    }
+
+    public void reActivateActivation() {
+        board.setPhase(Phase.ACTIVATION);
     }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
