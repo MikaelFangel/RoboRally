@@ -24,8 +24,6 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.plaf.IconUIResource;
-
 /**
  * ...
  *
@@ -46,14 +44,6 @@ public class GameController {
      * @param space the space to which the current player should move
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space) {
-        // TODO Assignment V1: method should be implemented by the students:
-        //   - the current player should be moved to the given space
-        //     (if it is free()
-        //   - and the current player should be set to the player
-        //     following the current player
-        //   - the counter of moves in the game should be increased by one
-        //     if the player is moved
-
         if (space.board == board) {
             Player currentPlayer = board.getCurrentPlayer();
             if (currentPlayer != null && space.getPlayer() == null) {
@@ -62,10 +52,11 @@ public class GameController {
                 board.setCurrentPlayer(board.getPlayer(playerNumber));
             }
         }
-
     }
 
-    // XXX: V2
+    /**
+     * Start the programming phase and clear all registers
+     */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -88,14 +79,15 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
         return new CommandCard(commands[random]);
     }
 
-    // XXX: V2
+    /**
+     * Changes the phase from programming to activation.
+     */
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -104,7 +96,6 @@ public class GameController {
         board.setStep(0);
     }
 
-    // XXX: V2
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -115,7 +106,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -126,18 +116,26 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * Execute all players registers iteratively until empty og phase change
+     */
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
     }
 
-    // XXX: V2
+    /**
+     * Execute one player register at the time and change player afterwards
+     */
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
+    /**
+     * Set the phase back to activation, execute the given command and the change player
+     * @param command the command to execute before player change
+     */
     public void executeCommandAndResumeActivation(Command command) {
         board.setPhase(Phase.ACTIVATION);
 
@@ -146,14 +144,12 @@ public class GameController {
         changePlayer(currentPlayer, board.getStep());
     }
 
-    // XXX: V2
     private void continuePrograms() {
         do {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
-    // XXX: V2
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
@@ -193,7 +189,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     private void executeCommand(@NotNull Player player, Command command) {
         if (player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
@@ -214,6 +209,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Move the player one space forward in the direction they are pointing
+     * @param player the player which is subject to move
+     */
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
         if (player.board == board && space != null) {
@@ -228,23 +227,42 @@ public class GameController {
         }
     }
 
+    /**
+     * Move the player three spaces forward in the direction they are pointing
+     * @param player the player which is subject to move
+     */
     public void fastForward(@NotNull Player player) {
+        moveForward(player);
         moveForward(player);
         moveForward(player);
     }
 
+    /**
+     * Turn the player right based upon their current heading
+     * @param player the player which is subject to move
+     */
     public void turnRight(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().next());
         }
     }
 
+    /**
+     * Turn the player left based upon their current heading
+     * @param player the player which is subject to move
+     */
     public void turnLeft(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().prev());
         }
     }
 
+    /**
+     * Move one card from one place to another
+     * @param source the card to move
+     * @param target the target to move the source card to
+     * @return true if the operation was successful and false if not
+     */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
         CommandCard targetCard = target.getCard();
