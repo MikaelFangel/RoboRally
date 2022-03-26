@@ -22,7 +22,9 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
- * ...
+ * This gives the possible headings for objects in the game
+ * and makes it possible to turn them either clockwise or
+ * counterclockwise,
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -31,10 +33,18 @@ public enum Heading {
 
     SOUTH, WEST, NORTH, EAST;
 
+    /**
+     * Get the next heading clockwise
+     * @return the next heading
+     */
     public Heading next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
 
+    /**
+     * Get the previous heading counterclockwise
+     * @return the previous heading
+     */
     public Heading prev() {
         return values()[(this.ordinal() + values().length - 1) % values().length];
     }

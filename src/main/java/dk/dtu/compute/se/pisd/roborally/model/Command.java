@@ -26,7 +26,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * ...
+ * This is all the available commands for the player and the command
+ * cards of the game
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -39,18 +40,9 @@ public enum Command {
     RIGHT("Turn Right"),
     LEFT("Turn Left"),
     FAST_FORWARD("Fast Fwd"),
-
-    // XXX Assignment P3
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
     final public String displayName;
-
-    // XXX Assignment P3
-    // Command(String displayName) {
-    //     this.displayName = displayName;
-    // }
-    //
-    // replaced by the code below:
 
     final private List<Command> options;
 
@@ -59,10 +51,18 @@ public enum Command {
         this.options = List.of(options);
     }
 
+    /**
+     * Check if the command is interactive (holds 1 or more options)
+     * @return true if there is 1 or more option and false if there isn't any
+     */
     public boolean isInteractive() {
         return !options.isEmpty();
     }
 
+    /**
+     * Get all available option for one command
+     * @return a list of all options
+     */
     public List<Command> getOptions() {
         return options;
     }
