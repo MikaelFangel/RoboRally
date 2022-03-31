@@ -199,11 +199,8 @@ public class GameController {
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
                 case FAST_FORWARD -> this.fastForward(player);
-                case OPTION_LEFT_RIGHT -> {
-                    board.setPhase(Phase.PLAYER_INTERACTION);
-                }
-                default -> {
-                }
+                case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
+                default -> {}
                 // DO NOTHING (for now)
             }
         }
