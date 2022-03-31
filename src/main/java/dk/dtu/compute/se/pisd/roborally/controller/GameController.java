@@ -202,6 +202,7 @@ public class GameController {
                 case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
                 case UTURN -> this.uTurn(player);
                 case BACKWARD -> this.moveBackward(player);
+                case AGAIN -> this.again(player);
                 default -> {}
                 // DO NOTHING (for now)
             }
@@ -300,6 +301,18 @@ public class GameController {
         uTurn(player);
         moveForward(player);
         uTurn(player);
+    }
+
+    /**
+     * Repeats the prev player action
+     * @param player the player's action to repeat
+     */
+    public void again(Player player){
+        int prevStep = board.getStep() - 1;
+        if (prevStep < 0) return;
+
+        Command command = player.getProgramField(prevStep).getCard().command;
+        executeCommand(player, command);
     }
 
 }
