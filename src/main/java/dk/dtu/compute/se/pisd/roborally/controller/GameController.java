@@ -200,11 +200,15 @@ public class GameController {
                 case LEFT -> this.turnLeft(player);
                 case FAST_FORWARD -> this.fastForward(player);
                 case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
+                case UTURN -> this.uTurn(player);
+                case BACKWARD -> this.moveBackward(player);
                 default -> {}
                 // DO NOTHING (for now)
             }
         }
     }
+
+    // ------- Card Commands --------
 
     /**
      * Move the player one space forward in the direction they are pointing.
@@ -276,6 +280,26 @@ public class GameController {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Rotate player 180 degrees.
+     * @param player the player to turn around
+     */
+    public void uTurn(Player player){
+        turnLeft(player);
+        turnLeft(player);
+    }
+
+    /**
+     * Move player backwards 1 space.
+     * @param player the player to move backward
+     */
+    public void moveBackward(Player player){
+        // Easy but not logical way to move player
+        uTurn(player);
+        moveForward(player);
+        uTurn(player);
     }
 
 }
