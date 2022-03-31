@@ -202,7 +202,7 @@ public class GameController {
                 case LEFT -> this.turnLeft(player);
                 case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
                 case UTURN -> this.uTurn(player);
-                case BACKWARD -> this.moveBackward(player);
+                case MOVEBACK -> this.moveBackward(player);
                 case AGAIN -> this.again(player);
                 default -> {}
                 // DO NOTHING (for now)

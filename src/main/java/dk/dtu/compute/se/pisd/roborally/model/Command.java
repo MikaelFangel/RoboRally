@@ -43,7 +43,7 @@ public enum Command {
     LEFT("Turn Left"),
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
     UTURN("U-Turn"),
-    BACKWARD("Backward"),
+    MOVEBACK("Move Back"),
     AGAIN("Again!");
 
     final public String displayName;
