@@ -195,10 +195,11 @@ public class GameController {
             //     their execution. This should eventually be done in a more elegant way
             //     (this concerns the way cards are modelled as well as the way they are executed).
             switch (command) {
-                case FORWARD -> this.moveForward(player);
+                case MOVE1 -> this.moveForward(player);
+                case MOVE2 -> this.twoForward(player);
+                case MOVE3 -> this.fastForward(player);
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
-                case FAST_FORWARD -> this.fastForward(player);
                 case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
                 case UTURN -> this.uTurn(player);
                 case BACKWARD -> this.moveBackward(player);
@@ -233,6 +234,10 @@ public class GameController {
                 target.setPlayer(player);
             }
         }
+    }
+    public void twoForward(@NotNull Player plauer){
+        moveForward(plauer);
+        moveForward(plauer);
     }
 
     /**
