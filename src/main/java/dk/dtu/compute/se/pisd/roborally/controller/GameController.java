@@ -210,7 +210,9 @@ public class GameController {
     }
 
     /**
-     * Move the player one space forward in the direction they are pointing
+     * Move the player one space forward in the direction they are pointing.
+     * Also accounts for a situation where another player occupies the slot, and pushes them out of the way.
+     * The push is recursive to ensure that they ain't pushed onto an occupied slot either.
      * @param player the player which is subject to move
      */
     public void moveForward(@NotNull Player player) {
@@ -219,9 +221,13 @@ public class GameController {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
             if (target != null) {
-                // XXX note that this removes another player from the space, when there
-                //     is another player on the target. Eventually, this needs to be
-                //     implemented in a way so that other players are pushed away!
+                if (target.getPlayer() != null) {
+                    Player playerBlocking = target.getPlayer();
+                    Heading targetCurrentHeading = playerBlocking.getHeading();
+                    playerBlocking.setHeading(player.getHeading());
+                    moveForward(playerBlocking);
+                    playerBlocking.setHeading(targetCurrentHeading);
+                }
                 target.setPlayer(player);
             }
         }
