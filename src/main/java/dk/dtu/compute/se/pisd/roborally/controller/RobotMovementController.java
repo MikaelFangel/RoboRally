@@ -31,21 +31,18 @@ public class RobotMovementController {
      */
     public void moveForward(@NotNull Player player, int moves) {
         for (int i = 0; i < moves; i++) {
-            Space space = player.getSpace();
-            if (player.board == board && space != null) {
-                Heading heading = player.getHeading();
-                Space target = board.getNeighbour(space, heading);
-                if (target != null) {
-                    if (target.getPlayer() != null) {
-                        Player playerBlocking = target.getPlayer();
-                        Heading targetCurrentHeading = playerBlocking.getHeading();
-                        playerBlocking.setHeading(player.getHeading());
-                        moveForward(playerBlocking, 1);
-                        playerBlocking.setHeading(targetCurrentHeading);
-                    }
-                    target.setPlayer(player);
-                }
+            Heading heading = player.getHeading();
+            Space target = board.getNeighbour(player.getSpace(), heading);
+            if (target == null)  //if target doesn't exicst (shouldn't happend
+                return;
+            if (isOccupied(target)) {
+                Player playerBlocking = target.getPlayer();
+                Heading targetCurrentHeading = playerBlocking.getHeading();
+                playerBlocking.setHeading(player.getHeading());
+                moveForward(playerBlocking, 1);
+                playerBlocking.setHeading(targetCurrentHeading);
             }
+            target.setPlayer(player);
         }
     }
 
@@ -152,6 +149,11 @@ public class RobotMovementController {
         //Litle different the the normal push, since here we need to only check if the player we are might hit
         //is going to get moved by a conveyer, and is not getting blocked from that movement them self.
         return true;
+    }
+
+    private boolean isOccupied(Space space){
+        Space target = board.getSpace(space.x, space.y);
+        return target.getPlayer() != null;
     }
 
 }
