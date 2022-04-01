@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.view.PlayerView;
 import org.jetbrains.annotations.NotNull;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
@@ -136,6 +137,7 @@ public class GameController {
 
     /**
      * Set the phase back to activation, execute the given command and the change player
+     *
      * @param command the command to execute before player change
      */
     public void executeCommandAndResumeActivation(Command command) {
@@ -197,16 +199,17 @@ public class GameController {
             //     their execution. This should eventually be done in a more elegant way
             //     (this concerns the way cards are modelled as well as the way they are executed).
             switch (command) {
-                case MOVE1 -> this.moveForward(player,1);
-                case MOVE2 -> this.moveForward(player,2);
-                case MOVE3 -> this.moveForward(player,3);
+                case MOVE1 -> this.moveForward(player, 1);
+                case MOVE2 -> this.moveForward(player, 2);
+                case MOVE3 -> this.moveForward(player, 3);
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
                 case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
                 case UTURN -> this.uTurn(player);
                 case MOVEBACK -> this.moveBackward(player);
-                case AGAIN -> this.again(player,board.getStep());
-                default -> {}
+                case AGAIN -> this.again(player, board.getStep());
+                default -> {
+                }
                 // DO NOTHING (for now)
             }
         }
@@ -218,6 +221,7 @@ public class GameController {
      * Move the player one space forward in the direction they are pointing.
      * Also accounts for a situation where another player occupies the slot, and pushes them out of the way.
      * The push is recursive to ensure that they ain't pushed onto an occupied slot either.
+     *
      * @param player the player which is subject to move
      */
     public void moveForward(@NotNull Player player, int moves) {
@@ -242,6 +246,7 @@ public class GameController {
 
     /**
      * Turn the player right based upon their current heading
+     *
      * @param player the player which is subject to move
      */
     public void turnRight(@NotNull Player player) {
@@ -252,6 +257,7 @@ public class GameController {
 
     /**
      * Turn the player left based upon their current heading
+     *
      * @param player the player which is subject to move
      */
     public void turnLeft(@NotNull Player player) {
@@ -262,6 +268,7 @@ public class GameController {
 
     /**
      * Move one card from one place to another
+     *
      * @param source the card to move
      * @param target the target to move the source card to
      * @return true if the operation was successful and false if not
@@ -280,18 +287,20 @@ public class GameController {
 
     /**
      * Rotate player 180 degrees.
+     *
      * @param player the player to turn around
      */
-    public void uTurn(Player player){
+    public void uTurn(Player player) {
         turnLeft(player);
         turnLeft(player);
     }
 
     /**
      * Move player backwards 1 space.
+     *
      * @param player the player to move backward
      */
-    public void moveBackward(Player player){
+    public void moveBackward(Player player) {
         // Easy but not logical way to move player
         uTurn(player);
         moveForward(player, 1);
@@ -300,14 +309,18 @@ public class GameController {
 
     /**
      * Repeats the prev player action
+     *
      * @param player the player's action to repeat
      */
-    public void again(Player player, int step){
+    public void again(Player player, int step) {
         if (step < 1) return;
-        Command prevCommand = player.getProgramField(step-1).getCard().command;
+        Command prevCommand = player.getProgramField(step - 1).getCard().command;
         if (prevCommand == AGAIN)
-            again(player, step-1);
-        else
-            executeCommand(player, prevCommand);
+            again(player, step - 1);
+        else {
+            player.getProgramField(step).setCard(new CommandCard(prevCommand));
+            executeNextStep();
+            player.getProgramField(step).setCard(new CommandCard(AGAIN));
+        }
     }
 }
