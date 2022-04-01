@@ -64,6 +64,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         } else {
             this.setStyle("-fx-background-color: black;");
         }
+        this.setStyle("-fx-background-image: url(file:src/main/resources/space.png);");
 
         // updatePlayer();
 
