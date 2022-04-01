@@ -35,9 +35,11 @@ import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
 public class GameController {
 
     final public Board board;
+    final public RobotMovementController rmc;
 
     public GameController(@NotNull Board board) {
         this.board = board;
+        rmc = new RobotMovementController(this, board);
     }
 
     /**
@@ -154,7 +156,7 @@ public class GameController {
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
-    private void executeNextStep() {
+    protected void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
             int step = board.getStep();
@@ -199,128 +201,19 @@ public class GameController {
             //     their execution. This should eventually be done in a more elegant way
             //     (this concerns the way cards are modelled as well as the way they are executed).
             switch (command) {
-                case MOVE1 -> this.moveForward(player, 1);
-                case MOVE2 -> this.moveForward(player, 2);
-                case MOVE3 -> this.moveForward(player, 3);
-                case RIGHT -> this.turnRight(player);
-                case LEFT -> this.turnLeft(player);
+                case MOVE1 -> rmc.moveForward(player, 1);
+                case MOVE2 -> rmc.moveForward(player, 2);
+                case MOVE3 -> rmc.moveForward(player, 3);
+                case RIGHT -> rmc.turnRight(player);
+                case LEFT -> rmc.turnLeft(player);
                 case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
-                case UTURN -> this.uTurn(player);
-                case MOVEBACK -> this.moveBackward(player);
-                case AGAIN -> this.again(player, board.getStep());
+                case UTURN -> rmc.uTurn(player);
+                case MOVEBACK -> rmc.moveBackward(player);
+                case AGAIN -> rmc.again(player, board.getStep());
                 default -> {
                 }
                 // DO NOTHING (for now)
             }
-        }
-    }
-
-    // ------- Card Commands --------
-
-    /**
-     * Move the player one space forward in the direction they are pointing.
-     * Also accounts for a situation where another player occupies the slot, and pushes them out of the way.
-     * The push is recursive to ensure that they ain't pushed onto an occupied slot either.
-     *
-     * @param player the player which is subject to move
-     */
-    public void moveForward(@NotNull Player player, int moves) {
-        for (int i = 0; i < moves; i++) {
-            Space space = player.getSpace();
-            if (player.board == board && space != null) {
-                Heading heading = player.getHeading();
-                Space target = board.getNeighbour(space, heading);
-                if (target != null) {
-                    if (target.getPlayer() != null) {
-                        Player playerBlocking = target.getPlayer();
-                        Heading targetCurrentHeading = playerBlocking.getHeading();
-                        playerBlocking.setHeading(player.getHeading());
-                        moveForward(playerBlocking, 1);
-                        playerBlocking.setHeading(targetCurrentHeading);
-                    }
-                    target.setPlayer(player);
-                }
-            }
-        }
-    }
-
-    /**
-     * Turn the player right based upon their current heading
-     *
-     * @param player the player which is subject to move
-     */
-    public void turnRight(@NotNull Player player) {
-        if (player.board == board) {
-            player.setHeading(player.getHeading().next());
-        }
-    }
-
-    /**
-     * Turn the player left based upon their current heading
-     *
-     * @param player the player which is subject to move
-     */
-    public void turnLeft(@NotNull Player player) {
-        if (player.board == board) {
-            player.setHeading(player.getHeading().prev());
-        }
-    }
-
-    /**
-     * Move one card from one place to another
-     *
-     * @param source the card to move
-     * @param target the target to move the source card to
-     * @return true if the operation was successful and false if not
-     */
-    public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
-        CommandCard sourceCard = source.getCard();
-        CommandCard targetCard = target.getCard();
-        if (sourceCard != null && targetCard == null) {
-            target.setCard(sourceCard);
-            source.setCard(null);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Rotate player 180 degrees.
-     *
-     * @param player the player to turn around
-     */
-    public void uTurn(Player player) {
-        turnLeft(player);
-        turnLeft(player);
-    }
-
-    /**
-     * Move player backwards 1 space.
-     *
-     * @param player the player to move backward
-     */
-    public void moveBackward(Player player) {
-        // Easy but not logical way to move player
-        uTurn(player);
-        moveForward(player, 1);
-        uTurn(player);
-    }
-
-    /**
-     * Repeats the prev player action
-     *
-     * @param player the player's action to repeat
-     */
-    public void again(Player player, int step) {
-        if (step < 1) return;
-        Command prevCommand = player.getProgramField(step - 1).getCard().command;
-        if (prevCommand == AGAIN)
-            again(player, step - 1);
-        else {
-            player.getProgramField(step).setCard(new CommandCard(prevCommand));
-            executeNextStep();
-            player.getProgramField(step).setCard(new CommandCard(AGAIN));
         }
     }
 }

@@ -52,7 +52,7 @@ class GameControllerTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
 
-        gameController.moveForward(current, 1);
+        gameController.rmc.moveForward(current, 1);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
