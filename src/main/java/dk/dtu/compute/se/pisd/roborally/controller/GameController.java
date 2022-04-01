@@ -304,11 +304,10 @@ public class GameController {
      */
     public void again(Player player, int step){
         if (step < 1) return;
-        if (player.getProgramField(step-1).getCard().command == AGAIN)
+        Command prevCommand = player.getProgramField(step-1).getCard().command;
+        if (prevCommand == AGAIN)
             again(player, step-1);
-        else {
-            Command command = player.getProgramField(step - 1).getCard().command;
-            executeCommand(player, command);
-        }
+        else
+            executeCommand(player, prevCommand);
     }
 }
