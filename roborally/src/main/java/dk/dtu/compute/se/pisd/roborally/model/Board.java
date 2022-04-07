@@ -41,8 +41,6 @@ public class Board extends Subject {
 
     public final int height;
 
-    public final String boardName;
-
     private Integer gameId;
 
     private final Space[][] spaces;
@@ -57,24 +55,17 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
-    private int counter;
-
-    public Board(int width, int height, @NotNull String boardName) {
-        this.boardName = boardName;
+    public Board(int width, int height) {
         this.width = width;
         this.height = height;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+            for(int y = 0; y < height; y++) {
                 Space space = new Space(this, x, y);
                 spaces[x][y] = space;
             }
         }
         this.stepMode = false;
-    }
-
-    public Board(int width, int height) {
-        this(width, height, "defaultboard");
     }
 
     public Integer getGameId() {
@@ -219,27 +210,4 @@ public class Board extends Subject {
         return result;
     }
 
-    public String getStatusMessage() {
-        // this is actually a view aspect, but for making assignment V1 easy for
-        // the students, this method gives a string representation of the current
-        // status of the game
-
-        // XXX: V2 changed the status so that it shows the phase, the player and the step
-        return "Phase: " + getPhase().name() +
-                ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep() + "\n" +
-                "Counter = " + getCounter();
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    public void nextPlayer(Player player) {
-        if (getPlayerNumber(player) == getPlayersNumber() - 1)
-            setCurrentPlayer(getPlayer(0));
-        else
-            setCurrentPlayer(getPlayer(getPlayerNumber(player) + 1));
-
-    }
 }
