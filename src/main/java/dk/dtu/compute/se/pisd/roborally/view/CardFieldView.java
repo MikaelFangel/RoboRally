@@ -269,7 +269,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
                         Object object = db.getContent(ROBO_RALLY_CARD);
                         if (object instanceof String) {
                             CommandCardField source = cardFieldFromRepresentation((String) object);
-                            if (source != null && gameController.moveCards(source, cardField)) {
+                            if (source != null && gameController.rmc.moveCards(source, cardField)) {
                                 // CommandCard card = source.getCard();
                                 // if (card != null) {
                                 // if (gameController.moveCards(source, cardField)) {
