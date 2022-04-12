@@ -36,11 +36,14 @@ public class Player extends Subject {
 
     final public static int NO_REGISTERS = 5;
     final public static int NO_CARDS = 8;
+    final public static int ENERGY_START_COUNT = 5;
+
 
     final public Board board;
 
     private String name;
     private String color;
+    private int energyCount;
 
     private Space space;
     private Heading heading = SOUTH;
@@ -52,6 +55,7 @@ public class Player extends Subject {
         this.board = board;
         this.name = name;
         this.color = color;
+        this.energyCount = energyCount;
 
         this.space = null;
 
@@ -133,4 +137,11 @@ public class Player extends Subject {
         return cards[i];
     }
 
+    public int getEnergyCount() {
+        return energyCount;
+    }
+
+    public void setEnergyCount(int energyCount) {
+        this.energyCount = energyCount;
+    }
 }
