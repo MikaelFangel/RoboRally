@@ -3,13 +3,16 @@ import java.util.List;
 
 public enum SpecialCommand {
 
-    SANDBOXROUTINE("SandboxRoutine",Command.MOVE1,Command.MOVE2,Command.MOVE3,Command.MOVEBACK,
+    SANDBOXROUTINE("Sandbox routine",Command.MOVE1,Command.MOVE2,Command.MOVE3,Command.MOVEBACK,
             Command.LEFT,Command.RIGHT,Command.UTURN),
-    WEASELROUTINE("WeaselRoutine",Command.LEFT,Command.RIGHT,Command.UTURN),
-    SPEEDROUTINE("SpeedRoutine",Command.MOVE3);
+    WEASELROUTINE("Weasel routine",Command.LEFT,Command.RIGHT,Command.UTURN),
+    SPEEDROUTINE("Speed routine",Command.MOVE3),
+    SPAMFOLDER("Spam folder"),
+    REPEATROUTINE("Repeat Routine");
 
 
-    final private String displayName;
+
+    final public String displayName;
     final private List<Command> options;
 
 
