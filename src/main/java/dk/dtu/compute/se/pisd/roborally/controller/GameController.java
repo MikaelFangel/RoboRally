@@ -217,6 +217,11 @@ public class GameController {
         }
     }
 
+    public void energyRoutine(@NotNull Player player){
+        int playerEnergyCount = player.getEnergyCount();
+        playerEnergyCount++;
+    }
+
     class ImpossibleMoveException extends Exception {
 
         private Player player;
