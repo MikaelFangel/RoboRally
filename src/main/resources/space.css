@@ -12,7 +12,7 @@
     -fx-background-image: url(file:src/main/resources/space.png);
 }
 
-.NORTH {
+.space_north {
     -fx-background-color: rgba(255, 255, 255, 0.0);
     -fx-border-style: solid hidden hidden hidden inside;
     -fx-border-color: red;
