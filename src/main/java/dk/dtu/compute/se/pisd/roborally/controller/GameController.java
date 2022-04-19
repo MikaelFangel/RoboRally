@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
-import static dk.dtu.compute.se.pisd.roborally.model.SpaceType.ANTENNA;
+
 
 /**
  * ...
@@ -158,6 +158,7 @@ public class GameController {
     private void continuePrograms() {
         do {
             executeNextStep();
+
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
@@ -172,10 +173,6 @@ public class GameController {
                     executeCommand(currentPlayer, command);
                 }
                 if (board.getPhase() == Phase.ACTIVATION) {
-                    // TODO Sort board's player array to be sorted.
-                    // The board needs to be initialized with an antenna somewhere.
-                    //assertPlayerPriorityAndChangeBoardPlayers();
-
                     changePlayer(currentPlayer, step);
                 }
             } else {
@@ -191,7 +188,7 @@ public class GameController {
     private void assertPlayerPriorityAndChangeBoardPlayers(){
         List<Player> players = board.getPlayers();
         int [] playersPriority = new int[players.size()];
-        Space antennaSpace = getPriorityAntenna();
+        Space antennaSpace = board.getPriorityAntennaSpace();
 
         for (int i = 0; i < players.size(); i++) {
             int totalDistance = 0;
@@ -211,23 +208,10 @@ public class GameController {
         }
 
         board.setPlayers(prioritizedPlayers);
+        board.setCurrentPlayer(prioritizedPlayers.get(0));
 
     }
 
-    private Space getPriorityAntenna(){
-        Space antenna = null;
-
-        for (int i = 0; i < board.width; i++) {
-            for (int j = 0; j < board.height; j++) {
-                Space currentSpace = board.getSpace(i, j);
-                if (currentSpace.getType() == ANTENNA){
-                    antenna = currentSpace;
-                }
-            }
-        }
-
-        return antenna;
-    }
 
     private void changePlayer(Player currentPlayer, int step) {
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;

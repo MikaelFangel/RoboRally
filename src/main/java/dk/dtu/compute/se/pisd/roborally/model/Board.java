@@ -47,6 +47,8 @@ public class Board extends Subject {
 
     private final Space[][] spaces;
 
+    private final Space priorityAntennaSpace;
+
     private List<Player> players = new ArrayList<>();
 
     private Player current;
@@ -71,6 +73,8 @@ public class Board extends Subject {
             }
         }
         this.stepMode = false;
+
+        priorityAntennaSpace = spaces[3][4]; // Needs to be implmented when the board is created with the csv.
     }
 
     public Board(int width, int height) {
@@ -138,6 +142,10 @@ public class Board extends Subject {
             this.current = player;
             notifyChange();
         }
+    }
+
+    public Space getPriorityAntennaSpace(){
+        return priorityAntennaSpace;
     }
 
     public Phase getPhase() {
