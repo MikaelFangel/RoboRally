@@ -65,6 +65,7 @@ class GameControllerTest {
         Board board = gameController.board;
         Player player = new Player(board,null,"Player");
         int energyCount = player.getEnergyCount();
+        Assertions.assertEquals(5,energyCount);
         energyCount = gameController.energyRoutine(player);
         Assertions.assertEquals(6,energyCount);
     }
