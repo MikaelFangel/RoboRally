@@ -25,7 +25,10 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.PlayerView;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
+import static dk.dtu.compute.se.pisd.roborally.model.SpaceType.ANTENNA;
 
 /**
  * ...
@@ -167,6 +170,8 @@ public class GameController {
                     executeCommand(currentPlayer, command);
                 }
                 if (board.getPhase() == Phase.ACTIVATION) {
+                    // TODO Sort board's player array to be sorted.
+                    // assertPlayerPriority();
                     changePlayer(currentPlayer, step);
                 }
             } else {
@@ -179,12 +184,33 @@ public class GameController {
         }
     }
 
+    private void assertPlayerPriority(){
+        List<Player> players = board.getPlayers();
+        Space antenna = getPriorityAntenna();
+    }
+
+    private Space getPriorityAntenna(){
+        Space antenna = board.getSpace(0, 0);
+
+        for (int i = 0; i < board.width; i++) {
+            for (int j = 0; j < board.height; j++) {
+                Space currentSpace = board.getSpace(i, j);
+                /*if (currentSpace.getType() instanceof ANTENNA){
+
+                }*/
+            }
+        }
+
+        return antenna;
+    }
+
     private void changePlayer(Player currentPlayer, int step) {
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
         if (nextPlayerNumber < board.getPlayersNumber()) {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
         } else {
             step++;
+
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
                 board.setStep(step);

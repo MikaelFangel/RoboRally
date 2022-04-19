@@ -47,7 +47,7 @@ public class Board extends Subject {
 
     private final Space[][] spaces;
 
-    private final List<Player> players = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
 
     private Player current;
 
@@ -118,6 +118,16 @@ public class Board extends Subject {
             return null;
         }
     }
+
+    public List<Player> getPlayers(){
+        return players;
+    }
+
+    public void setPlayers(List<Player> players){
+        this.players = players;
+    }
+
+
 
     public Player getCurrentPlayer() {
         return current;
