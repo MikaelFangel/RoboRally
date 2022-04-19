@@ -32,6 +32,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * ...
@@ -40,17 +41,17 @@ import java.io.*;
  */
 public class LoadBoard {
 
-    private static final String BOARDSFOLDER = "boards";
-    private static final String DEFAULTBOARD = "defaultboard";
+    private static final String BOARDS_FOLDER = "boards";
+    private static final String DEFAULT_BOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
     public static Board loadBoard(String boardname) {
         if (boardname == null) {
-            boardname = DEFAULTBOARD;
+            boardname = DEFAULT_BOARD;
         }
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDS_FOLDER + "/" + boardname + "." + JSON_EXT);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
             return new Board(8,8);
@@ -119,7 +120,7 @@ public class LoadBoard {
         //       when the folder "resources" does not exist! But, it does not need
         //       the file "simpleCards.json" to exist!
         String filename =
-                classLoader.getResource(BOARDSFOLDER).getPath() + "/" + name + "." + JSON_EXT;
+                Objects.requireNonNull(classLoader.getResource(BOARDS_FOLDER)).getPath() + "/" + name + "." + JSON_EXT;
 
         // In simple cases, we can create a Gson object with new:
         //

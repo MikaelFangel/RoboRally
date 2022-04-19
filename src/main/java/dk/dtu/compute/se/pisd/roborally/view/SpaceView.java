@@ -30,6 +30,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +40,6 @@ import java.util.Objects;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
@@ -48,6 +48,12 @@ public class SpaceView extends StackPane implements ViewObserver {
     public SpaceView(@NotNull Space space) {
         this.space = space;
         this.setId("space");
+
+        // Adds the walls using css
+        for (Heading wall : space.getWalls()) {
+            this.getStyleClass().add("space_" + wall.toString().toLowerCase());
+        }
+
         this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/space.css")).toExternalForm());
 
         if ((space.x + space.y) % 2 == 0) {
@@ -70,14 +76,14 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
-                    20.0, 0.0 );
+                    20.0, 0.0);
             try {
                 arrow.setFill(Color.valueOf(player.getColor()));
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
 
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }

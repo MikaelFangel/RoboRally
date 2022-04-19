@@ -11,3 +11,31 @@
 #space {
     -fx-background-image: url(file:src/main/resources/space.png);
 }
+
+.NORTH {
+    -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-border-style: solid hidden hidden hidden inside;
+    -fx-border-color: red;
+    -fx-border-width: 5px;
+}
+
+.space_east {
+    -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-border-style: hidden solid hidden hidden inside;
+    -fx-border-color: red;
+    -fx-border-width: 5px;
+}
+
+.space_south {
+    -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-border-style: hidden hidden solid hidden inside;
+    -fx-border-color: red;
+    -fx-border-width: 5px;
+}
+
+.space_west {
+    -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-border-style: hidden hidden hidden solid inside;
+    -fx-border-color: red;
+    -fx-border-width: 5px;
+}
