@@ -57,6 +57,7 @@ public class Player extends Subject {
         this.color = color;
 
         this.space = null;
+        this.energyCount = ENERGY_START_COUNT;
 
         program = new CommandCardField[NO_REGISTERS];
         for (int i = 0; i < program.length; i++) {
