@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 class GameControllerTest {
 
     private final int TEST_WIDTH = 8;
@@ -58,5 +60,12 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
-
+    @Test
+    void energyRoutine(){
+        Board board = gameController.board;
+        Player player = new Player(board,null,"Player");
+        int energyCount = player.getEnergyCount();
+        energyCount = gameController.energyRoutine(player);
+        Assertions.assertEquals(6,energyCount);
+    }
 }
