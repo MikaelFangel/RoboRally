@@ -25,6 +25,8 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.PlayerView;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
@@ -171,7 +173,9 @@ public class GameController {
                 }
                 if (board.getPhase() == Phase.ACTIVATION) {
                     // TODO Sort board's player array to be sorted.
-                    // assertPlayerPriority();
+                    // The board needs to be initialized with an antenna somewhere.
+                    //assertPlayerPriorityAndChangeBoardPlayers();
+
                     changePlayer(currentPlayer, step);
                 }
             } else {
@@ -184,20 +188,41 @@ public class GameController {
         }
     }
 
-    private void assertPlayerPriority(){
+    private void assertPlayerPriorityAndChangeBoardPlayers(){
         List<Player> players = board.getPlayers();
-        Space antenna = getPriorityAntenna();
+        int [] playersPriority = new int[players.size()];
+        Space antennaSpace = getPriorityAntenna();
+
+        for (int i = 0; i < players.size(); i++) {
+            int totalDistance = 0;
+            Space playerSpace = players.get(i).getSpace();
+
+            totalDistance += Math.abs(playerSpace.x - antennaSpace.x) + Math.abs(playerSpace.y - antennaSpace.y);
+            playersPriority[i] = totalDistance;
+        }
+
+        List<Player> prioritizedPlayers = new ArrayList<Player>();
+        for (int i = 1; i <= board.width+board.height; i++) {
+            for (int j = 0; j < playersPriority.length; j++) {
+                if (playersPriority[j] == i){
+                    prioritizedPlayers.add(players.get(j));
+                }
+            }
+        }
+
+        board.setPlayers(prioritizedPlayers);
+
     }
 
     private Space getPriorityAntenna(){
-        Space antenna = board.getSpace(0, 0);
+        Space antenna = null;
 
         for (int i = 0; i < board.width; i++) {
             for (int j = 0; j < board.height; j++) {
                 Space currentSpace = board.getSpace(i, j);
-                /*if (currentSpace.getType() instanceof ANTENNA){
-
-                }*/
+                if (currentSpace.getType() == ANTENNA){
+                    antenna = currentSpace;
+                }
             }
         }
 
