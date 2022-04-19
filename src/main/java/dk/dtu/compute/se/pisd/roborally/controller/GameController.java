@@ -58,6 +58,13 @@ public class GameController {
             Player currentPlayer = board.getCurrentPlayer();
             if (currentPlayer != null && space.getPlayer() == null) {
                 currentPlayer.setSpace(space);
+
+                // TODO Implemented in rest of game controller with correct player change
+                if (space.getActions().size() > 0) {
+                    FieldAction action = space.getActions().get(0);
+                    action.doAction(this, space);
+                }
+
                 int playerNumber = (board.getPlayerNumber(currentPlayer) + 1) % board.getPlayersNumber();
                 board.setCurrentPlayer(board.getPlayer(playerNumber));
             }
@@ -185,9 +192,9 @@ public class GameController {
         }
     }
 
-    private void assertPlayerPriorityAndChangeBoardPlayers(){
+    private void assertPlayerPriorityAndChangeBoardPlayers() {
         List<Player> players = board.getPlayers();
-        int [] playersPriority = new int[players.size()];
+        int[] playersPriority = new int[players.size()];
         Space antennaSpace = board.getPriorityAntennaSpace();
 
         for (int i = 0; i < players.size(); i++) {
@@ -199,9 +206,9 @@ public class GameController {
         }
 
         List<Player> prioritizedPlayers = new ArrayList<Player>();
-        for (int i = 1; i <= board.width+board.height; i++) {
+        for (int i = 1; i <= board.width + board.height; i++) {
             for (int j = 0; j < playersPriority.length; j++) {
-                if (playersPriority[j] == i){
+                if (playersPriority[j] == i) {
                     prioritizedPlayers.add(players.get(j));
                 }
             }
@@ -252,7 +259,7 @@ public class GameController {
         }
     }
 
-    public int energyRoutine(@NotNull Player player){
+    public int energyRoutine(@NotNull Player player) {
         int playerEnergyCount = player.getEnergyCount();
         playerEnergyCount++;
         return playerEnergyCount;
