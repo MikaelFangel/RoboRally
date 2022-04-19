@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum SpecialCommand {
 
-    ENERGYEOUTINE("Eneryg routine"),
+    ENERGYROUTINE("Eneryg routine"),
     SANDBOXROUTINE("Sandbox routine",Command.MOVE1,Command.MOVE2,Command.MOVE3,Command.MOVEBACK,
             Command.LEFT,Command.RIGHT,Command.UTURN),
     WEASELROUTINE("Weasel routine",Command.LEFT,Command.RIGHT,Command.UTURN),
