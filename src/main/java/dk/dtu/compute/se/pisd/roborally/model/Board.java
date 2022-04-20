@@ -74,7 +74,7 @@ public class Board extends Subject {
         }
         this.stepMode = false;
 
-        priorityAntennaSpace = spaces[3][4]; // Needs to be implmented when the board is created with the csv.
+        priorityAntennaSpace = spaces[3][4]; // TODO Needs to be implmented when the board is created with the csv.
     }
 
     public Board(int width, int height) {
