@@ -22,7 +22,9 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import dk.dtu.compute.se.pisd.roborally.view.PlayerView;
+import dk.dtu.compute.se.pisd.roborally.view.PlayersView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -41,8 +43,10 @@ public class GameController {
 
     final public Board board;
     final public RobotMovementController rmc;
+    final private AppController appController;
 
-    public GameController(@NotNull Board board) {
+    public GameController(AppController appController, @NotNull Board board) {
+        this.appController = appController;
         this.board = board;
         rmc = new RobotMovementController(this, board);
     }
@@ -108,6 +112,10 @@ public class GameController {
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
+        assertPlayerPriorityAndChangeBoardPlayers();
+        //TODO need to get player view updated
+
+
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
@@ -217,6 +225,7 @@ public class GameController {
         board.setPlayers(prioritizedPlayers);
         board.setCurrentPlayer(prioritizedPlayers.get(0));
 
+        recreatePlayersView();
     }
 
 
@@ -277,5 +286,10 @@ public class GameController {
             this.space = space;
             this.heading = heading;
         }
+    }
+
+    public void recreatePlayersView(){
+        BoardView boardView = appController.getRoboRally().getBoardView();
+        boardView.updatePlayersView();
     }
 }
