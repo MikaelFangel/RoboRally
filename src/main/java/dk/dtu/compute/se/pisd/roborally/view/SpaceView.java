@@ -23,6 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -73,6 +74,9 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
+        if(space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
+            // TODO Get image for it
+        }
         // updatePlayer();
 
         // This space view should listen to changes of the space
