@@ -113,8 +113,6 @@ public class GameController {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
         doPriortyAntennaAction();
-        //TODO need to get player view updated
-
 
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));

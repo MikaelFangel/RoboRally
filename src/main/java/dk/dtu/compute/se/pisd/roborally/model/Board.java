@@ -22,6 +22,8 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -47,8 +49,6 @@ public class Board extends Subject {
 
     private final Space[][] spaces;
 
-    private final Space priorityAntennaSpace;
-
     private List<Player> players = new ArrayList<>();
 
     private Player current;
@@ -73,8 +73,6 @@ public class Board extends Subject {
             }
         }
         this.stepMode = false;
-
-        priorityAntennaSpace = spaces[3][4]; // TODO Needs to be implmented when the board is created with the csv.
     }
 
     public Board(int width, int height) {
@@ -145,7 +143,14 @@ public class Board extends Subject {
     }
 
     public Space getPriorityAntennaSpace(){
-        return priorityAntennaSpace;
+        for (Space[] spaceArr : spaces){
+            for (Space space : spaceArr){
+                if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna){
+                    return space;
+                }
+            }
+        }
+        return spaces[4][4]; // Default value, should never return this if board.csv is made with one.
     }
 
     public Phase getPhase() {
