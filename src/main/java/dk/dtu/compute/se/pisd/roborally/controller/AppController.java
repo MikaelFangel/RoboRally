@@ -79,7 +79,7 @@ public class AppController implements Observer {
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
             Board board = LoadBoard.loadBoard("defaultboard");
-            gameController = new GameController(Objects.requireNonNull(board));
+            gameController = new GameController(this, Objects.requireNonNull(board));
             int no = result.get();
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
@@ -156,6 +156,11 @@ public class AppController implements Observer {
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
+    }
+
+
+    public RoboRally getRoboRally(){
+        return roboRally;
     }
 
 }

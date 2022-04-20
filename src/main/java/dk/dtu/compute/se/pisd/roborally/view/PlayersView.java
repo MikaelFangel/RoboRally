@@ -36,11 +36,17 @@ import javafx.scene.control.TabPane;
 public class PlayersView extends TabPane implements ViewObserver {
 
     private Board board;
+    private GameController gameController;
 
     private PlayerView[] playerViews;
 
     public PlayersView(GameController gameController) {
+        this.gameController = gameController;
         board = gameController.board;
+        createPlayersView();
+    }
+
+    public void createPlayersView(){
 
         this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
@@ -53,12 +59,17 @@ public class PlayersView extends TabPane implements ViewObserver {
         update(board);
     }
 
+
     @Override
     public void updateView(Subject subject) {
         if (subject == board) {
             Player current = board.getCurrentPlayer();
             this.getSelectionModel().select(board.getPlayerNumber(current));
         }
+    }
+
+    public PlayerView[] getPlayerViews(){
+        return playerViews;
     }
 
 }

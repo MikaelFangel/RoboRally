@@ -44,6 +44,7 @@ public class RoboRally extends Application {
     private Stage stage;
     private BorderPane boardRoot;
     // private RoboRallyMenuBar menuBar;
+    private BoardView boardView;
 
     // private AppController appController;
 
@@ -84,7 +85,7 @@ public class RoboRally extends Application {
 
         if (gameController != null) {
             // create and add view for new board
-            BoardView boardView = new BoardView(gameController);
+            boardView = new BoardView(gameController);
             boardRoot.setCenter(boardView);
         }
 
@@ -99,6 +100,10 @@ public class RoboRally extends Application {
         //     but right now the only way for the user to exit the app
         //     is delegated to the exit() method in the AppController,
         //     so that the AppController can take care of that.
+    }
+
+    public BoardView getBoardView(){
+        return boardView;
     }
 
     public static void main(String[] args) {

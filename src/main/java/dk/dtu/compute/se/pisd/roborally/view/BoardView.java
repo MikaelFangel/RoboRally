@@ -42,6 +42,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BoardView extends VBox implements ViewObserver {
 
+    private GameController gameController;
+
     private Board board;
 
     private GridPane mainBoardPane;
@@ -54,6 +56,7 @@ public class BoardView extends VBox implements ViewObserver {
     private SpaceEventHandler spaceEventHandler;
 
     public BoardView(@NotNull GameController gameController) {
+        this.gameController = gameController;
         board = gameController.board;
 
         mainBoardPane = new GridPane();
@@ -90,6 +93,18 @@ public class BoardView extends VBox implements ViewObserver {
         }
     }
 
+    private void removeChildren(){
+        this.getChildren().remove(mainBoardPane);
+        this.getChildren().remove(playersView);
+        this.getChildren().remove(statusLabel);
+    }
+
+    private void addChildren(){
+        this.getChildren().add(mainBoardPane);
+        this.getChildren().add(playersView);
+        this.getChildren().add(statusLabel);
+    }
+
     // XXX this handler and its uses should eventually be deleted! This is just to help test the
     //     behaviour of the game by being able to explicitly move the players on the board!
     private class SpaceEventHandler implements EventHandler<MouseEvent> {
@@ -115,6 +130,17 @@ public class BoardView extends VBox implements ViewObserver {
             }
         }
 
+    }
+
+    public void updatePlayersView(){
+        removeChildren();
+        playersView = new PlayersView(gameController);
+        addChildren();
+    }
+
+
+    public PlayersView getPlayersView(){
+        return playersView;
     }
 
 }
