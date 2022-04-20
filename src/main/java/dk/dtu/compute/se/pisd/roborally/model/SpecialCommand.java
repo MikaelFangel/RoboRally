@@ -5,12 +5,12 @@ import java.util.List;
 
 public enum SpecialCommand {
 
-    ENERGYROUTINE("Eneryg routine"),
-    SANDBOXROUTINE("Sandbox routine",Command.MOVE1,Command.MOVE2,Command.MOVE3,Command.MOVEBACK,
+    ENERGYROUTINE("Energy Routine"),
+    SANDBOXROUTINE("Sandbox Routine",Command.MOVE1,Command.MOVE2,Command.MOVE3,Command.MOVEBACK,
             Command.LEFT,Command.RIGHT,Command.UTURN),
-    WEASELROUTINE("Weasel routine",Command.LEFT,Command.RIGHT,Command.UTURN),
-    SPEEDROUTINE("Speed routine",Command.MOVE3),
-    SPAMFOLDER("Spam folder"),
+    WEASELROUTINE("Weasel Routine",Command.LEFT,Command.RIGHT,Command.UTURN),
+    SPEEDROUTINE("Speed Routine",Command.MOVE3),
+    SPAMFOLDER("Spam Folder"),
     REPEATROUTINE("Repeat Routine");
 
 
