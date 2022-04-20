@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -60,6 +61,16 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: white;");
         } else {
             this.setStyle("-fx-background-color: black;");
+        }
+
+        // TODO: Add to css file
+        if(space.getActions().size() > 0 && space.getActions().get(0) instanceof ConveyorBelt) {
+            switch (((ConveyorBelt) space.getActions().get(0)).getHeading()) {
+                case NORTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBelt.png)");
+                case EAST ->  this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltEast.png)");
+                case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltSouth.png)");
+                case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltWest.png)");
+            }
         }
 
         // updatePlayer();
