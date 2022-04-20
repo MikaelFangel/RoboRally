@@ -143,6 +143,18 @@
       "y": 3
     },
     {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 3,
+      "y": 4
+    },
+    {
       "walls": [
         "SOUTH"
       ],

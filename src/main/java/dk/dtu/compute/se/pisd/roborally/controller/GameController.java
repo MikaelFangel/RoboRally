@@ -112,7 +112,7 @@ public class GameController {
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
-        assertPlayerPriorityAndChangeBoardPlayers();
+        doPriortyAntennaAction();
         //TODO need to get player view updated
 
 
@@ -200,10 +200,14 @@ public class GameController {
         }
     }
 
-    private void assertPlayerPriorityAndChangeBoardPlayers() {
+    private void doPriortyAntennaAction(){
+        Space antennaSpace = board.getPriorityAntennaSpace();
+        antennaSpace.getActions().get(0).doAction(this, antennaSpace);
+    }
+
+    public void assertPlayerPriorityAndChangeBoardPlayers(Space antennaSpace) {
         List<Player> players = board.getPlayers();
         int[] playersPriority = new int[players.size()];
-        Space antennaSpace = board.getPriorityAntennaSpace();
 
         for (int i = 0; i < players.size(); i++) {
             int totalDistance = 0;
