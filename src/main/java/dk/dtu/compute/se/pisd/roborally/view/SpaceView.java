@@ -75,7 +75,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if(space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
-            // TODO Get image for it
+            this.setStyle("-fx-background-image: url(file:src/main/resources/priorityAntenna.png)");
         }
         // updatePlayer();
 
