@@ -23,16 +23,10 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
-import dk.dtu.compute.se.pisd.roborally.view.PlayerView;
-import dk.dtu.compute.se.pisd.roborally.view.PlayersView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
-
 
 /**
  * ...
@@ -198,7 +192,7 @@ public class GameController {
         }
     }
 
-    private void doPriortyAntennaAction(){
+    private void doPriortyAntennaAction() {
         Space antennaSpace = board.getPriorityAntennaSpace();
         antennaSpace.getActions().get(0).doAction(this, antennaSpace);
     }
@@ -229,7 +223,6 @@ public class GameController {
 
         recreatePlayersView();
     }
-
 
     private void changePlayer(Player currentPlayer, int step) {
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
@@ -270,27 +263,33 @@ public class GameController {
         }
     }
 
+
+    /**
+     * Move one card from one place to another
+     *
+     * @param source the card to move
+     * @param target the target to move the source card to
+     * @return true if the operation was successful and false if not
+     */
+    public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
+        CommandCard sourceCard = source.getCard();
+        CommandCard targetCard = target.getCard();
+        if (sourceCard != null && targetCard == null) {
+            target.setCard(sourceCard);
+            source.setCard(null);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int energyRoutine(@NotNull Player player) {
         int playerEnergyCount = player.getEnergyCount();
         playerEnergyCount++;
         return playerEnergyCount;
     }
 
-    class ImpossibleMoveException extends Exception {
-
-        private Player player;
-        private Space space;
-        private Heading heading;
-
-        public ImpossibleMoveException(Player player, Space space, Heading heading) {
-            super("Move impossible");
-            this.player = player;
-            this.space = space;
-            this.heading = heading;
-        }
-    }
-
-    public void recreatePlayersView(){
+    public void recreatePlayersView() {
         BoardView boardView = appController.getRoboRally().getBoardView();
         boardView.updatePlayersView();
     }

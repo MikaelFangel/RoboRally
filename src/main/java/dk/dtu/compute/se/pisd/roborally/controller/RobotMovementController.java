@@ -31,18 +31,26 @@ public class RobotMovementController {
      */
     public void moveForward(@NotNull Player player, int moves) {
         for (int i = 0; i < moves; i++) {
-            Heading heading = player.getHeading();
-            Space target = board.getNeighbour(player.getSpace(), heading);
-            if (target == null)  //if target doesn't exicst (shouldn't happend
-                return;
-            if (isOccupied(target)) {
-                Player playerBlocking = target.getPlayer();
-                Heading targetCurrentHeading = playerBlocking.getHeading();
-                playerBlocking.setHeading(player.getHeading());
-                moveForward(playerBlocking, 1);
-                playerBlocking.setHeading(targetCurrentHeading);
+            try {
+                Heading heading = player.getHeading();
+                Space target = board.getNeighbour(player.getSpace(), heading);
+                for (Heading wall : player.getSpace().getWalls()) {
+                    if (wall == heading)
+                        throw new ImpossibleMoveException(player, player.getSpace(), heading);
+                }
+                if (target == null)  //if target doesn't exicst (shouldn't happend
+                    return;
+                if (isOccupied(target)) {
+                    Player playerBlocking = target.getPlayer();
+                    Heading targetCurrentHeading = playerBlocking.getHeading();
+                    playerBlocking.setHeading(player.getHeading());
+                    moveForward(playerBlocking, 1);
+                    playerBlocking.setHeading(targetCurrentHeading);
+                }
+                target.setPlayer(player);
+            } catch (ImpossibleMoveException e) {
+                // Do nothing for now...
             }
-            target.setPlayer(player);
         }
     }
 
@@ -65,25 +73,6 @@ public class RobotMovementController {
     public void turnLeft(@NotNull Player player) {
         if (player.board == board) {
             player.setHeading(player.getHeading().prev());
-        }
-    }
-
-    /**
-     * Move one card from one place to another
-     *
-     * @param source the card to move
-     * @param target the target to move the source card to
-     * @return true if the operation was successful and false if not
-     */
-    public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
-        CommandCard sourceCard = source.getCard();
-        CommandCard targetCard = target.getCard();
-        if (sourceCard != null && targetCard == null) {
-            target.setCard(sourceCard);
-            source.setCard(null);
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -154,6 +143,20 @@ public class RobotMovementController {
     private boolean isOccupied(Space space){
         Space target = board.getSpace(space.x, space.y);
         return target.getPlayer() != null;
+    }
+
+    class ImpossibleMoveException extends Exception {
+
+        private Player player;
+        private Space space;
+        private Heading heading;
+
+        public ImpossibleMoveException(Player player, Space space, Heading heading) {
+            super("Move impossible");
+            this.player = player;
+            this.space = space;
+            this.heading = heading;
+        }
     }
 
 }
