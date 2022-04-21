@@ -27,8 +27,10 @@ public class RotatingGear extends FieldAction{
             } else {
                 gameController.rmc.turnRight(gameController.board.getCurrentPlayer());
             }
+        } else {
+            return false;
         }
-        
+
         return true;
     }
 }

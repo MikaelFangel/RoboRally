@@ -47,13 +47,17 @@ public class ConveyorBelt extends FieldAction {
 
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
-        ConveyorBelt action = (ConveyorBelt) space.getActions().get(0);
-        Player player = gameController.board.getCurrentPlayer();
-        Heading playerHeading = player.getHeading();
+        if (space.getActions().size() > 0) {
+            ConveyorBelt action = (ConveyorBelt) space.getActions().get(0);
+            Player player = gameController.board.getCurrentPlayer();
+            Heading playerHeading = player.getHeading();
 
-        player.setHeading(action.heading);
-        gameController.rmc.moveForward(player, 1);
-        player.setHeading(playerHeading);
+            player.setHeading(action.heading);
+            gameController.rmc.moveForward(player, 1);
+            player.setHeading(playerHeading);
+        } else {
+            return false;
+        }
 
         return true;
     }
