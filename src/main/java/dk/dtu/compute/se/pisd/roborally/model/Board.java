@@ -35,7 +35,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Board extends Subject {
 
@@ -121,14 +120,13 @@ public class Board extends Subject {
         }
     }
 
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players){
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
-
 
 
     public Player getCurrentPlayer() {
@@ -142,10 +140,10 @@ public class Board extends Subject {
         }
     }
 
-    public Space getPriorityAntennaSpace(){
-        for (Space[] spaceArr : spaces){
-            for (Space space : spaceArr){
-                if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna){
+    public Space getPriorityAntennaSpace() {
+        for (Space[] spaceArr : spaces) {
+            for (Space space : spaceArr) {
+                if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
                     return space;
                 }
             }
@@ -200,7 +198,7 @@ public class Board extends Subject {
      * (no walls or obstacles in either of the involved spaces); otherwise,
      * null will be returned.
      *
-     * @param space the space for which the neighbour should be computed
+     * @param space   the space for which the neighbour should be computed
      * @param heading the heading of the neighbour
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
@@ -219,20 +217,12 @@ public class Board extends Subject {
         int x = space.x;
         int y = space.y;
         switch (heading) {
-            case SOUTH:
-                y = (y + 1) % height;
-                break;
-            case WEST:
-                x = (x + width - 1) % width;
-                break;
-            case NORTH:
-                y = (y + height - 1) % height;
-                break;
-            case EAST:
-                x = (x + 1) % width;
-                break;
+            case SOUTH -> y = (y + 1) % height;
+            case WEST -> x = (x + width - 1) % width;
+            case NORTH -> y = (y + height - 1) % height;
+            case EAST -> x = (x + 1) % width;
         }
-        Heading reverse = Heading.values()[(heading.ordinal() + 2)% Heading.values().length];
+        Heading reverse = Heading.values()[(heading.ordinal() + 2) % Heading.values().length];
         Space result = getSpace(x, y);
         if (result != null) {
             if (result.getWalls().contains(reverse)) {
