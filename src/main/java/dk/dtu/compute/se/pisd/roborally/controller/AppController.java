@@ -96,7 +96,8 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-        // XXX needs to be implemented eventually
+        // XXX needs to do more than just save the board. Also the whole games state.
+        LoadBoard.saveBoard(gameController.board, "TestingSavingBoard");
     }
 
     public void loadGame() {

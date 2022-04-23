@@ -97,6 +97,7 @@ public class LoadBoard {
     }
 
     public static void saveBoard(Board board, String name) {
+        // Setting up the board template
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
         template.height = board.height;
@@ -115,12 +116,15 @@ public class LoadBoard {
             }
         }
 
+        // Saving the board template using GSON
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
         // TODO: this is not very defensive, and will result in a NullPointerException
         //       when the folder "resources" does not exist! But, it does not need
         //       the file "simpleCards.json" to exist!
         String filename =
                 Objects.requireNonNull(classLoader.getResource(BOARDS_FOLDER)).getPath() + "/" + name + "." + JSON_EXT;
+
+        // Saves to Target/Classes/Boards !!!
 
         // In simple cases, we can create a Gson object with new:
         //
@@ -140,6 +144,7 @@ public class LoadBoard {
             fileWriter = new FileWriter(filename);
             writer = gson.newJsonWriter(fileWriter);
             gson.toJson(template, template.getClass(), writer);
+
             writer.close();
         } catch (IOException e1) {
             if (writer != null) {
