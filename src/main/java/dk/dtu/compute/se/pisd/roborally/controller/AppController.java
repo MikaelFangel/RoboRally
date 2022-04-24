@@ -27,6 +27,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.ManageGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -81,11 +82,21 @@ public class AppController implements Observer {
             Board board = LoadBoard.loadBoard("defaultboard");
             gameController = new GameController(this, Objects.requireNonNull(board));
             int no = result.get();
+
+            /*List<Player> players = ManageGame.loadPlayers("NotYetRelevant", gameController.board);
+            for (Player player : players){
+                board.addPlayer(player);
+            }*/
+
+
+            // TODO For Ahmad. Gamelt kode.
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
+
+
 
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
@@ -97,7 +108,9 @@ public class AppController implements Observer {
 
     public void saveGame() {
         // XXX needs to do more than just save the board. Also the whole games state.
-        LoadBoard.saveBoard(gameController.board, "TestingSavingBoard");
+        //LoadBoard.saveBoard(gameController.board, "TestingSavingBoard");
+        ManageGame.saveGame("TestGame", gameController.board.getPlayers());
+
     }
 
     public void loadGame() {
