@@ -41,15 +41,15 @@ public class Player extends Subject {
 
     final public Board board;
 
-    private String name;
-    private String color;
-    private int energyCount;
+    public String name;
+    public String color;
+    public int energyCount;
 
-    private Space space;
-    private Heading heading = SOUTH;
+    public Space space;
+    public Heading heading = SOUTH;
 
-    private CommandCardField[] program;
-    private CommandCardField[] cards;
+    public CommandCardField[] program;
+    public CommandCardField[] cards;
 
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
