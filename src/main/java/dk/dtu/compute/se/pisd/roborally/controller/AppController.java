@@ -83,18 +83,19 @@ public class AppController implements Observer {
             gameController = new GameController(this, Objects.requireNonNull(board));
             int no = result.get();
 
-            /*List<Player> players = ManageGame.loadPlayers("NotYetRelevant", gameController.board);
+            List<Player> players = ManageGame.loadPlayers("TestGame", gameController.board);
             for (Player player : players){
                 board.addPlayer(player);
-            }*/
+                //player.setSpace(player.getSpace());
+            }
 
 
-            // TODO For Ahmad. Gamelt kode.
-            for (int i = 0; i < no; i++) {
+            // TODO For Ahmad. Gammel kode.
+            /*for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
-            }
+            }*/
 
 
 

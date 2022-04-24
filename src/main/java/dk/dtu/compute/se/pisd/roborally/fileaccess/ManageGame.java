@@ -88,36 +88,49 @@ public class ManageGame {
             name = DEFAULT_PLAYERS;
         }
 
-        ClassLoader classLoader = LoadBoard.class.getClassLoader();
-        // TODO make another "/" when adding new directory
-        InputStream inputStream = classLoader.getResourceAsStream(GAMES_FOLDER + "/" + "players" + "." + JSON_EXT);
-        if (inputStream == null) {
-            // TODO Return basic players!!
-        }
+        List<Player> createdPlayers = new ArrayList<>();
 
+        ClassLoader classLoader = LoadBoard.class.getClassLoader();
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
         JsonReader reader = null;
 
-        List<Player> createdPlayers = new ArrayList<>();
+        String playerDirPath = Objects.requireNonNull(classLoader.getResource(GAMES_FOLDER)).getPath() + "/" + name + "/"
+                + "players";
+        System.out.println(playerDirPath);
+        File playersDir = new File(String.valueOf(playerDirPath));
 
-        try {
-            reader = gson.newJsonReader(new InputStreamReader(inputStream));
-            PlayerTemplate playerTemplate = gson.fromJson(reader, PlayerTemplate.class);
+        if (!playersDir.exists()){
+            System.out.println("Directory Does NOT exists!");
+        }
 
-            //for (PlayerTemplate playerTemplate : playerTemplates){
+        for (int i = 0; i < playersDir.listFiles().length; i++) {
+            InputStream inputStream = classLoader.getResourceAsStream(GAMES_FOLDER + "/" + name + "/" + "players"
+                    + "/" + "player" + String.valueOf(i+1) + "." + JSON_EXT);
+
+
+            if (inputStream == null) {
+                // TODO Return basic players!!
+            }
+
+            try {
+                reader = gson.newJsonReader(new InputStreamReader(inputStream));
+                PlayerTemplate playerTemplate = gson.fromJson(reader, PlayerTemplate.class);
+
+                //for (PlayerTemplate playerTemplate : playerTemplates){
                 Player newPlayer = new Player(board, playerTemplate.color, playerTemplate.name);
-                newPlayer.space = board.getSpace(playerTemplate.spaceX, playerTemplate.spaceY);
+                newPlayer.setSpace(board.getSpace(playerTemplate.spaceX, playerTemplate.spaceY));
                 newPlayer.heading = Heading.valueOf(playerTemplate.heading);
                 newPlayer.energyCount = playerTemplate.energyCount;
 
                 createdPlayers.add(newPlayer);
 
                 reader.close();
-            //}
+                //}
 
-        } catch (IOException e){
-            System.out.println(e);
+            } catch (IOException e){
+                System.out.println(e);
+            }
         }
 
         return createdPlayers;
