@@ -52,7 +52,9 @@ import java.util.Optional;
 public class AppController implements Observer {
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
+    final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
+    final private List<String> BOARD_NAME = Arrays.asList("defaultbord", "boards");
 
     final private RoboRally roboRally;
 
@@ -76,31 +78,49 @@ public class AppController implements Observer {
                     return;
                 }
             }
+            ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
+            dialogB.setTitle("CHOOSE BOARD");
+            dialogB.setHeaderText("Select which board to play");
+            Optional<Integer> resultB = dialogB.showAndWait();
+            Board board = LoadBoard.loadBoard(null);
+            if(resultB.isPresent()){
+                int noB = resultB.get();
+             for(int i = 1; i < noB;i++){
+                 board = LoadBoard.loadBoard(BOARD_NAME.get(i));
+                }
+
+            }
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = LoadBoard.loadBoard("defaultboard");
-            gameController = new GameController(this, Objects.requireNonNull(board));
-            int no = result.get();
 
+            gameController = new GameController(this, Objects.requireNonNull(board));
+
+/*
             List<Player> players = ManageGame.loadPlayers("TestGame", gameController.board);
             for (Player player : players){
                 board.addPlayer(player);
-                //player.setSpace(player.getSpace());
+                player.setSpace(player.getSpace());
             }
+
+            // har lige lavet det til en kommentar der man ikke kan loade et board, efter man har intastet hvor man ge spille man er og hvilke bane.
+ */
+
+
 
 
             // TODO For Ahmad. Gammel kode.
-            /*for (int i = 0; i < no; i++) {
+            int no = result.get();
+            for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
-            }*/
+            }
 
 
 
             // XXX: V2
-            // board.setCurrentPlayer(board.getPlayer(0));
+             board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
 
             roboRally.createBoardView(gameController);
@@ -110,7 +130,7 @@ public class AppController implements Observer {
     public void saveGame() {
         // XXX needs to do more than just save the board. Also the whole games state.
         //LoadBoard.saveBoard(gameController.board, "TestingSavingBoard");
-        ManageGame.saveGame("TestGame", gameController.board.getPlayers());
+        //ManageGame.saveGame("TestGame", gameController.board.getPlayers()); // har lige lavet den som kommentar, da man ikke kan exitgame fra inde fra spillet af :)
 
     }
 
