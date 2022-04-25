@@ -27,7 +27,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.ManageGame;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -82,22 +82,18 @@ public class AppController implements Observer {
             dialogB.setTitle("CHOOSE BOARD");
             dialogB.setHeaderText("Select which board to play");
             Optional<Integer> resultB = dialogB.showAndWait();
-            Board board = LoadBoard.loadBoard(null);
+
+            Board board = SaveLoadGame.loadBoard(null);
             if(resultB.isPresent()){
                 int noB = resultB.get();
              for(int i = 1; i < noB;i++){
-                 board = LoadBoard.loadBoard(BOARD_NAME.get(i));
+                 board = SaveLoadGame.loadBoard(BOARD_NAME.get(i));
                 }
-
             }
 
-            // XXX the board should eventually be created programmatically or loaded from a file
-            //     here we just create an empty board with the required number of players.
-
             gameController = new GameController(this, Objects.requireNonNull(board));
-
 /*
-            List<Player> players = ManageGame.loadPlayers("TestGame", gameController.board);
+            List<Player> players = SaveLoadGame.loadPlayers("TestGame", gameController.board);
             for (Player player : players){
                 board.addPlayer(player);
                 player.setSpace(player.getSpace());
@@ -105,9 +101,6 @@ public class AppController implements Observer {
 
             // har lige lavet det til en kommentar der man ikke kan loade et board, efter man har intastet hvor man ge spille man er og hvilke bane.
  */
-
-
-
 
             // TODO For Ahmad. Gammel kode.
             int no = result.get();
@@ -128,9 +121,7 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-        // XXX needs to do more than just save the board. Also the whole games state.
-        //LoadBoard.saveBoard(gameController.board, "TestingSavingBoard");
-        //ManageGame.saveGame("TestGame", gameController.board.getPlayers()); // har lige lavet den som kommentar, da man ikke kan exitgame fra inde fra spillet af :)
+        SaveLoadGame.saveGame("TestGame", gameController); // har lige lavet den som kommentar, da man ikke kan exitgame fra inde fra spillet af :)
 
     }
 
