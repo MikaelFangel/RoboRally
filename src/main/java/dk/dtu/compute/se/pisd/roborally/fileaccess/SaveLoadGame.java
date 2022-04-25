@@ -135,21 +135,21 @@ public class SaveLoadGame {
                 if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
+                    space.setPlayer(null);
                 }
             }
 
             // Loading Players
-            List<Player> players = new ArrayList<>();
-
             for (int i = 0; i < template.players.size(); i++) {
                 PlayerTemplate playerTemplate = template.players.get(i);
 
                 Player newPlayer = new Player(result, playerTemplate.color, playerTemplate.name);
+                result.addPlayer(newPlayer);
                 newPlayer.setSpace(result.getSpace(playerTemplate.spaceX, playerTemplate.spaceY));
                 newPlayer.heading = Heading.valueOf(playerTemplate.heading);
                 newPlayer.energyCount = playerTemplate.energyCount;
 
-                players.add(newPlayer);
+
             }
             int currentPlayerIndex = template.currentPlayer;
             result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
