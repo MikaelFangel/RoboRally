@@ -50,13 +50,13 @@ public class Board extends Subject {
 
     private List<Player> players = new ArrayList<>();
 
-    private Player current;
+    public Player current;
 
-    private Phase phase = INITIALISATION;
+    public Phase phase = INITIALISATION;
 
-    private int step = 0;
+    public int step = 0;
 
-    private boolean stepMode;
+    public boolean stepMode;
 
     private int counter;
 
