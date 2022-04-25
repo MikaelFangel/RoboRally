@@ -87,15 +87,7 @@ public class AppController implements Observer {
                 board = SaveLoadGame.loadBoard(GAME_NAMES.get(noB-1));
             }
             gameController = new GameController(this, Objects.requireNonNull(board));
-/*
-            // TODO ny kode
-            List<Player> players = SaveLoadGame.loadPlayers("TestGame", gameController.board);
-            for (Player player : players){
-                board.addPlayer(player);
-                player.setSpace(player.getSpace());
-            }
- */
-            // TODO For Ahmad. Gammel kode.
+
             int no = result.get();
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
@@ -112,7 +104,7 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-        //SaveLoadGame.saveGame("TestGame", gameController); // har lige lavet den som kommentar, da man ikke kan exitgame fra inde fra spillet af :)
+        SaveLoadGame.saveBoard(gameController.board, "TestGame");
     }
 
     public void loadGame() {
