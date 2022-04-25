@@ -11,7 +11,7 @@ public enum SpecialCommand {
     WEASELROUTINE("Weasel Routine",Command.LEFT,Command.RIGHT,Command.UTURN),
     SPEEDROUTINE("Speed Routine",Command.MOVE3),
     SPAMFOLDER("Spam Folder"),
-    REPEATROUTINE("Repeat Routine");
+    REPEATROUTINE("Repeat Routine",Command.AGAIN);
 
 
 
