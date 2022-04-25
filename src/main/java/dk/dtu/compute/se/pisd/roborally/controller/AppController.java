@@ -52,7 +52,7 @@ public class AppController implements Observer {
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
-    final private List<String> BOARD_NAME = Arrays.asList("defaultbord", "boards");
+    final private List<String> GAME_NAMES = Arrays.asList("TestGame");
 
     final private RoboRally roboRally;
 
@@ -77,29 +77,24 @@ public class AppController implements Observer {
                 }
             }
             ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
-            dialogB.setTitle("CHOOSE BOARD");
-            dialogB.setHeaderText("Select which board to play");
+            dialogB.setTitle("CHOOSE A GAME");
+            dialogB.setHeaderText("Select which game to play");
             Optional<Integer> resultB = dialogB.showAndWait();
 
             Board board = SaveLoadGame.loadBoard(null);
             if(resultB.isPresent()){
                 int noB = resultB.get();
-             for(int i = 1; i < noB;i++){
-                 board = SaveLoadGame.loadBoard(BOARD_NAME.get(i));
-                }
+                board = SaveLoadGame.loadBoard(GAME_NAMES.get(noB-1));
             }
-
             gameController = new GameController(this, Objects.requireNonNull(board));
 /*
+            // TODO ny kode
             List<Player> players = SaveLoadGame.loadPlayers("TestGame", gameController.board);
             for (Player player : players){
                 board.addPlayer(player);
                 player.setSpace(player.getSpace());
             }
-
-            // har lige lavet det til en kommentar der man ikke kan loade et board, efter man har intastet hvor man ge spille man er og hvilke bane.
  */
-
             // TODO For Ahmad. Gammel kode.
             int no = result.get();
             for (int i = 0; i < no; i++) {
@@ -107,8 +102,6 @@ public class AppController implements Observer {
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
-
-
 
             // XXX: V2
              board.setCurrentPlayer(board.getPlayer(0));
@@ -119,8 +112,7 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-        SaveLoadGame.saveGame("TestGame", gameController); // har lige lavet den som kommentar, da man ikke kan exitgame fra inde fra spillet af :)
-
+        //SaveLoadGame.saveGame("TestGame", gameController); // har lige lavet den som kommentar, da man ikke kan exitgame fra inde fra spillet af :)
     }
 
     public void loadGame() {
