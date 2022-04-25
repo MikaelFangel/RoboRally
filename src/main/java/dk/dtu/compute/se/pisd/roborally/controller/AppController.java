@@ -76,6 +76,7 @@ public class AppController implements Observer {
                     return;
                 }
             }
+            // TODO should be moved to LOAD GAME
             ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
             dialogB.setTitle("CHOOSE A GAME");
             dialogB.setHeaderText("Select which game to play");
@@ -88,12 +89,14 @@ public class AppController implements Observer {
             }
             gameController = new GameController(this, Objects.requireNonNull(board));
 
+            /*
             int no = result.get();
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
+            */
 
             // XXX: V2
              board.setCurrentPlayer(board.getPlayer(0));
