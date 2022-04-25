@@ -53,7 +53,7 @@ public class SaveLoadGame {
             playerTemplates.heading = players.get(i).heading.toString();
 
             // Saving
-            ClassLoader classLoader = LoadBoard.class.getClassLoader();
+            ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
 
             GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>()).setPrettyPrinting();
             Gson gson = simpleBuilder.create();
@@ -84,8 +84,6 @@ public class SaveLoadGame {
                 }
             }
         }
-
-
     }
 
     public static List<Player> loadPlayers(String name, Board board){
@@ -95,14 +93,13 @@ public class SaveLoadGame {
 
         List<Player> createdPlayers = new ArrayList<>();
 
-        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
         JsonReader reader = null;
 
         String playerDirPath = Objects.requireNonNull(classLoader.getResource(GAMES_FOLDER)).getPath() + "/" + name + "/"
                 + "players";
-        System.out.println(playerDirPath);
         File playersDir = new File(String.valueOf(playerDirPath));
 
         if (!playersDir.exists()){
@@ -137,7 +134,6 @@ public class SaveLoadGame {
                 System.out.println(e);
             }
         }
-
         return createdPlayers;
     }
 
@@ -162,12 +158,12 @@ public class SaveLoadGame {
         }
 
         // Saving the board template using GSON
-        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
         // TODO: this is not very defensive, and will result in a NullPointerException
         //       when the folder "resources" does not exist! But, it does not need
         //       the file "simpleCards.json" to exist!
         String filename =
-                Objects.requireNonNull(classLoader.getResource(GAMES_FOLDER)).getPath() + "/" + nameOfGame + "board" + "." + JSON_EXT;
+                Objects.requireNonNull(classLoader.getResource(GAMES_FOLDER)).getPath() + "/" + nameOfGame + "/" +  "board" + "." + JSON_EXT;
 
         GsonBuilder simpleBuilder = new GsonBuilder().
                 registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>()).
@@ -202,7 +198,7 @@ public class SaveLoadGame {
             name = DEFAULT_BOARD;
         }
 
-        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(GAMES_FOLDER + "/" + name + "/" + "board" + "." + JSON_EXT);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
@@ -249,7 +245,7 @@ public class SaveLoadGame {
     }
 
     public static void prepareDirectories(String gameName){
-        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
 
         String gameDirName = Objects.requireNonNull(classLoader.getResource(GAMES_FOLDER)).getPath() + "/" +  gameName;
         String playersDirName = Objects.requireNonNull(classLoader.getResource(GAMES_FOLDER)).getPath() + "/" +  gameName + "/" + "players";
