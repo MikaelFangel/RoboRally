@@ -81,11 +81,11 @@ public class AppController implements Observer {
             Optional<Integer> resultB = dialogB.showAndWait();
             */
             Board board = SaveLoadGame.newBoard(result.get());
+            setupGameController(board);
             /*if(resultB.isPresent()){
                 int noB = resultB.get();
                 board = SaveLoadGame.newBoard(noB);
             }*/
-            gameController = new GameController(this, Objects.requireNonNull(board));
 
             /*
             int no = result.get();
@@ -96,24 +96,28 @@ public class AppController implements Observer {
             }
             */
 
-            // XXX: V2
-             board.setCurrentPlayer(board.getPlayer(0));
-            gameController.startProgrammingPhase();
-
-            roboRally.createBoardView(gameController);
         }
     }
 
     public void saveGame() {
-        //SaveLoadGame.saveBoard(gameController.board, "TestGame");
+        SaveLoadGame.saveBoard(gameController.board, "TestGame");
     }
 
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            SaveLoadGame.loadBoard("TestGame");
+            Board board= SaveLoadGame.loadBoard("TestGame");
+            setupGameController(board);
         }
+    }
+
+    private void setupGameController(Board board){
+        gameController = new GameController(this, Objects.requireNonNull(board));
+        board.setCurrentPlayer(board.getPlayer(0));
+        gameController.startProgrammingPhase();
+
+        roboRally.createBoardView(gameController);
     }
 
     /**
@@ -129,7 +133,7 @@ public class AppController implements Observer {
         if (gameController != null) {
 
             // here we save the game (without asking the user).
-            saveGame();
+            //saveGame();
 
             gameController = null;
             roboRally.createBoardView(null);
