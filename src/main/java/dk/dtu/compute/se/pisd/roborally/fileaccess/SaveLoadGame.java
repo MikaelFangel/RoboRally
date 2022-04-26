@@ -13,14 +13,18 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class SaveLoadGame {
 
+    final static private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
+
     private static final String DEFAULT_BOARD = "defaultboard";
 
-    private static final String BOARDS_FOLDER = "savedBoards";
+    private static final String SAVED_BOARDS_FOLDER = "savedBoards";
+    private static final String DEFAULT_BOARD_FOLDER = "boards";
     private static final String JSON_EXT = "json";
 
     public static void saveBoard(Board board, String name) {
@@ -71,7 +75,7 @@ public class SaveLoadGame {
         // TODO: this is not very defensive, and will result in a NullPointerException
         //       when the folder "resources" does not exist! But, it does not need
         //       the file "simpleCards.json" to exist!
-        String filename = Objects.requireNonNull(classLoader.getResource(BOARDS_FOLDER)).getPath() + "/"
+        String filename = Objects.requireNonNull(classLoader.getResource(SAVED_BOARDS_FOLDER)).getPath() + "/"
                 +  name + "." + JSON_EXT;
 
         GsonBuilder simpleBuilder = new GsonBuilder().
@@ -103,15 +107,11 @@ public class SaveLoadGame {
     }
 
     public static Board loadBoard(String name) {
-        if (name == null) {
-            name = DEFAULT_BOARD;
-        }
-
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(BOARDS_FOLDER + "/" + name + "." + JSON_EXT);
+        InputStream inputStream = classLoader.getResourceAsStream(SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT);
+
         if (inputStream == null) {
-            // TODO these constants should be defined somewhere
-            return new Board(8,8);
+            System.out.println(SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT+"\nFolder does not exist");
         }
 
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
@@ -173,5 +173,49 @@ public class SaveLoadGame {
             }
         }
         return null;
+    }
+
+    public static Board newBoard(int numPlayers){
+        Board newBoard;
+
+        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(DEFAULT_BOARD_FOLDER + "/" + DEFAULT_BOARD + "." + JSON_EXT);
+
+        if (inputStream == null){
+            System.out.println("Does not exists");
+        }
+
+        GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
+        Gson gson = simpleBuilder.create();
+
+        try {
+            JsonReader reader = gson.newJsonReader(new InputStreamReader(inputStream));
+            BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
+
+            newBoard = new Board(template.width, template.height);
+
+            for (SpaceTemplate spaceTemplate: template.spaces) {
+                Space space = newBoard.getSpace(spaceTemplate.x, spaceTemplate.y);
+                if (space != null) {
+                    space.getActions().addAll(spaceTemplate.actions);
+                    space.getWalls().addAll(spaceTemplate.walls);
+                    space.setPlayer(null);
+                }
+            }
+
+            for (int i = 0; i < numPlayers; i++) {
+                Player newPlayer = new Player(newBoard, PLAYER_COLORS.get(i), "Player " + (numPlayers+1));
+                newBoard.addPlayer(newPlayer);
+                newPlayer.setSpace(newBoard.getSpace(i % newBoard.width, i));
+            }
+
+            reader.close();
+
+        } catch (Exception e){
+            System.out.println("Failed Reading");
+            newBoard = new Board(8,8);
+        }
+
+        return newBoard;
     }
 }
