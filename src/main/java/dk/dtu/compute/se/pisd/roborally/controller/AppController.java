@@ -51,8 +51,6 @@ public class AppController implements Observer {
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
-    final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
-    final private List<String> GAME_NAMES = Arrays.asList("TestGame");
 
     final private RoboRally roboRally;
 
@@ -77,16 +75,16 @@ public class AppController implements Observer {
                 }
             }
             // TODO should be moved to LOAD GAME
-            ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
+            /*ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
             dialogB.setTitle("CHOOSE A GAME");
             dialogB.setHeaderText("Select which game to play");
             Optional<Integer> resultB = dialogB.showAndWait();
-
-            Board board = SaveLoadGame.loadBoard(null);
-            if(resultB.isPresent()){
+            */
+            Board board = SaveLoadGame.newBoard(result.get());
+            /*if(resultB.isPresent()){
                 int noB = resultB.get();
-                board = SaveLoadGame.loadBoard(GAME_NAMES.get(noB-1));
-            }
+                board = SaveLoadGame.newBoard(noB);
+            }*/
             gameController = new GameController(this, Objects.requireNonNull(board));
 
             /*
@@ -107,14 +105,14 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-        SaveLoadGame.saveBoard(gameController.board, "TestGame");
+        //SaveLoadGame.saveBoard(gameController.board, "TestGame");
     }
 
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            newGame();
+            SaveLoadGame.loadBoard("TestGame");
         }
     }
 
