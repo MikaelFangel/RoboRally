@@ -4,6 +4,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
+import java.util.zip.CheckedInputStream;
+
 public class Laser extends FieldAction {
 
     private int numberOfLasers;
@@ -34,22 +36,36 @@ public class Laser extends FieldAction {
             Board board = gameController.board;
             Space next = space;
 
+            int height = board.height;
+            int width = board.width;
+
             // Loop that runs until the laser hits a player
             while (next != null && next.getPlayer() == null) {
-                // Makes sure the loop only runs until the board ends
-                if(next.x == board.width - 1 ||
-                next.x == 0 ||
-                next.y == board.height -1 ||
-                next.y == 0)
-                    break;
+                int x = next.x;
+                int y = next.y;
+
+                switch (direction) {
+                    case SOUTH -> {
+                        if (y == height - 1) next = null;
+                    }
+                    case WEST -> {
+                        if (x == 0) next = null;
+                    }
+                    case NORTH -> {
+                        if (y == 0) next = null;
+                    }
+                    case EAST -> {
+                        if (x == width - 1) next = null;
+                    }
+                }
 
                 // Gets next board element
-                next = board.getNeighbour(next, direction);
+                if (next != null)
+                    next = board.getNeighbour(next, direction);
             }
 
             // Only gives damage if there is a player on the board
-            assert (next != null);
-            if (next.getPlayer() != null) {
+            if (next != null && next.getPlayer() != null) {
                 // Give player damage card
             }
         } else {
