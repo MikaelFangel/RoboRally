@@ -1,5 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -30,19 +31,30 @@ public class Laser extends FieldAction {
         if (space.getActions().size() > 0) {
             Laser laser = (Laser) space.getActions().get(0);
             Heading direction = laser.getHeading();
+            Board board = gameController.board;
+            Space next = space;
 
-            Space next = gameController.board.getNeighbour(space, direction);
-
+            // Loop that runs until the laser hits a player
             while (next != null && next.getPlayer() == null) {
-                next = gameController.board.getNeighbour(next, direction);
+                // Makes sure the loop only runs until the board ends
+                if(next.x == board.width - 1 ||
+                next.x == 0 ||
+                next.y == board.height -1 ||
+                next.y == 0)
+                    break;
+
+                // Gets next board element
+                next = board.getNeighbour(next, direction);
             }
 
+            // Only gives damage if there is a player on the board
+            assert (next != null);
             if (next.getPlayer() != null) {
                 // Give player damage card
             }
         } else {
             return false;
         }
-        return false;
+        return true;
     }
 }
