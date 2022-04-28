@@ -65,16 +65,25 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         // TODO: Add to css file
-        if(space.getActions().size() > 0 && space.getActions().get(0) instanceof ConveyorBelt) {
-            switch (((ConveyorBelt) space.getActions().get(0)).getHeading()) {
-                case NORTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBelt.png)");
-                case EAST ->  this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltEast.png)");
-                case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltSouth.png)");
-                case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltWest.png)");
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof ConveyorBelt conveyorBelt) {
+            if (conveyorBelt.getNumberOfMoves() <= 1) {
+                switch (conveyorBelt.getHeading()) {
+                    case NORTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBelt.png)");
+                    case EAST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltEast.png)");
+                    case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltSouth.png)");
+                    case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltWest.png)");
+                }
+            } else {
+                switch (conveyorBelt.getHeading()) {
+                    case NORTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueNorth.png)");
+                    case EAST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueEast.png)");
+                    case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueSouth.png)");
+                    case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueWest.png)");
+                }
             }
         }
 
-        if(space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
             this.setStyle("-fx-background-image: url(file:src/main/resources/priorityAntenna.png)");
         }
         // updatePlayer();
