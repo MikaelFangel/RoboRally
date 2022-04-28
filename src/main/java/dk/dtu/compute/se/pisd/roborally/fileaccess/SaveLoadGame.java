@@ -119,6 +119,7 @@ public class SaveLoadGame {
         Board result;
         JsonReader reader = null;
         try {
+            assert inputStream != null;
             reader = gson.newJsonReader(new InputStreamReader(inputStream));
             BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
