@@ -34,6 +34,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -48,10 +50,11 @@ import java.util.Optional;
  *
  */
 public class AppController implements Observer {
-
+    String[] saveName = new String[1];
+    //private Label testName; tester
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
-
+    final private List<String> BOARD_NAME =  Arrays.asList(saveName);
     final private RoboRally roboRally;
 
     private GameController gameController;
@@ -100,13 +103,35 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-        SaveLoadGame.saveBoard(gameController.board, "TestGame");
+
+        TextInputDialog dialogS = new TextInputDialog();
+
+
+        dialogS.setTitle("SAVE GAME");
+        dialogS.setHeaderText("Enter a Save game name");
+
+
+        final Optional<String> resultS = dialogS.showAndWait();
+        if (resultS.isPresent() ){
+            SaveLoadGame.saveBoard(gameController.board,resultS.get() );
+            for (int i =0;i< saveName.length;i++) {
+                saveName[i] =resultS.get();
+            }
+            //testName.setText(resultS.get()); test
+        }
     }
 
     public void loadGame() {
+
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
+            /*ChoiceDialog<String[]> dialogL = new ChoiceDialog(BOARD_NAME); TODO NOT DONE  :)
+            dialogL.setTitle("Load GAME");
+            dialogL.setHeaderText("Select a Save game ");
+            final Optional<String[]> resultS = dialogL.showAndWait();
+
+             */
             Board board= SaveLoadGame.loadBoard("TestGame");
             setupGameController(board);
         }
