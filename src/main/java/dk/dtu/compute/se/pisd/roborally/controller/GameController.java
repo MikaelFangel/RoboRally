@@ -298,9 +298,10 @@ public class GameController {
         List<Player> players = board.getPlayers();
 
         for (Player player : players) {
-            if (player.getSpace().getActions().get(0) instanceof ConveyorBelt ){
-                player.getSpace().getActions().get(0).doAction(this, player.getSpace());
-            }
+            if (player.getSpace().getActions().size() != 0) //check if the space have an action
+                if (player.getSpace().getActions().get(0) instanceof ConveyorBelt ){
+                    player.getSpace().getActions().get(0).doAction(this, player.getSpace());
+                }
         }
 
 
