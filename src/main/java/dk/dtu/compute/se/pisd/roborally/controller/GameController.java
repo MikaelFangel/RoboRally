@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -296,6 +297,9 @@ public class GameController {
 
     public void boardElementsActivationOrder(){
         List<Player> players = board.getPlayers();
+
+        String[] orderOfExecution = new String[] {};
+
 
         for (Player player : players) {
             if (player.getSpace().getActions().size() != 0) //check if the space have an action
