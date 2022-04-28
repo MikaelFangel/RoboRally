@@ -36,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
 public class ConveyorBelt extends FieldAction {
 
     private Heading heading;
+    private int numberOfMoves;
 
     public Heading getHeading() {
         return heading;
@@ -43,6 +44,14 @@ public class ConveyorBelt extends FieldAction {
 
     public void setHeading(Heading heading) {
         this.heading = heading;
+    }
+
+    public void setNumberOfMoves(int numberOfMoves) {
+        this.numberOfMoves = numberOfMoves;
+    }
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
     }
 
     @Override
@@ -54,7 +63,8 @@ public class ConveyorBelt extends FieldAction {
                 Heading playerHeading = player.getHeading();
 
                 player.setHeading(action.heading);
-                gameController.rmc.moveForward(player, 1);
+                gameController.rmc.moveForward(player,
+                        (((ConveyorBelt) space.getActions().get(0)).numberOfMoves <= 1) ? 1 : 2);
                 player.setHeading(playerHeading);
             }
         } else {
