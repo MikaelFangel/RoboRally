@@ -88,17 +88,17 @@ public class GameController {
                 }
                 for (int j = 0; j < Player.NO_CARDS; j++) {
                     CommandCardField field = player.getCardField(j);
-                    field.setCard(generateRandomCommandCard());
+                    field.setCard(generateRandomCommandCard(j));
                     field.setVisible(true);
                 }
             }
         }
     }
 
-    private CommandCard generateRandomCommandCard() {
+    private CommandCard generateRandomCommandCard(int card) {
         Command[] commands = Command.values();
-        int random = (int) (Math.random() * commands.length);
-        return new CommandCard(commands[random]);
+        //int random = (int) (Math.random() * commands.length); //TODO her er du
+        return new CommandCard(commands[card]);
     }
 
     /**
