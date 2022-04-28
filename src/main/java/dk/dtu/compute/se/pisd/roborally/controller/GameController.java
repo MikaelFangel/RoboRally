@@ -230,7 +230,7 @@ public class GameController {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
         } else {
             step++;
-
+            boardElementsActivationOrder();
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
                 board.setStep(step);
@@ -292,5 +292,19 @@ public class GameController {
     public void recreatePlayersView() {
         BoardView boardView = appController.getRoboRally().getBoardView();
         boardView.updatePlayersView();
+    }
+
+    public void boardElementsActivationOrder(){
+        List<Player> players = board.getPlayers();
+
+        for (Player player : players) {
+            if (player.getSpace().getActions().get(0) instanceof ConveyorBelt ){
+                player.getSpace().getActions().get(0).doAction(this, player.getSpace());
+            }
+        }
+
+
+
+        //blue conveyor
     }
 }
