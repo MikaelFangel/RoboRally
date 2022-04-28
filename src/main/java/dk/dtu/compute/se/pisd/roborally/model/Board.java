@@ -101,6 +101,10 @@ public class Board extends Subject {
         }
     }
 
+    public Space getSpace(@NotNull Space i){
+        return spaces[i.x][i.y];
+    }
+
     public int getPlayersNumber() {
         return players.size();
     }
