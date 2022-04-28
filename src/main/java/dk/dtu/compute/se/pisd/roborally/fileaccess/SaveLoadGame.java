@@ -60,6 +60,7 @@ public class SaveLoadGame {
             playerTemplate.name = players.get(i).name;
             playerTemplate.color = players.get(i).color;
             playerTemplate.energyCount = players.get(i).energyCount;
+            playerTemplate.checkPoints = players.get(i).checkPoints;
             playerTemplate.spaceX = players.get(i).space.x;
             playerTemplate.spaceY = players.get(i).space.y;
             playerTemplate.heading = players.get(i).heading.toString();
@@ -149,6 +150,7 @@ public class SaveLoadGame {
                 newPlayer.setSpace(result.getSpace(playerTemplate.spaceX, playerTemplate.spaceY));
                 newPlayer.heading = Heading.valueOf(playerTemplate.heading);
                 newPlayer.energyCount = playerTemplate.energyCount;
+                newPlayer.checkPoints = playerTemplate.checkPoints;
 
 
             }

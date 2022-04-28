@@ -9,6 +9,7 @@ public class PlayerTemplate {
     public String name;
     public String color;
     public int energyCount;
+    public int checkPoints;
 
     public int spaceX;
     public int spaceY;
