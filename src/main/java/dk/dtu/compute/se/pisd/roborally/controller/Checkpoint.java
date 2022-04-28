@@ -7,6 +7,14 @@ public class Checkpoint extends FieldAction {
 
     private int checkpointNumber;
 
+    public void setCheckpointNumber(int checkpointNumber) {
+        this.checkpointNumber = checkpointNumber;
+    }
+
+    public int getCheckpointNumber() {
+        return checkpointNumber;
+    }
+
     @Override
     public boolean doAction(GameController gameController, Space space) {
         if (space.getActions().size() > 0) {
