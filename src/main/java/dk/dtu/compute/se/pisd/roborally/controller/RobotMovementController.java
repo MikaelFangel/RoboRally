@@ -34,12 +34,9 @@ public class RobotMovementController {
             try {
                 Heading heading = player.getHeading();
                 Space target = board.getNeighbour(player.getSpace(), heading);
-                for (Heading wall : player.getSpace().getWalls()) {
-                    if (wall == heading)
-                        throw new ImpossibleMoveException(player, player.getSpace(), heading);
-                }
-                if (target == null)  //if target doesn't exicst (shouldn't happend
-                    return;
+                if (target == null ||
+                        (target.getActions().size() > 0 && target.getActions().get(0) instanceof PriorityAntenna))
+                    throw new ImpossibleMoveException(player, player.getSpace(), heading);
                 if (isOccupied(target)) {
                     Player playerBlocking = target.getPlayer();
                     Heading targetCurrentHeading = playerBlocking.getHeading();
