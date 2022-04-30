@@ -50,6 +50,7 @@ import java.util.Optional;
  *
  */
 public class AppController implements Observer {
+
     String[] saveName = new String[1];
     //private Label testName; tester
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
@@ -113,9 +114,10 @@ public class AppController implements Observer {
 
         final Optional<String> resultS = dialogS.showAndWait();
         if (resultS.isPresent() ){
-            SaveLoadGame.saveBoard(gameController.board,resultS.get() );
+
             for (int i =0;i< saveName.length;i++) {
                 saveName[i] =resultS.get();
+                SaveLoadGame.saveBoard(gameController.board,saveName[i]);
             }
             //testName.setText(resultS.get()); test
         }
@@ -126,14 +128,17 @@ public class AppController implements Observer {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            /*ChoiceDialog<String[]> dialogL = new ChoiceDialog(BOARD_NAME); TODO NOT DONE  :)
-            dialogL.setTitle("Load GAME");
+            ChoiceDialog<String[]> dialogL = new ChoiceDialog(BOARD_NAME);
+            dialogL.setTitle("LOAD GAME");
             dialogL.setHeaderText("Select a Save game ");
-            final Optional<String[]> resultS = dialogL.showAndWait();
+            final Optional<String[]> resultL = dialogL.showAndWait();
+            if (resultL.isPresent()){
+                String ldG = resultL.toString().replace("[","").replace("]","").replace("Optional","");
+                Board board= SaveLoadGame.loadBoard(ldG);
+                setupGameController(board);
+            }
 
-             */
-            Board board= SaveLoadGame.loadBoard("TestGame");
-            setupGameController(board);
+
         }
     }
 
