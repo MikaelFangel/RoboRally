@@ -55,7 +55,7 @@ public class AppController implements Observer {
     //private Label testName; tester
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
-    final private List<String> BOARD_NAME =  Arrays.asList(saveName);
+    final private List<String> BOARD_NAME =  Arrays.asList(saveName); //TODO need to make more saveName files to selcet.
     final private RoboRally roboRally;
 
     private GameController gameController;
