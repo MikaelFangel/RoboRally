@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * ...
@@ -98,12 +99,24 @@ public class GameController {
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
+        //Stack(commands[random]);
         return new CommandCard(commands[random]);
     }
 
     /**
      * Changes the phase from programming to activation.
      */
+    public void Stack(Command Card) {
+        Stack<Command> Cards = new Stack<>();
+        for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
+            Cards.add(Card);
+            if (i > 20){
+                Cards.pop();
+            }
+        }
+
+
+    }
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
