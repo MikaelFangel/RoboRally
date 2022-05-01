@@ -99,7 +99,7 @@ public class GameController {
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
-        //Stack(commands[random]);
+        Stack(commands[random]);
         return new CommandCard(commands[random]);
     }
 
@@ -109,12 +109,11 @@ public class GameController {
     public void Stack(Command Card) {
         Stack<Command> Cards = new Stack<>();
         for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
-            Cards.add(Card);
-            if (i > 20){
-                Cards.pop();
-            }
+            Cards.push(Card);
         }
-
+        if ( Card.isInteractive()){
+            Cards.remove(0);
+        }
 
     }
     public void finishProgrammingPhase() {
