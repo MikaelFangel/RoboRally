@@ -6,9 +6,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.io.*;
@@ -55,15 +53,81 @@ public class SaveLoadGame {
         List<PlayerTemplate> playersTemplate = new ArrayList<>();
 
         for (int i = 0; i < players.size(); i++) {
-            PlayerTemplate playerTemplate = new PlayerTemplate();
+            Player player = players.get(i);
 
-            playerTemplate.name = players.get(i).name;
-            playerTemplate.color = players.get(i).color;
-            playerTemplate.energyCount = players.get(i).energyCount;
-            playerTemplate.checkPoints = players.get(i).checkPoints;
-            playerTemplate.spaceX = players.get(i).space.x;
-            playerTemplate.spaceY = players.get(i).space.y;
-            playerTemplate.heading = players.get(i).heading.toString();
+            PlayerTemplate playerTemplate = new PlayerTemplate();
+            CommandCardFieldTemplate[] programTemplate = new CommandCardFieldTemplate[player.program.length];
+            CommandCardFieldTemplate[] cardsTemplate = new CommandCardFieldTemplate[player.cards.length];
+
+            playerTemplate.name = player.name;
+            playerTemplate.color = player.color;
+            playerTemplate.energyCount = player.energyCount;
+            playerTemplate.checkPoints = player.checkPoints;
+            playerTemplate.spaceX = player.space.x;
+            playerTemplate.spaceY = player.space.y;
+            playerTemplate.heading = player.heading.toString();
+
+            // Saving players cards
+            for (int j = 0; j < player.cards.length; j++) {
+                CommandCardField card = player.cards[j];
+                CommandCardFieldTemplate commandCardFieldTemplate = new CommandCardFieldTemplate();
+                CommandCardTemplate commandCardTemplate = new CommandCardTemplate();
+                CommandTemplate commandTemplate = new CommandTemplate();
+
+                // The command of the card
+                if (card.card == null){
+                    commandTemplate.displayName = "";
+                    commandTemplate.options = null;
+                } else {
+                    commandTemplate.displayName = card.card.command.displayName;
+                    List<String> options = new ArrayList<>();
+                    for (Command option : card.card.command.options){
+                        options.add(String.valueOf(option));
+                    }
+                    commandTemplate.options = options;
+                }
+                // The command card
+                commandCardTemplate.command = commandTemplate;
+
+                // Command Card Field
+                commandCardFieldTemplate.card = commandCardTemplate;
+                commandCardFieldTemplate.visible = card.visible;
+
+                cardsTemplate[j] = commandCardFieldTemplate;
+            }
+
+            // Saving players registers
+            for (int j = 0; j < player.program.length; j++) {
+                CommandCardField card = player.program[j];
+                CommandCardFieldTemplate commandCardFieldTemplate = new CommandCardFieldTemplate();
+                CommandCardTemplate commandCardTemplate = new CommandCardTemplate();
+                CommandTemplate commandTemplate = new CommandTemplate();
+
+                // The command of the card
+                if (card.card == null){
+                    commandTemplate.displayName = "";
+                    commandTemplate.options = null;
+                } else {
+                    commandTemplate.displayName = card.card.command.displayName;
+                    List<String> options = new ArrayList<>();
+                    for (Command option : card.card.command.options){
+                        options.add(String.valueOf(option));
+                    }
+                    commandTemplate.options = options;
+                }
+                // The command card
+                commandCardTemplate.command = commandTemplate;
+
+                // Command Card Field
+                commandCardFieldTemplate.card = commandCardTemplate;
+                commandCardFieldTemplate.visible = card.visible;
+
+                programTemplate[j] = commandCardFieldTemplate;
+            }
+
+            // Last REMOVE COMMENT
+            playerTemplate.program = programTemplate;
+            playerTemplate.cards = cardsTemplate;
 
             playersTemplate.add(playerTemplate);
         }
@@ -143,7 +207,7 @@ public class SaveLoadGame {
 
             // Loading Players
             for (int i = 0; i < template.players.size(); i++) {
-                PlayerTemplate playerTemplate = template.players.get(i);
+                PlayerTemplate playerTemplate = template.player;
 
                 Player newPlayer = new Player(result, playerTemplate.color, playerTemplate.name);
                 result.addPlayer(newPlayer);
