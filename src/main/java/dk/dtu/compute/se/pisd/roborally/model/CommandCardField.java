@@ -33,9 +33,9 @@ public class CommandCardField extends Subject {
 
     final public Player player;
 
-    private CommandCard card;
+    public CommandCard card;
 
-    private boolean visible;
+    public boolean visible;
 
     public CommandCardField(Player player) {
         this.player = player;

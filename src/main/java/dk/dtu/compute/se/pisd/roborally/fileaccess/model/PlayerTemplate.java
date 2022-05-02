@@ -15,4 +15,6 @@ public class PlayerTemplate {
     public int spaceY;
     public String heading;
 
+    public CommandCardFieldTemplate[] program;
+    public CommandCardFieldTemplate[] cards;
 }
