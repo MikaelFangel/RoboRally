@@ -51,12 +51,12 @@ import java.util.Optional;
  */
 public class AppController implements Observer {
 
-    String[] saveName = new String[1];
+    //String[] saveName = new String[1];
     //private Label testName; tester
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
-    final private List<String> BOARD_NAME =  Arrays.asList(saveName); //TODO need to make more saveName files to selcet.
-    private static final String SAVED_BOARDS_FOLDER = "savedBoards";
+    //final private List<String> BOARD_NAME =  Arrays.asList(saveName); //TODO need to make more saveName files to selcet.
+
     final private RoboRally roboRally;
 
     private GameController gameController;
@@ -115,12 +115,15 @@ public class AppController implements Observer {
 
         final Optional<String> resultS = dialogS.showAndWait();
         if (resultS.isPresent() ){
-
+            SaveLoadGame.saveBoard(gameController.board,resultS.get());
+/*
             for (int i =0;i< saveName.length;i++) {
                 saveName[i] =resultS.get();
                 SaveLoadGame.saveBoard(gameController.board,saveName[i]);
             }
             //testName.setText(resultS.get()); test
+
+ */
         }
     }
 
