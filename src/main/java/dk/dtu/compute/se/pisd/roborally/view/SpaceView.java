@@ -28,13 +28,11 @@ import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -52,9 +50,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.space = space;
         this.setId("space");
 
-        // Adds the walls using css
         for (Heading wall : space.getWalls()) {
-            this.getStyleClass().add("space_" + wall.toString().toLowerCase());
+            Image img = new Image("wall" + wall + ".png");
+            this.getChildren().add(new ImageView(img));
         }
 
         this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/space.css")).toExternalForm());
@@ -84,7 +82,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
-        if(space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
             switch (checkpoint.getCheckpointNumber()) {
                 case 1 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint1.png)");
                 case 2 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint2.png)");
@@ -106,7 +104,12 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
     private void updatePlayer() {
-        this.getChildren().clear();
+        // To update player position. Should be programmed more defensively
+        for (int i = 0; i < this.getChildren().size(); i++) {
+            if(this.getChildren().get(i).getClass().getSimpleName().equals("Polygon")) {
+                this.getChildren().remove(i);
+            }
+        }
 
         Player player = space.getPlayer();
         if (player != null) {
