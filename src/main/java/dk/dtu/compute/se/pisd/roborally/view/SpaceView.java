@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
@@ -80,6 +81,17 @@ public class SpaceView extends StackPane implements ViewObserver {
                     case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueSouth.png)");
                     case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueWest.png)");
                 }
+            }
+        }
+
+        if(space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
+            switch (checkpoint.getCheckpointNumber()) {
+                case 1 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint1.png)");
+                case 2 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint2.png)");
+                case 3 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint3.png)");
+                case 4 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint4.png)");
+                case 5 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint5.png)");
+                case 6 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint6.png)");
             }
         }
 
