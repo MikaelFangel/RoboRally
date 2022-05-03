@@ -56,6 +56,7 @@ public class AppController implements Observer {
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
     final private List<String> BOARD_NAME =  Arrays.asList(saveName); //TODO need to make more saveName files to selcet.
+    private static final String SAVED_BOARDS_FOLDER = "savedBoards";
     final private RoboRally roboRally;
 
     private GameController gameController;
@@ -128,13 +129,21 @@ public class AppController implements Observer {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            ChoiceDialog<String[]> dialogL = new ChoiceDialog(BOARD_NAME);
+            /*ChoiceDialog<String[]> dialogL = new ChoiceDialog(SAVED_BOARDS_FOLDER); /TODO har lige lavet en midlertidligt løsning
             dialogL.setTitle("LOAD GAME");
             dialogL.setHeaderText("Select a Save game ");
             final Optional<String[]> resultL = dialogL.showAndWait();
+
+             */
+            TextInputDialog dialogL = new TextInputDialog();
+
+
+            dialogL.setTitle("LOAD GAME");
+            dialogL.setHeaderText("Enter a Save game name  you want to load");
+            final Optional<String> resultL = dialogL.showAndWait();
             if (resultL.isPresent()){
-                String ldG = resultL.toString().replace("[","").replace("]","").replace("Optional","");
-                Board board= SaveLoadGame.loadBoard(ldG);
+                //String ldG = resultL.toString().replace("[","").replace("]","").replace("Optional","");
+                Board board= SaveLoadGame.loadBoard(resultL.get());
                 setupGameController(board);
             }
         }
