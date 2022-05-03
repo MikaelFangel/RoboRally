@@ -137,8 +137,6 @@ public class AppController implements Observer {
                 Board board= SaveLoadGame.loadBoard(ldG);
                 setupGameController(board);
             }
-
-
         }
     }
 

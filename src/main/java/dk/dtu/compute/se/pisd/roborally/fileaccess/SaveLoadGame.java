@@ -25,6 +25,8 @@ public class SaveLoadGame {
 
     private static final String JSON_EXT = "json";
 
+    private static boolean boardLoaded = false;
+
     public static void saveBoard(Board board, String name) {
         // Setting up the board template
         BoardTemplate template = new BoardTemplate();
@@ -76,15 +78,13 @@ public class SaveLoadGame {
 
                 // The command of the card
                 if (card.card == null){
-                    commandTemplate.displayName = "";
-                    commandTemplate.options = null;
+                    commandTemplate.type = "";
                 } else {
-                    commandTemplate.displayName = card.card.command.displayName;
+                    commandTemplate.type = card.card.command.name();
                     List<String> options = new ArrayList<>();
                     for (Command option : card.card.command.options){
                         options.add(String.valueOf(option));
                     }
-                    commandTemplate.options = options;
                 }
                 // The command card
                 commandCardTemplate.command = commandTemplate;
@@ -105,15 +105,13 @@ public class SaveLoadGame {
 
                 // The command of the card
                 if (card.card == null){
-                    commandTemplate.displayName = "";
-                    commandTemplate.options = null;
+                    commandTemplate.type = "";
                 } else {
-                    commandTemplate.displayName = card.card.command.displayName;
+                    commandTemplate.type = card.card.command.name();
                     List<String> options = new ArrayList<>();
                     for (Command option : card.card.command.options){
                         options.add(String.valueOf(option));
                     }
-                    commandTemplate.options = options;
                 }
                 // The command card
                 commandCardTemplate.command = commandTemplate;
@@ -207,21 +205,61 @@ public class SaveLoadGame {
 
             // Loading Players
             for (int i = 0; i < template.players.size(); i++) {
-                PlayerTemplate playerTemplate = template.player;
-
+                PlayerTemplate playerTemplate = template.players.get(i);
                 Player newPlayer = new Player(result, playerTemplate.color, playerTemplate.name);
                 result.addPlayer(newPlayer);
+
                 newPlayer.setSpace(result.getSpace(playerTemplate.spaceX, playerTemplate.spaceY));
                 newPlayer.heading = Heading.valueOf(playerTemplate.heading);
                 newPlayer.energyCount = playerTemplate.energyCount;
                 newPlayer.checkPoints = playerTemplate.checkPoints;
 
 
+                CommandCardField[] newCards = new CommandCardField[playerTemplate.cards.length];
+                CommandCardField[] newProgram = new CommandCardField[playerTemplate.program.length];
+
+                // Loading players cards
+                for (int j = 0; j < playerTemplate.cards.length; j++) {
+                    String commandName = playerTemplate.cards[j].card.command.type;
+                    if (commandName.equals("")){
+                        CommandCardField ccf = new CommandCardField(newPlayer);
+                        newCards[j] = ccf;
+                    } else {
+                        Command c = Command.valueOf(commandName);
+                        CommandCard cc = new CommandCard(c);
+                        CommandCardField ccf = new CommandCardField(newPlayer);
+                        ccf.setCard(cc);
+                        ccf.setVisible(playerTemplate.cards[j].visible);
+                        newCards[j] = ccf;
+                    }
+                }
+
+                // loading players program
+                for (int j = 0; j < playerTemplate.program.length; j++) {
+                    String commandName = playerTemplate.program[j].card.command.type;
+                    if (commandName.equals("")){
+                        CommandCardField ccf = new CommandCardField(newPlayer);
+                        newProgram[j] = ccf;
+                    } else {
+                        Command c = Command.valueOf(commandName);
+                        CommandCard cc = new CommandCard(c);
+                        CommandCardField ccf = new CommandCardField(newPlayer);
+                        ccf.setCard(cc);
+                        ccf.setVisible(playerTemplate.program[j].visible);
+                        newProgram[j] = ccf;
+                    }
+                }
+
+                // Finish up
+                newPlayer.cards = newCards;
+                newPlayer.program = newProgram;
+                System.out.println("");
             }
             int currentPlayerIndex = template.currentPlayer;
             result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
 
-
+            // Important
+            boardLoaded = true;
             System.out.println("Finished Loading");
 
             reader.close();
@@ -284,5 +322,9 @@ public class SaveLoadGame {
         }
 
         return newBoard;
+    }
+
+    public static boolean getBoardLoaded(){
+        return boardLoaded;
     }
 }
