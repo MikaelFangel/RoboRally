@@ -255,4 +255,8 @@ public class Board extends Subject {
             setCurrentPlayer(getPlayer(getPlayerNumber(player) + 1));
 
     }
+
+    public Space[][] getSpaces() {
+        return spaces;
+    }
 }
