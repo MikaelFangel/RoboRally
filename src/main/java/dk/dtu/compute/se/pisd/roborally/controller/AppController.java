@@ -50,7 +50,7 @@ public class AppController implements Observer {
 
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
-    final private List<String> BOARD_OPTIONS = Arrays.asList("defaultBoard", "dizzy_highway", "dodge_this", "high_octane", "risky_crossing");
+    final private List<String> BOARD_OPTIONS = Arrays.asList("dizzy_highway", "dodge_this", "high_octane", "risky_crossing");
 
     final private RoboRally roboRally;
 
