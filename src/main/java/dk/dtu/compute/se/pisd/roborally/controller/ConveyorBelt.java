@@ -71,7 +71,7 @@ public class ConveyorBelt extends FieldAction {
                     }
 
                     Space neighbour = gameController.board.getNeighbour(player.getSpace(), player.getHeading());
-                    if(neighbour.getPlayer() != null) {
+                    if(neighbour != null && neighbour.getPlayer() != null) {
                         player.setHeading(playerHeading);
                         return false;
                     }
