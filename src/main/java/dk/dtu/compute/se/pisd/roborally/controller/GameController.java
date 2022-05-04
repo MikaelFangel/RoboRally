@@ -378,8 +378,5 @@ public class GameController {
                     player.getSpace().getActions().get(0) instanceof Checkpoint)
                 player.getSpace().getActions().get(0).doAction(this,player.getSpace());
         }
-
     }
-
-
 }
