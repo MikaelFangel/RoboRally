@@ -310,31 +310,30 @@ public class GameController {
 
     public void boardElementsActivationOrder(){
         List<Player> players = board.getPlayers();
-
-        String[] orderOfExecution = new String[] {};
-
+        String[] orderOfExecution = new String[] {"ConveyorBelt"};
         ArrayDeque<Player> actionsToBeHandled = new ArrayDeque<>(board.getPlayersNumber());
 
-
-        for (Player player : players) {
-            if (player.getSpace().getActions().get(0).getClass().getSimpleName().equals("ConveyorBelt")) //check if the space have an action
-                actionsToBeHandled.add(player);
-        }
-        int playersInQueue = actionsToBeHandled.size();
-        int i = 0;
-        while (!actionsToBeHandled.isEmpty()){
-            Player currentPlayer = actionsToBeHandled.pop();
-            Space startLocation = currentPlayer.getSpace();
-            //currentPlayer.getSpace().getActions().get(0).doAction() //TODO snak med mikael om dennes implementering
-            if (currentPlayer.getSpace() == startLocation){             //we couldn't move the player right now, so we re adds them to the queue
-                actionsToBeHandled.add(currentPlayer);
+        for (String fieldType: orderOfExecution) {
+            for (Player player : players) {
+                if (player.getSpace().getActions().get(0).getClass().getSimpleName().equals(fieldType)) //check if the space have an action
+                    actionsToBeHandled.add(player);
             }
-            i++;
-            if (i == playersInQueue)
-                if (playersInQueue == actionsToBeHandled.size()) //if we tryed to move all players in queue and had no succes
-                    break;
+            int playersInQueue = actionsToBeHandled.size();
+            int i = 0;
+            while (!actionsToBeHandled.isEmpty()) {
+                Player currentPlayer = actionsToBeHandled.pop();
+                Space startLocation = currentPlayer.getSpace();
+                //currentPlayer.getSpace().getActions().get(0).doAction() //TODO snak med mikael om dennes implementering
+                if (currentPlayer.getSpace() == startLocation) {             //we couldn't move the player right now, so we re adds them to the queue
+                    actionsToBeHandled.add(currentPlayer);
+                }
+                i++;
+                if (i == playersInQueue)
+                    if (playersInQueue == actionsToBeHandled.size()) //if we tryed to move all players in queue and had no succes
+                        break;
                 i = 0;
                 playersInQueue = actionsToBeHandled.size();
+            }
         }
     }
 }
