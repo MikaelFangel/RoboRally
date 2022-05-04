@@ -323,7 +323,7 @@ public class GameController {
             while (!actionsToBeHandled.isEmpty()) {
                 Player currentPlayer = actionsToBeHandled.pop();
                 Space startLocation = currentPlayer.getSpace();
-                //currentPlayer.getSpace().getActions().get(0).doAction() //TODO snak med mikael om dennes implementering
+                currentPlayer.getSpace().getActions().get(0).doAction(this, currentPlayer.getSpace());
                 if (currentPlayer.getSpace() == startLocation) {             //we couldn't move the player right now, so we re adds them to the queue
                     actionsToBeHandled.add(currentPlayer);
                 }
