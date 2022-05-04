@@ -26,10 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * ...
@@ -316,16 +313,28 @@ public class GameController {
 
         String[] orderOfExecution = new String[] {};
 
+        ArrayDeque<Player> actionsToBeHandled = new ArrayDeque<>(board.getPlayersNumber());
+
 
         for (Player player : players) {
-            if (player.getSpace().getActions().size() != 0) //check if the space have an action
-                if (player.getSpace().getActions().get(0) instanceof ConveyorBelt ){
-                    player.getSpace().getActions().get(0).doAction(this, player.getSpace());
-                }
+            if (player.getSpace().getActions().get(0).getClass().getSimpleName().equals("ConveyorBelt")) //check if the space have an action
+                actionsToBeHandled.add(player);
         }
-
-
-
-        //blue conveyor
+        int playersInQueue = actionsToBeHandled.size();
+        int i = 0;
+        while (!actionsToBeHandled.isEmpty()){
+            Player currentPlayer = actionsToBeHandled.pop();
+            Space startLocation = currentPlayer.getSpace();
+            //currentPlayer.getSpace().getActions().get(0).doAction() //TODO snak med mikael om dennes implementering
+            if (currentPlayer.getSpace() == startLocation){             //we couldn't move the player right now, so we re adds them to the queue
+                actionsToBeHandled.add(currentPlayer);
+            }
+            i++;
+            if (i == playersInQueue)
+                if (playersInQueue == actionsToBeHandled.size()) //if we tryed to move all players in queue and had no succes
+                    break;
+                i = 0;
+                playersInQueue = actionsToBeHandled.size();
+        }
     }
 }
