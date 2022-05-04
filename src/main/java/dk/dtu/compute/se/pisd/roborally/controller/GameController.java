@@ -315,7 +315,7 @@ public class GameController {
 
         for (String fieldType: orderOfExecution) {
             for (Player player : players) {
-                if (player.getSpace().getActions().get(0).getClass().getSimpleName().equals(fieldType)) //check if the space have an action
+                if (!player.getSpace().getActions().isEmpty() && player.getSpace().getActions().get(0).getClass().getSimpleName().equals(fieldType)) //check if the space have an action
                     actionsToBeHandled.add(player);
             }
             int playersInQueue = actionsToBeHandled.size();
