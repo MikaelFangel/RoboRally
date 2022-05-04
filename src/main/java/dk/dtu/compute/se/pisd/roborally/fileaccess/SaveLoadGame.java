@@ -280,11 +280,11 @@ public class SaveLoadGame {
         return null;
     }
 
-    public static Board newBoard(int numPlayers){
+    public static Board newBoard(int numPlayers, String boardName){
         Board newBoard;
 
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(BOARDS_FOLDER + "/" + DEFAULT_BOARD + "." + JSON_EXT);
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT);
 
         if (inputStream == null){
             System.out.println("Does not exists");
