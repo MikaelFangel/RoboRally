@@ -70,6 +70,14 @@ public class ConveyorBelt extends FieldAction {
                         player.setHeading(nextBelt.heading);
                     }
 
+                    Space neighbour = gameController.board.getNeighbour(player.getSpace(), player.getHeading());
+                    if(neighbour.getActions().size() > 0 &&
+                            !(neighbour.getActions().get(0) instanceof ConveyorBelt) &&
+                            neighbour.getPlayer() != null) {
+                        player.setHeading(playerHeading);
+                        return false;
+                    }
+
                     gameController.rmc.moveForward(player, 1);
                 }
 
