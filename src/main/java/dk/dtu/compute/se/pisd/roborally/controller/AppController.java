@@ -51,11 +51,8 @@ import java.util.Optional;
  */
 public class AppController implements Observer {
 
-    //String[] saveName = new String[1];
-    //private Label testName; tester
+
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
-    final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
-    //final private List<String> BOARD_NAME =  Arrays.asList(saveName); //TODO need to make more saveName files to selcet.
     final private List<String> BOARD_OPTIONS = Arrays.asList("defaultBoard","dizzy_highway","dodge_this","high_octane","risky_crossing");
 
     final private RoboRally roboRally;
@@ -88,27 +85,6 @@ public class AppController implements Observer {
                 Board board = SaveLoadGame.newBoard(result.get(),resultB.get());
                 setupGameController(board);
             }
-            // TODO should be moved to LOAD GAME
-            /*ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
-            dialogB.setTitle("CHOOSE A GAME");
-            dialogB.setHeaderText("Select which game to play");
-            Optional<Integer> resultB = dialogB.showAndWait();
-            */
-
-            /*if(resultB.isPresent()){
-                int noB = resultB.get();
-                board = SaveLoadGame.newBoard(noB);
-            }*/
-
-            /*
-            int no = result.get();
-            for (int i = 0; i < no; i++) {
-                Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
-                board.addPlayer(player);
-                player.setSpace(board.getSpace(i % board.width, i));
-            }
-            */
-
         }
     }
 
@@ -124,14 +100,7 @@ public class AppController implements Observer {
         final Optional<String> resultS = dialogS.showAndWait();
         if (resultS.isPresent() ){
             SaveLoadGame.saveBoard(gameController.board,resultS.get());
-/*
-            for (int i =0;i< saveName.length;i++) {
-                saveName[i] =resultS.get();
-                SaveLoadGame.saveBoard(gameController.board,saveName[i]);
-            }
-            //testName.setText(resultS.get()); test
 
- */
         }
     }
 
@@ -140,20 +109,11 @@ public class AppController implements Observer {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            /*ChoiceDialog<String[]> dialogL = new ChoiceDialog(SAVED_BOARDS_FOLDER); /TODO har lige lavet en midlertidligt løsning
-            dialogL.setTitle("LOAD GAME");
-            dialogL.setHeaderText("Select a Save game ");
-            final Optional<String[]> resultL = dialogL.showAndWait();
-
-             */
             TextInputDialog dialogL = new TextInputDialog();
-
-
             dialogL.setTitle("LOAD GAME");
             dialogL.setHeaderText("Enter a Save game name  you want to load");
             final Optional<String> resultL = dialogL.showAndWait();
             if (resultL.isPresent()){
-                //String ldG = resultL.toString().replace("[","").replace("]","").replace("Optional","");
                 Board board= SaveLoadGame.loadBoard(resultL.get());
                 setupGameController(board);
             }

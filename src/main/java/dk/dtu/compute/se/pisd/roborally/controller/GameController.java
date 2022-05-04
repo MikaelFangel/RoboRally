@@ -100,7 +100,7 @@ public class GameController {
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
-        Stack(commands[random]);
+        //Stack(commands[random]);
         return new CommandCard(commands[random]);
     }
 
