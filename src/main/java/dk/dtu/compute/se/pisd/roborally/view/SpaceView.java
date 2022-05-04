@@ -74,6 +74,11 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(pushPanelImg);
         }
 
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Energy) {
+            ImageView energyImg = new ImageView(new Image("energy.png"));
+            this.getChildren().add(energyImg);
+        }
+
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof RotatingGear rotatingGear) {
             if(rotatingGear.getDirection() == RotatingGear.Direction.RIGHT)
                 this.setStyle("-fx-background-image: url(file:src/main/resources/rotatingGearRight.png)");
