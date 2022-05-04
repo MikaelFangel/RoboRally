@@ -27,7 +27,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -35,7 +34,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -47,13 +45,12 @@ import java.util.Optional;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class AppController implements Observer {
 
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
-    final private List<String> BOARD_OPTIONS = Arrays.asList("defaultBoard","dizzy_highway","dodge_this","high_octane","risky_crossing");
+    final private List<String> BOARD_OPTIONS = Arrays.asList("defaultBoard", "dizzy_highway", "dodge_this", "high_octane", "risky_crossing");
 
     final private RoboRally roboRally;
 
@@ -77,12 +74,12 @@ public class AppController implements Observer {
                     return;
                 }
             }
-            ChoiceDialog<String> dialogB = new ChoiceDialog<>(BOARD_OPTIONS.get(0),BOARD_OPTIONS);
+            ChoiceDialog<String> dialogB = new ChoiceDialog<>(BOARD_OPTIONS.get(0), BOARD_OPTIONS);
             dialogB.setTitle("CHOOSE BOARD");
             dialogB.setHeaderText("Select which board to play");
             Optional<String> resultB = dialogB.showAndWait();
-            if(resultB.isPresent()){
-                Board board = SaveLoadGame.newBoard(result.get(),resultB.get());
+            if (resultB.isPresent()) {
+                Board board = SaveLoadGame.newBoard(result.get(), resultB.get());
                 setupGameController(board);
             }
         }
@@ -98,10 +95,7 @@ public class AppController implements Observer {
 
 
         final Optional<String> resultS = dialogS.showAndWait();
-        if (resultS.isPresent() ){
-            SaveLoadGame.saveBoard(gameController.board,resultS.get());
-
-        }
+        resultS.ifPresent(s -> SaveLoadGame.saveBoard(gameController.board, s));
     }
 
     public void loadGame() {
@@ -113,14 +107,14 @@ public class AppController implements Observer {
             dialogL.setTitle("LOAD GAME");
             dialogL.setHeaderText("Enter a Save game name  you want to load");
             final Optional<String> resultL = dialogL.showAndWait();
-            if (resultL.isPresent()){
-                Board board= SaveLoadGame.loadBoard(resultL.get());
+            if (resultL.isPresent()) {
+                Board board = SaveLoadGame.loadBoard(resultL.get());
                 setupGameController(board);
             }
         }
     }
 
-    private void setupGameController(Board board){
+    private void setupGameController(Board board) {
         gameController = new GameController(this, Objects.requireNonNull(board));
         board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
@@ -180,7 +174,7 @@ public class AppController implements Observer {
     }
 
 
-    public RoboRally getRoboRally(){
+    public RoboRally getRoboRally() {
         return roboRally;
     }
 

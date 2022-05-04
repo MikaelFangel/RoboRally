@@ -18,7 +18,7 @@ public class Checkpoint extends FieldAction {
         return checkpointNumber;
     }
 
-    public Checkpoint(){
+    public Checkpoint() {
         highestCheckpointNumber++;
     }
 
@@ -31,7 +31,7 @@ public class Checkpoint extends FieldAction {
 
             if (player != null && player.checkPoints + 1 == checkpoint.checkpointNumber) {
                 player.checkPoints++;
-                if(player.checkPoints == highestCheckpointNumber) {
+                if (player.checkPoints == highestCheckpointNumber) {
                     // TODO Ask Player to start new game
                     Alert winMsg = new Alert(Alert.AlertType.INFORMATION);
                     winMsg.setTitle("Game Ended");

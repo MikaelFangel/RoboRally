@@ -27,7 +27,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public abstract class FieldAction {
 
@@ -36,7 +35,7 @@ public abstract class FieldAction {
      * that the GameController associated with the game is passed to this method.
      *
      * @param gameController the gameController of the respective game
-     * @param space the space this action should be executed for
+     * @param space          the space this action should be executed for
      * @return whether the action was successfully executed
      */
     public abstract boolean doAction(GameController gameController, Space space);
