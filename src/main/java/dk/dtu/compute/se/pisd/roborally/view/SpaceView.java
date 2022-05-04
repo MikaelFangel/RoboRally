@@ -49,37 +49,19 @@ public class SpaceView extends StackPane implements ViewObserver {
     public SpaceView(@NotNull Space space) {
         this.space = space;
         this.setId("space");
-
-        for (Heading wall : space.getWalls()) {
-            Image img = new Image("wall" + wall + ".png");
-            this.getChildren().add(new ImageView(img));
-        }
-
         this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/space.css")).toExternalForm());
 
-        if ((space.x + space.y) % 2 == 0) {
-            this.setStyle("-fx-background-color: white;");
-        } else {
-            this.setStyle("-fx-background-color: black;");
-        }
-
-        // TODO: Add to css file
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof ConveyorBelt conveyorBelt) {
+            Image conBelt;
             if (conveyorBelt.getNumberOfMoves() <= 1) {
-                switch (conveyorBelt.getHeading()) {
-                    case NORTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBelt.png)");
-                    case EAST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltEast.png)");
-                    case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltSouth.png)");
-                    case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltWest.png)");
-                }
+                conBelt = new Image("conveyorBelt.png");
             } else {
-                switch (conveyorBelt.getHeading()) {
-                    case NORTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueNorth.png)");
-                    case EAST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueEast.png)");
-                    case SOUTH -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueSouth.png)");
-                    case WEST -> this.setStyle("-fx-background-image: url(file:src/main/resources/conveyorBeltBlueWest.png)");
-                }
+                conBelt = new Image("conveyorBeltBlue.png");
             }
+
+            ImageView conBeltView = new ImageView(conBelt);
+            conBeltView.setRotate((90 * conveyorBelt.getHeading().ordinal()) % 360);
+            this.getChildren().add(conBeltView);
         }
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
@@ -95,6 +77,12 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
             this.setStyle("-fx-background-image: url(file:src/main/resources/priorityAntenna.png)");
+        }
+
+        // Needs to be last because walls can overlap
+        for (Heading wall : space.getWalls()) {
+            Image img = new Image("wall" + wall + ".png");
+            this.getChildren().add(new ImageView(img));
         }
         // updatePlayer();
 
