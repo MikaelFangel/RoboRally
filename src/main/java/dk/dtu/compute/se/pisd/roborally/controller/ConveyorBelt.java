@@ -61,10 +61,18 @@ public class ConveyorBelt extends FieldAction {
             Player player = space.getPlayer();
             if(player != null) {
                 Heading playerHeading = player.getHeading();
-
                 player.setHeading(action.heading);
-                gameController.rmc.moveForward(player,
-                        (((ConveyorBelt) space.getActions().get(0)).numberOfMoves <= 1) ? 1 : 2);
+
+                for(int i = 1; i <= action.numberOfMoves; i++) {
+                    if(i > 1 &&
+                            player.getSpace().getActions().size() > 0 &&
+                            player.getSpace().getActions().get(0) instanceof ConveyorBelt nextBelt) {
+                        player.setHeading(nextBelt.heading);
+                    }
+
+                    gameController.rmc.moveForward(player, 1);
+                }
+
                 player.setHeading(playerHeading);
             }
         } else {

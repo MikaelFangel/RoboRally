@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * ...
+ * Creates the StackPane for each space and clears the player from the space after each move
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

@@ -4,8 +4,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
-import java.util.zip.CheckedInputStream;
-
 public class Laser extends FieldAction {
 
     private int numberOfLasers;
@@ -67,6 +65,7 @@ public class Laser extends FieldAction {
             // Only gives damage if there is a player on the board
             if (next != null && next.getPlayer() != null) {
                 // Give player damage card
+                System.out.println("Hit player: " + next.getPlayer() + " with laser!");
             }
         } else {
             return false;
