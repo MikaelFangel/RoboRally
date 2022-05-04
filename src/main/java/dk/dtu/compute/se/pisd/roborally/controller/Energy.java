@@ -2,9 +2,25 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
-public class Energy  extends  FieldAction{
+public class Energy extends FieldAction {
+
+    private boolean hasEnergyCube;
+
+    public void setHasEnergyCube(boolean hasEnergyCube) {
+        this.hasEnergyCube = hasEnergyCube;
+    }
+
     @Override
     public boolean doAction(GameController gameController, Space space) {
-        return false;
+        boolean result = false;
+        if (space.getActions().size() > 0) {
+            Energy energy = (Energy) space.getActions().get(0);
+            if (energy.hasEnergyCube || gameController.board.step == 5) {
+                space.getPlayer().energyCount++;
+                energy.hasEnergyCube = false;
+                result = true;
+            }
+        }
+        return result;
     }
 }
