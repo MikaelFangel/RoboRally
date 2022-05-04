@@ -340,7 +340,7 @@ public class GameController {
             }
         }
 
-        //activage PushPanel
+        //activate PushPanel
         for (Player player : players){
             if (!player.getSpace().getActions().isEmpty() &&
             player.getSpace().getActions().get(0) instanceof PushPanel)
