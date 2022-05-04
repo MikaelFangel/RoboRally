@@ -308,18 +308,20 @@ public class GameController {
         boardView.updatePlayersView();
     }
 
-    public void boardElementsActivationOrder(){
+    private void boardElementsActivationOrder(){
         List<Player> players = board.getPlayers();
-        String[] orderOfExecution = new String[] {"ConveyorBelt"};
         ArrayDeque<Player> actionsToBeHandled = new ArrayDeque<>(board.getPlayersNumber());
 
-        for (String fieldType: orderOfExecution) {
+        for (int i = 2; i > 0; i--) {
             for (Player player : players) {
-                if (!player.getSpace().getActions().isEmpty() && player.getSpace().getActions().get(0).getClass().getSimpleName().equals(fieldType)) //check if the space have an action
+                if (!player.getSpace().getActions().isEmpty() &&
+                player.getSpace().getActions().get(0) instanceof ConveyorBelt spaceBelt &&
+                (spaceBelt.getNumberOfMoves() == i)) { //check if the space have an action
                     actionsToBeHandled.add(player);
+                }
             }
             int playersInQueue = actionsToBeHandled.size();
-            int i = 0;
+            int j = 0;
             while (!actionsToBeHandled.isEmpty()) {
                 Player currentPlayer = actionsToBeHandled.pop();
                 Space startLocation = currentPlayer.getSpace();
@@ -327,13 +329,57 @@ public class GameController {
                     currentPlayer.setSpace(startLocation);
                     actionsToBeHandled.add(currentPlayer);
                 }
-                i++;
-                if (i == playersInQueue)
-                    if (playersInQueue == actionsToBeHandled.size()) //if we tryed to move all players in queue and had no succes
+                j++;
+                if (j == playersInQueue)
+                    if (playersInQueue == actionsToBeHandled.size()) { //if we tryed to move all players in queue and had no succes
+                        actionsToBeHandled.clear();
                         break;
-                i = 0;
+                    }
+                j = 0;
                 playersInQueue = actionsToBeHandled.size();
             }
         }
+
+        //activage PushPanel
+        for (Player player : players){
+            if (!player.getSpace().getActions().isEmpty() &&
+            player.getSpace().getActions().get(0) instanceof PushPanel)
+                    player.getSpace().getActions().get(0).doAction(this,player.getSpace());
+        }
+
+        //activate gears
+        for (Player player : players){
+            if (!player.getSpace().getActions().isEmpty() &&
+            player.getSpace().getActions().get(0) instanceof RotatingGear)
+                player.getSpace().getActions().get(0).doAction(this,player.getSpace());
+        }
+
+        //activate lasers
+        for(Space[] space: board.getSpaces()){
+            for (Space space1: space){
+                if (!space1.getActions().isEmpty() &&
+                space1.getActions().get(0) instanceof Laser)
+                    space1.getActions().get(0).doAction(this,space1);
+            }
+        }
+
+        //TODO implement robot Lasers fire here
+
+        //activate energy space
+        for (Player player : players){
+            if (!player.getSpace().getActions().isEmpty() &&
+                    player.getSpace().getActions().get(0) instanceof Energy)
+                player.getSpace().getActions().get(0).doAction(this,player.getSpace());
+        }
+
+        //activate checkpoints
+        for (Player player : players){
+            if (!player.getSpace().getActions().isEmpty() &&
+                    player.getSpace().getActions().get(0) instanceof Checkpoint)
+                player.getSpace().getActions().get(0).doAction(this,player.getSpace());
+        }
+
     }
+
+
 }
