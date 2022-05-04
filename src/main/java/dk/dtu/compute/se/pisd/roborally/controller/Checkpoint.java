@@ -2,6 +2,8 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 public class Checkpoint extends FieldAction {
 
@@ -30,8 +32,12 @@ public class Checkpoint extends FieldAction {
             if (player != null && player.checkPoints + 1 == checkpoint.checkpointNumber) {
                 player.checkPoints++;
                 if(player.checkPoints == highestCheckpointNumber) {
-                    System.out.println("GAME WON!");
-                    // TODO Announce Winner and end game
+                    // TODO Ask Player to start new game
+                    Alert winMsg = new Alert(Alert.AlertType.INFORMATION);
+                    winMsg.setTitle("Game Ended");
+                    winMsg.setContentText("The winner is: " + space.getPlayer().getName());
+                    winMsg.showAndWait();
+                    Platform.exit();
                 }
                 return true;
             }
