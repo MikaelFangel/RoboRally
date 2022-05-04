@@ -5,6 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 public class Checkpoint extends FieldAction {
 
+    private static int highestCheckpointNumber = 0;
     private int checkpointNumber;
 
     public void setCheckpointNumber(int checkpointNumber) {
@@ -13,6 +14,10 @@ public class Checkpoint extends FieldAction {
 
     public int getCheckpointNumber() {
         return checkpointNumber;
+    }
+
+    public Checkpoint(){
+        highestCheckpointNumber++;
     }
 
     @Override
@@ -24,6 +29,10 @@ public class Checkpoint extends FieldAction {
 
             if (player != null && player.checkPoints + 1 == checkpoint.checkpointNumber) {
                 player.checkPoints++;
+                if(player.checkPoints == highestCheckpointNumber) {
+                    System.out.println("GAME WON!");
+                    // TODO Announce Winner and end game
+                }
                 return true;
             }
         }
