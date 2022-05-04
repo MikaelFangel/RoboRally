@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.Laser;
 import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
@@ -64,7 +65,13 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(conBeltView);
         }
 
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Laser laser) {
+            ImageView laserImg = new ImageView(new Image("laser" + laser.getNumberOfLasers() + ".png"));
+            laserImg.setRotate((90 * laser.getHeading().ordinal()) % 360);
+            this.getChildren().add(laserImg);
+        }
+
+            if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
             switch (checkpoint.getCheckpointNumber()) {
                 case 1 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint1.png)");
                 case 2 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint2.png)");
@@ -81,8 +88,9 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         // Needs to be last because walls can overlap
         for (Heading wall : space.getWalls()) {
-            Image img = new Image("wall" + wall + ".png");
-            this.getChildren().add(new ImageView(img));
+            ImageView wallPic = new ImageView(new Image("wall.png"));
+            wallPic.setRotate((90 * wall.ordinal()) % 360);
+            this.getChildren().add(wallPic);
         }
         // updatePlayer();
 
