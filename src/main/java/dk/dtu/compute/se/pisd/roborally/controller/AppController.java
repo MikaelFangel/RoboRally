@@ -56,6 +56,7 @@ public class AppController implements Observer {
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<Integer> BOARD_NUMBER_OPTIONS = Arrays.asList(1, 2);
     //final private List<String> BOARD_NAME =  Arrays.asList(saveName); //TODO need to make more saveName files to selcet.
+    final private List<String> BOARD_OPTIONS = Arrays.asList("defaultBoard","dizzy_highway","dodge_this","high_octane","risky_crossing");
 
     final private RoboRally roboRally;
 
@@ -79,14 +80,21 @@ public class AppController implements Observer {
                     return;
                 }
             }
+            ChoiceDialog<String> dialogB = new ChoiceDialog<>(BOARD_OPTIONS.get(0),BOARD_OPTIONS);
+            dialogB.setTitle("CHOOSE BOARD");
+            dialogB.setHeaderText("Select which board to play");
+            Optional<String> resultB = dialogB.showAndWait();
+            if(resultB.isPresent()){
+                Board board = SaveLoadGame.newBoard(result.get(),resultB.get());
+                setupGameController(board);
+            }
             // TODO should be moved to LOAD GAME
             /*ChoiceDialog<Integer> dialogB = new ChoiceDialog<>(BOARD_NUMBER_OPTIONS.get(0),BOARD_NUMBER_OPTIONS);
             dialogB.setTitle("CHOOSE A GAME");
             dialogB.setHeaderText("Select which game to play");
             Optional<Integer> resultB = dialogB.showAndWait();
             */
-            Board board = SaveLoadGame.newBoard(result.get());
-            setupGameController(board);
+
             /*if(resultB.isPresent()){
                 int noB = resultB.get();
                 board = SaveLoadGame.newBoard(noB);
