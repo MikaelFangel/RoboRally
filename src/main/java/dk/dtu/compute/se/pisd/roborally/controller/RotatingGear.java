@@ -3,7 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 public class RotatingGear extends FieldAction{
-    private enum Direction{
+    public enum Direction{
         LEFT,
         RIGHT;
     }
@@ -23,9 +23,9 @@ public class RotatingGear extends FieldAction{
         if(space.getActions().size() > 0) {
             RotatingGear gear = (RotatingGear) space.getActions().get(0);
             if(gear.getDirection() == Direction.LEFT) {
-                gameController.rmc.turnLeft(gameController.board.getCurrentPlayer());
+                gameController.rmc.turnLeft(space.getPlayer());
             } else {
-                gameController.rmc.turnRight(gameController.board.getCurrentPlayer());
+                gameController.rmc.turnRight(space.getPlayer());
             }
         } else {
             return false;
