@@ -22,10 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.Checkpoint;
-import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
-import dk.dtu.compute.se.pisd.roborally.controller.Laser;
-import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
+import dk.dtu.compute.se.pisd.roborally.controller.*;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -71,7 +68,24 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(laserImg);
         }
 
-            if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PushPanel pushPanel) {
+            ImageView pushPanelImg = new ImageView(new Image("pushPanel.png"));
+            pushPanelImg.setRotate((90 * pushPanel.getHeading().ordinal()) % 360);
+            this.getChildren().add(pushPanelImg);
+        }
+
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof RotatingGear rotatingGear) {
+            if(rotatingGear.getDirection() == RotatingGear.Direction.RIGHT)
+                this.setStyle("-fx-background-image: url(file:src/main/resources/rotatingGearRight.png)");
+            else
+                this.setStyle("-fx-background-image: url(file:src/main/resources/rotatingGearLeft.png)");
+        }
+
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Pit pit) {
+                this.setStyle("-fx-background-image: url(file:src/main/resources/pit.png)");
+        }
+
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
             switch (checkpoint.getCheckpointNumber()) {
                 case 1 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint1.png)");
                 case 2 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint2.png)");
@@ -102,7 +116,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     private void updatePlayer() {
         // To update player position. Should be programmed more defensively
         for (int i = 0; i < this.getChildren().size(); i++) {
-            if(this.getChildren().get(i).getClass().getSimpleName().equals("Polygon")) {
+            if (this.getChildren().get(i).getClass().getSimpleName().equals("Polygon")) {
                 this.getChildren().remove(i);
             }
         }
