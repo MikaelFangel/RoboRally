@@ -345,9 +345,10 @@ public class GameController {
                     if (playersInQueue == actionsToBeHandled.size()) { //if we tried to move all players in queue and had no success
                         actionsToBeHandled.clear();
                         break;
+                    } else {
+                        j = 0;
+                        playersInQueue = actionsToBeHandled.size();
                     }
-                j = 0;
-                playersInQueue = actionsToBeHandled.size();
             }
         }
 
