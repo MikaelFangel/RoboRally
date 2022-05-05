@@ -27,6 +27,12 @@ public class SaveLoadGame {
 
     private static boolean boardLoaded = false;
 
+    /**
+     * Saves the games state into a file.
+     * Captures the players states, board layout and other metadata in the game.
+     * @param board the instance of the game board in play.
+     * @param name the file name the game should be saved as.
+     */
     public static void saveBoard(Board board, String name) {
         // Setting up the board template
         BoardTemplate template = new BoardTemplate();
@@ -169,6 +175,13 @@ public class SaveLoadGame {
         }
     }
 
+    /**
+     * Load's a saved Board from a file.
+     * Everything gets saved. This includes:
+     * Player's state, Board layout, currentPlayer and more
+     * @param name the file name of the board to get loaded
+     * @return the instance of Board loaded from a file.
+     */
     public static Board loadBoard(String name) {
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT);
@@ -280,6 +293,13 @@ public class SaveLoadGame {
         return null;
     }
 
+    /**
+     * The function create a totally new board where only the board layout is determined by input.
+     * There are no such thing saved a players state in this.
+     * @param numPlayers number of players for the new game
+     * @param boardName the filename of the board that should be loaded
+     * @return the new Board instance with the board layout of the parameter as well as corresponding player number
+     */
     public static Board newBoard(int numPlayers, String boardName){
         Board newBoard;
 
@@ -324,6 +344,10 @@ public class SaveLoadGame {
         return newBoard;
     }
 
+    /**
+     * Describes whether a game has been loaded in or not
+     * @return the boardLoaded boolean.
+     */
     public static boolean getBoardLoaded(){
         return boardLoaded;
     }
