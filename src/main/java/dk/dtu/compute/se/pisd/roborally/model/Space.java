@@ -33,7 +33,7 @@ import java.util.List;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
-public class Space extends Subject {
+public class Space extends Subject implements boardSquares {
 
     private Player player;
 
