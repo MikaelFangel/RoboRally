@@ -87,7 +87,7 @@ public class Client implements IStatusComm {
             throw new IllegalIPExeception();
     }
 
-    class IllegalIPExeception extends Exception {
+    public class IllegalIPExeception extends Exception {
         public IllegalIPExeception() {
             super("Not a valid IP");
         }
