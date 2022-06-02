@@ -72,6 +72,12 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>HTTP</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+        </dependency>
     </dependencies>
 
     <build>

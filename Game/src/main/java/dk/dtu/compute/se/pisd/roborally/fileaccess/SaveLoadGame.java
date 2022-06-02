@@ -19,7 +19,6 @@ public class SaveLoadGame {
 
     final static private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
-    private static final String DEFAULT_BOARD = "defaultboard";
     private static final String BOARDS_FOLDER = "boards";
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
 
@@ -33,8 +32,14 @@ public class SaveLoadGame {
      * @param board the instance of the game board in play.
      * @param name the file name the game should be saved as.
      */
-    public static void saveBoard(Board board, String name) {
+    public static void saveBoardToDisk(Board board, String name) {
         // Setting up the board template
+
+        String json = SerializeState.serializeGame(board);
+
+        ReadWriteGame.writeGameToDisk(name, json);
+
+        /*
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
         template.height = board.height;
@@ -172,6 +177,8 @@ public class SaveLoadGame {
                 } catch (IOException e2) {}
             }
         }
+        */
+
     }
 
     /**
@@ -182,6 +189,8 @@ public class SaveLoadGame {
      * @return the instance of Board loaded from a file.
      */
     public static Board loadBoard(String name) {
+
+        /*
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT);
 
@@ -289,6 +298,8 @@ public class SaveLoadGame {
                 } catch (IOException e2) {}
             }
         }
+
+         */
         return null;
     }
 
