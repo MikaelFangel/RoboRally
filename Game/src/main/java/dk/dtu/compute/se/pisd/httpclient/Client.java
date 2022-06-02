@@ -14,11 +14,27 @@ public class Client implements IStatusComm {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
 
-    private String server = "http://localhost:8080";
+    private String server = "http://localhost:8080/gameState";
 
     @Override
     public void updateGame(String gameState) {
-
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(gameState))
+                .uri(URI.create(server))
+                .setHeader("User-Agent", "RoboRally Client")
+                .setHeader("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            String result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -33,7 +49,7 @@ public class Client implements IStatusComm {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         String result;
         try {
-            result = response.thenApply((r) -> r.body()).get(5, SECONDS);
+            result = response.thenApply(HttpResponse::body).get(5, SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
