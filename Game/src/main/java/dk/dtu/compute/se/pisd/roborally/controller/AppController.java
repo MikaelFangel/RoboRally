@@ -28,6 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
+import dtu.compute.http.HttpApplication;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -107,6 +108,10 @@ public class AppController implements Observer {
                 setupGameController(board);
             }
         }
+    }
+
+    public void startServer(){
+        HttpApplication server = new HttpApplication();
     }
 
     private void setupGameController(Board board) {
