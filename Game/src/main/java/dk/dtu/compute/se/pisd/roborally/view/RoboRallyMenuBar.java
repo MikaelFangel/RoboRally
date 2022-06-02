@@ -38,6 +38,8 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private Menu controlMenu;
 
+    private Menu serverMenu;
+
     private MenuItem saveGame;
 
     private MenuItem newGame;
@@ -52,11 +54,18 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem closeServer;
 
+    private MenuItem connectServer;
+
+    private MenuItem disconnectServer;
+
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
         controlMenu = new Menu("File");
         this.getMenus().add(controlMenu);
+
+        serverMenu = new Menu("Multiplayer");
+        this.getMenus().add(serverMenu);
 
         newGame = new MenuItem("New Game");
         newGame.setOnAction( e -> this.appController.newGame());
@@ -74,18 +83,28 @@ public class RoboRallyMenuBar extends MenuBar {
         loadGame.setOnAction( e -> this.appController.loadGame());
         controlMenu.getItems().add(loadGame);
 
-        startServer = new MenuItem("Start Server");
-        startServer.setOnAction(e -> this.appController.startServer());
-        controlMenu.getItems().add(startServer);
-
-        closeServer = new MenuItem("Close Server");
-        closeServer.setOnAction(e -> this.appController.closeServer());
-        controlMenu.getItems().add(closeServer);
-
         exitApp = new MenuItem("Exit");
         exitApp.setOnAction( e -> this.appController.exit());
         controlMenu.getItems().add(exitApp);
 
+        //server
+        startServer = new MenuItem("Start Server");
+        startServer.setOnAction(e -> this.appController.startServer());
+        serverMenu.getItems().add(startServer);
+
+        connectServer = new MenuItem("Connect to server");
+        connectServer.setOnAction(e -> this.appController.connectToServer());
+        serverMenu.getItems().add(connectServer);
+
+        disconnectServer = new MenuItem("Disconnect from server");
+        disconnectServer.setOnAction(e -> this.appController.disconnectFromServer());
+        serverMenu.getItems().add(disconnectServer);
+
+        closeServer = new MenuItem("Close Server");
+        closeServer.setOnAction(e -> this.appController.closeServer());
+        serverMenu.getItems().add(closeServer);
+
+        //show the menubar
         controlMenu.setOnShowing(e -> update());
         controlMenu.setOnShown(e -> this.updateBounds());
         update();
@@ -106,9 +125,13 @@ public class RoboRallyMenuBar extends MenuBar {
         if (appController.isServerStarted()){
             startServer.setVisible(false);
             closeServer.setVisible(true);
+            connectServer.setVisible(false);
+            disconnectServer.setVisible(true);
         }else{
             startServer.setVisible(true);
             closeServer.setVisible(false);
+            connectServer.setVisible(true);
+            disconnectServer.setVisible(false);
         }
     }
 
