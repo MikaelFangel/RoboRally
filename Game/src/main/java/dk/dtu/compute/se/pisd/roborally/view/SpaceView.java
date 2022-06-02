@@ -117,8 +117,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof StartGear){
-            this.setStyle("-fx-border-width: 10px");
-            this.setStyle("-fx-border-color: blue");
+            // TODO Needs an image to show it
         }
 
         // Needs to be last because walls can overlap
