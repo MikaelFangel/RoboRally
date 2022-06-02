@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+
 /**
  * ...
  *
@@ -107,6 +108,10 @@ public class AppController implements Observer {
                 setupGameController(board);
             }
         }
+    }
+
+    public void startServer(){
+
     }
 
     private void setupGameController(Board board) {

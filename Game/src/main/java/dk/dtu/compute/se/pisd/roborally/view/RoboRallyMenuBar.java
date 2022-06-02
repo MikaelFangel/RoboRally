@@ -48,6 +48,8 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem exitApp;
 
+    private MenuItem startServer;
+
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
@@ -61,6 +63,10 @@ public class RoboRallyMenuBar extends MenuBar {
         stopGame = new MenuItem("Stop Game");
         stopGame.setOnAction( e -> this.appController.stopGame());
         controlMenu.getItems().add(stopGame);
+
+        startServer = new MenuItem("Start Server");
+        startServer.setOnAction(e -> this.appController.startServer());
+        controlMenu.getItems().add(startServer);
 
         saveGame = new MenuItem("Save Game");
         saveGame.setOnAction( e -> this.appController.saveGame());
