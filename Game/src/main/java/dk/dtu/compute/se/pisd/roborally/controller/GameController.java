@@ -34,7 +34,7 @@ import java.util.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
-
+Stack<CommandCard> Cards = new Stack<>();
     final public Board board;
     final public RobotMovementController rmc;
     final private AppController appController;
@@ -90,6 +90,7 @@ public class GameController {
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
                         field.setCard(generateRandomCommandCard());
+                        playerDeck(generateRandomCommandCard());
                         field.setVisible(true);
                     }
                 }
@@ -107,17 +108,19 @@ public class GameController {
     /**
      * Changes the phase from programming to activation.
      */
-    public void playerDeck(Command Card) {
-        Stack<Command> Cards = new Stack<>();
-        //Cards.push(Card);
+    public void playerDeck(CommandCard Card) {
 
+        Cards.push(Card);
+        /*
         for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
 
             Cards.push(Card);
 
+         */
 
-        }
-/*
+
+
+            /*
         if (Card.isInteractive()) {
             Cards.remove(1);
         }
