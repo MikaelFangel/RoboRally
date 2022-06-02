@@ -7,6 +7,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +23,7 @@ public class Client implements IStatusComm {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
 
-    private String server = "http://localhost:8080/gameState";
+    private String server = "http://localhost:8080";
 
     /**
      * Updates the game state on the game server with a JSON string
@@ -33,7 +34,7 @@ public class Client implements IStatusComm {
     public void updateGame(String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(gameState))
-                .uri(URI.create(server))
+                .uri(URI.create(server + "/gameState"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .setHeader("Content-Type", "application/json")
                 .build();
@@ -56,7 +57,7 @@ public class Client implements IStatusComm {
     public String getGameState() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(server))
+                .uri(URI.create(server + "/gameState"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -72,12 +73,36 @@ public class Client implements IStatusComm {
         return result;
     }
 
+    /**
+     * Checks if connection can be established
+     *
+     * @return true if connection is established
+     */
+    @Override
+    public boolean conGreeting() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(server + "/greeting"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "text/plain")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            String result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+            return result.equals("OK");
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String getServer() {
         return server;
     }
 
     /**
      * Sets the ip address of the server
+     *
      * @param server ip of server to communicate with
      * @throws IllegalIPExeception throws illegal ip exception if ip is not valid
      */
@@ -86,7 +111,7 @@ public class Client implements IStatusComm {
         Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
         Matcher matcher = pattern.matcher(server);
         if (matcher.find())
-            this.server = "http://" + server + ":8080/gameState";
+            this.server = "http://" + server + ":8080";
         else
             throw new IllegalIPExeception();
     }
