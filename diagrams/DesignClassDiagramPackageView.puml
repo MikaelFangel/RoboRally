@@ -1,0 +1,127 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam groupInheritance 2
+skinparam linetype polyline
+
+package view{
+  class Boardview extends VBox implements viewObserver {
+    -gamecontroller : Gamecontroller
+    -board : Board
+    -mainBoardPane : GridPane
+    -spaces : Spaceview[][]
+    -playersview : Playersview
+    -statusLabel : Label
+    -spaceEventHandler : SpaceEventhandler
+
+    -removeChildren() : void
+    -addChildren() : void
+    +updateView(Subject subject) : void
+  }
+  class SpaceEventHandler implements EventHandler{
+  'Inner class of Boardview'
+    +gamecontroller : Gamecontroller
+
+    +handle(MouseEvent event) : void
+    +updatePlayersView() : void
+  }
+  class CardFieldView extends GridPane implements viewObserver{
+     -field : CommandCardField
+     -label : Label
+     -gamecontroller : Gamecontroller
+     {Static} +ROBO_RALLY_CARD : Dataformat
+     {Static} +CARDFIELD_WIDTH : int
+     {Static} +CARDFIELD_HEIGHT : int
+     {Static} +border : Border
+     {Static} +BG_DEFAULT : BackGround
+     {Static} +BG_DRAG : BackGround
+     {Static} +BG_DROP : BackGround
+     {Static} +BG_ACTIVE : BackGround
+     {Static} +BG_DONE : BackGround
+
+     -cardFieldRepresentation(CommandCardField cardField) : String
+     -cardFieldFromRepresentation(string rep) : CommandCardField
+     +Updateview(Subject subject) : void
+  }
+  'Inner classes of CardFieldView'
+  class OnDragDetectedHandler implements EventHandler{
+     +handle(DragEvent event) : void
+  }
+  class OnDragOverHandler implements EventHandler {
+  +handle(DragEvent event) : void
+  }
+  class OnDragEnteredHandler implements EventHandler{
+    +handle(DragEvent event) : void
+  }
+  class OnDragExitedHandler implements EventHandler{
+    +handle(DragEvent event) : void
+  }
+  class OnDragDroppedHandler implements EventHandler{
+    +handle(DragEvent event) : void
+  }
+  class OnDragDoneHandler implements EventHandler{
+    +handle(DragEvent event) : void
+  }
+  'Inner class of CardFieldView end'
+
+  class PlayersView extends TabPane implements viewObserver {
+    board : Board
+    gamecontroller : Gamecontroller
+    playerviews : Playersview[]
+
+    +createPlayersView() : void
+    +updateView(Subject subject) : void
+  }
+
+  class PlayerView extends Tab implements viewObserver{
+    -player : Playersview
+    -top : VBox
+    -programLabel : Label
+    -programPrane : GridPane
+    -cardsLabel : Label
+    -cardsPane : GridPane
+    -programCardViews : CardFieldView[]
+    -cardViews : CardFieldView[]
+    -buttonPanel : VBox
+    -finishButton : Button
+    -executeButton : button
+    -stepButton : Button
+    -playerInteractionPanel : VBox
+    -gamecontroller : Gamecontroller
+
+    +updateView(Subject subject) : void
+  }
+  class RoboRallyMenuBar extends MenuBar{
+     -appController : AppController
+     -controlMenu : Menu
+     -saveGame : MenuItem
+     -newGame : MenuItem
+     -loadGame : MenuItem
+     -stopGame : MenuItem
+     -exitApp : MenuItem
+
+     +update() : void
+
+  }
+  class spaceView extends StackPane implements viewObserver{
+    space : space
+
+    -updatePlayer() : void
+    +updateView(Subject subject) : void
+
+  }
+  interface viewObserver extends Observer{
+    +update(Subject subject) : void
+    +updateViewI(Subject subject) : void
+  }
+
+}
+
+Boardview *-- SpaceEventHandler
+CardFieldView *-- OnDragDoneHandler
+CardFieldView *-- OnDragDetectedHandler
+CardFieldView *-- OnDragEnteredHandler
+CardFieldView *-- OnDragDroppedHandler
+CardFieldView *-- OnDragExitedHandler
+CardFieldView *-- OnDragOverHandler
+
+@enduml
