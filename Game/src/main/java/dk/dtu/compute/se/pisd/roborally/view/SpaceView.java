@@ -52,72 +52,58 @@ public class SpaceView extends StackPane implements ViewObserver {
         ImageView bg = new ImageView(new Image("space.png"));
         this.getChildren().add(bg);
 
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof ConveyorBelt conveyorBelt) {
-            Image conBelt;
-            if (conveyorBelt.getNumberOfMoves() <= 1) {
-                conBelt = new Image("conveyorBelt.png");
-            } else {
-                conBelt = new Image("conveyorBeltBlue.png");
+        if (space.getActions().size() > 0) {
+            ImageView imageView = bg;
+            if (space.getActions().get(0) instanceof ConveyorBelt conveyorBelt) {
+                Image conBelt;
+                if (conveyorBelt.getNumberOfMoves() <= 1) {
+                    conBelt = new Image("conveyorBelt.png");
+                } else {
+                    conBelt = new Image("conveyorBeltBlue.png");
+                }
+                imageView = new ImageView(conBelt);
+                imageView.setRotate((90 * conveyorBelt.getHeading().ordinal()) % 360);
+
+            } else if (space.getActions().get(0) instanceof Laser laser) {
+                imageView = new ImageView(new Image("laser" + laser.getNumberOfLasers() + ".png"));
+                imageView.setRotate((90 * laser.getHeading().ordinal()) % 360);
+
+            } else if (space.getActions().get(0) instanceof PushPanel pushPanel) {
+                imageView = new ImageView(new Image("pushPanel.png"));
+                imageView.setRotate((90 * pushPanel.getHeading().ordinal()) % 360);
+
+            } else if (space.getActions().get(0) instanceof Energy) {
+                imageView = new ImageView(new Image("energy.png"));
+
+            } else if (space.getActions().get(0) instanceof RotatingGear rotatingGear) {
+                if (rotatingGear.getDirection() == RotatingGear.Direction.RIGHT) {
+                    imageView = new ImageView(new Image("rotatingGearRight.png"));
+                } else {
+                    imageView = new ImageView(new Image("rotatingGearLeft.png"));
+                }
+
+            } else if (space.getActions().get(0) instanceof Pit) {
+                imageView = new ImageView(new Image("pit.png"));
+
+            } else if (space.getActions().get(0) instanceof Checkpoint checkpoint) {
+                switch (checkpoint.getCheckpointNumber()) {
+                    case 1 -> imageView = new ImageView(new Image("checkPoint1.png"));
+                    case 2 -> imageView = new ImageView(new Image("checkPoint2.png"));
+                    case 3 -> imageView = new ImageView(new Image("checkPoint3.png"));
+                    case 4 -> imageView = new ImageView(new Image("checkPoint4.png"));
+                    case 5 -> imageView = new ImageView(new Image("checkPoint5.png"));
+                    case 6 -> imageView = new ImageView(new Image("checkPoint6.png"));
+                    default -> imageView = new ImageView(new Image("space.png"));
+                }
+
+            } else if (space.getActions().get(0) instanceof PriorityAntenna) {
+                imageView = new ImageView(new Image("priorityAntenna.png"));
+
+            } else if (space.getActions().get(0) instanceof StartGear) {
+                // TODO Needs an image to show it
             }
 
-            ImageView conBeltView = new ImageView(conBelt);
-            conBeltView.setRotate((90 * conveyorBelt.getHeading().ordinal()) % 360);
-            this.getChildren().add(conBeltView);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Laser laser) {
-            ImageView laserImg = new ImageView(new Image("laser" + laser.getNumberOfLasers() + ".png"));
-            laserImg.setRotate((90 * laser.getHeading().ordinal()) % 360);
-            this.getChildren().add(laserImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PushPanel pushPanel) {
-            ImageView pushPanelImg = new ImageView(new Image("pushPanel.png"));
-            pushPanelImg.setRotate((90 * pushPanel.getHeading().ordinal()) % 360);
-            this.getChildren().add(pushPanelImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Energy) {
-            ImageView energyImg = new ImageView(new Image("energy.png"));
-            this.getChildren().add(energyImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof RotatingGear rotatingGear) {
-            ImageView rotatingGearImg;
-            if (rotatingGear.getDirection() == RotatingGear.Direction.RIGHT) {
-                rotatingGearImg = new ImageView(new Image("rotatingGearRight.png"));
-            } else {
-                rotatingGearImg = new ImageView(new Image("rotatingGearLeft.png"));
-            }
-            this.getChildren().add(rotatingGearImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Pit pit) {
-            ImageView pitImg = new ImageView(new Image("pit.png"));
-            this.getChildren().add(pitImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
-            ImageView checkpointImg;
-            switch (checkpoint.getCheckpointNumber()) {
-                case 1 -> checkpointImg = new ImageView(new Image("checkPoint1.png"));
-                case 2 -> checkpointImg = new ImageView(new Image("checkPoint2.png"));
-                case 3 -> checkpointImg = new ImageView(new Image("checkPoint3.png"));
-                case 4 -> checkpointImg = new ImageView(new Image("checkPoint4.png"));
-                case 5 -> checkpointImg = new ImageView(new Image("checkPoint5.png"));
-                case 6 -> checkpointImg = new ImageView(new Image("checkPoint6.png"));
-                default -> checkpointImg = new ImageView(new Image("space.png"));
-            }
-            this.getChildren().add(checkpointImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
-            ImageView antImg = new ImageView(new Image("priorityAntenna.png"));
-            this.getChildren().add(antImg);
-        }
-
-        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof StartGear){
-            // TODO Needs an image to show it
+            this.getChildren().add(imageView);
         }
 
         // Needs to be last because walls can overlap
