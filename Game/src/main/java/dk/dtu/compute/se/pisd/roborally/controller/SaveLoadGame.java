@@ -189,6 +189,17 @@ public class SaveLoadGame {
      * @return the instance of Board loaded from a file.
      */
     public static Board loadBoard(String name) {
+        Board board = null;
+
+        String resourcePath = SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT;
+        String json = ReadWriteGame.readGameFromDisk(resourcePath);
+
+        if (json != null){
+            board = SerializeState.deserializeGame(json, true);
+        }
+
+        return board;
+
 
         /*
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
@@ -300,7 +311,6 @@ public class SaveLoadGame {
         }
 
          */
-        return null;
     }
 
     /**
@@ -311,6 +321,28 @@ public class SaveLoadGame {
      * @return the new Board instance with the board layout of the parameter as well as corresponding player number
      */
     public static Board newBoard(int numPlayers, String boardName){
+        // TODO make the numPlayers be used!!!
+        Board board = null;
+
+        String resourcePath = BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT;
+        String json = ReadWriteGame.readGameFromDisk(resourcePath);
+
+        if (json != null){
+            board = SerializeState.deserializeGame(json, false);
+        }
+
+        // Create the players and place them
+        for (int i = 0; i < numPlayers; i++) {
+            Player newPlayer = new Player(board, PLAYER_COLORS.get(i), "Player " + (i+1));
+            board.addPlayer(newPlayer);
+        }
+
+        List<Space> startGears = getAllSpacesOfTypeByFieldAction(board, new StartGear());
+        placePlayersRandomly(board.getPlayers(), startGears);
+
+        return board;
+
+        /*
         Board newBoard;
 
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
@@ -356,6 +388,8 @@ public class SaveLoadGame {
         }
 
         return newBoard;
+
+         */
     }
 
     /**
