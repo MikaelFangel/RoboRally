@@ -50,6 +50,8 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem startServer;
 
+    private MenuItem closeServer;
+
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
@@ -64,10 +66,6 @@ public class RoboRallyMenuBar extends MenuBar {
         stopGame.setOnAction( e -> this.appController.stopGame());
         controlMenu.getItems().add(stopGame);
 
-        startServer = new MenuItem("Start Server");
-        startServer.setOnAction(e -> this.appController.startServer());
-        controlMenu.getItems().add(startServer);
-
         saveGame = new MenuItem("Save Game");
         saveGame.setOnAction( e -> this.appController.saveGame());
         controlMenu.getItems().add(saveGame);
@@ -75,6 +73,14 @@ public class RoboRallyMenuBar extends MenuBar {
         loadGame = new MenuItem("Load Game");
         loadGame.setOnAction( e -> this.appController.loadGame());
         controlMenu.getItems().add(loadGame);
+
+        startServer = new MenuItem("Start Server");
+        startServer.setOnAction(e -> this.appController.startServer());
+        controlMenu.getItems().add(startServer);
+
+        closeServer = new MenuItem("Close Server");
+        closeServer.setOnAction(e -> this.appController.closeServer());
+        controlMenu.getItems().add(closeServer);
 
         exitApp = new MenuItem("Exit");
         exitApp.setOnAction( e -> this.appController.exit());
@@ -96,6 +102,13 @@ public class RoboRallyMenuBar extends MenuBar {
             stopGame.setVisible(false);
             saveGame.setVisible(false);
             loadGame.setVisible(true);
+        }
+        if (appController.isServerStarted()){
+            startServer.setVisible(false);
+            closeServer.setVisible(true);
+        }else{
+            startServer.setVisible(true);
+            closeServer.setVisible(false);
         }
     }
 

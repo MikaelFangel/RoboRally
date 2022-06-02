@@ -130,7 +130,7 @@ public class SerializeState {
         return jsonString;
     }
 
-    public static Board deserializeGame(String jsonString){
+    public static Board deserializeGame(String jsonString, boolean savedGame){
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
 
@@ -140,13 +140,14 @@ public class SerializeState {
 
         BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
-
         // Actual Loading of the board
         result = new Board(template.width, template.height);
 
-        result.phase = Phase.valueOf(template.phase);
-        result.step = template.step;
-        result.stepMode = template.stepMode;
+        if (savedGame){
+            result.phase = Phase.valueOf(template.phase);
+            result.step = template.step;
+            result.stepMode = template.stepMode;
+        }
 
         for (SpaceTemplate spaceTemplate: template.spaces) {
             Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
@@ -209,8 +210,11 @@ public class SerializeState {
             newPlayer.program = newProgram;
             System.out.println("");
         }
-        int currentPlayerIndex = template.currentPlayer;
-        result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
+
+        if (savedGame){
+            int currentPlayerIndex = template.currentPlayer;
+            result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
+        }
 
         return result;
     }

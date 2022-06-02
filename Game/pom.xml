@@ -76,7 +76,7 @@
             <groupId>com.example</groupId>
             <artifactId>HTTP</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>system</scope>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
