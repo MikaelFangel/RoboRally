@@ -86,26 +86,21 @@ public class AppController implements Observer {
     }
 
     public void saveGame() {
-
         TextInputDialog dialogS = new TextInputDialog();
-
 
         dialogS.setTitle("SAVE GAME");
         dialogS.setHeaderText("Enter a Save game name");
-
 
         final Optional<String> resultS = dialogS.showAndWait();
         resultS.ifPresent(s -> SaveLoadGame.saveBoard(gameController.board, s));
     }
 
     public void loadGame() {
-
-        // XXX needs to be implememted eventually
-        // for now, we just create a new game
         if (gameController == null) {
             TextInputDialog dialogL = new TextInputDialog();
             dialogL.setTitle("LOAD GAME");
             dialogL.setHeaderText("Enter a Save game name  you want to load");
+
             final Optional<String> resultL = dialogL.showAndWait();
             if (resultL.isPresent()) {
                 Board board = SaveLoadGame.loadBoard(resultL.get());

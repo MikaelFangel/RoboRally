@@ -129,7 +129,6 @@ public class SaveLoadGame {
                 programTemplate[j] = commandCardFieldTemplate;
             }
 
-            // Last REMOVE COMMENT
             playerTemplate.program = programTemplate;
             playerTemplate.cards = cardsTemplate;
 
