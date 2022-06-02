@@ -10,12 +10,21 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import static java.util.concurrent.TimeUnit.*;
 
+/**
+ * Create a simple http client that can interact with the RoboRally game server
+ *
+ * @author
+ */
 public class Client implements IStatusComm {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
 
     private String server = "http://localhost:8080/gameState";
 
+    /**
+     *  Updates the game state on the game server with a JSON string
+     * @param gameState JSON string to update state with
+     */
     @Override
     public void updateGame(String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
@@ -28,15 +37,16 @@ public class Client implements IStatusComm {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
             String result = response.thenApply(HttpResponse::body).get(5, SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (TimeoutException e) {
+            // Result ignorer for now
+        } catch (InterruptedException | TimeoutException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Gets the current game state as a JSON string
+     * @return JSON string with game state
+     */
     @Override
     public String getGameState() {
         HttpRequest request = HttpRequest.newBuilder()
@@ -50,11 +60,7 @@ public class Client implements IStatusComm {
         String result;
         try {
             result = response.thenApply(HttpResponse::body).get(5, SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (TimeoutException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             throw new RuntimeException(e);
         }
 
