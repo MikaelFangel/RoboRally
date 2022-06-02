@@ -57,6 +57,8 @@ public class AppController implements Observer {
 
     private GameController gameController;
 
+    boolean serverStart = false;
+
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
@@ -111,7 +113,9 @@ public class AppController implements Observer {
     }
 
     public void startServer(){
-        HttpApplication server = new HttpApplication();
+        String[] args = new String[0];
+        HttpApplication.main(args);
+        serverStart = true;
     }
 
     private void setupGameController(Board board) {
@@ -166,6 +170,8 @@ public class AppController implements Observer {
     public boolean isGameRunning() {
         return gameController != null;
     }
+
+    public boolean isServerStarted(){return serverStart;}
 
 
     @Override
