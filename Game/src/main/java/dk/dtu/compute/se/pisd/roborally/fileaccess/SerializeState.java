@@ -3,7 +3,6 @@ package dk.dtu.compute.se.pisd.roborally.fileaccess;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
@@ -14,6 +13,11 @@ import java.util.List;
 
 public class SerializeState {
 
+    /**
+     * Serializes the board into a String in JSON format.
+     * @param board board to to be serialized
+     * @return String of serialized board in JSON format
+     */
     public static String serializeGame(Board board){
         // Setting up the board template
         BoardTemplate template = new BoardTemplate();
@@ -130,6 +134,14 @@ public class SerializeState {
         return jsonString;
     }
 
+    /**
+     * Deserializes a  string in JSON format to a Board.
+     * This function behaves differently based on the board to be loaded has values about player state or not. Therefore
+     * we can specify if such informations shall be loaded.
+     * @param jsonString The JSON String do be deserialized.
+     * @param savedGame Boolean telling if the board to be loaded has been saved from a previous game or not
+     * @return Board class of deserialized string
+     */
     public static Board deserializeGame(String jsonString, boolean savedGame){
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
