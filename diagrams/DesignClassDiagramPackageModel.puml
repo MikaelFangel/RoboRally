@@ -1,0 +1,100 @@
+@startuml
+Package model{
+ class Board extends Subject{
+   -counter : int
+   -gameId : Integer
+   -spaces : Space[][]
+   -players : List<Player>
+   -current : Player
+   +phase : Phase
+   +step : int
+   +stepMode : boolean
+   +width : int
+   +height : int
+   +boardName : String
+
+   +getGameId() : Integer
+   +setGameIdI(int gameId) : void
+   +getSpace(int x, int y) : Space
+   +addPlayer(Player player) : void
+   +getPlayer(int i) : Player
+   +setCurrentPlayer(Player player) : void
+   +getPriorityAntennaSpace() : Space
+   +setPhase(Phase phase) : void
+   +getNeighbour(Space space, Heading heading) : Space
+   +getStatusMessage() : String
+   +nextPlayer(Player player) : void
+ }
+ class CommandCard extends Subject{
+   +command : command
+ }
+ class CommandCardField extends Subject{
+   +player : Player
+   +card : CommandCard
+   +visible : boolean
+ }
+ class Player extends Subject{
+   {Static} +NO_REGISTERS : int
+   {Static} +NO_CARDS : int
+   {Static} +ENERGY_START_COUNT : int
+   +board : Board
+   +name : String
+   +color : String
+   +energyCount : int
+   +checkPoints : int
+   +space : Space
+   +heading : Heading
+   +program : CommandCardField[]
+   +cards : CommandCardField[]
+ }
+ class Space extends Subject{
+   -player : Player
+   -walls : List<Heading>
+   -actions : List<FieldAction>
+   +board : Board
+   +x : int
+   +y : int
+
+ }
+ class SpecialCard extends Subject{
+   +specialCommand : SpecialCommand
+ }
+ enum Command{
+   MOVE1
+   MOVE2
+   MOVE3
+   RIGHT
+   LEFT
+   OPTION_LEFT_RIGHT
+   UTURN
+   MOVEBACK
+   AGAIN
+ }
+ enum Heading{
+  SOUTH
+  WEST
+  NORTH
+  EAST
+ }
+ enum phase{
+   INITIALISATION
+   PROGRAMMING
+   ACTIVATION
+   PLAYER_INTERACTION
+ }
+ enum SpecialCommand{
+    ENERGYROUTINE
+    SANDBOXROUTINE
+    WEASELROUTINE
+    SPEEDROUTINE
+    SPAMFOLDER
+    REPEATROUTINE
+ }
+
+SpecialCard *-- SpecialCommand
+CommandCard *-- Command
+CommandCardField *- CommandCard
+
+}
+
+@enduml
