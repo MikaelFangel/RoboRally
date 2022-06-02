@@ -2,27 +2,23 @@ package dk.dtu.compute.se.pisd.roborally.fileaccess;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.controller.*;
-import dk.dtu.compute.se.pisd.roborally.controller.StartGear;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.model.*;
-import dk.dtu.compute.se.pisd.roborally.model.*;
-import netscape.javascript.JSObject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class ReadWriteGame {
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
     private static final String JSON_EXT = "json";
 
+    /**
+     * Writes a deserialized Board in form of a string to a specific directory for saved boards
+     * The functions is only usable for saving boards and cannot be used for general purpose for saving.
+     * @param saveName The name of the .json file to be saved.
+     * @param json The JSON string that should be written to a file
+     */
     public static void writeGameToDisk(String saveName, String json){
         // Saving the board template using GSON
         ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
@@ -60,6 +56,11 @@ public class ReadWriteGame {
         }
     }
 
+    /**
+     * Reads a String from a file in the target directory.
+     * @param resourcePath The path to the folder containing the boards.
+     * @return Full string of everything that is contained within the file.
+     */
     public static String readGameFromDisk(String resourcePath){
         // TODO Make this read the json file
         ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
