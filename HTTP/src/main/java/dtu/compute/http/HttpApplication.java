@@ -10,4 +10,8 @@ public class HttpApplication {
         SpringApplication.run(HttpApplication.class, args);
     }
 
+    /*public HttpApplication(){
+        SpringApplication.run(HttpApplication.class);
+    }*/
+
 }
