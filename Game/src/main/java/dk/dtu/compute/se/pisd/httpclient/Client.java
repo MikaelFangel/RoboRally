@@ -8,6 +8,9 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static java.util.concurrent.TimeUnit.*;
 
 /**
@@ -22,7 +25,8 @@ public class Client implements IStatusComm {
     private String server = "http://localhost:8080/gameState";
 
     /**
-     *  Updates the game state on the game server with a JSON string
+     * Updates the game state on the game server with a JSON string
+     *
      * @param gameState JSON string to update state with
      */
     @Override
@@ -45,6 +49,7 @@ public class Client implements IStatusComm {
 
     /**
      * Gets the current game state as a JSON string
+     *
      * @return JSON string with game state
      */
     @Override
@@ -65,5 +70,26 @@ public class Client implements IStatusComm {
         }
 
         return result;
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) throws IllegalIPExeception {
+        // Simple regex pattern to check for string contains ip
+        Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
+        Matcher matcher = pattern.matcher(server);
+        System.out.println(matcher.find());
+        if (matcher.find())
+            this.server = "http://" + server + ":8080/gameState";
+        else
+            throw new IllegalIPExeception();
+    }
+
+    class IllegalIPExeception extends Exception {
+        public IllegalIPExeception() {
+            super("Not a valid IP");
+        }
     }
 }
