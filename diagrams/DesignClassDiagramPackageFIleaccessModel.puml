@@ -1,0 +1,43 @@
+@startuml
+package fileaccess.model{
+  class BoardTemplate{
+      +width : int
+      +height : int
+      +player : PlayerTemplate
+      +phase : String
+      +step : int
+      +stepMode : boolean
+      +players : List<PlayerTemplate>
+      +currentPlayer : int
+      +spaces : List<SpaceTemplate>
+  }
+  class CommandCardFieldTemplate{
+     +card : CommandCardTemplate
+     +visible : boolean
+  }
+  class CommandCardTemplate{
+     +command : CommandTemplate
+  }
+  class CommandTemplate{
+     +type : String
+  }
+  class PlayerTemplate{
+     +name : String
+     +color : String
+     +energyCount : int
+     +checkPoints : int
+     +spaceX : int
+     +SpaceY : int
+     +heading : String
+     +program : CommandCardFieldTemplate[]
+     +cards : CommandCardFieldTemplate[]
+  }
+  class SpaceTemplate{
+     +walls : List<Heading>
+     +actions : List<FieldAction>
+     +x : int
+     +y : int
+  }
+}
+
+@enduml
