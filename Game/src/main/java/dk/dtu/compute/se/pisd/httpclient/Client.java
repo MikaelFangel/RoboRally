@@ -80,7 +80,6 @@ public class Client implements IStatusComm {
         // Simple regex pattern to check for string contains ip
         Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
         Matcher matcher = pattern.matcher(server);
-        System.out.println(matcher.find());
         if (matcher.find())
             this.server = "http://" + server + ":8080/gameState";
         else
