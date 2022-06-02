@@ -60,6 +60,18 @@
       "walls": [],
       "actions": [
         {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 1,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
@@ -248,6 +260,18 @@
       "walls": [],
       "actions": [
         {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 0,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
@@ -335,6 +359,18 @@
       "walls": [],
       "actions": [
         {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 1,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna",
           "INSTANCE": {
           }
@@ -408,6 +444,18 @@
       "y": 4
     },
     {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 1,
+      "y": 5
+    },
+    {
       "walls": [
         "EAST"
       ],
@@ -470,6 +518,18 @@
       ],
       "x": 11,
       "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 0,
+      "y": 6
     },
     {
       "walls": [],
@@ -592,6 +652,18 @@
       ],
       "x": 11,
       "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 1,
+      "y": 8
     },
     {
       "walls": [],
