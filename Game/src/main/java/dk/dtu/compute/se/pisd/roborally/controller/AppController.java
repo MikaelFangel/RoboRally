@@ -113,9 +113,12 @@ public class AppController implements Observer {
     }
 
     public void startServer(){
-        String[] args = new String[0];
-        HttpApplication.main(args);
+        HttpApplication.main(new String[0]);
         serverStart = true;
+    }
+
+    public void closeServer(){
+
     }
 
     private void setupGameController(Board board) {
