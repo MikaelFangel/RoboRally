@@ -28,6 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
+import dtu.compute.http.HttpApplication;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -40,7 +41,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
 
 /**
  * ...
@@ -56,6 +56,8 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
 
     private GameController gameController;
+
+    boolean serverStart = false;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -111,6 +113,11 @@ public class AppController implements Observer {
     }
 
     public void startServer(){
+        HttpApplication.main(new String[0]);
+        serverStart = true;
+    }
+
+    public void closeServer(){
 
     }
 
@@ -166,6 +173,8 @@ public class AppController implements Observer {
     public boolean isGameRunning() {
         return gameController != null;
     }
+
+    public boolean isServerStarted(){return serverStart;}
 
 
     @Override

@@ -28,7 +28,7 @@ public class Client implements IStatusComm {
     @Override
     public void updateGame(String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(gameState))
+                .PUT(HttpRequest.BodyPublishers.ofString(gameState))
                 .uri(URI.create(server))
                 .setHeader("User-Agent", "RoboRally Client")
                 .setHeader("Content-Type", "application/json")

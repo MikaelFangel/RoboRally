@@ -1,0 +1,20 @@
+@startuml
+skinparam groupInheritance 2
+skinparam linetype polyline
+
+package httpclient{
+   class Client implements IStatusComm {
+      {Static} -HTTP_CLIENT : HttpClient
+      -server : String
+
+      +updateGame(String gameState) : void
+      +getGameState() : String
+   }
+   interface IStatusComm{
+     +updateGame(String gameState) : void
+     +getGameState() : String
+   }
+}
+
+
+@enduml
