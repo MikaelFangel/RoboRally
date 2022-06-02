@@ -328,14 +328,14 @@ public class SaveLoadGame {
             }
 
             // Creating and placing players
+            List<Space> startGears = getAllSpacesOfTypeByFieldAction(newBoard, new StartGear());
+
+
             for (int i = 0; i < numPlayers; i++) {
                 Player newPlayer = new Player(newBoard, PLAYER_COLORS.get(i), "Player " + (i+1));
                 newBoard.addPlayer(newPlayer);
-
-                // TODO change this.
-                List<Space> startGears = getAllSpacesOfTypeByFieldAction(newBoard, new StartGear());
-                newPlayer.setSpace(newBoard.getSpace(i % newBoard.width, i));
             }
+            placePlayersRandomly(newBoard.getPlayers(), startGears);
 
             reader.close();
 
@@ -353,6 +353,22 @@ public class SaveLoadGame {
      */
     public static boolean getBoardLoaded(){
         return boardLoaded;
+    }
+
+    private static void placePlayersRandomly(List<Player> players, List<Space> possibleSpaces){
+        // TODO Make it random
+
+        for (int i = 0; i < players.size(); i++) {
+            Player currentPlayer = players.get(i);
+            Space currentSpace = possibleSpaces.get(0);
+
+            currentPlayer.setSpace(currentSpace);
+            possibleSpaces.remove(currentSpace);
+
+            // TODO Make players face correct direction on start, based on where they are spawned.
+            // For now  its just pre determined since it's always the same with the start layout.
+            currentPlayer.setHeading(Heading.EAST);
+        }
     }
 
     private static List<Space> getAllSpacesOfTypeByFieldAction(Board board, FieldAction action){
