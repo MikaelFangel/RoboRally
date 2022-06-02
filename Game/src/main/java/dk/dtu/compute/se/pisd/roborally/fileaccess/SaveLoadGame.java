@@ -189,6 +189,19 @@ public class SaveLoadGame {
      * @return the instance of Board loaded from a file.
      */
     public static Board loadBoard(String name) {
+        // TODO call ReadWriteGame to get String of the new board.
+        // TODO then use deSerialize to make it into board.
+        // Then return it
+
+        Board board = null;
+
+        String json = ReadWriteGame.readGameFromDisk(name);
+        if (json != null){
+            board = SerializeState.deserializeGame(json);
+        }
+
+        return board;
+
 
         /*
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
@@ -300,7 +313,6 @@ public class SaveLoadGame {
         }
 
          */
-        return null;
     }
 
     /**

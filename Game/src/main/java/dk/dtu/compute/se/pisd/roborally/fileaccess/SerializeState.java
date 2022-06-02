@@ -140,7 +140,6 @@ public class SerializeState {
 
         BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
-
         // Actual Loading of the board
         result = new Board(template.width, template.height);
 
