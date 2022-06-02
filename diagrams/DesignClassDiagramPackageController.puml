@@ -1,0 +1,108 @@
+@startuml
+package controller{
+skinparam groupInheritance 2
+skinparam linetype polyline
+   class AppController implements Observer{
+      -PLAYER_NUMBER_OPTIONS : List<Integer>
+      -BOARD_OPTIONS : List<String>
+      -roborally : RoboRally
+      -gameController : GameController
+
+      -setupGameController(Board board) : void
+      +newGame() : void
+      +saveGame() : void
+      +loadGame() : void
+      +stopGame() : boolean
+      +exit() : void
+   }
+   class CheckPoint extends FieldAction{
+     {Static} -highestCheckPointNumber : int
+     -checkPointNumber : int
+
+     +doAction(GameController gamecontroller, Space space) : boolean
+   }
+   class ConveyorBelt extends FieldAction{
+     -heading : Heading
+     -numberOfMoves : int
+
+     +doAction(GameController gameController, Space space) : boolean
+   }
+   class Energy extends FieldAction{
+     -hasEnergyCube : boolean
+
+     -doAction(GameController gameController, Space space) : boolean
+   }
+   abstract class FieldAction{
+      +doAction(GameController gameController, Space space)
+   }
+   class GameController{
+      -appController : AppController
+      +board : Board
+      +rmc : RobotMovementController
+
+      -generateRandomCommandCard() : CommandCard
+      -makeProgramFieldsVisible(int register): void
+      -makeProgramFieldsInvisible() : void
+      -continuePrograms() : void
+      -doPriorityAntennaAction() : void
+      -changePlayer(Player currentPlayer, int step) : void
+      -executeCommand(Player player, Command command) : void
+      -boardElementsActivationOrder() : void
+      #executeNextStep() : void
+      +moveCurrentPlayerToSpace(Space space) : void
+      +startProgrammingPhase() : void
+      +playerDeck(Command card) : void
+      +finishProgrammingPhase() : void
+      +executePrograms() : void
+      +executeStep() : void
+      +executeCommandAndResumeActivation(Command command) : void
+      +assertPlayerPriorityAndChangeBoardPlayers(Space antennaSpace) : void
+      +moveCards(CommandField source, CommandCardField target) : boolean
+      +energyCount(Player player) : int
+      +recreatePlayersView() : void
+   }
+   class Laser extends FieldAction{
+     -numberOfLasers : int
+     -heading : Heading
+
+     +doAction(GameController gameController, Space space) : boolean
+   }
+   class Pit extends FieldAction{
+      +doAction(GameController gameController, Space space) : boolean
+   }
+   class PriorityAntenna extends FieldAction{
+      -heading : Heading
+
+      +doAction(GameController gameController, Space space) : boolean
+   }
+   class PushPanel extends FieldAction{
+      -heading : Heading
+
+      +doAction(GameController gameController, Space space) : boolean
+   }
+   class RobotMovementController{
+      -gamecontroller : GameController
+      -board : Board
+
+      -isPushable(Player player, Heading heading) : boolean
+      -isConveyet(Player player, Heading heading) : boolean
+      -isOccupied(Space space) : boolean
+
+   }
+   class impossibleMoveExeption{
+      -player : Player
+      -space : Space
+      -heading : Heading
+   }
+   class RotatingGear extends FieldAction{
+     -direction : Direction
+
+     +doAction(GameController gameController, Space space) : boolean
+   }
+   class StartGear extends FieldAction{
+      +doAction(GameController gameController, Space space) : boolean
+   }
+   RobotMovementController *-- impossibleMoveExeption
+}
+
+@enduml
