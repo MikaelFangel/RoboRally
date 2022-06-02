@@ -49,6 +49,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setId("space");
         this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/space.css")).toExternalForm());
 
+        ImageView bg = new ImageView(new Image("space.png"));
+        this.getChildren().add(bg);
+
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof ConveyorBelt conveyorBelt) {
             Image conBelt;
             if (conveyorBelt.getNumberOfMoves() <= 1) {
@@ -80,29 +83,37 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof RotatingGear rotatingGear) {
-            if(rotatingGear.getDirection() == RotatingGear.Direction.RIGHT)
-                this.setStyle("-fx-background-image: url(file:src/main/resources/rotatingGearRight.png)");
-            else
-                this.setStyle("-fx-background-image: url(file:src/main/resources/rotatingGearLeft.png)");
+            ImageView rotatingGearImg;
+            if (rotatingGear.getDirection() == RotatingGear.Direction.RIGHT) {
+                rotatingGearImg = new ImageView(new Image("rotatingGearRight.png"));
+            } else {
+                rotatingGearImg = new ImageView(new Image("rotatingGearLeft.png"));
+            }
+            this.getChildren().add(rotatingGearImg);
         }
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Pit pit) {
-                this.setStyle("-fx-background-image: url(file:src/main/resources/pit.png)");
+            ImageView pitImg = new ImageView(new Image("pit.png"));
+            this.getChildren().add(pitImg);
         }
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof Checkpoint checkpoint) {
+            ImageView checkpointImg;
             switch (checkpoint.getCheckpointNumber()) {
-                case 1 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint1.png)");
-                case 2 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint2.png)");
-                case 3 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint3.png)");
-                case 4 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint4.png)");
-                case 5 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint5.png)");
-                case 6 -> this.setStyle("-fx-background-image: url(file:src/main/resources/checkPoint6.png)");
+                case 1 -> checkpointImg = new ImageView(new Image("checkPoint1.png"));
+                case 2 -> checkpointImg = new ImageView(new Image("checkPoint2.png"));
+                case 3 -> checkpointImg = new ImageView(new Image("checkPoint3.png"));
+                case 4 -> checkpointImg = new ImageView(new Image("checkPoint4.png"));
+                case 5 -> checkpointImg = new ImageView(new Image("checkPoint5.png"));
+                case 6 -> checkpointImg = new ImageView(new Image("checkPoint6.png"));
+                default -> checkpointImg = new ImageView(new Image("space.png"));
             }
+            this.getChildren().add(checkpointImg);
         }
 
         if (space.getActions().size() > 0 && space.getActions().get(0) instanceof PriorityAntenna) {
-            this.setStyle("-fx-background-image: url(file:src/main/resources/priorityAntenna.png)");
+            ImageView antImg = new ImageView(new Image("priorityAntenna.png"));
+            this.getChildren().add(antImg);
         }
 
         // Needs to be last because walls can overlap
