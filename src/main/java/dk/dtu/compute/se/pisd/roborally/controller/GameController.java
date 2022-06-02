@@ -100,21 +100,28 @@ public class GameController {
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
-        //Stack(commands[random]);
+        //playerDeck(commands[random]);
         return new CommandCard(commands[random]);
     }
 
     /**
      * Changes the phase from programming to activation.
      */
-    public void Stack(Command Card) {
+    public void playerDeck(Command Card) {
         Stack<Command> Cards = new Stack<>();
+        //Cards.push(Card);
+
         for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
+
             Cards.push(Card);
+
+
         }
+/*
         if (Card.isInteractive()) {
-            Cards.remove(0);
+            Cards.remove(1);
         }
+        */
 
     }
 
