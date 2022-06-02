@@ -76,6 +76,11 @@ public class Client implements IStatusComm {
         return server;
     }
 
+    /**
+     * Sets the ip address of the server
+     * @param server ip of server to communicate with
+     * @throws IllegalIPExeception throws illegal ip exception if ip is not valid
+     */
     public void setServer(String server) throws IllegalIPExeception {
         // Simple regex pattern to check for string contains ip
         Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
