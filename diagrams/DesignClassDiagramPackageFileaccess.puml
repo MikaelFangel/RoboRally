@@ -1,0 +1,29 @@
+@startuml
+package fileaccess{
+  class Adapter<E> implements JsonSerializer{
+     -CLASSNAME : String
+     -INSTANCE : String
+
+     +serialize : JsonElement
+     +deserialize : E
+  }
+  class IOUtil{
+     {Static} +readString(InputStream inputStream) : String
+     {Static} +readResource(String relativeResourcePath) : String
+  }
+  class SaveLoadGame{
+     {Static} -DEFAULT_BOARD : String
+     {Static} -BOARDS_FOLDER : String
+     {Static} -SAVED_BOARDS_FOLDER : String
+     {Static} -JSON_EXT : String
+     {Static} -boardLoaded : boolean
+
+     {static} -getAllSpacesOfTypeByFieldAction(Board board, FieldAction action) : List<Space>
+     {Static} -placePlayersRandomly(List<Players>, List<space>)
+     {Static} +saveBoard(Board board, String name) : void
+     {Static} +loadBoard(String name): Board
+     {Static} +newBoard(int numPlayers, String boardName)
+}
+JsonDeserializer <|.. Adapter
+
+@enduml
