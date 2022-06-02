@@ -7,7 +7,3 @@
     -fx-min-height: 60px;
     -fx-max-height: 60px;
 }
-
-#space {
-    -fx-background-image: url(file:src/main/resources/space.png);
-}
