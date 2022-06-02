@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReadWriteGame {
-    private static final String BOARDS_FOLDER = "boards";
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
-
     private static final String JSON_EXT = "json";
 
     public static void writeGameToDisk(String saveName, String json){
@@ -62,14 +60,13 @@ public class ReadWriteGame {
         }
     }
 
-    public static String readGameFromDisk(String boardName){
+    public static String readGameFromDisk(String resourcePath){
         // TODO Make this read the json file
         ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(SAVED_BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT);
+        InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
 
         try {
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-            System.out.println(json);
 
             return json; // Change
         } catch (IOException e){
