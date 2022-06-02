@@ -105,6 +105,11 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-image: url(file:src/main/resources/priorityAntenna.png)");
         }
 
+        if (space.getActions().size() > 0 && space.getActions().get(0) instanceof StartGear){
+            this.setStyle("-fx-border-width: 10px");
+            this.setStyle("-fx-border-color: blue");
+        }
+
         // Needs to be last because walls can overlap
         for (Heading wall : space.getWalls()) {
             ImageView wallPic = new ImageView(new Image("wall.png"));
