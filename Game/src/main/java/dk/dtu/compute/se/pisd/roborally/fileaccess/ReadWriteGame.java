@@ -13,6 +13,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import netscape.javascript.JSObject;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,7 +62,20 @@ public class ReadWriteGame {
         }
     }
 
-    public static void readGameFromDisk(){
-        
+    public static String readGameFromDisk(String boardName){
+        // TODO Make this read the json file
+        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(SAVED_BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT);
+
+        try {
+            String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            System.out.println(json);
+
+            return json; // Change
+        } catch (IOException e){
+            System.out.println("Failed reading board from disk");
+
+            return null;
+        }
     }
 }
