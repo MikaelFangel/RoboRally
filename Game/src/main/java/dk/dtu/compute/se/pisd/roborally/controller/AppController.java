@@ -92,7 +92,7 @@ public class AppController implements Observer {
         dialogS.setHeaderText("Enter a Save game name");
 
         final Optional<String> resultS = dialogS.showAndWait();
-        resultS.ifPresent(s -> SaveLoadGame.saveBoard(gameController.board, s));
+        resultS.ifPresent(s -> SaveLoadGame.saveBoardToDisk(gameController.board, s));
     }
 
     public void loadGame() {
