@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.controller.*;
 import dk.dtu.compute.se.pisd.roborally.controller.StartGear;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
@@ -25,7 +25,7 @@ public class ReadWriteGame {
 
     public static void writeGameToDisk(String saveName, String json){
         // Saving the board template using GSON
-        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
+        ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
 
         String filename = Objects.requireNonNull(classLoader.getResource(SAVED_BOARDS_FOLDER)).getPath() + "/"
                 +  saveName + "." + JSON_EXT;
@@ -62,7 +62,7 @@ public class ReadWriteGame {
 
     public static String readGameFromDisk(String resourcePath){
         // TODO Make this read the json file
-        ClassLoader classLoader = SaveLoadGame.class.getClassLoader();
+        ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
 
         try {
