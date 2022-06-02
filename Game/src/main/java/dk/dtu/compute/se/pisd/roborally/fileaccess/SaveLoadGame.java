@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.controller.StartGear;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
@@ -315,8 +316,8 @@ public class SaveLoadGame {
             JsonReader reader = gson.newJsonReader(new InputStreamReader(inputStream));
             BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
+            // Creating the board
             newBoard = new Board(template.width, template.height);
-
             for (SpaceTemplate spaceTemplate: template.spaces) {
                 Space space = newBoard.getSpace(spaceTemplate.x, spaceTemplate.y);
                 if (space != null) {
@@ -326,9 +327,13 @@ public class SaveLoadGame {
                 }
             }
 
+            // Creating and placing players
             for (int i = 0; i < numPlayers; i++) {
                 Player newPlayer = new Player(newBoard, PLAYER_COLORS.get(i), "Player " + (i+1));
                 newBoard.addPlayer(newPlayer);
+
+                // TODO change this.
+                List<Space> startGears = getAllSpacesOfTypeByFieldAction(newBoard, new StartGear());
                 newPlayer.setSpace(newBoard.getSpace(i % newBoard.width, i));
             }
 
@@ -348,5 +353,25 @@ public class SaveLoadGame {
      */
     public static boolean getBoardLoaded(){
         return boardLoaded;
+    }
+
+    private static List<Space> getAllSpacesOfTypeByFieldAction(Board board, FieldAction action){
+        List<Space> spaces = new ArrayList<>();
+
+        for (int y = 0; y < board.height; y++) {
+            for (int x = 0; x < board.width; x++) {
+                Space curSpace = board.getSpace(x,y);
+                List<FieldAction> curSpaceActions = curSpace.getActions();
+
+                if (curSpaceActions.size() == 0)
+                    continue;
+
+                String curFieldActionName = curSpaceActions.get(0).getClass().getSimpleName();
+                if (curFieldActionName.equals(action.getClass().getSimpleName())){
+                    spaces.add(curSpace);
+                }
+            }
+        }
+        return spaces;
     }
 }
