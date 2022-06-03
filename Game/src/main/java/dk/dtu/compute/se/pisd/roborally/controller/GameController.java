@@ -21,7 +21,6 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import org.jetbrains.annotations.NotNull;
@@ -38,6 +37,8 @@ public class GameController {
     final public Board board;
     final public RobotMovementController rmc;
     final private AppController appController;
+
+    private boolean isNewlyLoadedDefaultBoard = false;
 
     public GameController(AppController appController, @NotNull Board board) {
         this.appController = appController;
@@ -73,8 +74,9 @@ public class GameController {
      * Start the programming phase and clear all registers
      */
     public void startProgrammingPhase() {
-        boolean gameLoaded = SaveLoadGame.getBoardLoaded();
-        if (!gameLoaded) {
+        // All this should be done for the first reload for a newly constructed board
+        isNewlyLoadedDefaultBoard = SaveLoadGame.getNewBoardCreated();
+        if (isNewlyLoadedDefaultBoard) {
             board.setPhase(Phase.PROGRAMMING);
             board.setCurrentPlayer(board.getPlayer(0));
             board.setStep(0);
