@@ -38,7 +38,7 @@ public class GameController {
     final public RobotMovementController rmc;
     final private AppController appController;
 
-    private boolean isFirstProgrammingPhase = true;
+    private boolean isNewlyLoadedDefaultBoard = false;
 
     public GameController(AppController appController, @NotNull Board board) {
         this.appController = appController;
@@ -74,11 +74,9 @@ public class GameController {
      * Start the programming phase and clear all registers
      */
     public void startProgrammingPhase() {
-        // All this should be done for the first reload
-        // Everything that should be called each additional time Programming phase is started should be in the else clause.
-        if (isFirstProgrammingPhase) {
-            isFirstProgrammingPhase = false; // Ensures that we do not reset everything each time this phase starts.
-
+        // All this should be done for the first reload for a newly constructed board
+        isNewlyLoadedDefaultBoard = SaveLoadGame.getNewBoardCreated();
+        if (isNewlyLoadedDefaultBoard) {
             board.setPhase(Phase.PROGRAMMING);
             board.setCurrentPlayer(board.getPlayer(0));
             board.setStep(0);
@@ -110,8 +108,6 @@ public class GameController {
                     }
                 }
             }
-        } else { // Everything that should be done each turn
-
         }
     }
 
