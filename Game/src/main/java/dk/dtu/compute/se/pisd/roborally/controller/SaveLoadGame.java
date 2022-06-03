@@ -17,6 +17,8 @@ public class SaveLoadGame {
 
     private static final String JSON_EXT = "json";
 
+    private static boolean newBoardCreated = false;
+
     /**
      * Saves the games state into a file.
      * Captures the players states, board layout and other metadata in the game.
@@ -59,6 +61,8 @@ public class SaveLoadGame {
      * @return the new Board instance with the board layout of the parameter as well as corresponding player number
      */
     public static Board newBoard(int numPlayers, String boardName){
+        newBoardCreated = true;
+
         Board board = null;
 
         String resourcePath = BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT;
@@ -115,5 +119,9 @@ public class SaveLoadGame {
             }
         }
         return spaces;
+    }
+
+    public static boolean getNewBoardCreated(){
+        return newBoardCreated;
     }
 }
