@@ -87,10 +87,21 @@ Stack<CommandCard> Cards = new Stack<>();
                         field.setCard(null);
                         field.setVisible(true);
                     }
+                    /*
+                    if(board.getPlayer(i).getCardPile().size()<Player.NO_CARDS) {
+
+                        playerDeck(board.getPlayer(i));
+                    }
+
+                     */
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
+                        /*
+                        if(field.getCard() == null) {
+                            field.setCard(board.getPlayer(i).getCardPile().remove(0));
+                        }
+                         */
                         field.setCard(generateRandomCommandCard());
-                        playerDeck(generateRandomCommandCard());
                         field.setVisible(true);
                     }
                 }
@@ -101,16 +112,20 @@ Stack<CommandCard> Cards = new Stack<>();
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
-        //playerDeck(commands[random]);
         return new CommandCard(commands[random]);
     }
 
     /**
      * Changes the phase from programming to activation.
      */
-    public void playerDeck(CommandCard Card) {
+    public void playerDeck(Player currentPlayer) {
+        int runs =  currentPlayer.getDiscardPile().size();
+        for(int i = 0; i < runs;i++) {
+          int random = (int) (Math.random() * (currentPlayer.getDiscardPile().size()));
+            currentPlayer.getCardPile().add(currentPlayer.getDiscardPile().remove(random));
+        }
 
-        Cards.push(Card);
+        // Cards.push(Card);
         /*
         for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
 
@@ -295,6 +310,8 @@ Stack<CommandCard> Cards = new Stack<>();
                 }
                 // DO NOTHING (for now)
             }
+            Cards.remove(1);
+            System.out.println(Cards.size());
         }
     }
 
