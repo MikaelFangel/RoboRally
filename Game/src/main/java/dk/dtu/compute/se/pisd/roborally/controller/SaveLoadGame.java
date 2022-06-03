@@ -1,7 +1,7 @@
-package dk.dtu.compute.se.pisd.roborally.fileaccess;
+package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.controller.StartGear;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.ReadWriteGame;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.util.ArrayList;
@@ -16,8 +16,6 @@ public class SaveLoadGame {
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
 
     private static final String JSON_EXT = "json";
-
-    private static boolean boardLoaded = false;
 
     /**
      * Saves the games state into a file.
@@ -50,9 +48,6 @@ public class SaveLoadGame {
             board = SerializeState.deserializeGame(json, true);
         }
 
-        // TODO look at this
-        //boardLoaded = true;
-
         return board;
     }
 
@@ -82,19 +77,9 @@ public class SaveLoadGame {
         List<Space> startGears = getAllSpacesOfTypeByFieldAction(board, new StartGear());
         placePlayersRandomly(board.getPlayers(), startGears);
 
-        // TODO look at this
-        //boardLoaded = true;
-
         return board;
     }
 
-    /**
-     * Describes whether a game has been loaded in or not
-     * @return the boardLoaded boolean.
-     */
-    public static boolean getBoardLoaded(){
-        return boardLoaded;
-    }
 
     private static void placePlayersRandomly(List<Player> players, List<Space> possibleSpaces){
         // TODO Make it random
