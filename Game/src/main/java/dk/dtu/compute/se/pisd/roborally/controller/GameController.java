@@ -101,7 +101,6 @@ Stack<CommandCard> Cards = new Stack<>();
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
-        //playerDeck(commands[random]);
         return new CommandCard(commands[random]);
     }
 
@@ -109,7 +108,6 @@ Stack<CommandCard> Cards = new Stack<>();
      * Changes the phase from programming to activation.
      */
     public void playerDeck(CommandCard Card) {
-
         Cards.push(Card);
         /*
         for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
@@ -295,6 +293,8 @@ Stack<CommandCard> Cards = new Stack<>();
                 }
                 // DO NOTHING (for now)
             }
+            Cards.remove(1);
+            System.out.println(Cards.size());
         }
     }
 
