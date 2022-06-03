@@ -2,6 +2,7 @@
 package controller{
 skinparam groupInheritance 2
 skinparam linetype polyline
+
    class AppController implements Observer{
       -PLAYER_NUMBER_OPTIONS : List<Integer>
       -BOARD_OPTIONS : List<String>
@@ -15,19 +16,19 @@ skinparam linetype polyline
       +stopGame() : boolean
       +exit() : void
    }
-   class CheckPoint extends FieldAction{
+   class CheckPoint{
      {Static} -highestCheckPointNumber : int
      -checkPointNumber : int
 
      +doAction(GameController gamecontroller, Space space) : boolean
    }
-   class ConveyorBelt extends FieldAction{
+   class ConveyorBelt{
      -heading : Heading
      -numberOfMoves : int
 
      +doAction(GameController gameController, Space space) : boolean
    }
-   class Energy extends FieldAction{
+   class Energy{
      -hasEnergyCube : boolean
 
      -doAction(GameController gameController, Space space) : boolean
@@ -61,21 +62,21 @@ skinparam linetype polyline
       +energyCount(Player player) : int
       +recreatePlayersView() : void
    }
-   class Laser extends FieldAction{
+   class Laser{
      -numberOfLasers : int
      -heading : Heading
 
      +doAction(GameController gameController, Space space) : boolean
    }
-   class Pit extends FieldAction{
+   class Pit{
       +doAction(GameController gameController, Space space) : boolean
    }
-   class PriorityAntenna extends FieldAction{
+   class PriorityAntenna{
       -heading : Heading
 
       +doAction(GameController gameController, Space space) : boolean
    }
-   class PushPanel extends FieldAction{
+   class PushPanel{
       -heading : Heading
 
       +doAction(GameController gameController, Space space) : boolean
@@ -94,15 +95,28 @@ skinparam linetype polyline
       -space : Space
       -heading : Heading
    }
-   class RotatingGear extends FieldAction{
+   class RotatingGear{
      -direction : Direction
 
      +doAction(GameController gameController, Space space) : boolean
    }
-   class StartGear extends FieldAction{
+   class StartGear{
       +doAction(GameController gameController, Space space) : boolean
    }
-   RobotMovementController *-- impossibleMoveExeption
+   RobotMovementController *-u- impossibleMoveExeption
+   note "This is the package that handlers all of the things on the board including gamelogic" as note1
 }
+
+
+
+FieldAction <|-l- Pit
+FieldAction <|-r- Laser
+FieldAction <|-d- Energy
+FieldAction <|-u- PriorityAntenna
+FieldAction <|-d- PushPanel
+FieldAction <|-d- RotatingGear
+FieldAction <|-u- StartGear
+FieldAction <|-u- CheckPoint
+
 
 @enduml

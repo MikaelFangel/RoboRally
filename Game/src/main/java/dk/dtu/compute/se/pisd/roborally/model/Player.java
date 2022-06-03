@@ -24,6 +24,8 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.*;
 
 /**
@@ -51,6 +53,14 @@ public class Player extends Subject {
 
     public CommandCardField[] program;
     public CommandCardField[] cards;
+    private ArrayList<CommandCard> cardPile = new ArrayList<>();
+    private ArrayList<CommandCard> discardPile = new ArrayList<>();
+    public ArrayList<CommandCard> getDiscardPile() {
+        return discardPile;
+    }
+    public ArrayList<CommandCard> getCardPile() {
+        return cardPile;
+    }
 
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
