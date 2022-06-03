@@ -1,6 +1,8 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
-public class DamageCard {
+import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+
+public class DamageCard extends Subject {
     public final DamageCommand damageCommand;
 
     public DamageCard(DamageCommand damageCommand) {

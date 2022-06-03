@@ -1,4 +1,6 @@
 @startuml
+skinparam groupInheritance 2
+skinparam linetype polyline
 Package model{
  class Board extends Subject{
    -counter : int
@@ -59,6 +61,12 @@ Package model{
  class SpecialCard extends Subject{
    +specialCommand : SpecialCommand
  }
+ class DamageCard extends Subject{
+    +damageCommand : DamageCommand
+ }
+ abstract class Subject{
+ }
+
  enum Command{
    MOVE1
    MOVE2
@@ -70,13 +78,19 @@ Package model{
    MOVEBACK
    AGAIN
  }
+ enum DamageCommand{
+   SPAM
+   TROJANHORSE
+   WORM
+   VIRUS
+ }
  enum Heading{
   SOUTH
   WEST
   NORTH
   EAST
  }
- enum phase{
+ enum Phase{
    INITIALISATION
    PROGRAMMING
    ACTIVATION
@@ -90,7 +104,7 @@ Package model{
     SPAMFOLDER
     REPEATROUTINE
  }
-
+DamageCard *-- DamageCommand
 SpecialCard *-- SpecialCommand
 CommandCard *-- Command
 CommandCardField *- CommandCard
