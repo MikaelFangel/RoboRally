@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
+import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
@@ -56,6 +57,8 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
 
     private GameController gameController;
+
+    private Client client = new Client();
 
     boolean serverStart = false;
 
@@ -118,7 +121,23 @@ public class AppController implements Observer {
     }
 
     public void closeServer(){
+        serverStart = false;
+    }
 
+    public void connectToServer(){
+        TextInputDialog popup = new TextInputDialog("Insert IP");
+        popup.setTitle("Connect");
+        Optional<String> input = popup.showAndWait();
+        try {
+            if (input.isPresent())
+                client.setServer(input.get());
+        } catch (Client.IllegalIPExeception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void disconnectFromServer(){
+        stopGame();
     }
 
     private void setupGameController(Board board) {

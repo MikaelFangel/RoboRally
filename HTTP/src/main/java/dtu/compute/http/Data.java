@@ -15,4 +15,9 @@ public class Data implements IStatusComm{
     public String getGameState() {
         return data;
     }
+
+    @Override
+    public boolean conGreeting() {
+        return true;
+    }
 }

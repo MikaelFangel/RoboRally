@@ -11,6 +11,13 @@ public class DataController {
     @Autowired
     private IStatusComm statusComm;
 
+    @GetMapping(value = "/greeting")
+    public ResponseEntity<String> conGreeting()
+    {
+        return ResponseEntity.ok().body("OK");
+    }
+
+
     @GetMapping(value = "/gameState")
     public ResponseEntity<String> getGameState()
     {
