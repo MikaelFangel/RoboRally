@@ -35,7 +35,8 @@ public class Checkpoint extends FieldAction {
                     // TODO Ask Player to start new game
                     Alert winMsg = new Alert(Alert.AlertType.INFORMATION);
                     winMsg.setTitle("Game Ended");
-                    winMsg.setContentText("The winner is: " + space.getPlayer().getName());
+                    winMsg.setHeaderText("The winner is: " + space.getPlayer().getName());
+                    winMsg.setContentText("The game has ended and will shutdown");
                     winMsg.showAndWait();
                     Platform.exit();
                 }

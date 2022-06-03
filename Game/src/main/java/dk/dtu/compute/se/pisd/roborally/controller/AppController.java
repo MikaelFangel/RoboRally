@@ -26,7 +26,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.SaveLoadGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import dtu.compute.http.HttpApplication;
@@ -174,9 +173,6 @@ public class AppController implements Observer {
      */
     public boolean stopGame() {
         if (gameController != null) {
-
-            // here we save the game (without asking the user).
-            //saveGame();
 
             gameController = null;
             roboRally.createBoardView(null);
