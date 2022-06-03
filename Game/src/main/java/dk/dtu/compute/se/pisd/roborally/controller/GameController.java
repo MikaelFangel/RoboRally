@@ -87,10 +87,16 @@ Stack<CommandCard> Cards = new Stack<>();
                         field.setCard(null);
                         field.setVisible(true);
                     }
+                    if(board.getPlayer(i).getCardPile().size()<Player.NO_CARDS) {
+
+                        playerDeck(board.getPlayer(i));
+                    }
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
-                        field.setCard(generateRandomCommandCard());
-                        playerDeck(generateRandomCommandCard());
+                        if(field.getCard() == null) {
+                            field.setCard(board.getPlayer(i).getCardPile().remove(0));
+                        }
+                        //field.setCard(generateRandomCommandCard());
                         field.setVisible(true);
                     }
                 }
@@ -107,8 +113,15 @@ Stack<CommandCard> Cards = new Stack<>();
     /**
      * Changes the phase from programming to activation.
      */
-    public void playerDeck(CommandCard Card) {
-        Cards.push(Card);
+    public void playerDeck(Player currentPlayer) {
+        int runs =  currentPlayer.getDiscardPile().size();
+        int random;
+        for(int i = 0; i < runs;i++) {
+            random = (int) (Math.random() * (currentPlayer.getDiscardPile().size()));
+            currentPlayer.getCardPile().add(currentPlayer.getDiscardPile().remove(random));
+        }
+
+        // Cards.push(Card);
         /*
         for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
 
