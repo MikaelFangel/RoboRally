@@ -217,7 +217,7 @@ public class AppController implements Observer {
     }
     public void initializePlayers(Board board){
         for (int i = 0; i < PLAYER_NUMBER_OPTIONS.get(0);i++){
-           board.getPlayer(i).populateCards();
+           board.getPlayer(i).populateCards(gameController);
 
         }
     }
