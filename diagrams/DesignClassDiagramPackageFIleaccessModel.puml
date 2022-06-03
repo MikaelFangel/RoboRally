@@ -38,6 +38,8 @@ package fileaccess.model{
      +x : int
      +y : int
   }
+
+  note "This is the templates used for serialization of our game" as note1
 }
 
 @enduml

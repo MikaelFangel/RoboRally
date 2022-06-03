@@ -26,4 +26,7 @@ package fileaccess{
 }
 JsonDeserializer <|.. Adapter
 
+note "This package is for saving or loading a game state" as note1
+
+
 @enduml

@@ -14,6 +14,8 @@ package httpclient{
      +updateGame(String gameState) : void
      +getGameState() : String
    }
+
+   note "This is the package that handlers the RESTfull API aspects of the game" as note1
 }
 
 
