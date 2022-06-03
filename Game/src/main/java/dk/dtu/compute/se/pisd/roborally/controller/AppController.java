@@ -85,6 +85,7 @@ public class AppController implements Observer {
             Optional<String> resultB = dialogB.showAndWait();
             if (resultB.isPresent()) {
                 Board board = SaveLoadGame.newBoard(result.get(), resultB.get());
+                initializePlayers(board);
                 setupGameController(board);
             }
         }
@@ -210,6 +211,12 @@ public class AppController implements Observer {
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
+    }
+    public void initializePlayers(Board board){
+        for (int i = 0; i < PLAYER_NUMBER_OPTIONS.get(0);i++){
+           board.getPlayer(i).populateCards();
+
+        }
     }
 
 
