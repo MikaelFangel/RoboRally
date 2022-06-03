@@ -1,7 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
-skinparam groupInheritance 2
-skinparam linetype polyline
+
 
 package view{
   class Boardview extends VBox implements viewObserver {
@@ -43,22 +42,25 @@ package view{
      +Updateview(Subject subject) : void
   }
   'Inner classes of CardFieldView'
-  class OnDragDetectedHandler implements EventHandler{
-     +handle(DragEvent event) : void
-  }
-  class OnDragOverHandler implements EventHandler {
-  +handle(DragEvent event) : void
-  }
-  class OnDragEnteredHandler implements EventHandler{
-    +handle(DragEvent event) : void
-  }
-  class OnDragExitedHandler implements EventHandler{
-    +handle(DragEvent event) : void
-  }
-  class OnDragDroppedHandler implements EventHandler{
-    +handle(DragEvent event) : void
-  }
-  class OnDragDoneHandler implements EventHandler{
+  'class OnDragDetectedHandler implements EventHandler{
+     '+handle(DragEvent event) : void
+  '}
+  'class OnDragOverHandler implements EventHandler {
+  '+handle(DragEvent event) : void
+  '}
+  'class OnDragEnteredHandler implements EventHandler{
+    '+handle(DragEvent event) : void
+  '}
+  'class OnDragExitedHandler implements EventHandler{
+    '+handle(DragEvent event) : void
+  '}
+  'class OnDragDroppedHandler implements EventHandler{
+    '+handle(DragEvent event) : void
+  '}
+  'class OnDragDoneHandler implements EventHandler{
+    '+handle(DragEvent event) : void
+  '}
+  class OnDragHandlers implements EventHandler{
     +handle(DragEvent event) : void
   }
   'Inner class of CardFieldView end'
@@ -113,15 +115,40 @@ package view{
     +update(Subject subject) : void
     +updateViewI(Subject subject) : void
   }
+  class StackPane
+  note top: Javafx class.
+
+  class Tab
+  note top: Javafx class.
+
+  class MenuBar
+  note top: Javafx class
+
+  class TabPane
+  note top: Javafx class
+
+  class GridPane
+  note top: Javafx class
+
+  class VBox
+  note top: Javafx class
 
 }
 
+
+
 Boardview *-- SpaceEventHandler
-CardFieldView *-- OnDragDoneHandler
-CardFieldView *-- OnDragDetectedHandler
-CardFieldView *-- OnDragEnteredHandler
-CardFieldView *-- OnDragDroppedHandler
-CardFieldView *-- OnDragExitedHandler
-CardFieldView *-- OnDragOverHandler
+'CardFieldView *-- OnDragDoneHandler
+'CardFieldView *-- OnDragDetectedHandler
+'CardFieldView *-- OnDragEnteredHandler
+'CardFieldView *-- OnDragDroppedHandler
+'CardFieldView *-- OnDragExitedHandler
+'CardFieldView *-- OnDragOverHandler
+CardFieldView *-- OnDragHandlers
+
+'EventHandler -u- OnDragDoneHandler
+'EventHandler -u- OnDragDetectedHandler
+'EventHandler -u- OnDragEnteredHandler
+
 
 @enduml
