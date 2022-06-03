@@ -50,7 +50,8 @@ public class SaveLoadGame {
             board = SerializeState.deserializeGame(json, true);
         }
 
-        boardLoaded = true;
+        // TODO look at this
+        //boardLoaded = true;
 
         return board;
     }
@@ -63,7 +64,6 @@ public class SaveLoadGame {
      * @return the new Board instance with the board layout of the parameter as well as corresponding player number
      */
     public static Board newBoard(int numPlayers, String boardName){
-        // TODO make the numPlayers be used!!!
         Board board = null;
 
         String resourcePath = BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT;
@@ -82,7 +82,8 @@ public class SaveLoadGame {
         List<Space> startGears = getAllSpacesOfTypeByFieldAction(board, new StartGear());
         placePlayersRandomly(board.getPlayers(), startGears);
 
-        boardLoaded = true;
+        // TODO look at this
+        //boardLoaded = true;
 
         return board;
     }
