@@ -50,6 +50,8 @@ public class SaveLoadGame {
             board = SerializeState.deserializeGame(json, true);
         }
 
+        boardLoaded = true;
+
         return board;
     }
 
@@ -79,6 +81,8 @@ public class SaveLoadGame {
 
         List<Space> startGears = getAllSpacesOfTypeByFieldAction(board, new StartGear());
         placePlayersRandomly(board.getPlayers(), startGears);
+
+        boardLoaded = true;
 
         return board;
     }
