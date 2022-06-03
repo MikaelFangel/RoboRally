@@ -22,6 +22,8 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.CommandCardFieldTemplate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -154,9 +156,10 @@ public class Player extends Subject {
         this.energyCount = energyCount;
     }
 
-    public void populateCards(){
+    public void populateCards(GameController gameController){
+
         for (int i = 0; i < 8; i++){
-            getCardField(i);
+            getCardPile().add(gameController.generateRandomCommandCard());
         }
     }
 }

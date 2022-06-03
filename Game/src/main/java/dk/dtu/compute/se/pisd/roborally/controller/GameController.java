@@ -109,7 +109,7 @@ public class GameController {
         }
     }
 
-    private CommandCard generateRandomCommandCard() {
+    public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
         return new CommandCard(commands[random]);
