@@ -31,13 +31,12 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import dtu.compute.http.HttpApplication;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -60,7 +59,7 @@ public class AppController implements Observer {
 
     private Client client = new Client();
 
-    boolean serverStart = false;
+    private boolean serverStart = false;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -116,11 +115,26 @@ public class AppController implements Observer {
     }
 
     public void startServer(){
-        HttpApplication.main(new String[0]);
         serverStart = true;
+        HttpApplication.main(new String[0]);
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Startup server");
+        InetAddress ip = null;
+        try {
+            ip = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        alert.setHeaderText("Server succesfully started, other player can now access your game");
+        assert ip != null;
+        String message = ip.toString();
+        message = "Your server IP: " + message.split("/")[1];
+        alert.setContentText(message);
+        alert.show();
     }
 
     public void closeServer(){
+        //client.setServer("");
         serverStart = false;
     }
 
