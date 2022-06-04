@@ -21,6 +21,8 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.httpclient.Client;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import org.jetbrains.annotations.NotNull;
@@ -38,11 +40,14 @@ public class GameController {
     final public RobotMovementController rmc;
     final private AppController appController;
 
+    private final Client client;
+
     private boolean isNewlyLoadedDefaultBoard = false;
 
-    public GameController(AppController appController, @NotNull Board board) {
+    public GameController(AppController appController, @NotNull Board board, Client client) {
         this.appController = appController;
         this.board = board;
+        this.client = client;
         rmc = new RobotMovementController(this, board);
     }
 
@@ -328,6 +333,8 @@ public class GameController {
                 // DO NOTHING (for now)
             }
 
+            if(client != null)
+                client.updateGame(SerializeState.serializeGame(board));
         }
     }
 
