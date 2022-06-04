@@ -1,4 +1,4 @@
-package dk.dtu.compute.se.pisd.httpclient;
+package dtu.compute.http;
 
 import java.util.Date;
 
@@ -7,9 +7,10 @@ public interface IStatusComm {
 
     String getGameState(String serverId);
 
-    void hostGame();
+    String hostGame(String title);
 
     String listGames();
 
     String joinGame(String serverToJoin);
 }
+
