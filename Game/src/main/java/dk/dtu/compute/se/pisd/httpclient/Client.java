@@ -73,6 +73,11 @@ public class Client implements IStatusComm {
         return result;
     }
 
+    /**
+     * Hosts a new game on the server and sets the server id to future communication
+     *
+     * @param title the title of the new server
+     */
     @Override
     public void hostGame(String title) {
         HttpRequest request = HttpRequest.newBuilder()
@@ -90,6 +95,11 @@ public class Client implements IStatusComm {
         }
     }
 
+    /**
+     * Lists all games available on the server
+     *
+     * @return list of available games
+     */
     @Override
     public String listGames() {
         HttpRequest request = HttpRequest.newBuilder()
@@ -111,9 +121,15 @@ public class Client implements IStatusComm {
 
     }
 
+    /**
+     * Joins a game and get the current game state
+     * @param serverToJoin the id of the server to join 
+     * @return gamestate and empty string if game is not up yet
+     */
     @Override
     public String joinGame(String serverToJoin) {
-        return null;
+        serverID = serverToJoin;
+        return getGameState();
     }
 
     public String getServer() {
