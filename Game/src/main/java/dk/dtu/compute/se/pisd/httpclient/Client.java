@@ -31,7 +31,7 @@ public class Client implements IStatusComm {
      * @param gameState JSON string to update state with
      */
     @Override
-    public void updateGame(String gameState) {
+    public void updateGame(String id, String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(gameState))
                 .uri(URI.create(server + "/gameState"))
@@ -54,7 +54,7 @@ public class Client implements IStatusComm {
      * @return JSON string with game state
      */
     @Override
-    public String getGameState() {
+    public String getGameState(String id) {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(server + "/gameState"))
