@@ -7,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -145,6 +146,21 @@ public class Client implements IStatusComm {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
         return getGameState();
+    }
+
+    @Override
+    public void leaveGame() {
+        if (Objects.equals(serverID, ""))
+            return;
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(""))
+                .uri(URI.create(server + "/game/" + serverID))
+                .header("User-Agent", "RoboRally Client")
+                .header("Content-Type", "text/plain")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        //serverID = "";
     }
 
     public String getServer() {
