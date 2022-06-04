@@ -115,22 +115,7 @@ public class AppController implements Observer {
     }
 
     public void startServer(){
-        serverStart = true;
-        HttpApplication.main(new String[0]);
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Startup server");
-        InetAddress ip = null;
-        try {
-            ip = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        alert.setHeaderText("Server succesfully started, other player can now access your game");
-        assert ip != null;
-        String message = ip.toString();
-        message = "Your server IP: " + message.split("/")[1];
-        alert.setContentText(message);
-        alert.show();
+        client.hostGame("my first game");
     }
 
     public void closeServer(){
