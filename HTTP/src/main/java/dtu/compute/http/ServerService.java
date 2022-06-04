@@ -40,5 +40,12 @@ public class ServerService implements IStatusComm{
         servers.get(Integer.parseInt(serverToJoin)).addPlayer();
         return "ok";
     }
-}
 
+    @Override
+    public void leaveGame(String serverId) {
+        Server server = servers.get(Integer.parseInt(serverId));
+        server.removePlayer();
+        if (server.isEmpty())
+            servers.remove(server);
+    }
+}

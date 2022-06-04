@@ -12,5 +12,6 @@ public interface IStatusComm {
     String listGames();
 
     String joinGame(String serverToJoin);
+    void leaveGame(String serverId);
 }
 
