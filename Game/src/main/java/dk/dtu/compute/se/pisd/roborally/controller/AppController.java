@@ -130,7 +130,7 @@ public class AppController implements Observer {
     }
 
     public void disconnectFromServer() {
-        stopGame();
+        client.leaveGame();
     }
 
     private void setupGameController(Board board) {
@@ -199,7 +199,6 @@ public class AppController implements Observer {
 
         }
     }
-
 
     public RoboRally getRoboRally() {
         return roboRally;
