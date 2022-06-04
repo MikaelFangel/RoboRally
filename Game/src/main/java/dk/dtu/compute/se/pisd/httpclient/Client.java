@@ -1,5 +1,7 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
+import dk.dtu.compute.se.pisd.roborally.RoboRally;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -133,6 +135,15 @@ public class Client implements IStatusComm {
     @Override
     public String joinGame(String serverToJoin) {
         serverID = serverToJoin;
+        HttpRequest request = HttpRequest.newBuilder()
+                .PUT(HttpRequest.BodyPublishers.ofString(""))
+                .uri(URI.create(server + "/game/" + serverToJoin))
+                .header("User-Agent", "RoboRally Client")
+                .header("Content-Type", "text/plain")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
         return getGameState();
     }
 
