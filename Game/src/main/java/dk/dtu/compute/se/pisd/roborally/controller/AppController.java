@@ -60,6 +60,8 @@ public class AppController implements Observer {
 
     private boolean serverClientMode = false;
 
+    private final ServerListView slv = new ServerListView(client);
+
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
@@ -114,25 +116,17 @@ public class AppController implements Observer {
         }
     }
 
-    public void startServer() {
-        client.hostGame("my first game");
-    }
-
-    public void closeServer() {
-        //client.setServer("");
-        serverStart = false;
+    public void hostGame() {
+        TextInputDialog serverCreation = new TextInputDialog();
+        serverCreation.setTitle("Start game server");
+        serverCreation.setHeaderText("Server name:");
+        Optional<String> result = serverCreation.showAndWait();
+        result.ifPresent(client::hostGame);
     }
 
     public void connectToServer() {
-        TextInputDialog popup = new TextInputDialog("Insert IP");
-        popup.setTitle("Connect");
-        Optional<String> input = popup.showAndWait();
-        try {
-            if (input.isPresent())
-                client.setServer(input.get());
-        } catch (Client.IllegalIPExeception e) {
-            e.printStackTrace();
-        }
+        slv.addServer(client.listGames());
+        slv.viewTable();
     }
 
     public void disconnectFromServer() {

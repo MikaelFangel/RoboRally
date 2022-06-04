@@ -2,14 +2,10 @@ package dk.dtu.compute.se.pisd.httpclient;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
-import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -24,14 +20,14 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.StringReader;
-import java.util.Arrays;
 
 public class ServerListView{
 
+    private Stage stage;
     private TableView<Server> table = new TableView<>();
     private ObservableList<Server> data = FXCollections.observableArrayList();
-    public void viewTable(Client c){
-        Stage stage = new Stage();
+    public ServerListView(Client c){
+        stage = new Stage();
         Scene scene = new Scene(new Group());
 
         stage.setTitle("List of Servers");
@@ -71,21 +67,29 @@ public class ServerListView{
         Button button = new Button("Join Game");
         button.setOnAction(e -> c.joinGame(table.getSelectionModel().getSelectedItem().getId()));
 
+        Button refresh = new Button("Refresh");
+        refresh.setOnAction(e -> addServer(c.listGames()));
+
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, button);
+        vbox.getChildren().addAll(label, table, button, refresh);
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         stage.setScene(scene);
-        stage.show();
+        //stage.show();
     }
 
     public void addServer(String s){
         Gson test = new Gson();
         JsonReader jReader = new JsonReader(new StringReader(s));
         Server[] servers = test.fromJson(jReader,Server[].class);
+        data.clear();
         data.addAll(servers);
+    }
+
+    public void viewTable(){
+        stage.show();
     }
 }
