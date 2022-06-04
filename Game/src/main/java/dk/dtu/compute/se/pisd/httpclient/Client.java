@@ -73,27 +73,19 @@ public class Client implements IStatusComm {
         return result;
     }
 
-    /**
-     * Checks if connection can be established
-     *
-     * @return true if connection is established
-     */
     @Override
-    public boolean conGreeting() {
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create(server + "/greeting"))
-                .setHeader("User-Agent", "RoboRally Client")
-                .header("Content-Type", "text/plain")
-                .build();
-        CompletableFuture<HttpResponse<String>> response =
-                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-        try {
-            String result = response.thenApply(HttpResponse::body).get(5, SECONDS);
-            return result.equals("OK");
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new RuntimeException(e);
-        }
+    public void hostGame() {
+
+    }
+
+    @Override
+    public String listGames() {
+        return null;
+    }
+
+    @Override
+    public String joinGame(String serverToJoin) {
+        return null;
     }
 
     public String getServer() {
