@@ -19,7 +19,7 @@ class GameControllerTest {
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
-        gameController = new GameController(new AppController(new RoboRally()) ,board);
+        gameController = new GameController(new AppController(new RoboRally()) ,board, null);
         for (int i = 0; i < 6; i++) {
             Player player = new Player(board, null,"Player " + i);
             board.addPlayer(player);
