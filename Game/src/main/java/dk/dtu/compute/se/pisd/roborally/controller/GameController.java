@@ -104,21 +104,12 @@ public class GameController {
                         field.setCard(null);
                         field.setVisible(true);
                     }
-                    /*
-                    if(board.getPlayer(i).getCardPile().size()<Player.NO_CARDS) {
 
-                        playerDeck(board.getPlayer(i));
-                    }
-
-                     */
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
-                        /*
-                        if(field.getCard() == null) {
-                            field.setCard(board.getPlayer(i).getCardPile().remove(0));
-                        }
-                         */
+
                         field.setCard(generateRandomCommandCard());
+                        //field.setCard(board.getPlayer(i).getCardPile().remove(0));
                         field.setVisible(true);
                     }
                 }
@@ -135,44 +126,6 @@ public class GameController {
     /**
      * Changes the phase from programming to activation.
      */
-    private CommandCard playerDeck(int card) {
-        Command[] commands = Command.values();
-        return new CommandCard((commands[card]));
-    }
-
-
-
-
-
-
-
-/*
-    public void playerDeck(Player currentPlayer) {
-        int runs =  currentPlayer.getDiscardPile().size();
-        for(int i = 0; i < runs;i++) {
-          int random = (int) (Math.random() * (currentPlayer.getDiscardPile().size()));
-            currentPlayer.getCardPile().add(currentPlayer.getDiscardPile().remove(random));
-        }
-
-        // Cards.push(Card);
-        /*
-        for (int i = 0; i < Command.values().length; i++) { //TODO NOT DONE
-
-            Cards.push(Card);
-
-
-
-
-
-
-        if (Card.isInteractive()) {
-            Cards.remove(1);
-        }
-
-
-    }
-
- */
 
 
     public void finishProgrammingPhase() {
