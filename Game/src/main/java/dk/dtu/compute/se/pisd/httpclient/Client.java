@@ -7,7 +7,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +23,7 @@ public class Client implements IStatusComm {
             .connectTimeout(Duration.ofSeconds(10)).build();
 
     private String server = "http://localhost:8080";
+    private String serverID = "";
 
     /**
      * Updates the game state on the game server with a JSON string
@@ -34,7 +34,7 @@ public class Client implements IStatusComm {
     public void updateGame(String id, String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(gameState))
-                .uri(URI.create(server + "/gameState"))
+                .uri(URI.create(server + "/gameState/" + id))
                 .setHeader("User-Agent", "RoboRally Client")
                 .setHeader("Content-Type", "application/json")
                 .build();
@@ -57,7 +57,7 @@ public class Client implements IStatusComm {
     public String getGameState(String id) {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(server + "/gameState"))
+                .uri(URI.create(server + "/gameState/" + id))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -74,13 +74,41 @@ public class Client implements IStatusComm {
     }
 
     @Override
-    public void hostGame() {
-
+    public void hostGame(String title) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(title))
+                .uri(URI.create(server + "gameState"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            serverID = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public String listGames() {
-        return null;
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(server + "/gameState/"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String result;
+        try {
+            result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+
     }
 
     @Override
