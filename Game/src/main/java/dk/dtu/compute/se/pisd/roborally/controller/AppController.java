@@ -122,6 +122,9 @@ public class AppController implements Observer {
         serverCreation.setHeaderText("Server name:");
         Optional<String> result = serverCreation.showAndWait();
         result.ifPresent(client::hostGame);
+
+        serverClientMode = true;
+        newGame();
     }
 
     public void connectToServer() {

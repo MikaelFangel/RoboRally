@@ -36,7 +36,7 @@ import java.util.*;
  */
 public class GameController {
 //Stack<CommandCard> Cards = new Stack<>();
-    final public Board board;
+    public Board board;
     final public RobotMovementController rmc;
     final private AppController appController;
 
@@ -49,6 +49,10 @@ public class GameController {
         this.board = board;
         this.client = client;
         rmc = new RobotMovementController(this, board);
+
+        if(client != null) {
+            (new boardUpdater()).start();
+        }
     }
 
     /**
