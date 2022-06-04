@@ -7,7 +7,7 @@ public interface IStatusComm {
 
     String getGameState();
 
-    void hostGame(String title);
+    String hostGame(String title);
 
     String listGames();
 
