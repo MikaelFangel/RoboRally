@@ -28,14 +28,11 @@ import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
-import dtu.compute.http.HttpApplication;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -56,9 +53,11 @@ public class AppController implements Observer {
 
     private GameController gameController;
 
-    private Client client = new Client();
+    private final Client client = new Client();
 
     private boolean serverStart = false;
+
+    private boolean serverClientMode = false;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -114,16 +113,16 @@ public class AppController implements Observer {
         }
     }
 
-    public void startServer(){
+    public void startServer() {
         client.hostGame("my first game");
     }
 
-    public void closeServer(){
+    public void closeServer() {
         //client.setServer("");
         serverStart = false;
     }
 
-    public void connectToServer(){
+    public void connectToServer() {
         TextInputDialog popup = new TextInputDialog("Insert IP");
         popup.setTitle("Connect");
         Optional<String> input = popup.showAndWait();
@@ -135,12 +134,12 @@ public class AppController implements Observer {
         }
     }
 
-    public void disconnectFromServer(){
+    public void disconnectFromServer() {
         stopGame();
     }
 
     private void setupGameController(Board board) {
-        gameController = new GameController(this, Objects.requireNonNull(board));
+        gameController = new GameController(this, Objects.requireNonNull(board), serverClientMode ? client : null);
         board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
 
@@ -189,16 +188,19 @@ public class AppController implements Observer {
         return gameController != null;
     }
 
-    public boolean isServerStarted(){return serverStart;}
+    public boolean isServerStarted() {
+        return serverStart;
+    }
 
 
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
     }
-    public void initializePlayers(Board board){
-        for (int i = 0; i < PLAYER_NUMBER_OPTIONS.get(0);i++){
-           board.getPlayer(i).populateCards(gameController);
+
+    public void initializePlayers(Board board) {
+        for (int i = 0; i < PLAYER_NUMBER_OPTIONS.get(0); i++) {
+            board.getPlayer(i).populateCards(gameController);
 
         }
     }
