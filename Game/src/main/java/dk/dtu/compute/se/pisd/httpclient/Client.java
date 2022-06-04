@@ -77,14 +77,15 @@ public class Client implements IStatusComm {
      * Hosts a new game on the server and sets the server id to future communication
      *
      * @param title the title of the new server
+     * @return serverId string
      */
     @Override
-    public void hostGame(String title) {
+    public String hostGame(String title) {
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(title))
                 .uri(URI.create(server + "/game"))
                 .setHeader("User-Agent", "RoboRally Client")
-                .header("Content-Type", "application/json")
+                .header("Content-Type", "text/plain")
                 .build();
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
@@ -93,6 +94,8 @@ public class Client implements IStatusComm {
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             throw new RuntimeException(e);
         }
+
+        return serverID;
     }
 
     /**
@@ -123,7 +126,8 @@ public class Client implements IStatusComm {
 
     /**
      * Joins a game and get the current game state
-     * @param serverToJoin the id of the server to join 
+     *
+     * @param serverToJoin the id of the server to join
      * @return gamestate and empty string if game is not up yet
      */
     @Override
