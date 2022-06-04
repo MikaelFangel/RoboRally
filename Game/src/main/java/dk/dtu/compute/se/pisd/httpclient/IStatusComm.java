@@ -3,9 +3,9 @@ package dk.dtu.compute.se.pisd.httpclient;
 import java.util.Date;
 
 public interface IStatusComm {
-    void updateGame(String id, String gameState);
+    void updateGame(String gameState);
 
-    String getGameState(String serverId);
+    String getGameState();
 
     void hostGame(String title);
 

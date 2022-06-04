@@ -31,10 +31,10 @@ public class Client implements IStatusComm {
      * @param gameState JSON string to update state with
      */
     @Override
-    public void updateGame(String id, String gameState) {
+    public void updateGame(String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(gameState))
-                .uri(URI.create(server + "/gameState/" + id))
+                .uri(URI.create(server + "/gameState/" + serverID))
                 .setHeader("User-Agent", "RoboRally Client")
                 .setHeader("Content-Type", "application/json")
                 .build();
@@ -54,10 +54,10 @@ public class Client implements IStatusComm {
      * @return JSON string with game state
      */
     @Override
-    public String getGameState(String id) {
+    public String getGameState() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(server + "/gameState/" + id))
+                .uri(URI.create(server + "/gameState/" + serverID))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -77,7 +77,7 @@ public class Client implements IStatusComm {
     public void hostGame(String title) {
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(title))
-                .uri(URI.create(server + "gameState"))
+                .uri(URI.create(server + "/game"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -94,7 +94,7 @@ public class Client implements IStatusComm {
     public String listGames() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(server + "/gameState/"))
+                .uri(URI.create(server + "/game"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
