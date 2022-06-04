@@ -35,27 +35,15 @@ import javafx.scene.control.MenuItem;
 public class RoboRallyMenuBar extends MenuBar {
 
     private AppController appController;
-
     private Menu controlMenu;
-
     private Menu serverMenu;
-
     private MenuItem saveGame;
-
     private MenuItem newGame;
-
     private MenuItem loadGame;
-
     private MenuItem stopGame;
-
     private MenuItem exitApp;
-
     private MenuItem startServer;
-
-    private MenuItem closeServer;
-
     private MenuItem connectServer;
-
     private MenuItem disconnectServer;
 
     public RoboRallyMenuBar(AppController appController) {
@@ -87,9 +75,9 @@ public class RoboRallyMenuBar extends MenuBar {
         exitApp.setOnAction( e -> this.appController.exit());
         controlMenu.getItems().add(exitApp);
 
-        //server
-        startServer = new MenuItem("Start Server");
-        startServer.setOnAction(e -> this.appController.startServer());
+        //Online
+        startServer = new MenuItem("Host game");
+        startServer.setOnAction(e -> this.appController.hostGame());
         serverMenu.getItems().add(startServer);
 
         connectServer = new MenuItem("Connect to server");
@@ -99,10 +87,6 @@ public class RoboRallyMenuBar extends MenuBar {
         disconnectServer = new MenuItem("Disconnect from server");
         disconnectServer.setOnAction(e -> this.appController.disconnectFromServer());
         serverMenu.getItems().add(disconnectServer);
-
-        closeServer = new MenuItem("Close Server");
-        closeServer.setOnAction(e -> this.appController.closeServer());
-        serverMenu.getItems().add(closeServer);
 
         //show the menubar
         controlMenu.setOnShowing(e -> update());
@@ -126,12 +110,10 @@ public class RoboRallyMenuBar extends MenuBar {
         }
         if (appController.isServerStarted()){
             startServer.setVisible(false);
-            closeServer.setVisible(true);
             connectServer.setVisible(false);
             disconnectServer.setVisible(true);
         }else{
             startServer.setVisible(true);
-            closeServer.setVisible(false);
             connectServer.setVisible(true);
             disconnectServer.setVisible(false);
         }
