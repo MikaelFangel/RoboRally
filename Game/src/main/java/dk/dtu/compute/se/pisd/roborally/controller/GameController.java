@@ -35,7 +35,7 @@ import java.util.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
-//Stack<CommandCard> Cards = new Stack<>();
+    //Stack<CommandCard> Cards = new Stack<>();
     public Board board;
     final public RobotMovementController rmc;
     final private AppController appController;
@@ -50,8 +50,12 @@ public class GameController {
         this.client = client;
         rmc = new RobotMovementController(this, board);
 
-        if(client != null) {
-            (new boardUpdater()).start();
+        if (client != null) {
+            client.updateGame(SerializeState.serializeGame(board));
+            boardUpdater updater = new boardUpdater();
+            updater.setGameController(this);
+            updater.setClient(client);
+            updater.start();
         }
     }
 
@@ -129,7 +133,7 @@ public class GameController {
     /**
      * Changes the phase from programming to activation.
      */
-    private CommandCard playerDeck(int card){
+    private CommandCard playerDeck(int card) {
         Command[] commands = Command.values();
         return new CommandCard((commands[card]));
     }
@@ -177,7 +181,7 @@ public class GameController {
         // Reset all energy cubes
         for (Space[] row : board.getSpaces()) {
             for (Space space : row) {
-                if(space.getActions().size() > 0 &&
+                if (space.getActions().size() > 0 &&
                         space.getActions().get(0) instanceof Energy energy) {
                     energy.setHasEnergyCube(true);
                 }
@@ -337,7 +341,7 @@ public class GameController {
                 // DO NOTHING (for now)
             }
 
-            if(client != null)
+            if (client != null)
                 client.updateGame(SerializeState.serializeGame(board));
         }
     }
