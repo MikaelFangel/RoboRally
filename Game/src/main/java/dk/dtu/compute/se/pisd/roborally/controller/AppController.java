@@ -84,7 +84,7 @@ public class AppController implements Observer {
             Optional<String> resultB = dialogB.showAndWait();
             if (resultB.isPresent()) {
                 Board board = SaveLoadGame.newBoard(result.get(), resultB.get());
-                initializePlayers(board);
+                //initializePlayers(board);
                 setupGameController(board);
             }
         }
