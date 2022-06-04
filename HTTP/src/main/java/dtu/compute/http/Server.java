@@ -33,4 +33,8 @@ public class Server {
     public void setGameState(String gameState) {
         this.gameState = gameState;
     }
+
+    public String getId(){
+        return id;
+    }
 }

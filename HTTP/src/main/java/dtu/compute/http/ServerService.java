@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Service
 public class ServerService implements IStatusComm{
@@ -43,15 +44,29 @@ public class ServerService implements IStatusComm{
 
     @Override
     public String joinGame(String serverToJoin) {
-        servers.get(Integer.parseInt(serverToJoin)).addPlayer();
+        Server s = findServer(serverToJoin);
+        assert s != null;
+        if (s.getAmountOfPlayers() == 6)
+            return "error";
+        s.addPlayer();
         return "ok";
     }
 
     @Override
     public void leaveGame(String serverId) {
-        Server server = servers.get(Integer.parseInt(serverId));
+        Server server = findServer(serverId);
+        assert server != null;
         server.removePlayer();
         if (server.isEmpty())
             servers.remove(server);
+    }
+
+    private Server findServer(String serverId){
+        for (Server e : servers) {
+            if (Objects.equals(e.getId(), serverId)) {
+                return e;
+            }
+        }
+        return null;
     }
 }

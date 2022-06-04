@@ -84,6 +84,8 @@ public class Client implements IStatusComm {
      */
     @Override
     public String hostGame(String title) {
+        if (!Objects.equals(serverID, ""))
+            leaveGame();
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(title))
                 .uri(URI.create(server + "/game"))
@@ -135,6 +137,8 @@ public class Client implements IStatusComm {
      */
     @Override
     public String joinGame(String serverToJoin) {
+        if (!Objects.equals(serverID, ""))
+            leaveGame();
         serverID = serverToJoin;
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(""))
@@ -160,7 +164,7 @@ public class Client implements IStatusComm {
                 .build();
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-        //serverID = "";
+        serverID = "";
     }
 
     public String getServer() {
