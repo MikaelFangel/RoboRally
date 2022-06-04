@@ -22,6 +22,10 @@ public class Server {
         return amountOfPlayers == 0;
     }
 
+    public int getAmountOfPlayers() {
+        return amountOfPlayers;
+    }
+
     public String getGameState() {
         return gameState;
     }

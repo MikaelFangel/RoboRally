@@ -34,6 +34,13 @@ public class ServerController {
         return ResponseEntity.ok().body("ok");
     }
 
+    //leave game
+    @PostMapping(value = "/game/{id}")
+    public ResponseEntity<String> leaveGame(@PathVariable String id){
+        statusComm.leaveGame(id);
+        return ResponseEntity.ok().body("ok");
+    }
+
     @GetMapping(value = "/gameState/{id}")
     public ResponseEntity<String> getGameState(@PathVariable String id)
     {
