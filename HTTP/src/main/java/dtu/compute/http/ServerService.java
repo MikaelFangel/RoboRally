@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ServerService implements IStatusComm{
@@ -32,7 +31,14 @@ public class ServerService implements IStatusComm{
     @Override
     public String listGames() {
         Gson gson = new Gson();
-        return gson.toJson(servers);
+
+        ArrayList<Server> server = new ArrayList<>();
+        servers.forEach(e -> {
+            if (e.getAmountOfPlayers() != 6) {
+                server.add(e);
+            }
+        });
+        return gson.toJson(server);
     }
 
     @Override
