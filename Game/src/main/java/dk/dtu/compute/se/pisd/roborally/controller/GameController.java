@@ -50,7 +50,9 @@ public class GameController {
         this.client = client;
         rmc = new RobotMovementController(this, board);
 
+        // TODO fix client freeze
         if (client != null) {
+            board.setCurrentPlayer(board.getPlayer(0));
             client.updateGame(SerializeState.serializeGame(board));
             boardUpdater updater = new boardUpdater();
             updater.setGameController(this);
