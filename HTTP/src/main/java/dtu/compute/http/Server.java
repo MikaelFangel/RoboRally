@@ -11,7 +11,7 @@ public class Server {
     public Server(String title, int id){
         this.id = String.valueOf(id);
         this.title = title;
-        this.amountOfPlayers = 0;
+        this.amountOfPlayers = 1;
     }
 
     public void addPlayer(){
