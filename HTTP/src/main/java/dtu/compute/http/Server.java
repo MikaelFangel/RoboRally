@@ -17,6 +17,10 @@ public class Server {
     public void addPlayer(){
         amountOfPlayers++;
     }
+    public void removePlayer() {amountOfPlayers--;}
+    public boolean isEmpty(){
+        return amountOfPlayers == 0;
+    }
 
     public String getGameState() {
         return gameState;
