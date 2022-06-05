@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.controller.*;
+import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -46,7 +47,8 @@ public class ReadWriteGame {
                 try {
                     writer.close();
                     fileWriter = null;
-                } catch (IOException e2) {}
+                } catch (IOException e2) {
+                }
             }
             if (fileWriter != null) {
                 try {
@@ -61,19 +63,19 @@ public class ReadWriteGame {
      * @param resourcePath The path to the folder containing the boards.
      * @return Full string of everything that is contained within the file.
      */
-    public static String readGameFromDisk(String resourcePath){
-        // TODO Make this read the json file
-        ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
-
+    public static String readGameFromDisk(String resourcePath) throws BoardNotFoundException {
         try {
+            ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
+            if (inputStream == null) throw new IOException();
+
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
             return json; // Change
         } catch (IOException e){
-            System.out.println("Failed reading board from disk");
-
-            return null;
+            BoardNotFoundException exception = new BoardNotFoundException();
+            exception.setBoardPath(resourcePath);
+            throw exception;
         }
     }
 }
