@@ -8,6 +8,8 @@ import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ReadWriteGame {
@@ -76,5 +78,20 @@ public class ReadWriteGame {
             BoardNotFoundException exception = new BoardNotFoundException(resourcePath);
             throw exception;
         }
+    }
+
+    public static List<String> getNamesOfSavedBoards(){
+        ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
+        String fullPath = classLoader.getResource(SAVED_BOARDS_FOLDER).getPath();
+
+        File savedBoardsFolder = new File(fullPath);
+        File[] listOfFiles = savedBoardsFolder.listFiles();
+
+        List<String> fileNames = new ArrayList<>();
+        for (File file : listOfFiles){
+            fileNames.add(file.getName().replace(".json", ""));
+        }
+
+        return fileNames;
     }
 }

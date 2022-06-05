@@ -28,6 +28,7 @@ import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.httpclient.ServerListView;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.ReadWriteGame;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import javafx.application.Platform;
@@ -109,8 +110,13 @@ public class AppController implements Observer {
 
     private void createLoadedGame(boolean prevFailed){
         Optional<String> chosenBoard = askUserWhichSavedBoard(prevFailed);
+
         if (chosenBoard.isPresent()){
             try {
+                if ("Test204".equals(chosenBoard.get())){
+                    System.out.println("Is the same");
+                }
+
                 Board board = SaveLoadGame.loadBoard(chosenBoard.get());
                 setupGameController(board);
             } catch (BoardNotFoundException e){
@@ -174,13 +180,16 @@ public class AppController implements Observer {
     }
 
     private Optional<String> askUserWhichSavedBoard(boolean prevFailed){
-        TextInputDialog dialog = new TextInputDialog();
+        // Get all files in resource
+        List<String> allSavedBoardNames = ReadWriteGame.getNamesOfSavedBoards();
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(allSavedBoardNames.get(0), allSavedBoardNames);
+
         dialog.setTitle("LOAD GAME");
 
         if (prevFailed)
             dialog.setHeaderText("The board did not exists. Try another");
         else
-            dialog.setHeaderText("Enter a Save game name  you want to load");
+            dialog.setHeaderText("Pick a game to load!");
 
         return dialog.showAndWait();
     }
