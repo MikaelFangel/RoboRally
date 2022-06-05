@@ -48,7 +48,7 @@ public class GameController {
         this.appController = appController;
         this.board = board;
         this.client = client;
-        rmc = new RobotMovementController(this, board);
+        rmc = new RobotMovementController(this);
 
         // TODO fix client freeze
         if (client != null) {
