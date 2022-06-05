@@ -67,14 +67,13 @@ public class ReadWriteGame {
         try {
             ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
-            if (inputStream == null) throw new IOException();
+            if (inputStream == null) throw new BoardNotFoundException(resourcePath);
 
             String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
             return json; // Change
         } catch (IOException e){
-            BoardNotFoundException exception = new BoardNotFoundException();
-            exception.setBoardPath(resourcePath);
+            BoardNotFoundException exception = new BoardNotFoundException(resourcePath);
             throw exception;
         }
     }
