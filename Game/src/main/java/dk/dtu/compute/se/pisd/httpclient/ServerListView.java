@@ -2,6 +2,7 @@ package dk.dtu.compute.se.pisd.httpclient;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import dk.dtu.compute.se.pisd.roborally.controller.AppController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,7 +27,9 @@ public class ServerListView{
     private Stage stage;
     private TableView<Server> table = new TableView<>();
     private ObservableList<Server> data = FXCollections.observableArrayList();
-    public ServerListView(Client c){
+    AppController app;
+    public ServerListView(Client c, AppController app){
+        this.app = app;
         stage = new Stage();
         Scene scene = new Scene(new Group());
 
@@ -65,7 +68,7 @@ public class ServerListView{
         table.getColumns().addAll(id, serverName, players);
 
         Button button = new Button("Join Game");
-        button.setOnAction(e -> c.joinGame(table.getSelectionModel().getSelectedItem().getId()));
+        button.setOnAction(e -> {app.stopGame(); c.joinGame(table.getSelectionModel().getSelectedItem().getId());});
 
         Button refresh = new Button("Refresh");
         refresh.setOnAction(e -> addServer(c.listGames()));

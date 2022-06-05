@@ -60,7 +60,7 @@ public class AppController implements Observer {
 
     private boolean serverClientMode = false;
 
-    private final ServerListView slv = new ServerListView(client);
+    private final ServerListView slv = new ServerListView(client, this);
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;

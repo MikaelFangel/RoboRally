@@ -139,7 +139,6 @@ public class Client implements IStatusComm {
     public String joinGame(String serverToJoin) {
         if (!Objects.equals(serverID, ""))
             leaveGame();
-        serverID = serverToJoin;
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(""))
                 .uri(URI.create(server + "/game/" + serverToJoin))
@@ -148,7 +147,15 @@ public class Client implements IStatusComm {
                 .build();
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            if (response.get().statusCode() == 200)
+                serverID = serverToJoin;
 
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
         return getGameState();
     }
 
