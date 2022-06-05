@@ -13,12 +13,12 @@ public class ServerService implements IStatusComm{
 
     @Override
     public void updateGame(String id, String gameState) {
-        Objects.requireNonNull(findServer(id)).setGameState(gameState);
+        (findServer(id)).setGameState(gameState);
     }
 
     @Override
     public String getGameState(String serverId) {
-        return Objects.requireNonNull(findServer(serverId)).getGameState();
+        return (findServer(serverId)).getGameState();
     }
 
     @Override

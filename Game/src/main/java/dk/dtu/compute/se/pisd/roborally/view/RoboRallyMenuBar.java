@@ -77,7 +77,7 @@ public class RoboRallyMenuBar extends MenuBar {
 
         //Online
         startServer = new MenuItem("Host game");
-        startServer.setOnAction(e -> this.appController.hostGame());
+        startServer.setOnAction(e -> {this.appController.stopGame();this.appController.hostGame();});
         serverMenu.getItems().add(startServer);
 
         connectServer = new MenuItem("Connect to server");

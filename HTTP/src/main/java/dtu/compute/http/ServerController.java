@@ -30,8 +30,10 @@ public class ServerController {
     //Join game
     @PutMapping(value = "/game/{id}")
     public ResponseEntity<String> joinGame(@PathVariable String id){
-        statusComm.joinGame(id);
-        return ResponseEntity.ok().body("ok");
+        if (statusComm.joinGame(id).equals("ok"))
+            return ResponseEntity.ok().body("ok");
+        else
+            return ResponseEntity.badRequest().body("error");
     }
 
     //leave game
