@@ -14,10 +14,7 @@ public class RobotMovementController {
 
     final private GameController gameController;
 
-    final private Board board;
-
-    public RobotMovementController(GameController gameController, Board board) {
-        this.board = board;
+    public RobotMovementController(GameController gameController) {
         this.gameController = gameController;
     }
 
@@ -34,7 +31,7 @@ public class RobotMovementController {
         for (int i = 0; i < moves; i++) {
             try {
                 Heading heading = player.getHeading();
-                Space target = board.getNeighbour(player.getSpace(), heading);
+                Space target = gameController.board.getNeighbour(player.getSpace(), heading);
                 if (target == null ||
                         (target.getActions().size() > 0 && target.getActions().get(0) instanceof PriorityAntenna))
                     throw new ImpossibleMoveException(player, player.getSpace(), heading);
@@ -58,7 +55,7 @@ public class RobotMovementController {
      * @param player the player which is subject to move
      */
     public void turnRight(@NotNull Player player) {
-        if (player.board == board) {
+        if (player.board == gameController.board) {
             player.setHeading(player.getHeading().next());
         }
     }
@@ -69,7 +66,7 @@ public class RobotMovementController {
      * @param player the player which is subject to move
      */
     public void turnLeft(@NotNull Player player) {
-        if (player.board == board) {
+        if (player.board == gameController.board) {
             player.setHeading(player.getHeading().prev());
         }
     }
@@ -120,7 +117,7 @@ public class RobotMovementController {
         //TODO
         //should contain a method to determinate if a player can push another player.
         //need to check on the player getting pushed, but also any other player that might be a part of a chain of pushes.
-        Space target = board.getNeighbour(player.getSpace(), headed);
+        Space target = gameController.board.getNeighbour(player.getSpace(), headed);
         //if (hitting a wall)
 
         if (target.getPlayer() != null) {
@@ -138,7 +135,7 @@ public class RobotMovementController {
     }
 
     private boolean isOccupied(Space space) {
-        Space target = board.getSpace(space.x, space.y);
+        Space target = gameController.board.getSpace(space.x, space.y);
         return target.getPlayer() != null;
     }
 
