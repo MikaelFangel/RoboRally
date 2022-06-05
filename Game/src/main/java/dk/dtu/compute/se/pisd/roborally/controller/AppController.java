@@ -27,6 +27,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.httpclient.ServerListView;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
+import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import javafx.application.Platform;
@@ -85,8 +86,13 @@ public class AppController implements Observer {
             dialogB.setHeaderText("Select which board to play");
             Optional<String> resultB = dialogB.showAndWait();
             if (resultB.isPresent()) {
-                Board board = SaveLoadGame.newBoard(result.get(), resultB.get());
-                setupGameController(board);
+                try {
+                    Board board = SaveLoadGame.newBoard(result.get(), resultB.get());
+                    setupGameController(board);
+                } catch (BoardNotFoundException e){
+                    // TODO make function to get user to reinput a new board.
+                    System.out.println("Board is not found: " + e.getBoardPath());
+                }
             }
         }
     }
@@ -109,8 +115,13 @@ public class AppController implements Observer {
 
             final Optional<String> resultL = dialogL.showAndWait();
             if (resultL.isPresent()) {
-                Board board = SaveLoadGame.loadBoard(resultL.get());
-                setupGameController(board);
+                try {
+                    Board board = SaveLoadGame.loadBoard(resultL.get());
+                    setupGameController(board);
+                } catch (BoardNotFoundException e){
+                    // TODO make function to get user to reinput a new board.
+                    System.out.println("Board is not found: " + e.getBoardPath());
+                }
             }
         }
     }

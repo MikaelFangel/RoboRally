@@ -1,5 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.ReadWriteGame;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
@@ -40,7 +41,7 @@ public class SaveLoadGame {
      * @param name the file name of the board to get loaded
      * @return the instance of Board loaded from a file.
      */
-    public static Board loadBoard(String name) {
+    public static Board loadBoard(String name) throws BoardNotFoundException {
         Board board = null;
 
         String resourcePath = SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT;
@@ -51,6 +52,7 @@ public class SaveLoadGame {
         }
 
         return board;
+
     }
 
     /**
@@ -60,7 +62,7 @@ public class SaveLoadGame {
      * @param boardName the filename of the board that should be loaded
      * @return the new Board instance with the board layout of the parameter as well as corresponding player number
      */
-    public static Board newBoard(int numPlayers, String boardName){
+    public static Board newBoard(int numPlayers, String boardName) throws BoardNotFoundException {
         newBoardCreated = true;
 
         Board board = null;
