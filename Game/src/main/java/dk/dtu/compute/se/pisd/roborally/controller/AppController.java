@@ -68,31 +68,25 @@ public class AppController implements Observer {
     }
 
     public void newGame() {
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
-        dialog.setTitle("Player number");
-        dialog.setHeaderText("Select number of players");
-        Optional<Integer> result = dialog.showAndWait();
+        Optional<Integer> numPlayers = askUserForNumberOfPlayers();
 
-        if (result.isPresent()) {
-            if (gameController != null) {
-                // The UI should not allow this, but in case this happens anyway.
-                // give the user the option to save the game or abort this operation!
-                if (!stopGame()) {
-                    return;
-                }
-            }
-            ChoiceDialog<String> dialogB = new ChoiceDialog<>(BOARD_OPTIONS.get(0), BOARD_OPTIONS);
-            dialogB.setTitle("CHOOSE BOARD");
-            dialogB.setHeaderText("Select which board to play");
-            Optional<String> resultB = dialogB.showAndWait();
-            if (resultB.isPresent()) {
-                try {
-                    Board board = SaveLoadGame.newBoard(result.get(), resultB.get());
-                    setupGameController(board);
-                } catch (BoardNotFoundException e){
-                    // TODO make function to get user to reinput a new board.
-                    System.out.println("Board is not found: " + e.getBoardPath());
-                }
+        if (numPlayers.isPresent()) {
+            // The UI should not allow this, but in case this happens anyway.
+            // give the user the option to save the game or abort this operation!
+            if (gameController != null && !stopGame()) return;
+
+            createNewGame(numPlayers.get(), false);
+        }
+    }
+
+    private void createNewGame(int numPlayers, boolean prevFailed) {
+        Optional<String> chosenBoard = askUserWhichDefaultBoard(prevFailed);
+        if (chosenBoard.isPresent()){
+            try {
+                Board board = SaveLoadGame.newBoard(numPlayers, chosenBoard.get());
+                setupGameController(board);
+            } catch (BoardNotFoundException e){
+                createNewGame(numPlayers, true);
             }
         }
     }
@@ -109,19 +103,18 @@ public class AppController implements Observer {
 
     public void loadGame() {
         if (gameController == null) {
-            TextInputDialog dialogL = new TextInputDialog();
-            dialogL.setTitle("LOAD GAME");
-            dialogL.setHeaderText("Enter a Save game name  you want to load");
+            createLoadedGame(false);
+        }
+    }
 
-            final Optional<String> resultL = dialogL.showAndWait();
-            if (resultL.isPresent()) {
-                try {
-                    Board board = SaveLoadGame.loadBoard(resultL.get());
-                    setupGameController(board);
-                } catch (BoardNotFoundException e){
-                    // TODO make function to get user to reinput a new board.
-                    System.out.println("Board is not found: " + e.getBoardPath());
-                }
+    private void createLoadedGame(boolean prevFailed){
+        Optional<String> chosenBoard = askUserWhichSavedBoard(prevFailed);
+        if (chosenBoard.isPresent()){
+            try {
+                Board board = SaveLoadGame.loadBoard(chosenBoard.get());
+                setupGameController(board);
+            } catch (BoardNotFoundException e){
+                createLoadedGame(true);
             }
         }
     }
@@ -160,6 +153,39 @@ public class AppController implements Observer {
 
         roboRally.createBoardView(gameController);
     }
+
+    private Optional<Integer> askUserForNumberOfPlayers(){
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
+        dialog.setTitle("Player number");
+        dialog.setHeaderText("Select number of players");
+
+        return dialog.showAndWait();
+    }
+
+    private Optional<String> askUserWhichDefaultBoard(boolean prevFailed){
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(BOARD_OPTIONS.get(0), BOARD_OPTIONS);
+        dialog.setTitle("CHOOSE BOARD");
+        if (prevFailed)
+            dialog.setHeaderText("The board does not exists. Select another one");
+        else
+            dialog.setHeaderText("Select which board to play");
+
+        return dialog.showAndWait();
+    }
+
+    private Optional<String> askUserWhichSavedBoard(boolean prevFailed){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("LOAD GAME");
+
+        if (prevFailed)
+            dialog.setHeaderText("The board did not exists. Try another");
+        else
+            dialog.setHeaderText("Enter a Save game name  you want to load");
+
+        return dialog.showAndWait();
+    }
+
+
 
     /**
      * Stop playing the current game, giving the user the option to save
