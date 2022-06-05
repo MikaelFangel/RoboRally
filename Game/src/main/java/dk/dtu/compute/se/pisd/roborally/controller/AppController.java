@@ -186,10 +186,6 @@ public class AppController implements Observer {
         return gameController != null;
     }
 
-    public boolean isServerStarted() {
-        return serverStart;
-    }
-
 
     @Override
     public void update(Subject subject) {

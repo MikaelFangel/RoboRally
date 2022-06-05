@@ -85,7 +85,7 @@ public class RoboRallyMenuBar extends MenuBar {
         serverMenu.getItems().add(connectServer);
 
         disconnectServer = new MenuItem("Disconnect from server");
-        disconnectServer.setOnAction(e -> this.appController.disconnectFromServer());
+        disconnectServer.setOnAction(e -> {this.appController.disconnectFromServer(); this.appController.stopGame();});
         serverMenu.getItems().add(disconnectServer);
 
         //show the menubar
@@ -111,7 +111,6 @@ public class RoboRallyMenuBar extends MenuBar {
         startServer.setVisible(true);
         connectServer.setVisible(true);
         disconnectServer.setVisible(true);
-
     }
 
 }
