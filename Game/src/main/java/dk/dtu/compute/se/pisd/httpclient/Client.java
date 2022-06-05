@@ -1,6 +1,7 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
+import javafx.scene.control.Alert;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -148,8 +149,9 @@ public class Client implements IStatusComm {
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
-            if (response.get().statusCode() == 200)
-                serverID = serverToJoin;
+            if (!(response.get().statusCode() == 200))
+                return "error";
+            serverID = serverToJoin;
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
