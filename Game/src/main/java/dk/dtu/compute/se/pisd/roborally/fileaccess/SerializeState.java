@@ -120,7 +120,10 @@ public class SerializeState {
             playersTemplate.add(playerTemplate);
         }
         template.players = playersTemplate;
-        template.currentPlayer = board.getPlayerNumber(board.getCurrentPlayer());
+        if (board.getCurrentPlayer() == null)
+            template.currentPlayer = 0;
+        else
+            template.currentPlayer = board.getPlayerNumber(board.getCurrentPlayer());
 
 
         // Saving the board template using GSON
@@ -226,6 +229,7 @@ public class SerializeState {
         if (savedGame){
             int currentPlayerIndex = template.currentPlayer;
             result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
+            System.out.println("Stop");
         }
 
         return result;
