@@ -126,6 +126,12 @@ public class AppController implements Observer {
         newGame();
     }
 
+    public void joinGame(String id){
+        String message = client.joinGame(id);
+        if (message.equals("error"))
+            showErrorMessage(new String[]{"Error", "Can't connect to server","refresh and try again"});
+    }
+
     public void connectToServer() {
         slv.addServer(client.listGames());
         slv.viewTable();
@@ -201,6 +207,14 @@ public class AppController implements Observer {
 
     public RoboRally getRoboRally() {
         return roboRally;
+    }
+
+    public void showErrorMessage(String[] reason){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(reason[0]);
+        alert.setHeaderText(reason[1]);
+        alert.setContentText(reason[2]);
+        alert.showAndWait();
     }
 
 }
