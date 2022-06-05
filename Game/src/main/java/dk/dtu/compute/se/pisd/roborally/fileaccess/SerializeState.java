@@ -149,7 +149,6 @@ public class SerializeState {
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
 
-        // TODO Make this use the ReadWrite
         JsonReader reader = gson.newJsonReader(new StringReader(jsonString));
         Board result;
 
@@ -223,13 +222,11 @@ public class SerializeState {
             // Finish up
             newPlayer.cards = newCards;
             newPlayer.program = newProgram;
-            System.out.println("");
         }
 
         if (savedGame){
             int currentPlayerIndex = template.currentPlayer;
             result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
-            System.out.println("Stop");
         }
 
         return result;

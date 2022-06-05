@@ -1,0 +1,1048 @@
+{
+  "width": 13,
+  "height": 10,
+  "phase": "ACTIVATION",
+  "step": 2,
+  "stepMode": true,
+  "players": [
+    {
+      "name": "Player 1",
+      "color": "red",
+      "energyCount": 5,
+      "checkPoints": 0,
+      "spaceX": 7,
+      "spaceY": 4,
+      "heading": "EAST",
+      "program": [
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVE1"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "LEFT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": false
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": false
+        }
+      ],
+      "cards": [
+        {
+          "card": {
+            "command": {
+              "type": "AGAIN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "AGAIN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "AGAIN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "UTURN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "OPTION_LEFT_RIGHT"
+            }
+          },
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "Player 3",
+      "color": "blue",
+      "energyCount": 5,
+      "checkPoints": 0,
+      "spaceX": 3,
+      "spaceY": 7,
+      "heading": "EAST",
+      "program": [
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "UTURN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVE2"
+            }
+          },
+          "visible": false
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": false
+        }
+      ],
+      "cards": [
+        {
+          "card": {
+            "command": {
+              "type": "MOVE3"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "AGAIN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "AGAIN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVEBACK"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "Player 2",
+      "color": "green",
+      "energyCount": 6,
+      "checkPoints": 0,
+      "spaceX": 9,
+      "spaceY": 6,
+      "heading": "EAST",
+      "program": [
+        {
+          "card": {
+            "command": {
+              "type": "MOVE2"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVE1"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": false
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": false
+        }
+      ],
+      "cards": [
+        {
+          "card": {
+            "command": {
+              "type": "MOVE2"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "OPTION_LEFT_RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "OPTION_LEFT_RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVEBACK"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVEBACK"
+            }
+          },
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "currentPlayer": 0,
+  "spaces": [
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 0,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 0,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 0,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 1,
+      "y": 1
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [],
+      "x": 1,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 1,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 1,
+      "y": 5
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 1,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 1,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 1
+          }
+        }
+      ],
+      "x": 2,
+      "y": 0
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [],
+      "x": 2,
+      "y": 4
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [],
+      "x": 2,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 1
+          }
+        }
+      ],
+      "x": 2,
+      "y": 9
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 3,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Pit",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 3,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 3,
+      "y": 9
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 4,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "SOUTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 4,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "SOUTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 4,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "SOUTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 4,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "SOUTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 4,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "SOUTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 4,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "SOUTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 4,
+      "y": 9
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PushPanel",
+          "INSTANCE": {
+            "heading": "NORTH"
+          }
+        }
+      ],
+      "x": 5,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 5,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Checkpoint",
+          "INSTANCE": {
+            "checkpointNumber": 2
+          }
+        }
+      ],
+      "x": 5,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 5,
+      "y": 8
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 6,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 6,
+      "y": 1
+    },
+    {
+      "walls": [
+        "WEST",
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 6,
+      "y": 3
+    },
+    {
+      "walls": [
+        "WEST",
+        "SOUTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 6,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 6,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 7,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 7,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 8,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 8,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 9,
+      "y": 1
+    },
+    {
+      "walls": [
+        "EAST",
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 9,
+      "y": 3
+    },
+    {
+      "walls": [
+        "EAST",
+        "SOUTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": false
+          }
+        }
+      ],
+      "x": 9,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 9,
+      "y": 8
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [],
+      "x": 9,
+      "y": 9
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "EAST",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 10,
+      "y": 1
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PushPanel",
+          "INSTANCE": {
+            "heading": "SOUTH"
+          }
+        }
+      ],
+      "x": 10,
+      "y": 9
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 11,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 11,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 11,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 11,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 11,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "numberOfMoves": 2
+          }
+        }
+      ],
+      "x": 11,
+      "y": 5
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [],
+      "x": 11,
+      "y": 9
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 12,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Checkpoint",
+          "INSTANCE": {
+            "checkpointNumber": 1
+          }
+        }
+      ],
+      "x": 12,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Pit",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 12,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "INSTANCE": {
+            "hasEnergyCube": true
+          }
+        }
+      ],
+      "x": 12,
+      "y": 9
+    }
+  ]
+}
