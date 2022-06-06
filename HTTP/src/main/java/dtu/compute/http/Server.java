@@ -8,7 +8,7 @@ public class Server {
     private transient String gameState;
     private int amountOfPlayers;
     private int maxAmountOfPlayers;
-    private boolean[] playerSpotFilled;
+    private transient boolean[] playerSpotFilled;
 
     public Server(String title, int id){
         this.id = String.valueOf(id);
@@ -55,5 +55,9 @@ public class Server {
             if (!playerSpotFilled[i])
                 return i;
         return 0; //shouldn't happend
+    }
+
+    public void setPlayerSpotFilled(int i, boolean flag){
+        playerSpotFilled[i] = flag;
     }
 }

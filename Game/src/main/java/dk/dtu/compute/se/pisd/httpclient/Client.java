@@ -177,12 +177,11 @@ public class Client implements IStatusComm {
             return;
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(""))
-                .uri(URI.create(server + "/game/" + serverID))
+                .uri(URI.create(server + "/game/" + serverID + "/" + robotNumber))
                 .header("User-Agent", "RoboRally Client")
                 .header("Content-Type", "text/plain")
                 .build();
-        CompletableFuture<HttpResponse<String>> response =
-                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         serverID = "";
     }
 

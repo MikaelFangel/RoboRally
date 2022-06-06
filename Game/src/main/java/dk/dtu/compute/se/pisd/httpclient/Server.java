@@ -9,6 +9,7 @@ public class Server {
     private transient String gameState;
     private int amountOfPlayers;
     private int maxAmountOfPlayers;
+    private transient boolean[] playerSpotFilled;
 
     public String getId() {
         return id;

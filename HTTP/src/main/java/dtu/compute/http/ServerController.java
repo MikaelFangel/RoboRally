@@ -41,9 +41,9 @@ public class ServerController {
     }
 
     //leave game
-    @PostMapping(value = "/game/{id}")
-    public void leaveGame(@PathVariable String id){
-        statusComm.leaveGame(id);
+    @PostMapping(value = "/game/{id}/{robot}")
+    public void leaveGame(@PathVariable String id, @PathVariable String robot){
+        statusComm.leaveGame(id, Integer.parseInt(robot));
     }
 
     @GetMapping(value = "/gameState/{id}")
