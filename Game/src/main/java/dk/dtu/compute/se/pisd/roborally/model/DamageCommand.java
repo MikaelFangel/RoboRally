@@ -1,6 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
-public enum DamageCommand {
+public enum DamageCommand{
     SPAM("SPAM"),
     TROJANHORSE("TROJAN HORSE"),
     WORM("WORM"),

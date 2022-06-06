@@ -1,15 +1,18 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
-import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+public class DamageCard extends Card {
+    public DamageCommand damageCommand;
 
-public class DamageCard extends Subject {
-    public final DamageCommand damageCommand;
-
-    public DamageCard(DamageCommand damageCommand) {
+    public DamageCard(String description, String effect, int cost, DamageCommand damageCommand) {
+        super(description,effect,cost);
         this.damageCommand = damageCommand;
     }
 
-    public String getName(){
+    public String getDisplayName(){
         return damageCommand.displayName;
+    }
+
+    public DamageCommand getDamageCommand() {
+        return damageCommand;
     }
 }
