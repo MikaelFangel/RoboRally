@@ -4,10 +4,11 @@ import org.springframework.stereotype.Service;
 
 public class Server {
     private String id;
-    private String title;
+    private final String title;
     private transient String gameState;
     private int amountOfPlayers;
     private int maxAmountOfPlayers;
+    private boolean[] playerSpotFilled;
 
     public Server(String title, int id){
         this.id = String.valueOf(id);
@@ -45,5 +46,14 @@ public class Server {
 
     public void setMaxAmountOfPlayers(int amountOfPlayers) {
         this.maxAmountOfPlayers = amountOfPlayers;
+        this.playerSpotFilled = new boolean[amountOfPlayers];
+        playerSpotFilled[0] = true;
+    }
+
+    public int getARobot(){
+        for (int i = 0; i < maxAmountOfPlayers; i++)
+            if (!playerSpotFilled[i])
+                return i;
+        return 0; //shouldn't happend
     }
 }

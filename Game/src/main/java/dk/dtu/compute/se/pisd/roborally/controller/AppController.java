@@ -128,15 +128,23 @@ public class AppController implements Observer {
         }
     }
 
-    public void hostGame() {
+    public void hostGame(String... errorMessage) {
         TextInputDialog serverCreation = new TextInputDialog();
         serverCreation.setTitle("Start game server");
         serverCreation.setHeaderText("Server name:");
+        if (errorMessage.length != 0){
+            serverCreation.setHeaderText(errorMessage[0]);
+        }
         Optional<String> result = serverCreation.showAndWait();
-        result.ifPresent(client::hostGame);
-
-        serverClientMode = true;
-        newGame();
+        if (result.isEmpty())
+            return;
+        String response = client.hostGame(String.valueOf(result));
+        if (!Objects.equals(response, "success"))
+            hostGame(response);
+        else {
+            serverClientMode = true;
+            newGame();
+        }
     }
 
     public void joinGame(String id){
