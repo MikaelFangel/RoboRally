@@ -181,7 +181,21 @@ public class Client implements IStatusComm {
                 .header("User-Agent", "RoboRally Client")
                 .header("Content-Type", "text/plain")
                 .build();
-        HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        new Thread(() -> {
+            int tries = 0;
+            CompletableFuture<HttpResponse<String>> response =
+                    HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            do {
+                try {
+                    response.get(5, SECONDS);
+                    break;
+                } catch (ExecutionException | InterruptedException e) {
+                    break;
+                } catch (TimeoutException e) {
+                    tries++;
+                }
+            }while(tries != 10);
+        });
         serverID = "";
     }
 
