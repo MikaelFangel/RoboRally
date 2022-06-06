@@ -59,9 +59,10 @@ public class ServerService implements IStatusComm{
     }
 
     @Override
-    public void leaveGame(String serverId) {
+    public void leaveGame(String serverId, int robot) {
         Server server = findServer(serverId);
         assert server != null;
+        server.setPlayerSpotFilled(robot, false);
         server.removePlayer();
         if (server.isEmpty())
             servers.remove(server);

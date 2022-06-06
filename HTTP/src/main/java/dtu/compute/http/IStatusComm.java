@@ -1,7 +1,5 @@
 package dtu.compute.http;
 
-import java.util.Date;
-
 public interface IStatusComm {
     void updateGame(String id, String gameState);
 
@@ -12,6 +10,6 @@ public interface IStatusComm {
     String listGames();
 
     String joinGame(String serverToJoin);
-    void leaveGame(String serverId);
+    void leaveGame(String serverId, int i);
 }
 
