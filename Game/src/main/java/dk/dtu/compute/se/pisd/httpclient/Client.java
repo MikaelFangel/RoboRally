@@ -1,8 +1,5 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
-import dk.dtu.compute.se.pisd.roborally.RoboRally;
-import javafx.scene.control.Alert;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -29,6 +26,7 @@ public class Client implements IStatusComm {
     private String server = "http://localhost:8080";
     private String serverID = "";
     private boolean connectedToServer = false;
+    private int robotNumber;
 
     public boolean isConnectedToServer(){
         return connectedToServer;
@@ -102,12 +100,17 @@ public class Client implements IStatusComm {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
             serverID = response.thenApply(HttpResponse::body).get(5, SECONDS);
+            if (response.get().statusCode() == 500)
+                return response.get().body();
             connectedToServer = true;
+            robotNumber = 0;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new RuntimeException(e);
+            return "Service timeout";
+        } finally {
+            serverID = "";
         }
 
-        return serverID;
+        return "success";
     }
 
     /**

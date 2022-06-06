@@ -17,6 +17,8 @@ public class ServerController {
     @PostMapping(value = "/game")
     public ResponseEntity<String> createGame(@RequestBody String s){
         String newServerID = statusComm.hostGame(s);
+        if (newServerID == null) //something went wrong
+            return ResponseEntity.internalServerError().body("Server couldn't start");
         return ResponseEntity.ok().body(newServerID);
     }
 
