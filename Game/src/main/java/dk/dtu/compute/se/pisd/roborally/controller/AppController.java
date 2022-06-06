@@ -137,7 +137,7 @@ public class AppController implements Observer {
         Optional<String> result = serverCreation.showAndWait();
         if (result.isEmpty())
             return;
-        String response = client.hostGame(String.valueOf(result));
+        String response = client.hostGame(result.get());
         if (!Objects.equals(response, "success"))
             hostGame(response);
         else {
