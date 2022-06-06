@@ -231,6 +231,36 @@ public class GameController {
 
     public void assertPlayerPriorityAndChangeBoardPlayers(Space antennaSpace) {
         List<Player> players = board.getPlayers();
+        List<Integer> playersPriority = new ArrayList<>();
+
+        // Get distance for each player to the antenna
+        for (Player player : players){
+            Space playerSpace = player.getSpace();
+
+            double totalDistance = Math.sqrt(Math.pow(Math.abs(playerSpace.x - antennaSpace.x), 2) + Math.pow(Math.abs(playerSpace.y - antennaSpace.y), 2));
+            totalDistance = Math.round(totalDistance * 100); // To remove decimals
+            playersPriority.add((int) totalDistance);
+        }
+
+        // Prioritize player according to their distance to the antenna.
+        List<Player> prioritizedPlayers = new ArrayList<>();
+        for (int i = 0; i <= (board.width + board.height)*100; i++) {
+            for (int j = 0; j < players.size(); j++) {
+                if (playersPriority.get(j) == i) {
+                    prioritizedPlayers.add(players.get(j));
+                }
+            }
+        }
+
+        board.setPlayers(prioritizedPlayers);
+        board.setCurrentPlayer(prioritizedPlayers.get(0));
+
+        recreatePlayersView();
+
+
+
+        /*
+        List<Player> players = board.getPlayers();
         int[] playersPriority = new int[players.size()];
 
         for (int i = 0; i < players.size(); i++) {
@@ -254,6 +284,8 @@ public class GameController {
         board.setCurrentPlayer(prioritizedPlayers.get(0));
 
         recreatePlayersView();
+
+         */
     }
 
     private void changePlayer(Player currentPlayer, int step) {
