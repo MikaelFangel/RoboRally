@@ -50,11 +50,12 @@ public class ServerService implements IStatusComm{
     @Override
     public String joinGame(String serverToJoin) {
         Server s = findServer(serverToJoin);
-        assert s != null;
-        if (s.getAmountOfPlayers() == 6)
-            return "error";
+        if (s == null)
+            return "Server doesn't exist";
+        if (s.getAmountOfPlayers() >= s.getMaxAmountOfPlayers())
+            return "Server is full";
         s.addPlayer();
-        return "ok";
+        return String.valueOf(s.getARobot());
     }
 
     @Override

@@ -148,12 +148,18 @@ public class AppController implements Observer {
 
     public void joinGame(String id){
         String message = client.joinGame(id);
-        if (message.equals("error"))
-            showErrorMessage(new String[]{"Error", "Can't connect to server","refresh and try again"});
+        if (message.equals("ok"))
+            return;
+        showErrorMessage(new String[]{"Error", message,"refresh and try again"});
     }
 
     public void connectToServer() {
-        slv.addServer(client.listGames());
+        String serverList = client.listGames();
+        if (serverList.equals("server timeout")){
+            showErrorMessage(new String[]{"error",serverList,"try again"});
+            return;
+        }
+        slv.addServer(serverList);
         slv.viewTable();
     }
 
