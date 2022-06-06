@@ -25,24 +25,25 @@ public class ServerController {
     //listOfGame
     @GetMapping(value = "/game")
     public ResponseEntity<String> listOfGame(){
-        String servers = statusComm.listGames();
-        return ResponseEntity.ok().body(servers);
+        return ResponseEntity.ok().body(statusComm.listGames());
     }
 
     //Join game
     @PutMapping(value = "/game/{id}")
     public ResponseEntity<String> joinGame(@PathVariable String id){
-        if (statusComm.joinGame(id).equals("ok"))
-            return ResponseEntity.ok().body("ok");
-        else
-            return ResponseEntity.badRequest().body("error");
+        String response = statusComm.joinGame(id);
+        if (response.equals("Server doesn't exist"))
+            return ResponseEntity.status(404).body(response);
+        if (response.equals("Server is full"))
+            return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.ok().body(response);
+
     }
 
     //leave game
     @PostMapping(value = "/game/{id}")
-    public ResponseEntity<String> leaveGame(@PathVariable String id){
+    public void leaveGame(@PathVariable String id){
         statusComm.leaveGame(id);
-        return ResponseEntity.ok().body("ok");
     }
 
     @GetMapping(value = "/gameState/{id}")

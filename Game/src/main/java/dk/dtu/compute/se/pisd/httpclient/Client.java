@@ -132,9 +132,8 @@ public class Client implements IStatusComm {
         try {
             result = response.thenApply(HttpResponse::body).get(5, SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new RuntimeException(e);
+            return "server timeout";
         }
-
         return result;
 
     }
@@ -158,16 +157,18 @@ public class Client implements IStatusComm {
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
-            if (!(response.get().statusCode() == 200))
-                return "error";
+            HttpResponse<String> message = response.get(5, SECONDS); //gets the message back from the server
+            if (message.statusCode() == 200)
+                return message.body();
+            if (message.statusCode() == 404)
+                return message.body();
+            robotNumber = Integer.parseInt(message.body());
             serverID = serverToJoin;
 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            return "service timeout";
         }
-        return getGameState();
+        return "ok";
     }
 
     @Override
