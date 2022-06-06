@@ -110,6 +110,9 @@ public class SpaceView extends StackPane implements ViewObserver {
             } else if (space.getActions().get(0) instanceof StartGear) {
                 imageView = new ImageView(new Image("startingGear.png"));
                 this.getChildren().add(imageView);
+            } else if (space.getActions().get(0) instanceof RebootToken) {
+                imageView = new ImageView(new Image("reboot.png"));
+                this.getChildren().add(imageView);
             }
 
         }
