@@ -1,6 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.Command;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -66,6 +67,7 @@ public class Laser extends FieldAction {
             if (next != null && next.getPlayer() != null) {
                 // Give player damage card
                 System.out.println("Hit player: " + next.getPlayer() + " with laser!");
+                next.getPlayer().setDamagecards(Command.RIGHT); //TODO replace Rightcard to dmgCard
             }
         } else {
             return false;

@@ -99,10 +99,20 @@ public class GameController {
 
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
+                        if (!player.getDamagecards().isEmpty()) {
+                            if (player.getDamagecards().size() > j) {
+                                field.setCard(new CommandCard(player.getDamagecards().get(j)));
+                            }
+                            else
+                                field.setCard(generateRandomCommandCard());
+                        }
+                        else
+                            field.setCard(generateRandomCommandCard());
 
-                        field.setCard(generateRandomCommandCard());
+                        //field.setCard(generateRandomCommandCard());
                         //field.setCard(board.getPlayer(i).getCardPile().remove(0));
                         field.setVisible(true);
+
                     }
                 }
             }
