@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class ReadWriteGame {
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
+    private static final String DEFAULT_BOARDS_FOLDER = "boards";
     private static final String JSON_EXT = "json";
 
     /**
@@ -81,17 +82,34 @@ public class ReadWriteGame {
     }
 
     public static List<String> getNamesOfSavedBoards(){
-        ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
-        String fullPath = classLoader.getResource(SAVED_BOARDS_FOLDER).getPath();
-
-        File savedBoardsFolder = new File(fullPath);
-        File[] listOfFiles = savedBoardsFolder.listFiles();
-
+        File[] listOfFiles = getFilesInFolder(SAVED_BOARDS_FOLDER);
         List<String> fileNames = new ArrayList<>();
+
         for (File file : listOfFiles){
             fileNames.add(file.getName().replace(".json", ""));
         }
 
         return fileNames;
+    }
+    
+    public static List<String> getNamesOfDefaultBoard(){
+        File[] listOfFiles = getFilesInFolder(DEFAULT_BOARDS_FOLDER);
+        List<String> fileNames = new ArrayList<>();
+
+        for (File file : listOfFiles){
+            fileNames.add(file.getName().replace(".json", ""));
+        }
+
+        return fileNames;
+    }
+
+    private static File[] getFilesInFolder(String folderName){
+        ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
+        String fullPath = classLoader.getResource(folderName).getPath();
+
+        File folder = new File(fullPath);
+        File[] listOfFiles = folder.listFiles();
+
+        return listOfFiles;
     }
 }

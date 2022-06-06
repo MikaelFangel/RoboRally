@@ -51,7 +51,6 @@ public class AppController implements Observer {
 
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
-    final private List<String> BOARD_OPTIONS = Arrays.asList("dizzy_highway", "dodge_this", "high_octane", "risky_crossing");
 
     final private RoboRally roboRally;
 
@@ -180,7 +179,10 @@ public class AppController implements Observer {
     }
 
     private Optional<String> askUserWhichDefaultBoard(boolean prevFailed){
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(BOARD_OPTIONS.get(0), BOARD_OPTIONS);
+
+        List<String> allDefaultBoardNames = ReadWriteGame.getNamesOfDefaultBoard();
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(allDefaultBoardNames.get(0), allDefaultBoardNames);
+
         dialog.setTitle("CHOOSE BOARD");
         if (prevFailed)
             dialog.setHeaderText("The board does not exists. Select another one");
@@ -196,7 +198,6 @@ public class AppController implements Observer {
         ChoiceDialog<String> dialog = new ChoiceDialog<>(allSavedBoardNames.get(0), allSavedBoardNames);
 
         dialog.setTitle("LOAD GAME");
-
         if (prevFailed)
             dialog.setHeaderText("The board did not exists. Try another");
         else
