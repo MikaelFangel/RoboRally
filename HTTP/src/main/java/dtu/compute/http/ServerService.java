@@ -2,6 +2,7 @@ package dtu.compute.http;
 
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,7 +14,11 @@ public class ServerService implements IStatusComm{
 
     @Override
     public void updateGame(String id, String gameState) {
-        (findServer(id)).setGameState(gameState);
+        Server server = findServer(id);
+        server.setGameState(gameState);
+        if (server.getMaxAmountOfPlayers() != 0)
+            return;
+        server.setMaxAmountOfPlayers(StringUtils.countOccurrencesOf(gameState, "Player "));
     }
 
     @Override
@@ -35,7 +40,7 @@ public class ServerService implements IStatusComm{
 
         ArrayList<Server> server = new ArrayList<>();
         servers.forEach(e -> {
-            if (e.getAmountOfPlayers() != 6) {
+            if (e.getAmountOfPlayers() != e.getMaxAmountOfPlayers()) {
                 server.add(e);
             }
         });
