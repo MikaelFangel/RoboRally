@@ -13,7 +13,6 @@ public enum SpecialCommand {
     REPEATROUTINE("Repeat Routine",Command.AGAIN);
 
 
-
     final public String displayName;
     final private List<Command> options;
 
