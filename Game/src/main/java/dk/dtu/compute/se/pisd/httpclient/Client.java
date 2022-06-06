@@ -105,9 +105,8 @@ public class Client implements IStatusComm {
             connectedToServer = true;
             robotNumber = 0;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            return "Service timeout";
-        } finally {
             serverID = "";
+            return "Service timeout";
         }
 
         return "success";
@@ -195,7 +194,12 @@ public class Client implements IStatusComm {
                     tries++;
                 }
             }while(tries != 10);
-        });
+        }).start();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         serverID = "";
     }
 
