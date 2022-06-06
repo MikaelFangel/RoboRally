@@ -120,8 +120,6 @@ public class GameController {
     /**
      * Changes the phase from programming to activation.
      */
-
-
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -219,6 +217,11 @@ public class GameController {
             // this should not happen
             assert false;
         }
+    }
+
+    public void endGame(){
+        appController.stopGame();
+
     }
 
     private void doPriorityAntennaAction() {
