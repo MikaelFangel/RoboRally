@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -34,7 +33,7 @@ public class ServerListView{
         Scene scene = new Scene(new Group());
 
         stage.setTitle("List of Servers");
-        stage.setWidth(300);
+        stage.setWidth(600);
         stage.setHeight(550);
 
         final Label label = new Label("Pick a server");
@@ -60,12 +59,15 @@ public class ServerListView{
                 p -> new ReadOnlyObjectWrapper(p.getValue().getAmountOfPlayers())
         );
 
-        players.setCellValueFactory(
-                new PropertyValueFactory<Server, String>("amountOfPlayers")
+        TableColumn maxPlayers = new TableColumn("Max Players");
+        maxPlayers.setMaxWidth(100);
+        maxPlayers.setResizable(false);
+        maxPlayers.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Server, Integer>, ObservableValue<Integer>>)
+                p -> new ReadOnlyObjectWrapper(p.getValue().getMaxAmountOfPlayers())
         );
 
         table.setItems(data);
-        table.getColumns().addAll(id, serverName, players);
+        table.getColumns().addAll(id, serverName, players, maxPlayers);
 
         Button button = new Button("Join Game");
         button.setOnAction(e -> {app.stopGame(); app.joinGame(table.getSelectionModel().getSelectedItem().getId());});
