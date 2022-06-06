@@ -305,6 +305,18 @@
       "y": 3
     },
     {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.RebootToken",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 7,
+      "y": 3
+    },
+    {
       "walls": [
         "WEST"
       ],
