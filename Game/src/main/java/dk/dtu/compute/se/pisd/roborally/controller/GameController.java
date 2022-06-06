@@ -43,6 +43,7 @@ public class GameController {
     private final Client client;
 
     private boolean isNewlyLoadedDefaultBoard = false;
+    private boolean skipProgrammingPhase = true;
 
     public GameController(AppController appController, @NotNull Board board, Client client) {
         this.appController = appController;
@@ -81,7 +82,8 @@ public class GameController {
     public void startProgrammingPhase() {
         // All this should be done for the first reload for a newly constructed board
         isNewlyLoadedDefaultBoard = SaveLoadGame.getNewBoardCreated();
-        if (isNewlyLoadedDefaultBoard) {
+
+        if (isNewlyLoadedDefaultBoard || !skipProgrammingPhase) {
             board.setPhase(Phase.PROGRAMMING);
             board.setCurrentPlayer(board.getPlayer(0));
             board.setStep(0);
@@ -104,6 +106,8 @@ public class GameController {
                     }
                 }
             }
+        } else {
+            skipProgrammingPhase = false;
         }
     }
 
