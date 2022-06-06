@@ -800,6 +800,18 @@
       "walls": [],
       "actions": [
         {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.RebootToken",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 4,
+      "y": 9
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
