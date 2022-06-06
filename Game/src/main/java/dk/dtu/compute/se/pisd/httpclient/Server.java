@@ -8,6 +8,7 @@ public class Server {
     private String title;
     private transient String gameState;
     private int amountOfPlayers;
+    private int maxAmountOfPlayers;
 
     public String getId() {
         return id;
@@ -19,5 +20,9 @@ public class Server {
 
     public int getAmountOfPlayers() {
         return amountOfPlayers;
+    }
+
+    public int getMaxAmountOfPlayers(){
+        return maxAmountOfPlayers;
     }
 }

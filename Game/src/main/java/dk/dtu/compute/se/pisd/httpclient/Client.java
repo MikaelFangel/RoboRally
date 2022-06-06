@@ -28,6 +28,11 @@ public class Client implements IStatusComm {
 
     private String server = "http://localhost:8080";
     private String serverID = "";
+    private boolean connectedToServer = false;
+
+    public boolean isConnectedToServer(){
+        return connectedToServer;
+    }
 
     /**
      * Updates the game state on the game server with a JSON string
@@ -45,7 +50,7 @@ public class Client implements IStatusComm {
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
-            String result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+            String result = response.thenApply(HttpResponse::body).get(5, HOURS);
             // Result ignorer for now
         } catch (InterruptedException | TimeoutException | ExecutionException e) {
             throw new RuntimeException(e);
@@ -97,6 +102,7 @@ public class Client implements IStatusComm {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
             serverID = response.thenApply(HttpResponse::body).get(5, SECONDS);
+            connectedToServer = true;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             throw new RuntimeException(e);
         }

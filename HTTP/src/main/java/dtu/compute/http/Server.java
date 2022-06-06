@@ -7,6 +7,7 @@ public class Server {
     private String title;
     private transient String gameState;
     private int amountOfPlayers;
+    private int maxAmountOfPlayers;
 
     public Server(String title, int id){
         this.id = String.valueOf(id);
@@ -36,5 +37,13 @@ public class Server {
 
     public String getId(){
         return id;
+    }
+
+    public int getMaxAmountOfPlayers() {
+        return maxAmountOfPlayers;
+    }
+
+    public void setMaxAmountOfPlayers(int amountOfPlayers) {
+        this.maxAmountOfPlayers = amountOfPlayers;
     }
 }

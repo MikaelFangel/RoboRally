@@ -29,6 +29,7 @@ import dk.dtu.compute.se.pisd.httpclient.ServerListView;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.ReadWriteGame;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import javafx.application.Platform;
@@ -74,9 +75,9 @@ public class AppController implements Observer {
         if (numPlayers.isPresent()) {
             // The UI should not allow this, but in case this happens anyway.
             // give the user the option to save the game or abort this operation!
-            if (gameController != null && !stopGame()) return;
+        if (gameController != null && !stopGame()) return;
 
-            createNewGame(numPlayers.get(), false);
+        createNewGame(numPlayers.get(), false);
         }
     }
 
@@ -86,6 +87,8 @@ public class AppController implements Observer {
             try {
                 Board board = SaveLoadGame.newBoard(numPlayers, chosenBoard.get());
                 setupGameController(board);
+                if (client.isConnectedToServer())
+                    client.updateGame(SerializeState.serializeGame(board));
             } catch (BoardNotFoundException e){
                 createNewGame(numPlayers, true);
             }
