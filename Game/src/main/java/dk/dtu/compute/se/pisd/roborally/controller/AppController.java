@@ -169,7 +169,7 @@ public class AppController implements Observer {
 
     private void setupGameController(Board board) {
         gameController = new GameController(this, Objects.requireNonNull(board), serverClientMode ? client : null);
-        initializePlayers(board);
+        //initializePlayers(board);
         board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
 
