@@ -37,7 +37,7 @@ import java.util.*;
 public class GameController {
     //Stack<CommandCard> Cards = new Stack<>();
     public Board board;
-    private int playerNum = -1; // Given from the server
+    private int playerNum; // Given from the server
     final public RobotMovementController rmc;
     final private AppController appController;
 
@@ -437,9 +437,5 @@ public class GameController {
             return true;
         else
             return false;
-    }
-
-    public void setPlayerNumber(int num){
-        playerNum = num;
     }
 }
