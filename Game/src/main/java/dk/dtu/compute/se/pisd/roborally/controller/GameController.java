@@ -35,8 +35,8 @@ import java.util.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
-    //Stack<CommandCard> Cards = new Stack<>();
     public Board board;
+    private int playerNum; // Given from the server
     final public RobotMovementController rmc;
     final private AppController appController;
 
@@ -50,6 +50,9 @@ public class GameController {
         this.board = board;
         this.client = client;
         rmc = new RobotMovementController(this);
+
+        if (client != null)
+            client.updateGame(SerializeState.serializeGame(board));
     }
 
     /**
@@ -99,12 +102,19 @@ public class GameController {
 
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
-
-                        field.setCard(generateRandomCommandCard());
-                        //field.setCard(board.getPlayer(i).getCardPile().remove(0));
+                        if (!player.getDamagecards().isEmpty()) {
+                            if (player.getDamagecards().size() > j) {
+                                field.setCard(new CommandCard(player.getDamagecards().get(j)));
+                            } else
+                                field.setCard(generateRandomCommandCard());
+                        } else
+                            field.setCard(generateRandomCommandCard());
                         field.setVisible(true);
+
                     }
                 }
+                if (client != null)
+                    client.updateGame(SerializeState.serializeGame(board));
             }
         } else {
             skipProgrammingPhase = false;
@@ -113,9 +123,35 @@ public class GameController {
 
     public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
-        int random = (int) (Math.random() * commands.length); //TODO her er du
-        return new CommandCard(commands[random]);
+        ArrayList<Command> commandList = new ArrayList<>();
+        for (int i = 0; i < 9; i++){
+            commandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * commandList.size()); //TODO her er du
+        return new CommandCard(commandList.get(random));
     }
+
+    public static CommandCard generateRandomDamageCard() {
+        Command[] commands = Command.values();
+        ArrayList<Command> dmgCommandList = new ArrayList<>();
+        for (int i = 9; i < 13; i++){
+            dmgCommandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * dmgCommandList.size()); //TODO bruger måske
+        return new CommandCard(dmgCommandList.get(random));
+    }
+
+    public CommandCard generateRandomSpecialCard(){
+        Command[] commands = Command.values();
+        ArrayList<Command> specCommandList = new ArrayList<>();   //TODO bruger måske
+        for (int i = 13; i < 19; i++) {
+            specCommandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * specCommandList.size());
+        return new CommandCard(specCommandList.get(random));
+    }
+
+
 
     /**
      * Changes the phase from programming to activation.
@@ -219,7 +255,7 @@ public class GameController {
         }
     }
 
-    public void endGame(){
+    public void endGame() {
         appController.stopGame();
 
     }
@@ -234,7 +270,7 @@ public class GameController {
         List<Integer> playersPriority = new ArrayList<>();
 
         // Get distance for each player to the antenna
-        for (Player player : players){
+        for (Player player : players) {
             Space playerSpace = player.getSpace();
 
             double totalDistance = Math.sqrt(Math.pow(Math.abs(playerSpace.x - antennaSpace.x), 2) + Math.pow(Math.abs(playerSpace.y - antennaSpace.y), 2));
@@ -244,7 +280,7 @@ public class GameController {
 
         // Prioritize player according to their distance to the antenna.
         List<Player> prioritizedPlayers = new ArrayList<>();
-        for (int i = 0; i <= (board.width + board.height)*100; i++) {
+        for (int i = 0; i <= (board.width + board.height) * 100; i++) {
             for (int j = 0; j < players.size(); j++) {
                 if (playersPriority.get(j) == i) {
                     prioritizedPlayers.add(players.get(j));
@@ -256,36 +292,6 @@ public class GameController {
         board.setCurrentPlayer(prioritizedPlayers.get(0));
 
         recreatePlayersView();
-
-
-
-        /*
-        List<Player> players = board.getPlayers();
-        int[] playersPriority = new int[players.size()];
-
-        for (int i = 0; i < players.size(); i++) {
-            int totalDistance = 0;
-            Space playerSpace = players.get(i).getSpace();
-
-            totalDistance += Math.abs(playerSpace.x - antennaSpace.x) + Math.abs(playerSpace.y - antennaSpace.y);
-            playersPriority[i] = totalDistance;
-        }
-
-        List<Player> prioritizedPlayers = new ArrayList<>();
-        for (int i = 1; i <= board.width + board.height; i++) {
-            for (int j = 0; j < playersPriority.length; j++) {
-                if (playersPriority[j] == i) {
-                    prioritizedPlayers.add(players.get(j));
-                }
-            }
-        }
-
-        board.setPlayers(prioritizedPlayers);
-        board.setCurrentPlayer(prioritizedPlayers.get(0));
-
-        recreatePlayersView();
-
-         */
     }
 
     private void changePlayer(Player currentPlayer, int step) {
@@ -313,18 +319,19 @@ public class GameController {
             switch (command) {
                 case MOVE1 -> rmc.moveForward(player, 1);
                 case MOVE2 -> rmc.moveForward(player, 2);
-                case MOVE3 -> rmc.moveForward(player, 3);
+                case MOVE3, SPEEDROUTINE -> rmc.moveForward(player, 3);
                 case RIGHT -> rmc.turnRight(player);
                 case LEFT -> rmc.turnLeft(player);
-                case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
+                case OPTION_LEFT_RIGHT, SANDBOXROUTINE, WEASELROUTINE -> board.setPhase(Phase.PLAYER_INTERACTION);
                 case UTURN -> rmc.uTurn(player);
                 case MOVEBACK -> rmc.moveBackward(player);
-                case AGAIN -> rmc.again(player, board.getStep());
+                case AGAIN, REPEATROUTINE -> rmc.again(player, board.getStep());
+                case SPAM -> rmc.Removespam(player);
+                case ENERGYROUTINE -> energyRoutine(player);
                 default -> {
                 }
                 // DO NOTHING (for now)
             }
-
             if (client != null)
                 client.updateGame(SerializeState.serializeGame(board));
         }
@@ -432,5 +439,16 @@ public class GameController {
                     player.getSpace().getActions().get(0) instanceof Checkpoint)
                 player.getSpace().getActions().get(0).doAction(this, player.getSpace());
         }
+    }
+
+    private boolean isMyTurn(){
+        if (board.getCurrentPlayer() == board.getPlayer(playerNum))
+            return true;
+        else
+            return false;
+    }
+
+    public void setPlayerNumber(int num){
+        playerNum = num;
     }
 }

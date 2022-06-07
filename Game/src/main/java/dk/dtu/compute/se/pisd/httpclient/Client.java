@@ -145,7 +145,7 @@ public class Client implements IStatusComm {
      */
     @Override
     public String joinGame(String serverToJoin) {
-        if (!Objects.equals(serverID, ""))
+        if (!Objects.equals(serverToJoin, ""))
             leaveGame();
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(""))
@@ -158,7 +158,7 @@ public class Client implements IStatusComm {
         try {
             HttpResponse<String> message = response.get(5, SECONDS); //gets the message back from the server
             if (message.statusCode() == 200)
-                return message.body();
+                return "ok";
             if (message.statusCode() == 404)
                 return message.body();
             robotNumber = Integer.parseInt(message.body());
@@ -223,9 +223,17 @@ public class Client implements IStatusComm {
             throw new IllegalIPExeception();
     }
 
+    public void setServerID(String serverID) {
+        this.serverID = serverID;
+    }
+
     public class IllegalIPExeception extends Exception {
         public IllegalIPExeception() {
             super("Not a valid IP");
         }
+    }
+
+    public int getRobotNumber() {
+        return robotNumber;
     }
 }

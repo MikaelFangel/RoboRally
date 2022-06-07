@@ -109,6 +109,9 @@ public class RobotMovementController {
             player.getProgramField(step).setCard(new CommandCard(AGAIN));
         }
     }
+    public void Removespam(Player player){
+        player.getDamagecards().remove(Command.SPAM);
+    }
 
 
     // ------- private methods --------

@@ -58,12 +58,6 @@ Package model{
    +y : int
 
  }
- class SpecialCard extends Subject{
-   +specialCommand : SpecialCommand
- }
- class DamageCard extends Subject{
-    +damageCommand : DamageCommand
- }
  abstract class Subject{
  }
 
@@ -77,12 +71,17 @@ Package model{
    UTURN
    MOVEBACK
    AGAIN
- }
- enum DamageCommand{
    SPAM
    TROJANHORSE
    WORM
    VIRUS
+   ENERGYROUTINE
+   SANDBOXROUTINE
+   WEASELROUTINE
+   SPEEDROUTINE
+   SPAMFOLDER
+   REPEATROUTINE
+
  }
  enum Heading{
   SOUTH
@@ -96,16 +95,7 @@ Package model{
    ACTIVATION
    PLAYER_INTERACTION
  }
- enum SpecialCommand{
-    ENERGYROUTINE
-    SANDBOXROUTINE
-    WEASELROUTINE
-    SPEEDROUTINE
-    SPAMFOLDER
-    REPEATROUTINE
- }
-DamageCard *-- DamageCommand
-SpecialCard *-- SpecialCommand
+
 CommandCard *-- Command
 CommandCardField *- CommandCard
 

@@ -23,11 +23,10 @@ public class SerializeTest {
 
     }
 
-    /* Only for locally saved games.
     @Test
     void repeatedSerializesAndDeserializesOfSavedBoard(){
         try {
-            Board startBoard = SaveLoadGame.loadBoard("Test301");
+            Board startBoard = SaveLoadGame.loadBoard("TestSaveBoard");
             String jsonResult1 = SerializeState.serializeGame(startBoard);
 
             Board board1 = SerializeState.deserializeGame(jsonResult1, true);
@@ -38,6 +37,6 @@ public class SerializeTest {
             System.out.println(e);
         }
     }
-     */
+
 
 }
