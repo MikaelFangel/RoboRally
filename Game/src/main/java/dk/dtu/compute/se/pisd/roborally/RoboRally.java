@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally;
 import dk.dtu.compute.se.pisd.roborally.controller.AppController;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
+import dk.dtu.compute.se.pisd.roborally.view.PopupBoxes;
 import dk.dtu.compute.se.pisd.roborally.view.RoboRallyMenuBar;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -45,6 +46,7 @@ public class RoboRally extends Application {
     private BorderPane boardRoot;
     // private RoboRallyMenuBar menuBar;
     private BoardView boardView;
+    private PopupBoxes popupBoxes = new PopupBoxes();
 
     // private AppController appController;
 
@@ -104,6 +106,10 @@ public class RoboRally extends Application {
 
     public BoardView getBoardView(){
         return boardView;
+    }
+
+    public PopupBoxes getPopupBoxes(){
+        return popupBoxes;
     }
 
     public static void main(String[] args) {
