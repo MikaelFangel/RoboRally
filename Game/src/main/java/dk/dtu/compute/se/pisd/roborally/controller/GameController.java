@@ -266,36 +266,6 @@ public class GameController {
         board.setCurrentPlayer(prioritizedPlayers.get(0));
 
         recreatePlayersView();
-
-
-
-        /*
-        List<Player> players = board.getPlayers();
-        int[] playersPriority = new int[players.size()];
-
-        for (int i = 0; i < players.size(); i++) {
-            int totalDistance = 0;
-            Space playerSpace = players.get(i).getSpace();
-
-            totalDistance += Math.abs(playerSpace.x - antennaSpace.x) + Math.abs(playerSpace.y - antennaSpace.y);
-            playersPriority[i] = totalDistance;
-        }
-
-        List<Player> prioritizedPlayers = new ArrayList<>();
-        for (int i = 1; i <= board.width + board.height; i++) {
-            for (int j = 0; j < playersPriority.length; j++) {
-                if (playersPriority[j] == i) {
-                    prioritizedPlayers.add(players.get(j));
-                }
-            }
-        }
-
-        board.setPlayers(prioritizedPlayers);
-        board.setCurrentPlayer(prioritizedPlayers.get(0));
-
-        recreatePlayersView();
-
-         */
     }
 
     private void changePlayer(Player currentPlayer, int step) {
