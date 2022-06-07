@@ -47,6 +47,8 @@ public class GameController {
     private boolean isNewlyLoadedDefaultBoard = false;
     private boolean skipProgrammingPhase = true;
 
+    private Updater updater;
+
     public GameController(AppController appController, @NotNull Board board, Client client) {
         this.appController = appController;
         this.board = board;
@@ -55,7 +57,7 @@ public class GameController {
 
         if (client != null) {
             client.updateGame(SerializeState.serializeGame(board));
-            Updater updater = new Updater();
+            updater = new Updater();
             updater.setGameController(this);
             updater.setClient(client);
             updater.start();
@@ -120,8 +122,6 @@ public class GameController {
 
                     }
                 }
-                if (client != null)
-                    client.updateGame(SerializeState.serializeGame(board));
             }
         } else {
             skipProgrammingPhase = false;

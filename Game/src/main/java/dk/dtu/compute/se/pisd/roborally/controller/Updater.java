@@ -2,28 +2,28 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
 import javafx.application.Platform;
 
 public class Updater extends Thread {
     GameController gameController;
-
+    boolean update = true;
+    boolean run = true;
     Client client;
 
-    public void run(){
-        while (true) {
+    public void run() {
+        while (run) {
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            updateBoardUi();
+            if (update)
+                updateBoardUi();
         }
     }
 
     public void updateBoardUi() {
-        Board board = SerializeState.deserializeGame(client.getGameState(), true);
-        gameController.board = board;
+        gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
         Platform.runLater(gameController::updateBoard);
     }
 
@@ -33,5 +33,17 @@ public class Updater extends Thread {
 
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
+    }
+
+    public boolean getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
+
+    public void setRun(boolean run) {
+        this.run = run;
     }
 }
