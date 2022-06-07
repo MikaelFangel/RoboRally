@@ -51,6 +51,8 @@ public class GameController {
         this.board = board;
         this.client = client;
         rmc = new RobotMovementController(this);
+
+        client.updateGame(SerializeState.serializeGame(board));
     }
 
     /**
@@ -116,6 +118,7 @@ public class GameController {
 
                     }
                 }
+                client.updateGame(SerializeState.serializeGame(board));
             }
         } else {
             skipProgrammingPhase = false;
@@ -126,6 +129,12 @@ public class GameController {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
         return new CommandCard(commands[random]);
+    }
+
+    public DamageCard generateRandomDamageCard(){
+        DamageCommand[] damageCommands = DamageCommand.values();
+        int random = (int) (Math.random() * damageCommands.length);
+        return new DamageCard(damageCommands[random]);
     }
 
     /**
