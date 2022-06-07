@@ -153,6 +153,8 @@ public class AppController implements Observer {
             client.setServerID(id);
             Board board = SerializeState.deserializeGame(client.getGameState(), true);
             setupGameController(board);
+            gameController.setPlayerNumber(client.getRobotNumber());
+
         } else {
             showErrorMessage(new String[]{"Error", message, "refresh and try again"});
         }
