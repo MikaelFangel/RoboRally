@@ -107,6 +107,9 @@ public class ReadWriteGame {
         ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
         String fullPath = classLoader.getResource(folderName).getPath();
 
+        // The folder cannot be found on some OS when there is white space in folder names.
+        fullPath = fullPath.replace("%20", " ");
+
         File folder = new File(fullPath);
         File[] listOfFiles = folder.listFiles();
 
