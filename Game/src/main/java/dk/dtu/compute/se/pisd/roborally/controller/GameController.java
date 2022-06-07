@@ -35,7 +35,7 @@ import java.util.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
-    //Stack<CommandCard> Cards = new Stack<>();
+    Stack<CommandCard> Cards = new Stack<>();
     public Board board;
     private int playerNum; // Given from the server
     final public RobotMovementController rmc;
@@ -135,7 +135,7 @@ public class GameController {
         return new CommandCard(commandList.get(random));
     }
 
-    public CommandCard generateRandomDamageCard() {
+    public static CommandCard generateRandomDamageCard() {
         Command[] commands = Command.values();
         ArrayList<Command> dmgCommandList = new ArrayList<>();
         for (int i = 9; i < 13; i++){
@@ -154,6 +154,8 @@ public class GameController {
         int random = (int) (Math.random() * specCommandList.size());
         return new CommandCard(specCommandList.get(random));
     }
+
+
 
     /**
      * Changes the phase from programming to activation.
@@ -321,19 +323,19 @@ public class GameController {
             switch (command) {
                 case MOVE1 -> rmc.moveForward(player, 1);
                 case MOVE2 -> rmc.moveForward(player, 2);
-                case MOVE3 -> rmc.moveForward(player, 3);
+                case MOVE3, SPEEDROUTINE -> rmc.moveForward(player, 3);
                 case RIGHT -> rmc.turnRight(player);
                 case LEFT -> rmc.turnLeft(player);
-                case OPTION_LEFT_RIGHT -> board.setPhase(Phase.PLAYER_INTERACTION);
+                case OPTION_LEFT_RIGHT, SANDBOXROUTINE, WEASELROUTINE -> board.setPhase(Phase.PLAYER_INTERACTION);
                 case UTURN -> rmc.uTurn(player);
                 case MOVEBACK -> rmc.moveBackward(player);
-                case AGAIN -> rmc.again(player, board.getStep());
+                case AGAIN, REPEATROUTINE -> rmc.again(player, board.getStep());
                 case SPAM -> rmc.Removespam(player);
+                case ENERGYROUTINE -> energyRoutine(player);
                 default -> {
                 }
                 // DO NOTHING (for now)
             }
-
             if (client != null)
                 client.updateGame(SerializeState.serializeGame(board));
         }

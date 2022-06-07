@@ -67,7 +67,7 @@ public class Laser extends FieldAction {
             if (next != null && next.getPlayer() != null) {
                 // Give player damage card
                 System.out.println("Hit player: " + next.getPlayer() + " with laser!");
-                next.getPlayer().setDamagecards(Command.SPAM); //TODO replace Rightcard to dmgCard
+                next.getPlayer().setDamagecards(Command.SPAM);
             }
         } else {
             return false;
