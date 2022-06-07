@@ -328,6 +328,7 @@ public class GameController {
                 case UTURN -> rmc.uTurn(player);
                 case MOVEBACK -> rmc.moveBackward(player);
                 case AGAIN -> rmc.again(player, board.getStep());
+                case SPAM -> rmc.Removespam(player);
                 default -> {
                 }
                 // DO NOTHING (for now)
