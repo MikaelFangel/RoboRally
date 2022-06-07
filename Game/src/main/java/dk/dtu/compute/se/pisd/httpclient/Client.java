@@ -232,4 +232,8 @@ public class Client implements IStatusComm {
             super("Not a valid IP");
         }
     }
+
+    public int getRobotNumber() {
+        return robotNumber;
+    }
 }
