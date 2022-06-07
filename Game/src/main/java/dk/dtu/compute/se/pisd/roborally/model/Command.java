@@ -53,11 +53,11 @@ public enum Command {
 
     //Special programming cards
     ENERGYROUTINE("Energy Routine"),
-    SANDBOXROUTINE("Sandbox Routine"),
-    WEASELROUTINE("Weasel Routine"),
-    SPEEDROUTINE("Speed Routine"),
+    SANDBOXROUTINE("Sandbox Routine",MOVE1, MOVE2, MOVE3, MOVEBACK, LEFT, RIGHT, UTURN),
+    WEASELROUTINE("Weasel Routine", LEFT, RIGHT, UTURN),
+    SPEEDROUTINE("Speed Routine", MOVE3),
     SPAMFOLDER("Spam Folder"),
-    REPEATROUTINE("Repeat Routine");
+    REPEATROUTINE("Repeat Routine", AGAIN);
 
 
     final public String displayName;
