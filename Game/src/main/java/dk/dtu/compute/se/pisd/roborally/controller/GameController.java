@@ -110,9 +110,6 @@ public class GameController {
                                 field.setCard(generateRandomCommandCard());
                         } else
                             field.setCard(generateRandomCommandCard());
-
-                        //field.setCard(generateRandomCommandCard());
-                        //field.setCard(board.getPlayer(i).getCardPile().remove(0));
                         field.setVisible(true);
 
                     }
