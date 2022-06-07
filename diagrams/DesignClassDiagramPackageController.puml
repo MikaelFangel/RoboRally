@@ -1,8 +1,5 @@
 @startuml
 package controller{
-skinparam groupInheritance 2
-skinparam linetype polyline
-
    class AppController implements Observer{
       -PLAYER_NUMBER_OPTIONS : List<Integer>
       -BOARD_OPTIONS : List<String>
