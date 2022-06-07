@@ -57,8 +57,6 @@ public class Board extends Subject {
 
     public boolean stepMode;
 
-    private int counter;
-
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
@@ -238,13 +236,8 @@ public class Board extends Subject {
 
         // XXX: V2 changed the status so that it shows the phase, the player and the step
         return "Phase: " + getPhase().name() +
-                ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep() + "\n" +
-                "Counter = " + getCounter();
-    }
-
-    public int getCounter() {
-        return counter;
+                ", Current Player = " + getCurrentPlayer().getName() +
+                ", Step: " + getStep() + "\n";
     }
 
     public void nextPlayer(Player player) {

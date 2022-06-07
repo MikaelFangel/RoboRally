@@ -74,21 +74,21 @@ public class AppController implements Observer {
         if (numPlayers.isPresent()) {
             // The UI should not allow this, but in case this happens anyway.
             // give the user the option to save the game or abort this operation!
-        if (gameController != null && !stopGame()) return;
+            if (gameController != null && !stopGame()) return;
 
-        createNewGame(numPlayers.get(), false);
+            createNewGame(numPlayers.get(), false);
         }
     }
 
     private void createNewGame(int numPlayers, boolean prevFailed) {
         Optional<String> chosenBoard = askUserWhichDefaultBoard(prevFailed);
-        if (chosenBoard.isPresent()){
+        if (chosenBoard.isPresent()) {
             try {
                 Board board = SaveLoadGame.newBoard(numPlayers, chosenBoard.get());
                 setupGameController(board);
                 if (client.isConnectedToServer())
                     client.updateGame(SerializeState.serializeGame(board));
-            } catch (BoardNotFoundException e){
+            } catch (BoardNotFoundException e) {
                 createNewGame(numPlayers, true);
             }
         }
@@ -110,18 +110,18 @@ public class AppController implements Observer {
         }
     }
 
-    private void createLoadedGame(boolean prevFailed){
+    private void createLoadedGame(boolean prevFailed) {
         Optional<String> chosenBoard = askUserWhichSavedBoard(prevFailed);
 
-        if (chosenBoard.isPresent()){
+        if (chosenBoard.isPresent()) {
             try {
-                if ("Test204".equals(chosenBoard.get())){
+                if ("Test204".equals(chosenBoard.get())) {
                     System.out.println("Is the same");
                 }
 
                 Board board = SaveLoadGame.loadBoard(chosenBoard.get());
                 setupGameController(board);
-            } catch (BoardNotFoundException e){
+            } catch (BoardNotFoundException e) {
                 createLoadedGame(true);
             }
         }
@@ -131,7 +131,7 @@ public class AppController implements Observer {
         /*TextInputDialog serverCreation = new TextInputDialog();
         serverCreation.setTitle("Start game server");
         serverCreation.setHeaderText("Server name:");
-        if (errorMessage.length != 0){
+        if (errorMessage.length != 0) {
             serverCreation.setHeaderText(errorMessage[0]);
         }
         Optional<String> result = serverCreation.showAndWait();*/
@@ -150,17 +150,24 @@ public class AppController implements Observer {
         }
     }
 
-    public void joinGame(String id){
+    public void joinGame(String id) {
         String message = client.joinGame(id);
-        if (message.equals("ok"))
-            return;
-        showErrorMessage(new String[]{"Error", message,"refresh and try again"});
+        if (message.equals("ok")) {
+            serverClientMode = true;
+            client.setServerID(id);
+            Board board = SerializeState.deserializeGame(client.getGameState(), true);
+            setupGameController(board);
+            gameController.setPlayerNumber(client.getRobotNumber());
+
+        } else {
+            showErrorMessage(new String[]{"Error", message, "refresh and try again"});
+        }
     }
 
     public void connectToServer() {
         String serverList = client.listGames();
-        if (serverList.equals("server timeout")){
-            showErrorMessage(new String[]{"error",serverList,"try again"});
+        if (serverList.equals("server timeout")) {
+            showErrorMessage(new String[]{"error", serverList, "try again"});
             return;
         }
         slv.addServer(serverList);
@@ -173,14 +180,14 @@ public class AppController implements Observer {
 
     private void setupGameController(Board board) {
         gameController = new GameController(this, Objects.requireNonNull(board), serverClientMode ? client : null);
-        initializePlayers(board);
+        //initializePlayers(board);
         board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
 
         roboRally.createBoardView(gameController);
     }
 
-    private Optional<Integer> askUserForNumberOfPlayers(){
+    private Optional<Integer> askUserForNumberOfPlayers() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
         dialog.setHeaderText("Select number of players");
@@ -188,7 +195,7 @@ public class AppController implements Observer {
         return dialog.showAndWait();
     }
 
-    private Optional<String> askUserWhichDefaultBoard(boolean prevFailed){
+    private Optional<String> askUserWhichDefaultBoard(boolean prevFailed) {
 
         List<String> allDefaultBoardNames = ReadWriteGame.getNamesOfDefaultBoard();
         ChoiceDialog<String> dialog = new ChoiceDialog<>(allDefaultBoardNames.get(0), allDefaultBoardNames);
@@ -202,7 +209,7 @@ public class AppController implements Observer {
         return dialog.showAndWait();
     }
 
-    private Optional<String> askUserWhichSavedBoard(boolean prevFailed){
+    private Optional<String> askUserWhichSavedBoard(boolean prevFailed) {
         // Get all files in resource
         List<String> allSavedBoardNames = ReadWriteGame.getNamesOfSavedBoards();
         ChoiceDialog<String> dialog = new ChoiceDialog<>(allSavedBoardNames.get(0), allSavedBoardNames);
@@ -215,7 +222,6 @@ public class AppController implements Observer {
 
         return dialog.showAndWait();
     }
-
 
 
     /**
@@ -267,8 +273,8 @@ public class AppController implements Observer {
         // XXX do nothing for now
     }
 
-    public void initializePlayers(Board board){
-        for (int i = 0; i < board.getPlayersNumber();i++) {
+    public void initializePlayers(Board board) {
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
             board.getPlayer(i).populateCards(gameController);
         }
 
@@ -278,7 +284,7 @@ public class AppController implements Observer {
         return roboRally;
     }
 
-    public void showErrorMessage(String[] reason){
+    public void showErrorMessage(String[] reason) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(reason[0]);
         alert.setHeaderText(reason[1]);

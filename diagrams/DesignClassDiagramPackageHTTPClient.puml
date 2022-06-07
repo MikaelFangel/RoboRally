@@ -14,7 +14,24 @@ package httpclient{
      +updateGame(String gameState) : void
      +getGameState() : String
    }
+   class Server{
+      -id : String
+      -title : String'
+      -gameState : String
+      -amountOfPlayers : int
+      -maxAmountOfPlayers : int
+      -playerSpotFilled : boolean
+   }
+   class ServerListView{
+       -stage : Stage
+       -table : Tableview<Server>
+       -data : ObservableList<Server>
+        app : AppController
 
+        +addserver(String s) : void
+        +viewTable() : void
+
+   }
    note "This is the package that handlers the RESTfull API aspects of the game" as note1
 }
 
