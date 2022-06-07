@@ -101,10 +101,20 @@ public class GameController {
 
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
+                        if (!player.getDamagecards().isEmpty()) {
+                            if (player.getDamagecards().size() > j) {
+                                field.setCard(new CommandCard(player.getDamagecards().get(j)));
+                            }
+                            else
+                                field.setCard(generateRandomCommandCard());
+                        }
+                        else
+                            field.setCard(generateRandomCommandCard());
 
-                        field.setCard(generateRandomCommandCard());
+                        //field.setCard(generateRandomCommandCard());
                         //field.setCard(board.getPlayer(i).getCardPile().remove(0));
                         field.setVisible(true);
+
                     }
                 }
                 client.updateGame(SerializeState.serializeGame(board));
@@ -118,6 +128,12 @@ public class GameController {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length); //TODO her er du
         return new CommandCard(commands[random]);
+    }
+
+    public DamageCard generateRandomDamageCard(){
+        DamageCommand[] damageCommands = DamageCommand.values();
+        int random = (int) (Math.random() * damageCommands.length);
+        return new DamageCard(damageCommands[random]);
     }
 
     /**
@@ -259,36 +275,6 @@ public class GameController {
         board.setCurrentPlayer(prioritizedPlayers.get(0));
 
         recreatePlayersView();
-
-
-
-        /*
-        List<Player> players = board.getPlayers();
-        int[] playersPriority = new int[players.size()];
-
-        for (int i = 0; i < players.size(); i++) {
-            int totalDistance = 0;
-            Space playerSpace = players.get(i).getSpace();
-
-            totalDistance += Math.abs(playerSpace.x - antennaSpace.x) + Math.abs(playerSpace.y - antennaSpace.y);
-            playersPriority[i] = totalDistance;
-        }
-
-        List<Player> prioritizedPlayers = new ArrayList<>();
-        for (int i = 1; i <= board.width + board.height; i++) {
-            for (int j = 0; j < playersPriority.length; j++) {
-                if (playersPriority[j] == i) {
-                    prioritizedPlayers.add(players.get(j));
-                }
-            }
-        }
-
-        board.setPlayers(prioritizedPlayers);
-        board.setCurrentPlayer(prioritizedPlayers.get(0));
-
-        recreatePlayersView();
-
-         */
     }
 
     private void changePlayer(Player currentPlayer, int step) {

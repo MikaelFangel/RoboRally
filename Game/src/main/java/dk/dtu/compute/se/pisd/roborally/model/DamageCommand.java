@@ -1,6 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
-public enum DamageCommand {
+public enum DamageCommand{
     SPAM("SPAM"),
     TROJANHORSE("TROJAN HORSE"),
     WORM("WORM"),
@@ -8,7 +8,7 @@ public enum DamageCommand {
 
     public String displayName;
 
-    DamageCommand(String displayName){
+    DamageCommand(String displayName, DamageCommand... damageCommands){
         this.displayName = displayName;
     }
 
