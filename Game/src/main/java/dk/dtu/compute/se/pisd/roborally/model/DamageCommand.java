@@ -8,7 +8,7 @@ public enum DamageCommand{
 
     public String displayName;
 
-    DamageCommand(String displayName){
+    DamageCommand(String displayName, DamageCommand... damageCommands){
         this.displayName = displayName;
     }
 
