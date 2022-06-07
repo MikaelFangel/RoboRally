@@ -127,14 +127,22 @@ public class GameController {
 
     public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
-        int random = (int) (Math.random() * commands.length); //TODO her er du
-        return new CommandCard(commands[random]);
+        ArrayList<Command> commandList = new ArrayList<>();
+        for (int i = 0; i < 9; i++){
+            commandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * commandList.size()); //TODO her er du
+        return new CommandCard(commandList.get(random));
     }
 
-    public DamageCard generateRandomDamageCard() {
-        DamageCommand[] damageCommands = DamageCommand.values();
-        int random = (int) (Math.random() * damageCommands.length);
-        return new DamageCard(damageCommands[random]);
+    public CommandCard generateRandomDamageCard() {
+        Command[] commands = Command.values();
+        ArrayList<Command> dmgCommandList = new ArrayList<>();
+        for (int i = 9; i < 12; i++){
+            dmgCommandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * dmgCommandList.size()); //TODO her er du
+        return new CommandCard(dmgCommandList.get(random));
     }
 
     /**
