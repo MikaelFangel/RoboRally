@@ -42,7 +42,19 @@ public enum Command {
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
     UTURN("U-Turn"),
     MOVEBACK("Move Back"),
-    AGAIN("Again!");
+    AGAIN("Again!")
+    ,
+    SPAM("SPAM"),
+    TROJANHORSE("TROJAN HORSE"),
+    WORM("WORM"),
+    VIRUS("VIRUS")
+    ,
+    ENERGYROUTINE("Energy Routine"),
+    SANDBOXROUTINE("Sandbox Routine"),
+    WEASELROUTINE("Weasel Routine"),
+    SPEEDROUTINE("Speed Routine"),
+    SPAMFOLDER("Spam Folder"),
+    REPEATROUTINE("Repeat Routine");
 
     final public String displayName;
 
