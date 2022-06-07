@@ -37,7 +37,7 @@ import java.util.*;
 public class GameController {
     //Stack<CommandCard> Cards = new Stack<>();
     public Board board;
-    private int playerNum = -1; // Given from the server
+    private int playerNum; // Given from the server
     final public RobotMovementController rmc;
     final private AppController appController;
 
@@ -127,14 +127,32 @@ public class GameController {
 
     public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
-        int random = (int) (Math.random() * commands.length); //TODO her er du
-        return new CommandCard(commands[random]);
+        ArrayList<Command> commandList = new ArrayList<>();
+        for (int i = 0; i < 9; i++){
+            commandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * commandList.size()); //TODO her er du
+        return new CommandCard(commandList.get(random));
     }
 
-    public DamageCard generateRandomDamageCard() {
-        DamageCommand[] damageCommands = DamageCommand.values();
-        int random = (int) (Math.random() * damageCommands.length);
-        return new DamageCard(damageCommands[random]);
+    public CommandCard generateRandomDamageCard() {
+        Command[] commands = Command.values();
+        ArrayList<Command> dmgCommandList = new ArrayList<>();
+        for (int i = 9; i < 13; i++){
+            dmgCommandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * dmgCommandList.size()); //TODO her er du
+        return new CommandCard(dmgCommandList.get(random));
+    }
+
+    public CommandCard generateRandomSpecialCard(){
+        Command[] commands = Command.values();
+        ArrayList<Command> specCommandList = new ArrayList<>();
+        for (int i = 13; i < 19; i++) {
+            specCommandList.add(commands[i]);
+        }
+        int random = (int) (Math.random() * specCommandList.size());
+        return new CommandCard(specCommandList.get(random));
     }
 
     /**
@@ -310,6 +328,7 @@ public class GameController {
                 case UTURN -> rmc.uTurn(player);
                 case MOVEBACK -> rmc.moveBackward(player);
                 case AGAIN -> rmc.again(player, board.getStep());
+                case SPAM -> rmc.Removespam(player);
                 default -> {
                 }
                 // DO NOTHING (for now)
@@ -429,9 +448,5 @@ public class GameController {
             return true;
         else
             return false;
-    }
-
-    public void setPlayerNumber(int num){
-        playerNum = num;
     }
 }

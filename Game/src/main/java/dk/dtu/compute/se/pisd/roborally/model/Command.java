@@ -34,6 +34,7 @@ public enum Command {
 
     // This is a very simplistic way of realizing different commands.
 
+    //Primary programming cards
     MOVE1("Move 1"),
     MOVE2("Move 2"),
     MOVE3("Move 3"),
@@ -42,19 +43,22 @@ public enum Command {
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
     UTURN("U-Turn"),
     MOVEBACK("Move Back"),
-    AGAIN("Again!")
-    ,
+    AGAIN("Again!"),
+
+    //Damage cards
     SPAM("SPAM"),
     TROJANHORSE("TROJAN HORSE"),
     WORM("WORM"),
-    VIRUS("VIRUS")
-    ,
+    VIRUS("VIRUS"),
+
+    //Special programming cards
     ENERGYROUTINE("Energy Routine"),
     SANDBOXROUTINE("Sandbox Routine"),
     WEASELROUTINE("Weasel Routine"),
     SPEEDROUTINE("Speed Routine"),
     SPAMFOLDER("Spam Folder"),
     REPEATROUTINE("Repeat Routine");
+
 
     final public String displayName;
 
