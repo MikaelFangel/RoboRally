@@ -50,6 +50,8 @@ public class GameController {
         this.board = board;
         this.client = client;
         rmc = new RobotMovementController(this);
+
+        client.updateGame(SerializeState.serializeGame(board));
     }
 
     /**
@@ -105,6 +107,7 @@ public class GameController {
                         field.setVisible(true);
                     }
                 }
+                client.updateGame(SerializeState.serializeGame(board));
             }
         } else {
             skipProgrammingPhase = false;
