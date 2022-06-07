@@ -51,7 +51,8 @@ public class GameController {
         this.client = client;
         rmc = new RobotMovementController(this);
 
-        client.updateGame(SerializeState.serializeGame(board));
+        if (client != null)
+            client.updateGame(SerializeState.serializeGame(board));
     }
 
     /**
@@ -104,11 +105,9 @@ public class GameController {
                         if (!player.getDamagecards().isEmpty()) {
                             if (player.getDamagecards().size() > j) {
                                 field.setCard(new CommandCard(player.getDamagecards().get(j)));
-                            }
-                            else
+                            } else
                                 field.setCard(generateRandomCommandCard());
-                        }
-                        else
+                        } else
                             field.setCard(generateRandomCommandCard());
 
                         //field.setCard(generateRandomCommandCard());
@@ -117,7 +116,8 @@ public class GameController {
 
                     }
                 }
-                client.updateGame(SerializeState.serializeGame(board));
+                if (client != null)
+                    client.updateGame(SerializeState.serializeGame(board));
             }
         } else {
             skipProgrammingPhase = false;
@@ -130,7 +130,7 @@ public class GameController {
         return new CommandCard(commands[random]);
     }
 
-    public DamageCard generateRandomDamageCard(){
+    public DamageCard generateRandomDamageCard() {
         DamageCommand[] damageCommands = DamageCommand.values();
         int random = (int) (Math.random() * damageCommands.length);
         return new DamageCard(damageCommands[random]);
@@ -238,7 +238,7 @@ public class GameController {
         }
     }
 
-    public void endGame(){
+    public void endGame() {
         appController.stopGame();
 
     }
@@ -253,7 +253,7 @@ public class GameController {
         List<Integer> playersPriority = new ArrayList<>();
 
         // Get distance for each player to the antenna
-        for (Player player : players){
+        for (Player player : players) {
             Space playerSpace = player.getSpace();
 
             double totalDistance = Math.sqrt(Math.pow(Math.abs(playerSpace.x - antennaSpace.x), 2) + Math.pow(Math.abs(playerSpace.y - antennaSpace.y), 2));
@@ -263,7 +263,7 @@ public class GameController {
 
         // Prioritize player according to their distance to the antenna.
         List<Player> prioritizedPlayers = new ArrayList<>();
-        for (int i = 0; i <= (board.width + board.height)*100; i++) {
+        for (int i = 0; i <= (board.width + board.height) * 100; i++) {
             for (int j = 0; j < players.size(); j++) {
                 if (playersPriority.get(j) == i) {
                     prioritizedPlayers.add(players.get(j));
