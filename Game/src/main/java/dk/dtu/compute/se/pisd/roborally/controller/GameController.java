@@ -35,7 +35,6 @@ import java.util.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
-    Stack<CommandCard> Cards = new Stack<>();
     public Board board;
     private int playerNum; // Given from the server
     final public RobotMovementController rmc;
@@ -138,13 +137,13 @@ public class GameController {
         for (int i = 9; i < 13; i++){
             dmgCommandList.add(commands[i]);
         }
-        int random = (int) (Math.random() * dmgCommandList.size()); //TODO her er du
+        int random = (int) (Math.random() * dmgCommandList.size()); //TODO bruger måske
         return new CommandCard(dmgCommandList.get(random));
     }
 
     public CommandCard generateRandomSpecialCard(){
         Command[] commands = Command.values();
-        ArrayList<Command> specCommandList = new ArrayList<>();
+        ArrayList<Command> specCommandList = new ArrayList<>();   //TODO bruger måske
         for (int i = 13; i < 19; i++) {
             specCommandList.add(commands[i]);
         }
