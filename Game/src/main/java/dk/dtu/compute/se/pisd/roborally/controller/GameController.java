@@ -449,4 +449,8 @@ public class GameController {
         else
             return false;
     }
+
+    public void setPlayerNumber(int num){
+        playerNum = num;
+    }
 }
