@@ -37,6 +37,7 @@ import java.util.*;
 public class GameController {
     //Stack<CommandCard> Cards = new Stack<>();
     public Board board;
+    private int playerNum; // Given from the server
     final public RobotMovementController rmc;
     final private AppController appController;
 
@@ -421,5 +422,12 @@ public class GameController {
                     player.getSpace().getActions().get(0) instanceof Checkpoint)
                 player.getSpace().getActions().get(0).doAction(this, player.getSpace());
         }
+    }
+
+    private boolean isMyTurn(){
+        if (board.getCurrentPlayer() == board.getPlayer(playerNum))
+            return true;
+        else
+            return false;
     }
 }
