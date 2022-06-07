@@ -127,6 +127,12 @@ public class GameController {
         return new CommandCard(commands[random]);
     }
 
+    public DamageCard generateRandomDamageCard(){
+        DamageCommand[] damageCommands = DamageCommand.values();
+        int random = (int) (Math.random() * damageCommands.length);
+        return new DamageCard(damageCommands[random]);
+    }
+
     /**
      * Changes the phase from programming to activation.
      */

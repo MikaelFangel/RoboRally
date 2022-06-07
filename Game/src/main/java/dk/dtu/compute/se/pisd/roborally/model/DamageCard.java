@@ -1,10 +1,9 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
-public class DamageCard extends Card {
+public class DamageCard{
     public DamageCommand damageCommand;
 
-    public DamageCard(String description, String effect, int cost, DamageCommand damageCommand) {
-        super(description,effect,cost);
+    public DamageCard(DamageCommand damageCommand){
         this.damageCommand = damageCommand;
     }
 
