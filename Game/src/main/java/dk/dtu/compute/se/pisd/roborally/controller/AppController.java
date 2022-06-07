@@ -128,16 +128,20 @@ public class AppController implements Observer {
     }
 
     public void hostGame(String... errorMessage) {
-        TextInputDialog serverCreation = new TextInputDialog();
+        /*TextInputDialog serverCreation = new TextInputDialog();
         serverCreation.setTitle("Start game server");
         serverCreation.setHeaderText("Server name:");
         if (errorMessage.length != 0){
             serverCreation.setHeaderText(errorMessage[0]);
         }
-        Optional<String> result = serverCreation.showAndWait();
+        Optional<String> result = serverCreation.showAndWait();*/
+        String[] box = new String[]{"Start game server", "Start game server",""};
+        if (errorMessage.length != 0)
+            box[2] = errorMessage[0];
+        String result = roboRally.getPopupBoxes().getStringInput(box);
         if (result.isEmpty())
             return;
-        String response = client.hostGame(result.get());
+        String response = client.hostGame(result);
         if (!Objects.equals(response, "success"))
             hostGame(response);
         else {
