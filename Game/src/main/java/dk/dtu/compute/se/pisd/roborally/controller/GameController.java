@@ -22,9 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.httpclient.Client;
+import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
+import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -51,8 +53,13 @@ public class GameController {
         this.client = client;
         rmc = new RobotMovementController(this);
 
-        if (client != null)
+        if (client != null) {
             client.updateGame(SerializeState.serializeGame(board));
+            Updater updater = new Updater();
+            updater.setGameController(this);
+            updater.setClient(client);
+            updater.start();
+        }
     }
 
     /**
@@ -226,9 +233,20 @@ public class GameController {
         changePlayer(currentPlayer, board.getStep());
     }
 
+    public void updateBoard() {
+        appController.getRoboRally().createBoardView(this);
+    }
+
     private void continuePrograms() {
         do {
             executeNextStep();
+            if (client != null)
+                client.updateGame(SerializeState.serializeGame(board));
+            if(client != null) {
+                Board board = SerializeState.deserializeGame(client.getGameState(), true);
+                this.board = board;
+                Platform.runLater(this::updateBoard);
+            }
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
