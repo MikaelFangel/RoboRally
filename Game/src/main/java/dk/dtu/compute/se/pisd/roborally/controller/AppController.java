@@ -128,18 +128,11 @@ public class AppController implements Observer {
     }
 
     public void hostGame(String... errorMessage) {
-        /*TextInputDialog serverCreation = new TextInputDialog();
-        serverCreation.setTitle("Start game server");
-        serverCreation.setHeaderText("Server name:");
-        if (errorMessage.length != 0) {
-            serverCreation.setHeaderText(errorMessage[0]);
-        }
-        Optional<String> result = serverCreation.showAndWait();*/
-        String[] box = new String[]{"Start game server", "Start game server",""};
+        String[] box = new String[]{"Start game server", "Server name:"};
         if (errorMessage.length != 0)
-            box[2] = errorMessage[0];
+            box[1] = errorMessage[0];
         String result = roboRally.getPopupBoxes().getStringInput(box);
-        if (result.isEmpty())
+        if (result == null)
             return;
         String response = client.hostGame(result);
         if (!Objects.equals(response, "success"))
@@ -245,10 +238,7 @@ public class AppController implements Observer {
 
     public void exit() {
         if (gameController != null) {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Exit RoboRally?");
-            alert.setContentText("Are you sure you want to exit RoboRally?");
-            Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = roboRally.getPopupBoxes().warningBox(new String[]{"Exit RoboRally?","Are you sure you want to exit RoboRally?"});
 
             if (result.isEmpty() || result.get() != ButtonType.OK) {
                 return; // return without exiting the application
