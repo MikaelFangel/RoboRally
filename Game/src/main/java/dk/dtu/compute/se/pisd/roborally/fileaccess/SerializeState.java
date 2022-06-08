@@ -26,6 +26,7 @@ public class SerializeState {
         template.phase = board.phase.toString();
         template.step = board.step;
         template.stepMode = board.stepMode;
+        template.gameOver = board.gameOver;
 
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
@@ -158,6 +159,7 @@ public class SerializeState {
             result.phase = Phase.valueOf(template.phase);
             result.step = template.step;
             result.stepMode = template.stepMode;
+            result.gameOver = template.gameOver;
         }
 
         for (SpaceTemplate spaceTemplate: template.spaces) {

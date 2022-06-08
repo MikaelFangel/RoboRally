@@ -274,8 +274,10 @@ public class GameController {
     }
 
     public void endGame() {
-        appController.stopGame();
-
+        board.gameOver = true;
+        pushGameState();
+        
+        Platform.runLater(appController::stopGame);
     }
 
     private void doPriorityAntennaAction() {
@@ -465,6 +467,8 @@ public class GameController {
     public void refreshUpdater(){
         if (client != null) {
             updater.setUpdate(isMyTurn());
+
+            if (board.gameOver) endGame(); // Needed to ensure it closes
         }
     }
     private void pullGameState(){
