@@ -498,7 +498,7 @@ public class GameController {
         client.updateGame(SerializeState.serializeGame(board));
     }
 
-    private boolean isMyTurn(){
+    public boolean isMyTurn(){
         if (board.getCurrentPlayer() == board.getPlayer(playerNum)){
             System.out.println("Is my turn");
             return true;
