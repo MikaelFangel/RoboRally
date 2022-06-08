@@ -44,6 +44,8 @@ public class GameController {
 
     private final Client client;
 
+    private int robotNumber;
+
     private boolean isNewlyLoadedDefaultBoard = false;
     private boolean skipProgrammingPhase = true;
 
@@ -57,6 +59,11 @@ public class GameController {
 
         if (client != null) {
             client.updateGame(SerializeState.serializeGame(board));
+
+            // Remove print
+            robotNumber = client.getRobotNumber();
+            System.out.println("Robot number: " + robotNumber);
+
             updater = new Updater();
             updater.setGameController(this);
             updater.setClient(client);
@@ -240,13 +247,8 @@ public class GameController {
     private void continuePrograms() {
         do {
             executeNextStep();
-            if (client != null)
-                client.updateGame(SerializeState.serializeGame(board));
-            if(client != null) {
-                Board board = SerializeState.deserializeGame(client.getGameState(), true);
-                this.board = board;
-                Platform.runLater(this::updateBoard);
-            }
+            updateGameState();
+
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
@@ -456,6 +458,15 @@ public class GameController {
             if (!player.getSpace().getActions().isEmpty() &&
                     player.getSpace().getActions().get(0) instanceof Checkpoint)
                 player.getSpace().getActions().get(0).doAction(this, player.getSpace());
+        }
+    }
+
+    private void updateGameState(){
+        if(client != null) {
+            client.updateGame(SerializeState.serializeGame(board));
+            Board board = SerializeState.deserializeGame(client.getGameState(), true);
+            this.board = board;
+            Platform.runLater(this::updateBoard);
         }
     }
 
