@@ -36,43 +36,36 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class PlayerView extends Tab implements ViewObserver {
 
-    private Player player;
+    private final Player player;
 
-    private VBox top;
+    private final GridPane programPane;
 
-    private Label programLabel;
-    private GridPane programPane;
-    private Label cardsLabel;
-    private GridPane cardsPane;
+    private final CardFieldView[] programCardViews;
 
-    private CardFieldView[] programCardViews;
-    private CardFieldView[] cardViews;
+    private final VBox buttonPanel;
 
-    private VBox buttonPanel;
+    private final Button finishButton;
+    private final Button executeButton;
+    private final Button stepButton;
 
-    private Button finishButton;
-    private Button executeButton;
-    private Button stepButton;
+    private final VBox playerInteractionPanel;
 
-    private VBox playerInteractionPanel;
-
-    private GameController gameController;
+    private final GameController gameController;
 
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
         this.setStyle("-fx-text-base-color: " + player.getColor() + ";");
 
-        top = new VBox();
+        VBox top = new VBox();
         this.setContent(top);
 
         this.gameController = gameController;
         this.player = player;
 
-        programLabel = new Label("Program");
+        Label programLabel = new Label("Program");
 
         programPane = new GridPane();
         programPane.setVgap(2.0);
@@ -91,13 +84,13 @@ public class PlayerView extends Tab implements ViewObserver {
         //      refactored.
 
         finishButton = new Button("Finish Programming");
-        finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
+        finishButton.setOnAction(e -> gameController.finishProgrammingPhase());
 
         executeButton = new Button("Execute Program");
-        executeButton.setOnAction( e-> gameController.executePrograms());
+        executeButton.setOnAction(e -> gameController.executePrograms());
 
         stepButton = new Button("Execute Current Register");
-        stepButton.setOnAction( e-> gameController.executeStep());
+        stepButton.setOnAction(e -> gameController.executeStep());
 
         buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
@@ -108,11 +101,11 @@ public class PlayerView extends Tab implements ViewObserver {
         playerInteractionPanel.setAlignment(Pos.CENTER_LEFT);
         playerInteractionPanel.setSpacing(3.0);
 
-        cardsLabel = new Label("Command Cards");
-        cardsPane = new GridPane();
+        Label cardsLabel = new Label("Command Cards");
+        GridPane cardsPane = new GridPane();
         cardsPane.setVgap(2.0);
         cardsPane.setHgap(2.0);
-        cardViews = new CardFieldView[Player.NO_CARDS];
+        CardFieldView[] cardViews = new CardFieldView[Player.NO_CARDS];
         for (int i = 0; i < Player.NO_CARDS; i++) {
             CommandCardField cardField = player.getCardField(i);
             if (cardField != null) {
@@ -138,7 +131,7 @@ public class PlayerView extends Tab implements ViewObserver {
             for (int i = 0; i < Player.NO_REGISTERS; i++) {
                 CardFieldView cardFieldView = programCardViews[i];
                 if (cardFieldView != null) {
-                    if (player.board.getPhase() == Phase.PROGRAMMING ) {
+                    if (player.board.getPhase() == Phase.PROGRAMMING) {
                         cardFieldView.setBackground(CardFieldView.BG_DEFAULT);
                     } else {
                         if (i < player.board.getStep()) {
@@ -203,10 +196,10 @@ public class PlayerView extends Tab implements ViewObserver {
                     //      following is just a mockup showing two options
 
                     Command current = player.getProgramField(player.board.getStep()).getCard().command;
-                    if(current.isInteractive()) {
+                    if (current.isInteractive()) {
                         for (Command command : current.getOptions()) {
                             Button optionButton = new Button(command.toString());
-                            optionButton.setOnAction( e -> gameController.executeCommandAndResumeActivation(command));
+                            optionButton.setOnAction(e -> gameController.executeCommandAndResumeActivation(command));
                             optionButton.setDisable(false);
                             playerInteractionPanel.getChildren().add(optionButton);
 
