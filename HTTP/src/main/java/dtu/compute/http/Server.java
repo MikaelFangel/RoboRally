@@ -52,8 +52,10 @@ public class Server {
 
     public int getARobot(){
         for (int i = 0; i < maxAmountOfPlayers; i++)
-            if (!playerSpotFilled[i])
+            if (!playerSpotFilled[i]) {
+                playerSpotFilled[i] = true;
                 return i;
+            }
         return 0; //shouldn't happend
     }
 
