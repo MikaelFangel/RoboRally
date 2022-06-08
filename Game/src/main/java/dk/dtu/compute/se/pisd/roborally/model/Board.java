@@ -37,6 +37,8 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  */
 public class Board extends Subject {
 
+    public boolean gameOver = false;
+
     public final int width;
 
     public final int height;
