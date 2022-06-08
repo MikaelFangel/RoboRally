@@ -26,7 +26,6 @@ import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.*;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
-import dk.dtu.compute.se.pisd.roborally.view.PopupBoxes;
 import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,7 +73,6 @@ public class GameController {
             if (currentPlayer != null && space.getPlayer() == null) {
                 currentPlayer.setSpace(space);
 
-                // TODO Implemented in rest of game controller with correct player change
                 if (space.getActions().size() > 0) {
                     FieldAction action = space.getActions().get(0);
                     action.doAction(this, space);
@@ -155,13 +153,11 @@ public class GameController {
      * Changes the phase from programming to activation.
      */
     public void finishProgrammingPhase() {
-        // TODO make if-statement to check whether it's singleplayer or not, else it will not work.
-
         if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1 ||
                 client == null) {
             makeProgramFieldsInvisible();
             makeProgramFieldsVisible(0);
-            doPriorityAntennaAction();
+            assertPlayerPriorityAndChangeBoardPlayers();
 
             // Reset all energy cubes
             for (Space[] row : board.getSpaces()) {
@@ -294,12 +290,10 @@ public class GameController {
         Platform.runLater(appController::stopGame);
     }
 
-    private void doPriorityAntennaAction() {
+    public void assertPlayerPriorityAndChangeBoardPlayers() {
         Space antennaSpace = board.getPriorityAntennaSpace();
         antennaSpace.getActions().get(0).doAction(this, antennaSpace);
-    }
 
-    public void assertPlayerPriorityAndChangeBoardPlayers(Space antennaSpace) {
         // To avoid sync bug when playing online
         if (client == null) {
             List<Player> players = board.getPlayers();
