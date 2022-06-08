@@ -499,7 +499,7 @@ public class GameController {
     }
 
     public boolean isMyTurn(){
-        if (board.getCurrentPlayer() == board.getPlayer(playerNum)){
+        if (board.getCurrentPlayer() == board.getPlayer(playerNum) || client == null){
             System.out.println("Is my turn");
             return true;
         }
