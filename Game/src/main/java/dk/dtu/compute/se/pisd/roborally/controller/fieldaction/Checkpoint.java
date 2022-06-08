@@ -18,6 +18,10 @@ public class Checkpoint extends FieldAction {
         return checkpointNumber;
     }
 
+    public static void setHighestCheckpointNumber(int highestCheckpointNumber) {
+        Checkpoint.highestCheckpointNumber = highestCheckpointNumber;
+    }
+
     public Checkpoint() {
         highestCheckpointNumber++;
     }

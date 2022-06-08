@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PriorityAntenna;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,23 +41,20 @@ public class Board extends Subject {
     public boolean gameOver = false;
 
     public final int width;
-
     public final int height;
 
     public final String boardName;
-
     private Integer gameId;
 
     private final Space[][] spaces;
 
     private List<Player> players = new ArrayList<>();
-
     public Player current;
 
     public Phase phase = INITIALISATION;
 
+    private int numOfCheckPoints;
     public int step = 0;
-
     public boolean stepMode;
 
     public Board(int width, int height, @NotNull String boardName) {
@@ -294,4 +292,29 @@ public class Board extends Subject {
     public Space[][] getSpaces() {
         return spaces;
     }
+
+
+    public void setCheckpointsWithNumber(){
+        findNumberOfCheckPoints();
+        Checkpoint.setHighestCheckpointNumber(numOfCheckPoints);
+    }
+    private void findNumberOfCheckPoints(){
+        int counter = 0;
+        for (int i = 0; i < spaces.length; i++) {
+            for (int j = 0; j < spaces[0].length; j++) {
+                if (spaces[i][j].getActions().size() > 0 &&
+                        spaces[i][j].getActions().get(0) instanceof Checkpoint){
+
+                    counter++;
+                }
+            }
+        }
+        numOfCheckPoints = counter;
+    }
+
+
+    public int getNumOfCheckPoints() {
+        return numOfCheckPoints;
+    }
+
 }

@@ -481,7 +481,8 @@ public class GameController {
     }
 
     private void pushGameState() {
-        client.updateGame(SerializeState.serializeGame(board));
+        if (client != null)
+            client.updateGame(SerializeState.serializeGame(board));
     }
 
     public boolean isMyTurn() {
