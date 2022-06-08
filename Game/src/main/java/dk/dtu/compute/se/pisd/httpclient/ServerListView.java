@@ -70,7 +70,7 @@ public class ServerListView{
         table.getColumns().addAll(id, serverName, players, maxPlayers);
 
         Button button = new Button("Join Game");
-        button.setOnAction(e -> {app.stopGame(); app.joinGame(table.getSelectionModel().getSelectedItem().getId());});
+        button.setOnAction(e -> {app.stopGame(); if(!table.getSelectionModel().isEmpty())app.joinGame(table.getSelectionModel().getSelectedItem().getId());});
 
         Button refresh = new Button("Refresh");
         refresh.setOnAction(e -> addServer(c.listGames()));
