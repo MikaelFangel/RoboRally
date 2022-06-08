@@ -56,6 +56,7 @@ public class SerializeState {
             playerTemplate.color = player.color;
             playerTemplate.energyCount = player.energyCount;
             playerTemplate.checkPoints = player.checkPoints;
+            playerTemplate.priority = player.priority;
             playerTemplate.spaceX = player.space.x;
             playerTemplate.spaceY = player.space.y;
             playerTemplate.heading = player.heading.toString();
@@ -182,6 +183,7 @@ public class SerializeState {
             newPlayer.heading = Heading.valueOf(playerTemplate.heading);
             newPlayer.energyCount = playerTemplate.energyCount;
             newPlayer.checkPoints = playerTemplate.checkPoints;
+            newPlayer.priority = playerTemplate.priority;
 
 
             CommandCardField[] newCards = new CommandCardField[playerTemplate.cards.length];

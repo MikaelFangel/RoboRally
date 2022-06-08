@@ -6,6 +6,8 @@ public class PlayerTemplate {
     public int energyCount;
     public int checkPoints;
 
+    public int priority;
+
     public int spaceX;
     public int spaceY;
     public String heading;

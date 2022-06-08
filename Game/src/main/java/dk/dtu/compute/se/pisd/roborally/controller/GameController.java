@@ -254,7 +254,6 @@ public class GameController {
     }
 
     private void continuePrograms() {
-        System.out.println("Now in activation phase");
         do {
             executeNextStep();
 
