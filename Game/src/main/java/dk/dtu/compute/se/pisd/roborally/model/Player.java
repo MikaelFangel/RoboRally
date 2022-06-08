@@ -23,7 +23,6 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.model.CommandCardFieldTemplate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -49,6 +48,7 @@ public class Player extends Subject {
     public String color;
     public int energyCount;
     public int checkPoints;
+    public int priority;
 
     public Space space;
     public Heading heading = SOUTH;
@@ -96,6 +96,14 @@ public class Player extends Subject {
                 space.playerChanged();
             }
         }
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     public String getColor() {

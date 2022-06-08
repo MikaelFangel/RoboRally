@@ -23,8 +23,9 @@ public class SaveLoadGame {
     /**
      * Saves the games state into a file.
      * Captures the players states, board layout and other metadata in the game.
+     *
      * @param board the instance of the game board in play.
-     * @param name the file name the game should be saved as.
+     * @param name  the file name the game should be saved as.
      */
     public static void saveBoardToDisk(Board board, String name) {
         // Setting up the board template
@@ -38,45 +39,38 @@ public class SaveLoadGame {
      * Load's a saved Board from a file.
      * Everything gets saved. This includes:
      * Player's state, Board layout, currentPlayer and more
+     *
      * @param name the file name of the board to get loaded
      * @return the instance of Board loaded from a file.
      */
     public static Board loadBoard(String name) throws BoardNotFoundException {
-        Board board = null;
-
         String resourcePath = SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT;
         String json = ReadWriteGame.readGameFromDisk(resourcePath);
 
-        if (json != null){
-            board = SerializeState.deserializeGame(json, true);
-        }
-
-        return board;
+        return SerializeState.deserializeGame(json, true);
 
     }
 
     /**
      * The function create a totally new board where only the board layout is determined by input.
      * There are no such thing saved a players state in this.
+     *
      * @param numPlayers number of players for the new game
-     * @param boardName the filename of the board that should be loaded
+     * @param boardName  the filename of the board that should be loaded
      * @return the new Board instance with the board layout of the parameter as well as corresponding player number
      */
     public static Board newBoard(int numPlayers, String boardName) throws BoardNotFoundException {
         newBoardCreated = true;
 
-        Board board = null;
 
         String resourcePath = BOARDS_FOLDER + "/" + boardName + "." + JSON_EXT;
         String json = ReadWriteGame.readGameFromDisk(resourcePath);
 
-        if (json != null){
-            board = SerializeState.deserializeGame(json, false);
-        }
+        Board board = SerializeState.deserializeGame(json, false);
 
         // Create the players and place them
         for (int i = 0; i < numPlayers; i++) {
-            Player newPlayer = new Player(board, PLAYER_COLORS.get(i), "Player " + (i+1));
+            Player newPlayer = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
             board.addPlayer(newPlayer);
         }
 
@@ -87,11 +81,10 @@ public class SaveLoadGame {
     }
 
 
-    private static void placePlayersRandomly(List<Player> players, List<Space> possibleSpaces){
+    private static void placePlayersRandomly(List<Player> players, List<Space> possibleSpaces) {
         // TODO Make it random
 
-        for (int i = 0; i < players.size(); i++) {
-            Player currentPlayer = players.get(i);
+        for (Player currentPlayer : players) {
             Space currentSpace = possibleSpaces.get(0);
 
             currentPlayer.setSpace(currentSpace);
@@ -103,19 +96,19 @@ public class SaveLoadGame {
         }
     }
 
-    private static List<Space> getAllSpacesOfTypeByFieldAction(Board board, FieldAction action){
+    private static List<Space> getAllSpacesOfTypeByFieldAction(Board board, FieldAction action) {
         List<Space> spaces = new ArrayList<>();
 
         for (int y = 0; y < board.height; y++) {
             for (int x = 0; x < board.width; x++) {
-                Space curSpace = board.getSpace(x,y);
+                Space curSpace = board.getSpace(x, y);
                 List<FieldAction> curSpaceActions = curSpace.getActions();
 
                 if (curSpaceActions.size() == 0)
                     continue;
 
                 String curFieldActionName = curSpaceActions.get(0).getClass().getSimpleName();
-                if (curFieldActionName.equals(action.getClass().getSimpleName())){
+                if (curFieldActionName.equals(action.getClass().getSimpleName())) {
                     spaces.add(curSpace);
                 }
             }
@@ -123,7 +116,7 @@ public class SaveLoadGame {
         return spaces;
     }
 
-    public static boolean getNewBoardCreated(){
+    public static boolean getNewBoardCreated() {
         return newBoardCreated;
     }
 }

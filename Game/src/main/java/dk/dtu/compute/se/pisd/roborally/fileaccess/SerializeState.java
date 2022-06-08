@@ -26,6 +26,7 @@ public class SerializeState {
         template.phase = board.phase.toString();
         template.step = board.step;
         template.stepMode = board.stepMode;
+        template.gameOver = board.gameOver;
 
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
@@ -45,9 +46,7 @@ public class SerializeState {
         List<Player> players = board.getPlayers();
         List<PlayerTemplate> playersTemplate = new ArrayList<>();
 
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-
+        for (Player player : players) {
             PlayerTemplate playerTemplate = new PlayerTemplate();
             CommandCardFieldTemplate[] programTemplate = new CommandCardFieldTemplate[player.program.length];
             CommandCardFieldTemplate[] cardsTemplate = new CommandCardFieldTemplate[player.cards.length];
@@ -56,6 +55,7 @@ public class SerializeState {
             playerTemplate.color = player.color;
             playerTemplate.energyCount = player.energyCount;
             playerTemplate.checkPoints = player.checkPoints;
+            playerTemplate.priority = player.priority;
             playerTemplate.spaceX = player.space.x;
             playerTemplate.spaceY = player.space.y;
             playerTemplate.heading = player.heading.toString();
@@ -68,12 +68,12 @@ public class SerializeState {
                 CommandTemplate commandTemplate = new CommandTemplate();
 
                 // The command of the card
-                if (card.card == null){
+                if (card.card == null) {
                     commandTemplate.type = "";
                 } else {
                     commandTemplate.type = card.card.command.name();
                     List<String> options = new ArrayList<>();
-                    for (Command option : card.card.command.options){
+                    for (Command option : card.card.command.options) {
                         options.add(String.valueOf(option));
                     }
                 }
@@ -95,12 +95,12 @@ public class SerializeState {
                 CommandTemplate commandTemplate = new CommandTemplate();
 
                 // The command of the card
-                if (card.card == null){
+                if (card.card == null) {
                     commandTemplate.type = "";
                 } else {
                     commandTemplate.type = card.card.command.name();
                     List<String> options = new ArrayList<>();
-                    for (Command option : card.card.command.options){
+                    for (Command option : card.card.command.options) {
                         options.add(String.valueOf(option));
                     }
                 }
@@ -132,9 +132,7 @@ public class SerializeState {
                 setPrettyPrinting();
         Gson gson = simpleBuilder.create();
 
-        String jsonString = gson.toJson(template, template.getClass());
-
-        return jsonString;
+        return gson.toJson(template, template.getClass());
     }
 
     /**
@@ -161,6 +159,7 @@ public class SerializeState {
             result.phase = Phase.valueOf(template.phase);
             result.step = template.step;
             result.stepMode = template.stepMode;
+            result.gameOver = template.gameOver;
         }
 
         for (SpaceTemplate spaceTemplate: template.spaces) {
@@ -182,6 +181,7 @@ public class SerializeState {
             newPlayer.heading = Heading.valueOf(playerTemplate.heading);
             newPlayer.energyCount = playerTemplate.energyCount;
             newPlayer.checkPoints = playerTemplate.checkPoints;
+            newPlayer.priority = playerTemplate.priority;
 
 
             CommandCardField[] newCards = new CommandCardField[playerTemplate.cards.length];
