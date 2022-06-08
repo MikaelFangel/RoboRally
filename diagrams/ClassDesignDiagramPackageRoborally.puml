@@ -1,0 +1,24 @@
+@startuml
+package roborally{
+  class Roborally extends Application{
+     {Static} -MIN_APP_WIDTH : int
+     -stage : Stage
+     -boardRoot : BorderPane
+     -baordview : BoardView
+     -popupBoxes : PopupBoxes
+
+     +init : void
+     +start(Stage primaryStage) : void
+     +createBoardview(GameController gameController) : void
+     +stop : void
+
+  }
+  class StartRoboRally{
+
+  }
+  class Application
+  note Right: JavaFX class
+
+}
+
+@enduml
