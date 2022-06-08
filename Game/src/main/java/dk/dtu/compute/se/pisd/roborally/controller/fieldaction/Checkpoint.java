@@ -6,7 +6,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.scene.control.Alert;
 
 public class Checkpoint extends FieldAction {
-
     private static int highestCheckpointNumber = 0;
     private int checkpointNumber;
 

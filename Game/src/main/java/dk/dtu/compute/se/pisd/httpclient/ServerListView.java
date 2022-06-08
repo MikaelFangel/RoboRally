@@ -22,7 +22,6 @@ import javafx.util.Callback;
 import java.io.StringReader;
 
 public class ServerListView{
-
     private Stage stage;
     private TableView<Server> table = new TableView<>();
     private ObservableList<Server> data = FXCollections.observableArrayList();

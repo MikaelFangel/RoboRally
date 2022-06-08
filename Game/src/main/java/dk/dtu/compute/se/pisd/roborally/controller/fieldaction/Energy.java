@@ -4,7 +4,6 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 public class Energy extends FieldAction {
-
     private boolean hasEnergyCube;
 
     public void setHasEnergyCube(boolean hasEnergyCube) {

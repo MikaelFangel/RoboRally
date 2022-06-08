@@ -24,12 +24,10 @@ import static java.util.concurrent.TimeUnit.*;
 public class Client implements IStatusComm {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
-
     private String server = "http://localhost:8080";
     private String serverID = "";
     private boolean connectedToServer = false;
     private int robotNumber;
-
     public boolean isConnectedToServer(){
         return connectedToServer;
     }
