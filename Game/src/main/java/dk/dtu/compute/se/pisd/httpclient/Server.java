@@ -1,8 +1,5 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Server {
     private String id;
     private String title;
