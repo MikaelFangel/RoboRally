@@ -6,7 +6,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 1
@@ -20,7 +20,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -42,7 +42,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PushPanel",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PushPanel",
           "INSTANCE": {
             "heading" : "NORTH"
           }
@@ -63,7 +63,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.RebootToken",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.RebootToken",
           "INSTANCE": {
           }
         }
@@ -75,7 +75,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "NORTH",
             "numberOfMoves": 2
@@ -89,7 +89,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -101,7 +101,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
           "INSTANCE": {
           }
         }
@@ -113,7 +113,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 2
@@ -127,7 +127,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 2
@@ -141,7 +141,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 2
@@ -155,7 +155,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 2
@@ -169,7 +169,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 2
@@ -183,7 +183,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 2
@@ -197,7 +197,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "NORTH",
             "numberOfMoves": 2
@@ -219,7 +219,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Pit",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
           "INSTANCE": {}
         }
       ],
@@ -230,7 +230,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "NORTH",
             "numberOfMoves": 2
@@ -244,7 +244,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
           "INSTANCE": {
           }
         }
@@ -259,7 +259,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -274,7 +274,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -286,7 +286,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "NORTH",
             "numberOfMoves": 2
@@ -300,7 +300,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Checkpoint",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Checkpoint",
           "INSTANCE": {
             "checkpointNumber": 1
           }
@@ -313,7 +313,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PriorityAntenna",
           "INSTANCE": {
           }
         }
@@ -325,7 +325,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
           "INSTANCE": {
           }
         }
@@ -345,7 +345,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
             "numberOfMoves": 2
@@ -359,7 +359,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "NORTH",
             "numberOfMoves": 2
@@ -373,7 +373,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
           "INSTANCE": {
           }
         }
@@ -393,7 +393,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
             "numberOfMoves": 2
@@ -407,7 +407,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "NORTH",
             "numberOfMoves": 2
@@ -421,7 +421,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
           "INSTANCE": {
           }
         }
@@ -433,7 +433,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
             "numberOfMoves": 2
@@ -447,7 +447,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Checkpoint",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Checkpoint",
           "INSTANCE": {
             "checkpointNumber": 2
           }
@@ -463,7 +463,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -478,7 +478,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -498,7 +498,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
             "numberOfMoves": 2
@@ -512,7 +512,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Pit",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
           "INSTANCE": {
           }
         }
@@ -524,7 +524,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.StartGear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
           "INSTANCE": {
           }
         }
@@ -536,7 +536,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
             "numberOfMoves": 2
@@ -550,7 +550,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "WEST",
             "numberOfMoves": 2
@@ -564,7 +564,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "WEST",
             "numberOfMoves": 2
@@ -578,7 +578,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "WEST",
             "numberOfMoves": 2
@@ -592,7 +592,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "WEST",
             "numberOfMoves": 2
@@ -606,7 +606,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "WEST",
             "numberOfMoves": 2
@@ -620,7 +620,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "EAST",
             "numberOfMoves": 1
@@ -634,7 +634,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {
           }
         }
@@ -646,7 +646,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
             "numberOfMoves": 2
@@ -670,7 +670,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.PushPanel",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PushPanel",
           "INSTANCE": {
             "heading": "SOUTH"
           }
@@ -691,7 +691,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.Energy",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Energy",
           "INSTANCE": {}
         }
       ],
