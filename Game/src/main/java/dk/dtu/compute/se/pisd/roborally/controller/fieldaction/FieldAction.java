@@ -25,7 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
- * ...
+ * Parent class for all spaces that contains some kind of actions
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

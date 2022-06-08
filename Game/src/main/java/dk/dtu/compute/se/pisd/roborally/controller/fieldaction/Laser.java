@@ -7,7 +7,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 public class Laser extends FieldAction {
-
     private int numberOfLasers;
     private Heading heading;
 

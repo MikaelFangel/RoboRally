@@ -28,7 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * Controls the conveyor belt and represents both types of conveyor belts
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

@@ -12,14 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SaveLoadGame {
-
     final static private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
-
     private static final String BOARDS_FOLDER = "boards";
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
-
     private static final String JSON_EXT = "json";
-
     private static boolean newBoardCreated = false;
 
     /**
