@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.*;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
+import dk.dtu.compute.se.pisd.roborally.view.PopupBoxes;
 import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
@@ -274,9 +275,7 @@ public class GameController {
     }
 
     public void endGame() {
-        board.gameOver = true;
-        pushGameState();
-        
+        Platform.runLater(appController::disconnectFromServer);
         Platform.runLater(appController::stopGame);
     }
 
@@ -473,14 +472,12 @@ public class GameController {
 
             if (board.gameOver) endGame(); // Needed to ensure it closes
         }
+
+        if (board.gameOver)
+            updater.setUpdate(false);
     }
 
-    private void pullGameState() {
-        this.board = SerializeState.deserializeGame(client.getGameState(), true);
-        Platform.runLater(this::updateBoard);
-    }
-
-    private void pushGameState() {
+    public void pushGameState() {
         if (client != null)
             client.updateGame(SerializeState.serializeGame(board));
     }

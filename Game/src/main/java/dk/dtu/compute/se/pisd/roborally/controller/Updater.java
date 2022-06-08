@@ -25,8 +25,10 @@ public class Updater extends Thread {
     }
 
     public void updateBoardUi() {
-        gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
-        Platform.runLater(gameController::updateBoard);
+        if (!gameController.board.gameOver){
+            gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
+            Platform.runLater(gameController::updateBoard);
+        }
     }
 
     public void setClient(Client client) {

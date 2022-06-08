@@ -39,6 +39,8 @@ public class Checkpoint extends FieldAction {
                 if (player.checkPoints == highestCheckpointNumber) {
                     showWinMessage(space);
                     highestCheckpointNumber = 0; // Needs because the static variable is never resat
+                    gameController.board.gameOver = true;
+                    gameController.pushGameState();
                     gameController.endGame();
                 }
                 return true;
