@@ -62,7 +62,7 @@ public enum Command {
 
     final public String displayName;
 
-    public List<Command> options;
+    public final List<Command> options;
 
     Command(String displayName, Command... options) {
         this.displayName = displayName;

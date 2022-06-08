@@ -31,11 +31,13 @@ import java.util.List;
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
 
 /**
- * ...
+ * The board model containing all the data about the current board.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class Board extends Subject {
+
+    public boolean gameOver = false;
 
     public final int width;
 
@@ -98,10 +100,18 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * Gets the number of players on the board
+     * @return number of players on the board
+     */
     public int getPlayersNumber() {
         return players.size();
     }
 
+    /**
+     * Add a player to the board
+     * @param player player to add to the board
+     */
     public void addPlayer(@NotNull Player player) {
         if (player.board == this && !players.contains(player)) {
             players.add(player);
@@ -109,6 +119,11 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * Get a player based on his/hers index in the list
+     * @param i index of the player to get
+     * @return player at given index
+     */
     public Player getPlayer(int i) {
         if (i >= 0 && i < players.size()) {
             return players.get(i);
@@ -117,19 +132,35 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * Gets the list of players on the board
+     * @return list of players on the baord
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Set the list of players on board
+     * @param players list of players to set on board
+     */
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
 
+    /**
+     * Get the players which turn it is
+     * @return current player
+     */
     public Player getCurrentPlayer() {
         return current;
     }
 
+    /**
+     * Change the current player
+     * @param player new current player
+     */
     public void setCurrentPlayer(Player player) {
         if (player != this.current && players.contains(player)) {
             this.current = player;
@@ -137,6 +168,10 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * Get the placement of the priority antenna
+     * @return space containing the priority antenna
+     */
     public Space getPriorityAntennaSpace() {
         for (Space[] spaceArr : spaces) {
             for (Space space : spaceArr) {
@@ -148,17 +183,25 @@ public class Board extends Subject {
         return spaces[4][4]; // Default value, should never return this if board.csv is made with one.
     }
 
+    /**
+     * Get the current game phase
+     * @return current game phase
+     */
     public Phase getPhase() {
         return phase;
     }
 
+    /**
+     * Set the current game phase
+     * @param phase new phase
+     */
     public void setPhase(Phase phase) {
         if (phase != this.phase) {
             this.phase = phase;
             notifyChange();
         }
     }
-
+    
     public int getStep() {
         return step;
     }

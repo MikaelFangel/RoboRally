@@ -27,57 +27,56 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 /**
- * ...
+ * The top menu bar in roborally
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class RoboRallyMenuBar extends MenuBar {
 
-    private AppController appController;
-    private Menu controlMenu;
-    private Menu serverMenu;
-    private MenuItem saveGame;
-    private MenuItem newGame;
-    private MenuItem loadGame;
-    private MenuItem stopGame;
-    private MenuItem exitApp;
-    private MenuItem startServer;
-    private MenuItem connectServer;
-    private MenuItem disconnectServer;
+    private final AppController appController;
+    private final MenuItem saveGame;
+    private final MenuItem newGame;
+    private final MenuItem loadGame;
+    private final MenuItem stopGame;
+    private final MenuItem startServer;
+    private final MenuItem connectServer;
+    private final MenuItem disconnectServer;
 
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
-        controlMenu = new Menu("File");
+        Menu controlMenu = new Menu("File");
         this.getMenus().add(controlMenu);
 
-        serverMenu = new Menu("Multiplayer");
+        Menu serverMenu = new Menu("Multiplayer");
         this.getMenus().add(serverMenu);
 
         newGame = new MenuItem("New Game");
-        newGame.setOnAction( e -> this.appController.newGame());
+        newGame.setOnAction(e -> this.appController.newGame());
         controlMenu.getItems().add(newGame);
 
         stopGame = new MenuItem("Stop Game");
-        stopGame.setOnAction( e -> this.appController.stopGame());
+        stopGame.setOnAction(e -> this.appController.stopGame());
         controlMenu.getItems().add(stopGame);
 
         saveGame = new MenuItem("Save Game");
-        saveGame.setOnAction( e -> this.appController.saveGame());
+        saveGame.setOnAction(e -> this.appController.saveGame());
         controlMenu.getItems().add(saveGame);
 
         loadGame = new MenuItem("Load Game");
-        loadGame.setOnAction( e -> this.appController.loadGame());
+        loadGame.setOnAction(e -> this.appController.loadGame());
         controlMenu.getItems().add(loadGame);
 
-        exitApp = new MenuItem("Exit");
-        exitApp.setOnAction( e -> this.appController.exit());
+        MenuItem exitApp = new MenuItem("Exit");
+        exitApp.setOnAction(e -> this.appController.exit());
         controlMenu.getItems().add(exitApp);
 
         //Online
         startServer = new MenuItem("Host game");
-        startServer.setOnAction(e -> {this.appController.stopGame();this.appController.hostGame();});
+        startServer.setOnAction(e -> {
+            this.appController.stopGame();
+            this.appController.hostGame();
+        });
         serverMenu.getItems().add(startServer);
 
         connectServer = new MenuItem("Connect to server");
@@ -85,7 +84,10 @@ public class RoboRallyMenuBar extends MenuBar {
         serverMenu.getItems().add(connectServer);
 
         disconnectServer = new MenuItem("Disconnect from server");
-        disconnectServer.setOnAction(e -> {this.appController.disconnectFromServer(); this.appController.stopGame();});
+        disconnectServer.setOnAction(e -> {
+            this.appController.disconnectFromServer();
+            this.appController.stopGame();
+        });
         serverMenu.getItems().add(disconnectServer);
 
         //show the menubar

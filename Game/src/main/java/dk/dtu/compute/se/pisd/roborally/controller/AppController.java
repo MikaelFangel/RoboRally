@@ -34,7 +34,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import javafx.application.Platform;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -43,31 +42,26 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * ...
+ * Controls the application before the game is started
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class AppController implements Observer {
-
-
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
-
     final private RoboRally roboRally;
-
     private GameController gameController;
-
     private final Client client = new Client();
-
-    private boolean serverStart = false;
-
+    private final boolean serverStart = false;
     private boolean serverClientMode = false;
-
     private final ServerListView slv = new ServerListView(client, this);
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
 
+    /**
+     * Used by the new game menu option to start a new game
+     */
     public void newGame() {
         Optional<Integer> numPlayers = askUserForNumberOfPlayers();
 
@@ -80,6 +74,11 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Creates a new game and shows the game
+     * @param numPlayers the numbers of players to start the game with
+     * @param prevFailed if previous board attempt falied
+     */
     private void createNewGame(int numPlayers, boolean prevFailed) {
         Optional<String> chosenBoard = askUserWhichDefaultBoard(prevFailed);
         if (chosenBoard.isPresent()) {
@@ -94,6 +93,9 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * The menu button to save the game
+     */
     public void saveGame() {
         TextInputDialog dialogS = new TextInputDialog();
 
@@ -104,6 +106,9 @@ public class AppController implements Observer {
         resultS.ifPresent(s -> SaveLoadGame.saveBoardToDisk(gameController.board, s));
     }
 
+    /**
+     * Loads a pre-existing game
+     */
     public void loadGame() {
         if (gameController == null) {
             createLoadedGame(false);
@@ -127,6 +132,10 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Hosts a new game on the server and starts the game afterwards
+     * @param errorMessage errormessage from last earlier
+     */
     public void hostGame(String... errorMessage) {
         String[] box = new String[]{"Start game server", "Server name:"};
         if (errorMessage.length != 0)
@@ -143,6 +152,10 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Joins the chosen game
+     * @param id which id to join
+     */
     public void joinGame(String id) {
         String message = client.joinGame(id);
         if (message.equals("ok")) {
@@ -157,6 +170,9 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Gets a list of available servers
+     */
     public void connectToServer() {
         String serverList = client.listGames();
         if (serverList.equals("server timeout")) {
@@ -167,10 +183,17 @@ public class AppController implements Observer {
         slv.viewTable();
     }
 
+    /**
+     * Disconnects the player from the server
+     */
     public void disconnectFromServer() {
         client.leaveGame();
     }
 
+    /**
+     * Sets up a new game and shows the ui
+     * @param board which board to create the game with
+     */
     private void setupGameController(Board board) {
         gameController = new GameController(this, Objects.requireNonNull(board), serverClientMode ? client : null);
         //initializePlayers(board);
@@ -180,6 +203,10 @@ public class AppController implements Observer {
         roboRally.createBoardView(gameController);
     }
 
+    /**
+     * Shows a dialog box for how many players to join a game
+     * @return number of players chosen
+     */
     private Optional<Integer> askUserForNumberOfPlayers() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
@@ -188,6 +215,11 @@ public class AppController implements Observer {
         return dialog.showAndWait();
     }
 
+    /**
+     * Ask the user about which board they wish to use
+     * @param prevFailed if previous attempt failed
+     * @return board chosen
+     */
     private Optional<String> askUserWhichDefaultBoard(boolean prevFailed) {
 
         List<String> allDefaultBoardNames = ReadWriteGame.getNamesOfDefaultBoard();
@@ -202,6 +234,11 @@ public class AppController implements Observer {
         return dialog.showAndWait();
     }
 
+    /**
+     * Ask the user which saved board to load
+     * @param prevFailed previous attempt failed
+     * @return chosen board
+     */
     private Optional<String> askUserWhichSavedBoard(boolean prevFailed) {
         // Get all files in resource
         List<String> allSavedBoardNames = ReadWriteGame.getNamesOfSavedBoards();
@@ -236,9 +273,12 @@ public class AppController implements Observer {
         return false;
     }
 
+    /**
+     * Shows a popup if the player want's to exit the game or not.
+     */
     public void exit() {
         if (gameController != null) {
-            Optional<ButtonType> result = roboRally.getPopupBoxes().warningBox(new String[]{"Exit RoboRally?","Are you sure you want to exit RoboRally?"});
+            Optional<ButtonType> result = roboRally.getPopupBoxes().warningBox(new String[]{"Exit RoboRally?", "Are you sure you want to exit RoboRally?"});
 
             if (result.isEmpty() || result.get() != ButtonType.OK) {
                 return; // return without exiting the application
@@ -253,6 +293,10 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Tells if the game is running of not
+     * @return true if game is running
+     */
     public boolean isGameRunning() {
         return gameController != null;
     }

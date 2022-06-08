@@ -28,15 +28,14 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import javafx.scene.control.TabPane;
 
 /**
- * ...
+ * Shows all the player tabs
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class PlayersView extends TabPane implements ViewObserver {
 
-    private Board board;
-    private GameController gameController;
+    private final Board board;
+    private final GameController gameController;
 
     private PlayerView[] playerViews;
 
@@ -46,14 +45,20 @@ public class PlayersView extends TabPane implements ViewObserver {
         createPlayersView();
     }
 
-    public void createPlayersView(){
+    public void createPlayersView() {
 
         this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
         playerViews = new PlayerView[board.getPlayersNumber()];
-        for (int i = 0; i < board.getPlayersNumber();  i++) {
-            playerViews[i] = new PlayerView(gameController, board.getPlayer(i));
-            this.getTabs().add(playerViews[i]);
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            if (gameController.client != null && gameController.getPlayerNumber() == i) {
+                playerViews[i] = new PlayerView(gameController, board.getPlayer(i));
+                this.getTabs().add(playerViews[i]);
+            } else if (gameController.client == null) {
+                playerViews[i] = new PlayerView(gameController, board.getPlayer(i));
+                this.getTabs().add(playerViews[i]);
+            }
+
         }
         board.attach(this);
         update(board);
@@ -68,7 +73,7 @@ public class PlayersView extends TabPane implements ViewObserver {
         }
     }
 
-    public PlayerView[] getPlayerViews(){
+    public PlayerView[] getPlayerViews() {
         return playerViews;
     }
 

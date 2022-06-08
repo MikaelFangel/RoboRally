@@ -35,12 +35,11 @@ public class BoardTemplate {
 
     public int width;
     public int height;
-
     public PlayerTemplate player;
-
     public String phase;
     public int step;
     public boolean stepMode;
+    public boolean gameOver;
 
     public List<PlayerTemplate> players = new ArrayList<>();
     public int currentPlayer;

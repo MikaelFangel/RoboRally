@@ -13,12 +13,14 @@ public class Updater extends Thread {
     public void run() {
         while (run) {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (update)
+            if (update) {
+                gameController.refreshUpdater();
                 updateBoardUi();
+            }
         }
     }
 
