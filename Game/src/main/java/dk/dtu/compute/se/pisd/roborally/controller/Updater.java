@@ -17,8 +17,10 @@ public class Updater extends Thread {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (update)
+            if (update) {
+                gameController.refreshUpdater();
                 updateBoardUi();
+            }
         }
     }
 
