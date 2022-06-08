@@ -58,9 +58,7 @@ public class GameController {
         if (client != null) {
             client.updateGame(SerializeState.serializeGame(board));
 
-            // Remove print
             playerNum = client.getRobotNumber();
-            System.out.println("Robot number: " + playerNum);
 
             updater = new Updater();
             updater.setGameController(this);
@@ -200,9 +198,6 @@ public class GameController {
         } else if (client != null) {
             changePlayer(board.getCurrentPlayer(), board.step);
         }
-
-
-
     }
 
     private void makeProgramFieldsVisible(int register) {
@@ -259,6 +254,7 @@ public class GameController {
     }
 
     private void continuePrograms() {
+        System.out.println("Now in activation phase");
         do {
             executeNextStep();
 
@@ -481,10 +477,8 @@ public class GameController {
         if (client != null) {
             if (isMyTurn()) {
                 updater.setUpdate(false);
-                System.out.println("No longer updates");
             } else {
                 updater.setUpdate(true);
-                System.out.println("Now updates");
             }
         }
     }
@@ -500,11 +494,9 @@ public class GameController {
 
     private boolean isMyTurn(){
         if (board.getCurrentPlayer() == board.getPlayer(playerNum)){
-            System.out.println("Is my turn");
             return true;
         }
-        else {
-            System.out.println("Is not my turn");
+        else {;
             return false;
         }
 
