@@ -3,7 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.fileaccess;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
-import dk.dtu.compute.se.pisd.roborally.controller.*;
+import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 
 import java.io.*;
