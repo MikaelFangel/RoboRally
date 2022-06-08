@@ -27,7 +27,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 /**
- * ...
+ * The top menu bar in roborally
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
