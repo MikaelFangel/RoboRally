@@ -171,6 +171,8 @@ public class GameController {
      * Changes the phase from programming to activation.
      */
     public void finishProgrammingPhase() {
+        // TODO make if-statement to check whether it's singleplayer or not, else it will not work.
+
         if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size()-1){
             makeProgramFieldsInvisible();
             makeProgramFieldsVisible(0);
@@ -341,7 +343,7 @@ public class GameController {
             }
         }
         pushGameState();
-        updater.setUpdate(true);
+        refreshUpdater();
     }
 
     private void executeCommand(@NotNull Player player, Command command) {
@@ -476,12 +478,14 @@ public class GameController {
 
 
     public void refreshUpdater(){
-        if (isMyTurn()){
-            updater.setUpdate(false);
-            System.out.println("No longer updates");
-        } else {
-            updater.setUpdate(true);
-            System.out.println("Now updates");
+        if (client != null) {
+            if (isMyTurn()) {
+                updater.setUpdate(false);
+                System.out.println("No longer updates");
+            } else {
+                updater.setUpdate(true);
+                System.out.println("Now updates");
+            }
         }
     }
     private void pullGameState(){
@@ -508,5 +512,9 @@ public class GameController {
 
     public void setPlayerNumber(int num){
         playerNum = num;
+    }
+
+    public int getPlayerNumber(){
+        return playerNum;
     }
 }
