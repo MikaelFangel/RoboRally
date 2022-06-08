@@ -162,7 +162,8 @@ public class GameController {
     public void finishProgrammingPhase() {
         // TODO make if-statement to check whether it's singleplayer or not, else it will not work.
 
-        if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1) {
+        if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1 ||
+                client == null) {
             makeProgramFieldsInvisible();
             makeProgramFieldsVisible(0);
             doPriorityAntennaAction();
