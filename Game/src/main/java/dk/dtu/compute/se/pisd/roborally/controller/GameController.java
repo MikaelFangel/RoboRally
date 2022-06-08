@@ -42,7 +42,7 @@ public class GameController {
     final public RobotMovementController rmc;
     final private AppController appController;
 
-    private final Client client;
+    public final Client client;
 
     private boolean isNewlyLoadedDefaultBoard = false;
     private boolean skipProgrammingPhase = true;
