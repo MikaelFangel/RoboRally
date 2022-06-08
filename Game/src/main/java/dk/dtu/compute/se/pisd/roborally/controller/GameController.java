@@ -260,7 +260,8 @@ public class GameController {
     }
 
     /**
-     * Executes the next step in the players register
+     * Executes the next step in the players register. For each step it gets the command card and executes
+     * that command and handles the change of players aswell
      */
     protected void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
