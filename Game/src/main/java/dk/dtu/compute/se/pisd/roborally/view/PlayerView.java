@@ -33,7 +33,7 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * Show each player tab and all the buttons
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

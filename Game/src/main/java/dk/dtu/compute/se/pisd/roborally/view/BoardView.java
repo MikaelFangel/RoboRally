@@ -34,7 +34,7 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * Shows a view of the board, player tabs and cards 
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

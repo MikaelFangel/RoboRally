@@ -38,7 +38,7 @@ import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * Shows a view of all the cards
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

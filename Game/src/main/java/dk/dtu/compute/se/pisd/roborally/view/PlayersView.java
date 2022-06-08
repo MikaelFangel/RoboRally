@@ -28,7 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import javafx.scene.control.TabPane;
 
 /**
- * ...
+ * Shows all the player tabs
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
