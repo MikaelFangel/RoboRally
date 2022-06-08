@@ -1,0 +1,66 @@
+@startuml
+package controller.fieldAction{
+   class CheckPoint{
+      {Static} -highestCheckPointNumber : int
+      -checkPointNumber : int
+
+     +doAction(GameController, Space) : boolean
+   }
+   class ConveyorBelt{
+     -heading : Heading
+     -numberOfMoves : int
+
+     +doAction(GameController, Space) : boolean
+   }
+   class Energy{
+     -hasEnergyCube : boolean
+
+     -doAction(GameController, Space) : boolean
+   }
+   abstract class FieldAction{
+    +doAction(GameController, Space)
+   }
+   class Laser{
+    -numberOfLasers : int
+    -heading : Heading
+
+    +doAction(GameController, Space) : boolean
+   }
+   class Pit{
+     +doAction(GameController, Space) : boolean
+   }
+   class PriorityAntenna{
+    -heading : Heading
+
+    +doAction(GameController, Space) : boolean
+   }
+   class PushPanel{
+    -heading : Heading
+
+    +doAction(GameController, Space) : boolean
+   }
+   class RotatingGear{
+     -direction : Direction
+
+     +doAction(GameController, Space) : boolean
+   }
+   class StartGear{
+        +doAction(GameController, Space) : boolean
+   }
+   class RebootToken{
+      +doAction(GameController, Space) : boolean
+   }
+
+   FieldAction <|-d- Pit
+   FieldAction <|-d- Laser
+   FieldAction <|-u- Energy
+   FieldAction <|-u- PriorityAntenna
+   FieldAction <|-u- PushPanel
+   FieldAction <|-u- RotatingGear
+   FieldAction <|-r- StartGear
+   FieldAction <|-l- CheckPoint
+   FieldAction <|-d- ConveyorBelt
+   FieldAction <|-d- RebootToken
+}
+
+@enduml

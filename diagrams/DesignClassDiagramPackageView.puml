@@ -41,30 +41,10 @@ package view{
      -cardFieldFromRepresentation(string rep) : CommandCardField
      +Updateview(Subject subject) : void
   }
-  'Inner classes of CardFieldView'
-  'class OnDragDetectedHandler implements EventHandler{
-     '+handle(DragEvent event) : void
-  '}
-  'class OnDragOverHandler implements EventHandler {
-  '+handle(DragEvent event) : void
-  '}
-  'class OnDragEnteredHandler implements EventHandler{
-    '+handle(DragEvent event) : void
-  '}
-  'class OnDragExitedHandler implements EventHandler{
-    '+handle(DragEvent event) : void
-  '}
-  'class OnDragDroppedHandler implements EventHandler{
-    '+handle(DragEvent event) : void
-  '}
-  'class OnDragDoneHandler implements EventHandler{
-    '+handle(DragEvent event) : void
-  '}
   class OnDragHandlers implements EventHandler{
     +handle(DragEvent event) : void
   }
   'Inner class of CardFieldView end'
-
   class PlayersView extends TabPane implements viewObserver {
     board : Board
     gamecontroller : Gamecontroller
