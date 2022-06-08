@@ -1,5 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear;
 import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.ReadWriteGame;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;

@@ -22,7 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.PriorityAntenna;
+import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PriorityAntenna;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
