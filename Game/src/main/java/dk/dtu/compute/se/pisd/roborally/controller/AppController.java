@@ -130,7 +130,7 @@ public class AppController implements Observer {
     public void hostGame(String... errorMessage) {
         String[] box = new String[]{"Start game server", "Server name:"};
         if (errorMessage.length != 0)
-            box[1] = errorMessage[0];
+            box[1] = errorMessage[0] + "\ntry again";
         String result = roboRally.getPopupBoxes().getStringInput(box);
         if (result == null)
             return;
