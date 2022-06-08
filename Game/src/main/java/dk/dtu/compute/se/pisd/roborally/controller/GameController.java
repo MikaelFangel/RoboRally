@@ -145,7 +145,7 @@ public class GameController {
         return new CommandCard(dmgCommandList.get(random));
     }
 
-    public CommandCard generateRandomSpecialCard(){
+    public CommandCard generateRandomSpecialCard() {
         Command[] commands = Command.values();
         //TODO bruger måske
         ArrayList<Command> specCommandList = new ArrayList<>(Arrays.asList(commands).subList(13, 19));
@@ -154,14 +154,13 @@ public class GameController {
     }
 
 
-
     /**
      * Changes the phase from programming to activation.
      */
     public void finishProgrammingPhase() {
         // TODO make if-statement to check whether it's singleplayer or not, else it will not work.
 
-        if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size()-1){
+        if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1) {
             makeProgramFieldsInvisible();
             makeProgramFieldsVisible(0);
             doPriorityAntennaAction();
@@ -180,7 +179,7 @@ public class GameController {
             board.setCurrentPlayer(board.getPlayer(0));
             board.setStep(0);
 
-            if (client != null){
+            if (client != null) {
                 refreshUpdater();
                 pushGameState();
             }
@@ -286,32 +285,35 @@ public class GameController {
     }
 
     public void assertPlayerPriorityAndChangeBoardPlayers(Space antennaSpace) {
-        List<Player> players = board.getPlayers();
-        List<Integer> playersPriority = new ArrayList<>();
+        // To avoid sync bug when playing online
+        if (client == null) {
+            List<Player> players = board.getPlayers();
+            List<Integer> playersPriority = new ArrayList<>();
 
-        // Get distance for each player to the antenna
-        for (Player player : players) {
-            Space playerSpace = player.getSpace();
+            // Get distance for each player to the antenna
+            for (Player player : players) {
+                Space playerSpace = player.getSpace();
 
-            double totalDistance = Math.sqrt(Math.pow(Math.abs(playerSpace.x - antennaSpace.x), 2) + Math.pow(Math.abs(playerSpace.y - antennaSpace.y), 2));
-            totalDistance = Math.round(totalDistance * 100); // To remove decimals
-            playersPriority.add((int) totalDistance);
-        }
+                double totalDistance = Math.sqrt(Math.pow(Math.abs(playerSpace.x - antennaSpace.x), 2) + Math.pow(Math.abs(playerSpace.y - antennaSpace.y), 2));
+                totalDistance = Math.round(totalDistance * 100); // To remove decimals
+                playersPriority.add((int) totalDistance);
+            }
 
-        // Prioritize player according to their distance to the antenna.
-        List<Player> prioritizedPlayers = new ArrayList<>();
-        for (int i = 0; i <= (board.width + board.height) * 100; i++) {
-            for (int j = 0; j < players.size(); j++) {
-                if (playersPriority.get(j) == i) {
-                    prioritizedPlayers.add(players.get(j));
+            // Prioritize player according to their distance to the antenna.
+            List<Player> prioritizedPlayers = new ArrayList<>();
+            for (int i = 0; i <= (board.width + board.height) * 100; i++) {
+                for (int j = 0; j < players.size(); j++) {
+                    if (playersPriority.get(j) == i) {
+                        prioritizedPlayers.add(players.get(j));
+                    }
                 }
             }
+
+            board.setPlayers(prioritizedPlayers);
+            board.setCurrentPlayer(prioritizedPlayers.get(0));
+
+            recreatePlayersView();
         }
-
-        board.setPlayers(prioritizedPlayers);
-        board.setCurrentPlayer(prioritizedPlayers.get(0));
-
-        recreatePlayersView();
     }
 
     private void changePlayer(Player currentPlayer, int step) {
@@ -464,32 +466,33 @@ public class GameController {
     }
 
 
-    public void refreshUpdater(){
+    public void refreshUpdater() {
         if (client != null) {
             updater.setUpdate(isMyTurn());
 
             if (board.gameOver) endGame(); // Needed to ensure it closes
         }
     }
-    private void pullGameState(){
+
+    private void pullGameState() {
         this.board = SerializeState.deserializeGame(client.getGameState(), true);
         Platform.runLater(this::updateBoard);
     }
 
-    private void pushGameState(){
+    private void pushGameState() {
         client.updateGame(SerializeState.serializeGame(board));
     }
 
-    public boolean isMyTurn(){
+    public boolean isMyTurn() {
         return board.getCurrentPlayer() != board.getPlayer(playerNum) && client != null;
 
     }
 
-    public void setPlayerNumber(int num){
+    public void setPlayerNumber(int num) {
         playerNum = num;
     }
 
-    public int getPlayerNumber(){
+    public int getPlayerNumber() {
         return playerNum;
     }
 }
