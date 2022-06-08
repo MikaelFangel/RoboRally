@@ -62,7 +62,7 @@ skinparam linetype polyline
       {Static} -JSON_EXT : String
       {Static} -newBoardCreated : Boolean
 
-      {static} -getAllSpacesOfTypeByFieldAction(Board board, FieldAction action) : List<Space>
+      {static} -getAllSpacesOfTypeByFieldAction(Board, FieldAction) : List<Space>
       {Static} -placePlayersRandomly(List<Players>, List<space>)
       {Static} +saveBoardToDisk(Board board, String name) : void
       {Static} +loadBoard(String name): Board
@@ -78,10 +78,10 @@ skinparam linetype polyline
      +updateBoardUI() : void
    }
    RobotMovementController *-u- impossibleMoveExeption
-   note "This is the package that handlers all of the things on the board including gamelogic" as note1
+   note "The controller package handels the game logic." as note1
 }
 
 interface Observer{
 }
-Observer <|.. AppController
+Observer <|.d. AppController
 @enduml
