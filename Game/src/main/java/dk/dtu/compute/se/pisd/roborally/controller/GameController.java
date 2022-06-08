@@ -22,7 +22,6 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.httpclient.Client;
-import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
@@ -44,7 +43,6 @@ public class GameController {
 
     public final Client client;
 
-    private boolean isNewlyLoadedDefaultBoard = false;
     private boolean skipProgrammingPhase = true;
 
     private Updater updater;
@@ -96,7 +94,7 @@ public class GameController {
      */
     public void startProgrammingPhase() {
         // All this should be done for the first reload for a newly constructed board
-        isNewlyLoadedDefaultBoard = SaveLoadGame.getNewBoardCreated();
+        boolean isNewlyLoadedDefaultBoard = SaveLoadGame.getNewBoardCreated();
 
         refreshUpdater();
 
@@ -135,30 +133,22 @@ public class GameController {
 
     public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
-        ArrayList<Command> commandList = new ArrayList<>();
-        for (int i = 0; i < 9; i++){
-            commandList.add(commands[i]);
-        }
+        ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands).subList(0, 9));
         int random = (int) (Math.random() * commandList.size()); //TODO her er du
         return new CommandCard(commandList.get(random));
     }
 
     public static CommandCard generateRandomDamageCard() {
         Command[] commands = Command.values();
-        ArrayList<Command> dmgCommandList = new ArrayList<>();
-        for (int i = 9; i < 13; i++){
-            dmgCommandList.add(commands[i]);
-        }
+        ArrayList<Command> dmgCommandList = new ArrayList<>(Arrays.asList(commands).subList(9, 13));
         int random = (int) (Math.random() * dmgCommandList.size()); //TODO bruger måske
         return new CommandCard(dmgCommandList.get(random));
     }
 
     public CommandCard generateRandomSpecialCard(){
         Command[] commands = Command.values();
-        ArrayList<Command> specCommandList = new ArrayList<>();   //TODO bruger måske
-        for (int i = 13; i < 19; i++) {
-            specCommandList.add(commands[i]);
-        }
+        //TODO bruger måske
+        ArrayList<Command> specCommandList = new ArrayList<>(Arrays.asList(commands).subList(13, 19));
         int random = (int) (Math.random() * specCommandList.size());
         return new CommandCard(specCommandList.get(random));
     }
@@ -474,16 +464,11 @@ public class GameController {
 
     public void refreshUpdater(){
         if (client != null) {
-            if (isMyTurn()) {
-                updater.setUpdate(false);
-            } else {
-                updater.setUpdate(true);
-            }
+            updater.setUpdate(isMyTurn());
         }
     }
     private void pullGameState(){
-        Board board = SerializeState.deserializeGame(client.getGameState(), true);
-        this.board = board;
+        this.board = SerializeState.deserializeGame(client.getGameState(), true);
         Platform.runLater(this::updateBoard);
     }
 
@@ -492,12 +477,7 @@ public class GameController {
     }
 
     public boolean isMyTurn(){
-        if (board.getCurrentPlayer() == board.getPlayer(playerNum) || client == null){
-            return true;
-        }
-        else {;
-            return false;
-        }
+        return board.getCurrentPlayer() != board.getPlayer(playerNum) && client != null;
 
     }
 

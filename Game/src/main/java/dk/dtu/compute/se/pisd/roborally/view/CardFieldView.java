@@ -176,7 +176,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
 
     }
 
-    private class OnDragOverHandler implements EventHandler<DragEvent> {
+    private static class OnDragOverHandler implements EventHandler<DragEvent> {
 
         @Override
         public void handle(DragEvent event) {
@@ -195,17 +195,14 @@ public class CardFieldView extends GridPane implements ViewObserver {
 
     }
 
-    private class OnDragEnteredHandler implements EventHandler<DragEvent> {
+    private static class OnDragEnteredHandler implements EventHandler<DragEvent> {
 
         @Override
         public void handle(DragEvent event) {
             Object t = event.getTarget();
-            if (t instanceof CardFieldView) {
-                CardFieldView target = (CardFieldView) t;
+            if (t instanceof CardFieldView target) {
                 CommandCardField cardField = target.field;
-                if (cardField != null &&
-                        cardField.getCard() == null &&
-                        cardField.player != null) {
+                if (cardField.getCard() == null && cardField.player != null) {
                     if (event.getGestureSource() != target &&
                             event.getDragboard().hasContent(ROBO_RALLY_CARD)) {
                         target.setBackground(BG_DROP);
@@ -217,17 +214,14 @@ public class CardFieldView extends GridPane implements ViewObserver {
 
     }
 
-    private class OnDragExitedHandler implements EventHandler<DragEvent> {
+    private static class OnDragExitedHandler implements EventHandler<DragEvent> {
 
         @Override
         public void handle(DragEvent event) {
             Object t = event.getTarget();
-            if (t instanceof CardFieldView) {
-                CardFieldView target = (CardFieldView) t;
+            if (t instanceof CardFieldView target) {
                 CommandCardField cardField = target.field;
-                if (cardField != null &&
-                        cardField.getCard() == null &&
-                        cardField.player != null) {
+                if (cardField.getCard() == null && cardField.player != null) {
                     if (event.getGestureSource() != target &&
                             event.getDragboard().hasContent(ROBO_RALLY_CARD)) {
                         target.setBackground(BG_DEFAULT);
@@ -274,7 +268,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
 
     }
 
-    private class OnDragDoneHandler implements EventHandler<DragEvent> {
+    private static class OnDragDoneHandler implements EventHandler<DragEvent> {
 
         @Override
         public void handle(DragEvent event) {

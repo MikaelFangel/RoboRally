@@ -45,9 +45,7 @@ public class SerializeState {
         List<Player> players = board.getPlayers();
         List<PlayerTemplate> playersTemplate = new ArrayList<>();
 
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-
+        for (Player player : players) {
             PlayerTemplate playerTemplate = new PlayerTemplate();
             CommandCardFieldTemplate[] programTemplate = new CommandCardFieldTemplate[player.program.length];
             CommandCardFieldTemplate[] cardsTemplate = new CommandCardFieldTemplate[player.cards.length];
@@ -69,12 +67,12 @@ public class SerializeState {
                 CommandTemplate commandTemplate = new CommandTemplate();
 
                 // The command of the card
-                if (card.card == null){
+                if (card.card == null) {
                     commandTemplate.type = "";
                 } else {
                     commandTemplate.type = card.card.command.name();
                     List<String> options = new ArrayList<>();
-                    for (Command option : card.card.command.options){
+                    for (Command option : card.card.command.options) {
                         options.add(String.valueOf(option));
                     }
                 }
@@ -96,12 +94,12 @@ public class SerializeState {
                 CommandTemplate commandTemplate = new CommandTemplate();
 
                 // The command of the card
-                if (card.card == null){
+                if (card.card == null) {
                     commandTemplate.type = "";
                 } else {
                     commandTemplate.type = card.card.command.name();
                     List<String> options = new ArrayList<>();
-                    for (Command option : card.card.command.options){
+                    for (Command option : card.card.command.options) {
                         options.add(String.valueOf(option));
                     }
                 }
@@ -133,9 +131,7 @@ public class SerializeState {
                 setPrettyPrinting();
         Gson gson = simpleBuilder.create();
 
-        String jsonString = gson.toJson(template, template.getClass());
-
-        return jsonString;
+        return gson.toJson(template, template.getClass());
     }
 
     /**
