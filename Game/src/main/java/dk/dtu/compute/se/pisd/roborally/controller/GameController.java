@@ -44,8 +44,6 @@ public class GameController {
 
     private final Client client;
 
-    private int robotNumber;
-
     private boolean isNewlyLoadedDefaultBoard = false;
     private boolean skipProgrammingPhase = true;
 
@@ -61,8 +59,8 @@ public class GameController {
             client.updateGame(SerializeState.serializeGame(board));
 
             // Remove print
-            robotNumber = client.getRobotNumber();
-            System.out.println("Robot number: " + robotNumber);
+            playerNum = client.getRobotNumber();
+            System.out.println("Robot number: " + playerNum);
 
             updater = new Updater();
             updater.setGameController(this);
@@ -101,6 +99,8 @@ public class GameController {
     public void startProgrammingPhase() {
         // All this should be done for the first reload for a newly constructed board
         isNewlyLoadedDefaultBoard = SaveLoadGame.getNewBoardCreated();
+
+        refreshUpdater();
 
         if (isNewlyLoadedDefaultBoard || !skipProgrammingPhase) {
             board.setPhase(Phase.PROGRAMMING);
@@ -171,24 +171,36 @@ public class GameController {
      * Changes the phase from programming to activation.
      */
     public void finishProgrammingPhase() {
-        makeProgramFieldsInvisible();
-        makeProgramFieldsVisible(0);
-        doPriorityAntennaAction();
+        if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size()-1){
+            makeProgramFieldsInvisible();
+            makeProgramFieldsVisible(0);
+            doPriorityAntennaAction();
 
-        // Reset all energy cubes
-        for (Space[] row : board.getSpaces()) {
-            for (Space space : row) {
-                if (space.getActions().size() > 0 &&
-                        space.getActions().get(0) instanceof Energy energy) {
-                    energy.setHasEnergyCube(true);
+            // Reset all energy cubes
+            for (Space[] row : board.getSpaces()) {
+                for (Space space : row) {
+                    if (space.getActions().size() > 0 &&
+                            space.getActions().get(0) instanceof Energy energy) {
+                        energy.setHasEnergyCube(true);
+                    }
                 }
-
             }
+
+            board.setPhase(Phase.ACTIVATION);
+            board.setCurrentPlayer(board.getPlayer(0));
+            board.setStep(0);
+
+            if (client != null){
+                refreshUpdater();
+                pushGameState();
+            }
+
+        } else if (client != null) {
+            changePlayer(board.getCurrentPlayer(), board.step);
         }
 
-        board.setPhase(Phase.ACTIVATION);
-        board.setCurrentPlayer(board.getPlayer(0));
-        board.setStep(0);
+
+
     }
 
     private void makeProgramFieldsVisible(int register) {
@@ -247,7 +259,6 @@ public class GameController {
     private void continuePrograms() {
         do {
             executeNextStep();
-            updateGameState();
 
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
@@ -329,6 +340,8 @@ public class GameController {
                 startProgrammingPhase();
             }
         }
+        pushGameState();
+        updater.setUpdate(true);
     }
 
     private void executeCommand(@NotNull Player player, Command command) {
@@ -461,20 +474,36 @@ public class GameController {
         }
     }
 
-    private void updateGameState(){
-        if(client != null) {
-            client.updateGame(SerializeState.serializeGame(board));
-            Board board = SerializeState.deserializeGame(client.getGameState(), true);
-            this.board = board;
-            Platform.runLater(this::updateBoard);
+
+    public void refreshUpdater(){
+        if (isMyTurn()){
+            updater.setUpdate(false);
+            System.out.println("No longer updates");
+        } else {
+            updater.setUpdate(true);
+            System.out.println("Now updates");
         }
+    }
+    private void pullGameState(){
+        Board board = SerializeState.deserializeGame(client.getGameState(), true);
+        this.board = board;
+        Platform.runLater(this::updateBoard);
+    }
+
+    private void pushGameState(){
+        client.updateGame(SerializeState.serializeGame(board));
     }
 
     private boolean isMyTurn(){
-        if (board.getCurrentPlayer() == board.getPlayer(playerNum))
+        if (board.getCurrentPlayer() == board.getPlayer(playerNum)){
+            System.out.println("Is my turn");
             return true;
-        else
+        }
+        else {
+            System.out.println("Is not my turn");
             return false;
+        }
+
     }
 
     public void setPlayerNumber(int num){

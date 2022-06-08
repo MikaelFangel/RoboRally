@@ -157,8 +157,6 @@ public class Client implements IStatusComm {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
             HttpResponse<String> message = response.get(5, SECONDS); //gets the message back from the server
-            if (message.statusCode() == 200)
-                return "ok";
             if (message.statusCode() == 404)
                 return message.body();
             robotNumber = Integer.parseInt(message.body());
