@@ -6,13 +6,24 @@ package httpclient{
    class Client implements IStatusComm {
       {Static} -HTTP_CLIENT : HttpClient
       -server : String
+      -ServerID : String
+      -connectedToServer : boolean
+      -rootnumber : int
 
       +updateGame(String gameState) : void
       +getGameState() : String
+      +hostGame(String title) : String
+      +listGames() : String
+      +joinGame(String serverToJoin) : String
+      +leaveGame() : void
    }
    interface IStatusComm{
      +updateGame(String gameState) : void
      +getGameState() : String
+     +hostGame(String title) : String
+     +listGames() : String
+     +joinGame(String serverToJoin) : String
+     +leaveGame() : void
    }
    class Server{
       -id : String
@@ -30,10 +41,8 @@ package httpclient{
 
         +addserver(String s) : void
         +viewTable() : void
-
    }
-   note "This is the package that handlers the RESTfull API aspects of the game" as note1
+   note "This is the package that handlers the RESTfull API aspect of the game" as note1
 }
-
 
 @enduml

@@ -1,32 +1,36 @@
 @startuml
 package fileaccess{
-  class Adapter<E> implements JsonSerializer{
+  class Adapter<E>{
      -CLASSNAME : String
      -INSTANCE : String
 
      +serialize : JsonElement
      +deserialize : E
   }
-  class IOUtil{
-     {Static} +readString(InputStream inputStream) : String
-     {Static} +readResource(String relativeResourcePath) : String
-  }
-  class SaveLoadGame{
-     {Static} -DEFAULT_BOARD : String
-     {Static} -BOARDS_FOLDER : String
-     {Static} -SAVED_BOARDS_FOLDER : String
+  class ReadWriteGame{
+     {Static} -SAVED_BOARD_FOLDER : String
+     {Static} -DEFAULT_BOARDS_FOLDER : String
      {Static} -JSON_EXT : String
-     {Static} -boardLoaded : boolean
 
-     {static} -getAllSpacesOfTypeByFieldAction(Board board, FieldAction action) : List<Space>
-     {Static} -placePlayersRandomly(List<Players>, List<space>)
-     {Static} +saveBoard(Board board, String name) : void
-     {Static} +loadBoard(String name): Board
-     {Static} +newBoard(int numPlayers, String boardName)
-}
+     -getFilesInFolder(String folderName) : File[]
+     +writeGameToDisk(String saveName, String json) : void
+     +readGameFromDisk(String resourcePath) : String
+     +getNamesOfSavedBoards() : List<String>
+     +getNamesOfDefaultBoard() : List<String>
+
+  }
+  interface JsonDeserializer{
+  }
+  interface JsonSerializer {
+  }
+  class SerializeState{
+     +serializeGame(Board board) : String
+     +deserializeGame(String jsonString, boolean savedGame) : Board
+  }
+
+
 JsonDeserializer <|.. Adapter
+JsonSerializer <|.. Adapter
 
 note "This package is for saving or loading a game state" as note1
-
-
 @enduml
