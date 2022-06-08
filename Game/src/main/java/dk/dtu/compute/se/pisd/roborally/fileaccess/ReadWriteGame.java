@@ -50,13 +50,13 @@ public class ReadWriteGame {
                 try {
                     writer.close();
                     fileWriter = null;
-                } catch (IOException e2) {
+                } catch (IOException ignored) {
                 }
             }
             if (fileWriter != null) {
                 try {
                     fileWriter.close();
-                } catch (IOException e2) {}
+                } catch (IOException ignored) {}
             }
         }
     }
@@ -72,12 +72,9 @@ public class ReadWriteGame {
             InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
             if (inputStream == null) throw new BoardNotFoundException(resourcePath);
 
-            String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-
-            return json; // Change
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8); // Change
         } catch (IOException e){
-            BoardNotFoundException exception = new BoardNotFoundException(resourcePath);
-            throw exception;
+            throw new BoardNotFoundException(resourcePath);
         }
     }
 
@@ -105,14 +102,13 @@ public class ReadWriteGame {
 
     private static File[] getFilesInFolder(String folderName){
         ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
-        String fullPath = classLoader.getResource(folderName).getPath();
+        String fullPath = Objects.requireNonNull(classLoader.getResource(folderName)).getPath();
 
         // The folder cannot be found on some OS when there is white space in folder names.
         fullPath = fullPath.replace("%20", " ");
 
         File folder = new File(fullPath);
-        File[] listOfFiles = folder.listFiles();
 
-        return listOfFiles;
+        return folder.listFiles();
     }
 }

@@ -165,14 +165,14 @@ public class PlayerView extends Tab implements ViewObserver {
                         stepButton.setDisable(true);
                     }
                     case PROGRAMMING -> {
-                        finishButton.setDisable(!gameController.isMyTurn());
+                        finishButton.setDisable(gameController.isMyTurn());
                         executeButton.setDisable(true);
                         stepButton.setDisable(true);
                     }
                     case ACTIVATION -> {
                         finishButton.setDisable(true);
-                        executeButton.setDisable(!gameController.isMyTurn());
-                        stepButton.setDisable(!gameController.isMyTurn());
+                        executeButton.setDisable(gameController.isMyTurn());
+                        stepButton.setDisable(gameController.isMyTurn());
                     }
                     default -> {
                         finishButton.setDisable(true);

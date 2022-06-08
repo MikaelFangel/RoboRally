@@ -2,7 +2,6 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 public class Checkpoint extends FieldAction {

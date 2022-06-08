@@ -7,7 +7,6 @@ public class RebootToken extends FieldAction {
     @Override
     public boolean doAction(GameController gameController, Space space) {
         if (space.getActions().size() > 0) {
-            RebootToken token = (RebootToken) space.getActions().get(0);
             Player player = space.getPlayer();
 
             if (player != null) {
