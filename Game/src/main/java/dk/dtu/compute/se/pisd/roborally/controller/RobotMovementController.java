@@ -1,6 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PriorityAntenna;
+import dk.dtu.compute.se.pisd.roborally.exceptions.ImpossibleMoveException;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -142,11 +143,4 @@ public class RobotMovementController {
         Space target = gameController.board.getSpace(space.x, space.y);
         return target.getPlayer() != null;
     }
-
-    class ImpossibleMoveException extends Exception {
-        public ImpossibleMoveException(Player player, Space space, Heading heading) {
-            super("Move impossible");
-        }
-    }
-
 }

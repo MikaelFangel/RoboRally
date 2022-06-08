@@ -1,5 +1,7 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
+import dk.dtu.compute.se.pisd.roborally.exceptions.IllegalIPException;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -209,26 +211,20 @@ public class Client implements IStatusComm {
      * Sets the ip address of the server
      *
      * @param server ip of server to communicate with
-     * @throws IllegalIPExeception throws illegal ip exception if ip is not valid
+     * @throws IllegalIPException throws illegal ip exception if ip is not valid
      */
-    public void setServer(String server) throws IllegalIPExeception {
+    public void setServer(String server) throws IllegalIPException {
         // Simple regex pattern to check for string contains ip
         Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
         Matcher matcher = pattern.matcher(server);
         if (matcher.find())
             this.server = "http://" + server + ":8080";
         else
-            throw new IllegalIPExeception();
+            throw new IllegalIPException();
     }
 
     public void setServerID(String serverID) {
         this.serverID = serverID;
-    }
-
-    public class IllegalIPExeception extends Exception {
-        public IllegalIPExeception() {
-            super("Not a valid IP");
-        }
     }
 
     public int getRobotNumber() {
