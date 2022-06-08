@@ -170,6 +170,7 @@ public class SerializeState {
                 space.setPlayer(null);
             }
         }
+        result.setCheckpointsWithNumber();
 
         // Loading Players
         for (int i = 0; i < template.players.size(); i++) {
