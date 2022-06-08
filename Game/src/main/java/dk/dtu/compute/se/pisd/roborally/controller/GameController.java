@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 /**
- * ...
+ * Handles all the game logic for RoboRally
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
@@ -42,11 +42,8 @@ public class GameController {
     private int playerNum; // Given from the server
     final public RobotMovementController rmc;
     final private AppController appController;
-
     public final Client client;
-
     private boolean skipProgrammingPhase = true;
-
     private Updater updater;
 
     public GameController(AppController appController, @NotNull Board board, Client client) {
@@ -57,9 +54,7 @@ public class GameController {
 
         if (client != null) {
             client.updateGame(SerializeState.serializeGame(board));
-
             playerNum = client.getRobotNumber();
-
             updater = new Updater();
             updater.setGameController(this);
             updater.setClient(client);
@@ -192,6 +187,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Shows programming fields for a specific player
+     * @param register player register to show
+     */
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -202,6 +201,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Show all players programming fields
+     */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -241,17 +243,25 @@ public class GameController {
         changePlayer(currentPlayer, board.getStep());
     }
 
+    /**
+     * Generates a new board view when board is changed
+     */
     public void updateBoard() {
         appController.getRoboRally().createBoardView(this);
     }
 
+    /**
+     * Runs the programmed cards either in step mode or continually
+     */
     private void continuePrograms() {
         do {
             executeNextStep();
-
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
+    /**
+     * Executes the next step in the players register
+     */
     protected void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
@@ -275,6 +285,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Ends the current game and stops the gui
+     */
     public void endGame() {
         Platform.runLater(appController::disconnectFromServer);
         Platform.runLater(appController::stopGame);
@@ -317,6 +330,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Change the player and the step of the board
+     * @param currentPlayer which player turn it is
+     * @param step the current step of the game
+     */
     private void changePlayer(Player currentPlayer, int step) {
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
         if (nextPlayerNumber < board.getPlayersNumber()) {

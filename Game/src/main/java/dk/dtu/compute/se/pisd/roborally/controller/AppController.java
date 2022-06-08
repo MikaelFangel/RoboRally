@@ -51,7 +51,6 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
     private GameController gameController;
     private final Client client = new Client();
-    private final boolean serverStart = false;
     private boolean serverClientMode = false;
     private final ServerListView slv = new ServerListView(client, this);
 
