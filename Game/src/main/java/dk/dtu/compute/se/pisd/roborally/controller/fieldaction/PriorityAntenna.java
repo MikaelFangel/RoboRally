@@ -25,7 +25,7 @@ public class PriorityAntenna extends FieldAction {
 
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
-        
+
         return true;
     }
 
