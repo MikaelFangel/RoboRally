@@ -37,22 +37,18 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class BoardView extends VBox implements ViewObserver {
 
-    private GameController gameController;
+    private final GameController gameController;
 
-    private Board board;
+    private final Board board;
 
-    private GridPane mainBoardPane;
-    private SpaceView[][] spaces;
+    private final GridPane mainBoardPane;
 
     private PlayersView playersView;
 
-    private Label statusLabel;
-
-    private SpaceEventHandler spaceEventHandler;
+    private final Label statusLabel;
 
     public BoardView(@NotNull GameController gameController) {
         this.gameController = gameController;
@@ -66,9 +62,9 @@ public class BoardView extends VBox implements ViewObserver {
         this.getChildren().add(playersView);
         this.getChildren().add(statusLabel);
 
-        spaces = new SpaceView[board.width][board.height];
+        SpaceView[][] spaces = new SpaceView[board.width][board.height];
 
-        spaceEventHandler = new SpaceEventHandler(gameController);
+        SpaceEventHandler spaceEventHandler = new SpaceEventHandler(gameController);
 
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
@@ -92,13 +88,13 @@ public class BoardView extends VBox implements ViewObserver {
         }
     }
 
-    private void removeChildren(){
+    private void removeChildren() {
         this.getChildren().remove(mainBoardPane);
         this.getChildren().remove(playersView);
         this.getChildren().remove(statusLabel);
     }
 
-    private void addChildren(){
+    private void addChildren() {
         this.getChildren().add(mainBoardPane);
         this.getChildren().add(playersView);
         this.getChildren().add(statusLabel);
@@ -130,14 +126,14 @@ public class BoardView extends VBox implements ViewObserver {
 
     }
 
-    public void updatePlayersView(){
+    public void updatePlayersView() {
         removeChildren();
         playersView = new PlayersView(gameController);
         addChildren();
     }
 
 
-    public PlayersView getPlayersView(){
+    public PlayersView getPlayersView() {
         return playersView;
     }
 
