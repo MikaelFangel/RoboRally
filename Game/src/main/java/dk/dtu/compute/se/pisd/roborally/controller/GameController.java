@@ -161,7 +161,7 @@ public class GameController {
                 client == null) {
             makeProgramFieldsInvisible();
             makeProgramFieldsVisible(0);
-            doPriorityAntennaAction();
+            assertPlayerPriorityAndChangeBoardPlayers();
 
             // Reset all energy cubes
             for (Space[] row : board.getSpaces()) {
@@ -293,12 +293,10 @@ public class GameController {
         Platform.runLater(appController::stopGame);
     }
 
-    private void doPriorityAntennaAction() {
+    public void assertPlayerPriorityAndChangeBoardPlayers() {
         Space antennaSpace = board.getPriorityAntennaSpace();
         antennaSpace.getActions().get(0).doAction(this, antennaSpace);
-    }
 
-    public void assertPlayerPriorityAndChangeBoardPlayers(Space antennaSpace) {
         // To avoid sync bug when playing online
         if (client == null) {
             List<Player> players = board.getPlayers();
