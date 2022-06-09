@@ -163,7 +163,11 @@ public class Player extends Subject {
         this.energyCount = energyCount;
     }
 
-
+    /**
+     * @author Ahmad Sandhu
+     *
+     * @param card contains the chosen Command card
+     */
     public void setDmgcards(Command card){
         this.damagecards.add(card);
     }

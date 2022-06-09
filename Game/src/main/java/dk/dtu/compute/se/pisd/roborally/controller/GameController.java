@@ -305,7 +305,8 @@ public class GameController {
             board.setPlayers(prioritizedPlayers);
             board.setCurrentPlayer(prioritizedPlayers.get(0));
 
-            recreatePlayersView();
+            if (appController != null)
+                recreatePlayersView();
         }
     }
 
@@ -447,6 +448,18 @@ public class GameController {
                         space1.getActions().get(0) instanceof Laser)
                     space1.getActions().get(0).doAction(this, space1);
             }
+        }
+        //activate RebootToken
+        for (Player player : players) {
+            if (!player.getSpace().getActions().isEmpty() &&
+                    player.getSpace().getActions().get(0) instanceof RebootToken) //TODO Tjek lige om det rigtigt
+                player.getSpace().getActions().get(0).doAction(this, player.getSpace());
+        }
+        //activate Pit
+        for (Player player : players) {
+            if (!player.getSpace().getActions().isEmpty() &&
+                    player.getSpace().getActions().get(0) instanceof Pit) //TODO Tjek lige om det rigtigt
+                player.getSpace().getActions().get(0).doAction(this, player.getSpace());
         }
 
         //TODO implement robot Lasers fire here

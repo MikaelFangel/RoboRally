@@ -14,7 +14,7 @@ public class RebootToken extends FieldAction {
             Player player = space.getPlayer();
 
             if (player != null) {
-                gameController.rmc.moveForward(player, 1);
+                gameController.rmc.moveForward(player, 1); //TODO midlertidligt løsning ( kigger på det imorgen)
             }
 
         }

@@ -220,7 +220,7 @@
       "actions": [
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
-          "INSTANCE": {}
+          "INSTANCE": {"boardNum" : 2}
         }
       ],
       "x": 3,
@@ -513,7 +513,7 @@
       "actions": [
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
-          "INSTANCE": {
+          "INSTANCE": { "boardNum" : 2
           }
         }
       ],
