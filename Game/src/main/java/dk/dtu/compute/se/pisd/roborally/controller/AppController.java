@@ -62,7 +62,7 @@ public class AppController implements Observer {
      * Used by the new game menu option to start a new game
      */
     public void newGame() {
-        Optional<Integer> numPlayers = askUserForNumberOfPlayers();
+        Optional<Integer> numPlayers = roboRally.getPopupBoxes().askUserForNumberOfPlayers(PLAYER_NUMBER_OPTIONS);
 
         if (numPlayers.isPresent()) {
             // The UI should not allow this, but in case this happens anyway.
@@ -79,7 +79,10 @@ public class AppController implements Observer {
      * @param prevFailed if previous board attempt falied
      */
     private void createNewGame(int numPlayers, boolean prevFailed) {
-        Optional<String> chosenBoard = askUserWhichDefaultBoard(prevFailed);
+        //Optional<String> chosenBoard = askUserWhichDefaultBoard(prevFailed);
+
+
+        Optional<String> chosenBoard = roboRally.getPopupBoxes().askUserForBoardName(ReadWriteGame.getNamesOfDefaultBoard());
         if (chosenBoard.isPresent()) {
             try {
                 Board board = SaveLoadGame.newBoard(numPlayers, chosenBoard.get());
@@ -96,13 +99,11 @@ public class AppController implements Observer {
      * The menu button to save the game
      */
     public void saveGame() {
-        TextInputDialog dialogS = new TextInputDialog();
+        String[] s = new String[]{"SAVE GAME", "Enter a Save game name"};
+        String dialog = roboRally.getPopupBoxes().getStringInput(s);
 
-        dialogS.setTitle("SAVE GAME");
-        dialogS.setHeaderText("Enter a Save game name");
-
-        final Optional<String> resultS = dialogS.showAndWait();
-        resultS.ifPresent(s -> SaveLoadGame.saveBoardToDisk(gameController.board, s));
+        if (dialog != null)
+            SaveLoadGame.saveBoardToDisk(gameController.board,dialog);
     }
 
     /**
@@ -115,7 +116,7 @@ public class AppController implements Observer {
     }
 
     private void createLoadedGame(boolean prevFailed) {
-        Optional<String> chosenBoard = askUserWhichSavedBoard(prevFailed);
+        Optional<String> chosenBoard = roboRally.getPopupBoxes().askUserForBoardName(ReadWriteGame.getNamesOfSavedBoards());
 
         if (chosenBoard.isPresent()) {
             try {
@@ -163,9 +164,8 @@ public class AppController implements Observer {
             setupGameController(board);
             gameController.setPlayerNumber(client.getRobotNumber());
 
-        } else {
-            showErrorMessage(new String[]{"Error", message, "refresh and try again"});
-        }
+        } else
+            roboRally.getPopupBoxes().warningBox(new String[]{"Error", message, "refresh and try again"});
     }
 
     /**
@@ -174,7 +174,7 @@ public class AppController implements Observer {
     public void connectToServer() {
         String serverList = client.listGames();
         if (serverList.equals("server timeout")) {
-            showErrorMessage(new String[]{"error", serverList, "try again"});
+            roboRally.getPopupBoxes().warningBox(new String[]{"error", serverList, "try again"});
             return;
         }
         slv.addServer(serverList);
@@ -201,57 +201,6 @@ public class AppController implements Observer {
     }
 
     /**
-     * Shows a dialog box for how many players to join a game
-     * @return number of players chosen
-     */
-    private Optional<Integer> askUserForNumberOfPlayers() {
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
-        dialog.setTitle("Player number");
-        dialog.setHeaderText("Select number of players");
-
-        return dialog.showAndWait();
-    }
-
-    /**
-     * Ask the user about which board they wish to use
-     * @param prevFailed if previous attempt failed
-     * @return board chosen
-     */
-    private Optional<String> askUserWhichDefaultBoard(boolean prevFailed) {
-
-        List<String> allDefaultBoardNames = ReadWriteGame.getNamesOfDefaultBoard();
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(allDefaultBoardNames.get(0), allDefaultBoardNames);
-
-        dialog.setTitle("CHOOSE BOARD");
-        if (prevFailed)
-            dialog.setHeaderText("The board does not exists. Select another one");
-        else
-            dialog.setHeaderText("Select which board to play");
-
-        return dialog.showAndWait();
-    }
-
-    /**
-     * Ask the user which saved board to load
-     * @param prevFailed previous attempt failed
-     * @return chosen board
-     */
-    private Optional<String> askUserWhichSavedBoard(boolean prevFailed) {
-        // Get all files in resource
-        List<String> allSavedBoardNames = ReadWriteGame.getNamesOfSavedBoards();
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(allSavedBoardNames.get(0), allSavedBoardNames);
-
-        dialog.setTitle("LOAD GAME");
-        if (prevFailed)
-            dialog.setHeaderText("The board did not exists. Try another");
-        else
-            dialog.setHeaderText("Pick a game to load!");
-
-        return dialog.showAndWait();
-    }
-
-
-    /**
      * Stop playing the current game, giving the user the option to save
      * the game or to cancel stopping the game. The method returns true
      * if the game was successfully stopped (with or without saving the
@@ -275,7 +224,8 @@ public class AppController implements Observer {
      */
     public void exit() {
         if (gameController != null) {
-            Optional<ButtonType> result = roboRally.getPopupBoxes().warningBox(new String[]{"Exit RoboRally?", "Are you sure you want to exit RoboRally?"});
+            String[] s = new String[]{"Exit RoboRally?", "Are you sure you want to exit RoboRally?"};
+            Optional<ButtonType> result = roboRally.getPopupBoxes().warningBox(s);
 
             if (result.isEmpty() || result.get() != ButtonType.OK) {
                 return; // return without exiting the application
@@ -304,18 +254,8 @@ public class AppController implements Observer {
         // XXX do nothing for now
     }
 
-
-
     public RoboRally getRoboRally() {
         return roboRally;
-    }
-
-    public void showErrorMessage(String[] reason) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(reason[0]);
-        alert.setHeaderText(reason[1]);
-        alert.setContentText(reason[2]);
-        alert.showAndWait();
     }
 
 }
