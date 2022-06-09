@@ -12,7 +12,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import java.util.Objects;
 
 /**
- * @author Mikael Fangel
+ * @author Ahmad Sandhu, Mikael Fangel
  */
 public class Pit extends FieldAction {
     public int boardNum;
