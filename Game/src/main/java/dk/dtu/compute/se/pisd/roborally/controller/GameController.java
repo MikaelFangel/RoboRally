@@ -305,7 +305,8 @@ public class GameController {
             board.setPlayers(prioritizedPlayers);
             board.setCurrentPlayer(prioritizedPlayers.get(0));
 
-            recreatePlayersView();
+            if (appController != null)
+                recreatePlayersView();
         }
     }
 
