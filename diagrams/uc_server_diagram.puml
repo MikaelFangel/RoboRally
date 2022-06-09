@@ -1,0 +1,18 @@
+@startuml
+rectangle "RoboRally Server" {
+    usecase (Play Robo Rally Online) as play
+    usecase (Create Game) as create
+    usecase (Join Game) as join
+    usecase (Leave Game) as leave
+    usecase (Update Game) as update
+    usecase (Receive Game) as receive
+}
+
+Player "2..6" -r- play : \t
+
+create .d. play : extends
+join .u. play : extends
+leave .l. play : extends
+update .u. play : extends
+receive .. play : extends
+@enduml
