@@ -7,14 +7,15 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * @author Christian Andersen
+ */
 @Service
 public class ServerService implements IStatusComm{
     ArrayList<Server> servers = new ArrayList<>();
     private int id = 0;
 
     /**
-     * @author Christian Andersen
-     *
      * @param id of the game
      * @param gameState of the game
      */
@@ -28,8 +29,6 @@ public class ServerService implements IStatusComm{
     }
 
     /**
-     * @author Christian Andersen
-     *
      * @param serverId of the game
      * @return the game in Json format
      */
@@ -39,8 +38,6 @@ public class ServerService implements IStatusComm{
     }
 
     /**
-     * @author Christian Andersen
-     *
      * @param title name of the server
      * @return gameID
      */
@@ -53,8 +50,6 @@ public class ServerService implements IStatusComm{
     }
 
     /**
-     * @author Christian Andersen
-     *
      * @return list of servers
      */
     @Override
@@ -71,8 +66,6 @@ public class ServerService implements IStatusComm{
     }
 
     /**
-     * @author Christian Andersen
-     *
      * @param serverToJoin is the serverID
      * @return RobotID
      */
@@ -88,8 +81,6 @@ public class ServerService implements IStatusComm{
     }
 
     /**
-     * @author Christian Andersen
-     *
      * @param serverId of the Game
      * @param robot that the player control
      */
@@ -104,12 +95,10 @@ public class ServerService implements IStatusComm{
     }
 
     /**
-     * @author Christian Andersen
-     *
-     * @param serverId
-     * @return
-     *
      * finds the server that has the serverID matching the one sent by the player
+     *
+     * @param serverId of the game that we need to find
+     * @return the memory location of that game
      */
     private Server findServer(String serverId){
         for (Server e : servers) {
