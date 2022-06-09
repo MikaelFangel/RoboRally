@@ -159,7 +159,6 @@ public class AppController implements Observer {
         String message = client.joinGame(id);
         if (message.equals("ok")) {
             serverClientMode = true;
-            client.setServerID(id);
             Board board = SerializeState.deserializeGame(client.getGameState(), true);
             setupGameController(board);
             gameController.setPlayerNumber(client.getRobotNumber());
