@@ -28,9 +28,13 @@ package fileaccess{
      +deserializeGame(String jsonString, boolean savedGame) : Board
   }
 
+  note "This package is for saving or loading a game state" as note1
+}
 
 JsonDeserializer <|.. Adapter
 JsonSerializer <|.. Adapter
+Board *-l- SerializeState
 
-note "This package is for saving or loading a game state" as note1
+
+
 @enduml
