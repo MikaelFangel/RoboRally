@@ -135,6 +135,7 @@ public class AppController implements Observer {
     /**
      * Hosts a new game on the server and starts the game afterwards
      * @param errorMessage errormessage from last earlier
+     * @author Christian Andersen, Mikael Fangel
      */
     public void hostGame(String... errorMessage) {
         String[] box = new String[]{"Start game server", "Server name:"};
@@ -155,6 +156,7 @@ public class AppController implements Observer {
     /**
      * Joins the chosen game
      * @param id which id to join
+     * @author Mikael Fangel, Christian Andersen
      */
     public void joinGame(String id) {
         String message = client.joinGame(id);
@@ -170,6 +172,7 @@ public class AppController implements Observer {
 
     /**
      * Gets a list of available servers
+     * @author Christian Andersen
      */
     public void connectToServer() {
         String serverList = client.listGames();
@@ -183,6 +186,7 @@ public class AppController implements Observer {
 
     /**
      * Disconnects the player from the server
+     * @author Christian Andersen
      */
     public void disconnectFromServer() {
         client.leaveGame();

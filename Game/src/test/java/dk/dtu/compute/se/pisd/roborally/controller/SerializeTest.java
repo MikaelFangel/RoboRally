@@ -5,8 +5,15 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import org.junit.jupiter.api.*;
 
+/**
+ * @author Frederik G. Petersen (s215834)
+ */
 public class SerializeTest {
 
+    /**
+     * @author Frederik G. Petersen (s215834)
+     * Tests if we are losing any information when serializing
+     */
     @Test
     void repeatedSerializesAndDeserializesOfDefaultBoard(){
         try {
@@ -20,9 +27,12 @@ public class SerializeTest {
         } catch (BoardNotFoundException e){
             assert true;
         }
-
     }
 
+    /**
+     * @author Frederik G. Petersen (s215834)
+     * Tests if we are losing any information when serializing
+     */
     @Test
     void repeatedSerializesAndDeserializesOfSavedBoard(){
         try {
@@ -37,6 +47,4 @@ public class SerializeTest {
             System.out.println(e);
         }
     }
-
-
 }
