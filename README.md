@@ -2,6 +2,8 @@
 This README notes the Features implemented in this project.
 There is instructions on how to setup Online Multiplayer.
 
+![Image of game](https://github.com/MikaelFangel/RoboRally/blob/main/images/scrot.png)
+
 ## Features
 
 ### Field Actions / Spaces
