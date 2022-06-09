@@ -134,8 +134,7 @@ public class GameController {
     }
 
     /**
-     * Changes the phase      * @param server ip of server to communicate with
-     * @throws IllegalIPException throws illegal ip exception if ip is not valid
+     * Changes the phase
      * @author Mikaelfrom programming to activation.
      */
     public void finishProgrammingPhase() {
@@ -349,7 +348,7 @@ public class GameController {
                 case UTURN -> rmc.uTurn(player);
                 case MOVEBACK -> rmc.moveBackward(player);
                 case AGAIN, REPEATROUTINE -> rmc.again(player, board.getStep());
-                case SPAM -> rmc.Removespam(player);
+                case SPAM -> Removespam(player);
                 case ENERGYROUTINE -> energyRoutine(player);
                 default -> {
                 }
@@ -512,5 +511,9 @@ public class GameController {
 
     public int getPlayerNumber() {
         return playerNum;
+    }
+
+    private void Removespam(Player player){
+        player.getDmgcards().remove(Command.SPAM);
     }
 }
