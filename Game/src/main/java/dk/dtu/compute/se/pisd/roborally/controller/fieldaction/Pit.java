@@ -16,18 +16,11 @@ import java.util.Objects;
  */
 public class Pit extends FieldAction {
     public int boardNum;
-    public int getNumberOfBoard() {
-        return boardNum;
-    }
     RebootToken reboot = new RebootToken();
     @Override
     public boolean doAction(GameController gameController, Space space) {
         Pit pit = (Pit) space.getActions().get(0);
         Board board = gameController.board;
-
-
-        int x = 4;
-        int y = 9;
 
         if (space.getActions().size() > 0) {
             Player player = space.getPlayer();
