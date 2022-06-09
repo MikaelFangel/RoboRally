@@ -17,22 +17,24 @@ import java.util.regex.Pattern;
 import static java.util.concurrent.TimeUnit.*;
 
 /**
- * Create a simple http client that can interact with the RoboRally game server
+ * @author Christian Andersen
  *
- * @author
+ * Create a simple http client that can interact with the RoboRally game server
  */
 public class Client implements IStatusComm {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
-    private String server = "http://localhost:8080";
-    private String serverID = "";
-    private boolean connectedToServer = false;
-    private int robotNumber;
+    private String server = "http://localhost:8080";    //server URL, can later be changed to get this data from a DNS request or pointing directly to a server IP.
+    private String serverID = "";                       //will be used after creating the connection, to inform the server what game we are in.
+    private boolean connectedToServer = false;          //used to easily check if we already connected to a server, so that we can disconnect from that one first.
+    private int robotNumber;                            //Is only used to free up our given robot in case we want to leave a game that has not yet concluded.
     public boolean isConnectedToServer(){
         return connectedToServer;
     }
 
     /**
+     * @author Christian Andersen
+     *
      * Updates the game state on the game server with a JSON string
      *
      * @param gameState JSON string to update state with
@@ -56,6 +58,8 @@ public class Client implements IStatusComm {
     }
 
     /**
+     * @author Christian Andersen
+     *
      * Gets the current game state as a JSON string
      *
      * @return JSON string with game state
@@ -81,6 +85,8 @@ public class Client implements IStatusComm {
     }
 
     /**
+     * @author Christian Andersen
+     *
      * Hosts a new game on the server and sets the server id to future communication
      *
      * @param title the title of the new server
@@ -113,6 +119,8 @@ public class Client implements IStatusComm {
     }
 
     /**
+     * @author Christian Andersen
+     *
      * Lists all games available on the server
      *
      * @return list of available games
@@ -138,6 +146,8 @@ public class Client implements IStatusComm {
     }
 
     /**
+     * @author Christian Andersen
+     *
      * Joins a game and get the current game state
      *
      * @param serverToJoin the id of the server to join
@@ -168,6 +178,11 @@ public class Client implements IStatusComm {
         return "ok";
     }
 
+    /**
+     * @author Christian Andersen
+     *
+     * Tells the server that we want to leave our current game
+     */
     @Override
     public void leaveGame() {
         if (Objects.equals(serverID, ""))
@@ -201,11 +216,9 @@ public class Client implements IStatusComm {
         serverID = "";
     }
 
-    public String getServer() {
-        return server;
-    }
-
     /**
+     * @author Mikael
+     *
      * Sets the ip address of the server
      *
      * @param server ip of server to communicate with
@@ -221,10 +234,12 @@ public class Client implements IStatusComm {
             throw new IllegalIPException();
     }
 
-    public void setServerID(String serverID) {
-        this.serverID = serverID;
-    }
 
+    /**
+     * @author Christian Andersen
+     *
+     * @return the robot number given by the server
+     */
     public int getRobotNumber() {
         return robotNumber;
     }

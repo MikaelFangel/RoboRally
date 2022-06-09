@@ -1,5 +1,10 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
+/**
+ * @author Christian Andersen
+ *
+ * This class is not directly used, but is needed for Json to understand how the string from the server is formattet.
+ */
 public class Server {
     private String id;
     private String title;
