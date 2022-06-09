@@ -30,10 +30,12 @@ public class Pit extends FieldAction {
                     gameController.moveCurrentPlayerToSpace(board.getSpace(4, 9));
                     reboot.doAction(gameController, space);
                     player.setDmgcards(Command.SPAM);
+                    player.setDmgcards(Command.SPAM);
                 }
                 if (boardNum == 2){
                     gameController.moveCurrentPlayerToSpace(board.getSpace(7, 0));
                     reboot.doAction(gameController, space);
+                    player.setDmgcards(Command.SPAM);
                     player.setDmgcards(Command.SPAM);
                 }
             }
