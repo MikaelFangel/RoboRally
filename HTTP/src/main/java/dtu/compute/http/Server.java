@@ -1,24 +1,29 @@
 package dtu.compute.http;
 
+/**
+ * @author Christian Andersen
+ */
 public class Server {
     private final String id;
-    private final String title;
     private transient String gameState;
     private int amountOfPlayers;
     private int maxAmountOfPlayers;
     private transient boolean[] playerSpotFilled;
 
-    public Server(String title, int id){
+    public Server(String title, int id) {
         this.id = String.valueOf(id);
-        this.title = title;
         this.amountOfPlayers = 1;
     }
 
-    public void addPlayer(){
+    public void addPlayer() {
         amountOfPlayers++;
     }
-    public void removePlayer() {amountOfPlayers--;}
-    public boolean isEmpty(){
+
+    public void removePlayer() {
+        amountOfPlayers--;
+    }
+
+    public boolean isEmpty() {
         return amountOfPlayers == 0;
     }
 
@@ -34,7 +39,7 @@ public class Server {
         this.gameState = gameState;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
@@ -48,7 +53,7 @@ public class Server {
         playerSpotFilled[0] = true;
     }
 
-    public int getARobot(){
+    public int getARobot() {
         for (int i = 0; i < maxAmountOfPlayers; i++)
             if (!playerSpotFilled[i]) {
                 playerSpotFilled[i] = true;
@@ -57,7 +62,7 @@ public class Server {
         return 0; //shouldn't happend
     }
 
-    public void setPlayerSpotFilled(int i, boolean flag){
+    public void setPlayerSpotFilled(int i, boolean flag) {
         playerSpotFilled[i] = flag;
     }
 }

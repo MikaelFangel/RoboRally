@@ -11,11 +11,12 @@ import org.junit.jupiter.api.*;
 public class SerializeTest {
 
     /**
-     * @author Frederik G. Petersen (s215834)
      * Tests if we are losing any information when serializing
+     *
+     * @author Frederik G. Petersen (s215834)
      */
     @Test
-    void repeatedSerializesAndDeserializesOfDefaultBoard(){
+    void repeatedSerializesAndDeserializesOfDefaultBoard() {
         try {
             Board startBoard = SaveLoadGame.newBoard(2, "dizzy_highway");
             String jsonResult1 = SerializeState.serializeGame(startBoard);
@@ -24,17 +25,18 @@ public class SerializeTest {
             String jsonResult2 = SerializeState.serializeGame(board1);
 
             Assertions.assertEquals(jsonResult1, jsonResult2);
-        } catch (BoardNotFoundException e){
+        } catch (BoardNotFoundException e) {
             assert true;
         }
     }
 
     /**
-     * @author Frederik G. Petersen (s215834)
      * Tests if we are losing any information when serializing
+     *
+     * @author Frederik G. Petersen (s215834)
      */
     @Test
-    void repeatedSerializesAndDeserializesOfSavedBoard(){
+    void repeatedSerializesAndDeserializesOfSavedBoard() {
         try {
             Board startBoard = SaveLoadGame.loadBoard("TestSaveBoard");
             String jsonResult1 = SerializeState.serializeGame(startBoard);
@@ -43,7 +45,7 @@ public class SerializeTest {
             String jsonResult2 = SerializeState.serializeGame(board1);
 
             Assertions.assertEquals(jsonResult1, jsonResult2);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

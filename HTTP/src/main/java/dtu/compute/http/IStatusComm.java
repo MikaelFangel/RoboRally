@@ -1,9 +1,9 @@
 package dtu.compute.http;
 
 /**
- * @author Christian Andersen
- *
  * Interface between client and server
+ *
+ * @author Christian Andersen, Mikael Fangel
  */
 public interface IStatusComm {
     void updateGame(String id, String gameState);
@@ -15,6 +15,7 @@ public interface IStatusComm {
     String listGames();
 
     String joinGame(String serverToJoin);
+
     void leaveGame(String serverId, int i);
 }
 

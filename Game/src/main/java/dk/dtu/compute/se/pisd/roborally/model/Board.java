@@ -37,22 +37,14 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class Board extends Subject {
-
     public boolean gameOver = false;
-
     public final int width;
     public final int height;
-
     public final String boardName;
-    private Integer gameId;
-
     private final Space[][] spaces;
-
     private List<Player> players = new ArrayList<>();
     public Player current;
-
     public Phase phase = INITIALISATION;
-
     private int numOfCheckPoints;
     public int step = 0;
     public boolean stepMode;
@@ -75,20 +67,6 @@ public class Board extends Subject {
         this(width, height, "defaultboard");
     }
 
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(int gameId) {
-        if (this.gameId == null) {
-            this.gameId = gameId;
-        } else {
-            if (!this.gameId.equals(gameId)) {
-                throw new IllegalStateException("A game with a set id may not be assigned a new id!");
-            }
-        }
-    }
-
     public Space getSpace(int x, int y) {
         if (x >= 0 && x < width &&
                 y >= 0 && y < height) {
@@ -100,6 +78,7 @@ public class Board extends Subject {
 
     /**
      * Gets the number of players on the board
+     *
      * @return number of players on the board
      */
     public int getPlayersNumber() {
@@ -108,6 +87,7 @@ public class Board extends Subject {
 
     /**
      * Add a player to the board
+     *
      * @param player player to add to the board
      */
     public void addPlayer(@NotNull Player player) {
@@ -119,6 +99,7 @@ public class Board extends Subject {
 
     /**
      * Get a player based on his/hers index in the list
+     *
      * @param i index of the player to get
      * @return player at given index
      */
@@ -132,6 +113,7 @@ public class Board extends Subject {
 
     /**
      * Gets the list of players on the board
+     *
      * @return list of players on the baord
      */
     public List<Player> getPlayers() {
@@ -140,6 +122,7 @@ public class Board extends Subject {
 
     /**
      * Set the list of players on board
+     *
      * @param players list of players to set on board
      */
     public void setPlayers(List<Player> players) {
@@ -149,6 +132,7 @@ public class Board extends Subject {
 
     /**
      * Get the players which turn it is
+     *
      * @return current player
      */
     public Player getCurrentPlayer() {
@@ -157,6 +141,7 @@ public class Board extends Subject {
 
     /**
      * Change the current player
+     *
      * @param player new current player
      */
     public void setCurrentPlayer(Player player) {
@@ -168,6 +153,7 @@ public class Board extends Subject {
 
     /**
      * Get the placement of the priority antenna
+     *
      * @return space containing the priority antenna
      */
     public Space getPriorityAntennaSpace() {
@@ -183,6 +169,7 @@ public class Board extends Subject {
 
     /**
      * Get the current game phase
+     *
      * @return current game phase
      */
     public Phase getPhase() {
@@ -191,6 +178,7 @@ public class Board extends Subject {
 
     /**
      * Set the current game phase
+     *
      * @param phase new phase
      */
     public void setPhase(Phase phase) {
@@ -199,7 +187,7 @@ public class Board extends Subject {
             notifyChange();
         }
     }
-    
+
     public int getStep() {
         return step;
     }
@@ -275,7 +263,6 @@ public class Board extends Subject {
         // the students, this method gives a string representation of the current
         // status of the game
 
-        // XXX: V2 changed the status so that it shows the phase, the player and the step
         return "Phase: " + getPhase().name() +
                 ", Current Player = " + getCurrentPlayer().getName() +
                 ", Step: " + getStep() + "\n";
@@ -293,17 +280,28 @@ public class Board extends Subject {
         return spaces;
     }
 
-
-    public void setCheckpointsWithNumber(){
+    /**
+     * Sets the maximum checkpoint number on the checkpoint space used to calculate the winning player
+     *
+     * @author Frederik Greve Petersen
+     */
+    public void setCheckpointsWithNumber() {
         findNumberOfCheckPoints();
         Checkpoint.setHighestCheckpointNumber(numOfCheckPoints);
     }
-    private void findNumberOfCheckPoints(){
+
+    /**
+     * Finds how many checkpoint that are placed on the board and the sets the field numOfCheckpoints
+     * with the counted value
+     *
+     * @author Frederik Greve Petersen
+     */
+    private void findNumberOfCheckPoints() {
         int counter = 0;
-        for (int i = 0; i < spaces.length; i++) {
+        for (Space[] space : spaces) {
             for (int j = 0; j < spaces[0].length; j++) {
-                if (spaces[i][j].getActions().size() > 0 &&
-                        spaces[i][j].getActions().get(0) instanceof Checkpoint){
+                if (space[j].getActions().size() > 0 &&
+                        space[j].getActions().get(0) instanceof Checkpoint) {
 
                     counter++;
                 }

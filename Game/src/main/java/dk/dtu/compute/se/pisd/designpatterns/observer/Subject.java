@@ -25,8 +25,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-// import java.util.HashSet;
-
 /**
  * This is the subject of the observer design pattern roughly following
  * the definition of the GoF.

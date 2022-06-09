@@ -21,7 +21,7 @@ public class PopupBoxes {
      * @param input the data that should be displayed
      * @return the descision of the player
      */
-    public Optional<ButtonType> warningBox(String[] input){
+    public Optional<ButtonType> warningBox(String[] input) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(input[0]);
         alert.setContentText(input[1]);
@@ -29,11 +29,10 @@ public class PopupBoxes {
     }
 
     /**
-     *
      * @param input the data that should be displayed
      * @return the descision of the player
      */
-    public String getStringInput(String[] input){
+    public String getStringInput(String[] input) {
         TextInputDialog serverCreation = new TextInputDialog();
         serverCreation.setTitle(input[0]);
         serverCreation.setHeaderText(input[1]);

@@ -4,7 +4,7 @@ package dk.dtu.compute.se.pisd.roborally.exceptions;
  *  @author Frederik G. Petersen (s215834)
  */
 public class BoardNotFoundException extends Exception {
-    private String boardPath;
+    private final String boardPath;
 
     /**
      * Exception for when a board does not exists

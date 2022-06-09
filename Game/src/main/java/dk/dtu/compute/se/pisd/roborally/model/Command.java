@@ -28,12 +28,8 @@ import java.util.List;
  * cards of the game
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public enum Command {
-
-    // This is a very simplistic way of realizing different commands.
-
     //Primary programming cards
     MOVE1("Move 1"),
     MOVE2("Move 2"),
@@ -53,12 +49,11 @@ public enum Command {
 
     //Special programming cards
     ENERGYROUTINE("Energy Routine"),
-    SANDBOXROUTINE("Sandbox Routine",MOVE1, MOVE2, MOVE3, MOVEBACK, LEFT, RIGHT, UTURN),
+    SANDBOXROUTINE("Sandbox Routine", MOVE1, MOVE2, MOVE3, MOVEBACK, LEFT, RIGHT, UTURN),
     WEASELROUTINE("Weasel Routine", LEFT, RIGHT, UTURN),
     SPEEDROUTINE("Speed Routine", MOVE3),
     SPAMFOLDER("Spam Folder"),
     REPEATROUTINE("Repeat Routine", AGAIN);
-
 
     final public String displayName;
 
@@ -71,6 +66,7 @@ public enum Command {
 
     /**
      * Check if the command is interactive (holds 1 or more options)
+     *
      * @return true if there is 1 or more option and false if there isn't any
      */
     public boolean isInteractive() {
@@ -79,6 +75,7 @@ public enum Command {
 
     /**
      * Get all available option for one command
+     *
      * @return a list of all options
      */
     public List<Command> getOptions() {

@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
  * Used to create the command cards of the game i.e. the programming cards
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class CommandCard extends Subject {
 
@@ -36,6 +35,7 @@ public class CommandCard extends Subject {
 
     /**
      * Create a command card
+     *
      * @param command the command desired on the card
      */
     public CommandCard(@NotNull Command command) {
@@ -44,6 +44,7 @@ public class CommandCard extends Subject {
 
     /**
      * Get the name of the card
+     *
      * @return the display name of the card
      */
     public String getName() {
