@@ -109,9 +109,9 @@ public class GameController {
 
                     for (int j = 0; j < Player.NO_CARDS; j++) {
                         CommandCardField field = player.getCardField(j);
-                        if (!player.getDamagecards().isEmpty()) {
-                            if (player.getDamagecards().size() > j) {
-                                field.setCard(new CommandCard(player.getDamagecards().get(j)));
+                        if (!player.getDmgcards().isEmpty()) {
+                            if (player.getDmgcards().size() > j) {
+                                field.setCard(new CommandCard(player.getDmgcards().get(j)));
                             } else
                                 field.setCard(generateRandomCommandCard());
                         } else
