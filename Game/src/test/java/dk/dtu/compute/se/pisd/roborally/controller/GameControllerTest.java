@@ -106,4 +106,54 @@ class GameControllerTest {
             Assertions.fail();
         }
     }
+
+    /**
+     * @author Frederik Greve Petersen
+     */
+    @Test
+    void testCheckPointsInCorrectOrder(){
+        Board board = null;
+        try {
+            board = SaveLoadGame.newBoard(3, "dodge_this");
+            GameController gc = new GameController(null, board, null);
+
+            board.setCurrentPlayer(board.getPlayers().get(0));
+            gc.moveCurrentPlayerToSpace(board.getSpace(8, 6));
+            board.setCurrentPlayer(board.getPlayers().get(0));
+            gc.moveCurrentPlayerToSpace(board.getSpace(12, 9));
+            board.setCurrentPlayer(board.getPlayers().get(0));
+
+            gc.moveCurrentPlayerToSpace(board.getSpace(8, 3)); // Will cause exception
+
+        } catch (BoardNotFoundException e){
+            Assertions.fail(); // Board not found
+        } catch (ExceptionInInitializerError e2){
+            Assertions.assertEquals(3, board.getCurrentPlayer().checkPoints);
+        }
+    }
+
+    /**
+     * @author Frederik Greve Petersen
+     */
+    @Test
+    void testCheckPointsInWrongOrder(){
+        Board board = null;
+        try {
+            board = SaveLoadGame.newBoard(3, "dodge_this");
+            GameController gc = new GameController(null, board, null);
+
+            board.setCurrentPlayer(board.getPlayers().get(0));
+            gc.moveCurrentPlayerToSpace(board.getSpace(12, 9));
+            board.setCurrentPlayer(board.getPlayers().get(0));
+            gc.moveCurrentPlayerToSpace(board.getSpace(8, 3));
+            board.setCurrentPlayer(board.getPlayers().get(0));
+
+            gc.moveCurrentPlayerToSpace(board.getSpace(8, 6)); // Will cause exception
+
+        } catch (BoardNotFoundException e){
+            Assertions.fail(); // Board not found
+        } catch (ExceptionInInitializerError e2){
+            Assertions.assertEquals(1, board.getCurrentPlayer().checkPoints);
+        }
+    }
 }
