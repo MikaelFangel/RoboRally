@@ -1,9 +1,9 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
 /**
- * @author Christian Andersen
- *
  * This class is not directly used, but is needed for Json to understand how the string from the server is formattet.
+ *
+ * @author Christian Andersen
  */
 public class Server {
     private String id;
@@ -25,7 +25,7 @@ public class Server {
         return amountOfPlayers;
     }
 
-    public int getMaxAmountOfPlayers(){
+    public int getMaxAmountOfPlayers() {
         return maxAmountOfPlayers;
     }
 }

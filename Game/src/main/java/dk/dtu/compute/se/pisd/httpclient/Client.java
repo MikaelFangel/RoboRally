@@ -34,7 +34,8 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * Updates the game state on the game server with a JSON string
+     * Updates the game state on the game server with a JSON string containing the latest game state
+     * the server should the store this state for future retrieval
      *
      * @param gameState JSON string to update state with
      * @author Mikael Fangel
@@ -58,7 +59,7 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * Gets the current game state as a JSON string
+     * Gets the current game state as a JSON string which then should be deserialized
      *
      * @return JSON string with game state
      * @author Mikael Fangel
@@ -117,7 +118,8 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * Lists all games available on the server
+     * Lists all games available on the server the list is given as JSON string which
+     * list the id, name, maximum number of players and current number of players in the game
      *
      * @return list of available games
      * @author Mikael Fangel
@@ -143,7 +145,7 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * Joins a game and get the current game state
+     * Joins a game and get the current game state from a specific server id
      *
      * @param serverToJoin the id of the server to join
      * @return gamestate and empty string if game is not up yet
@@ -213,7 +215,9 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * Sets the ip address of the server
+     * Sets the ip address of the server in the process of setting up the ip for the server
+     * it checks if the ip address can pass a simple regex if it can't it throws
+     * an IllegalIPException
      *
      * @param server ip of server to communicate with
      * @throws IllegalIPException throws illegal ip exception if ip is not valid

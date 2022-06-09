@@ -27,14 +27,13 @@ package dk.dtu.compute.se.pisd.roborally.model;
  * counterclockwise,
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public enum Heading {
-
     SOUTH, WEST, NORTH, EAST;
 
     /**
      * Get the next heading clockwise
+     *
      * @return the next heading
      */
     public Heading next() {
@@ -43,6 +42,7 @@ public enum Heading {
 
     /**
      * Get the previous heading counterclockwise
+     *
      * @return the previous heading
      */
     public Heading prev() {

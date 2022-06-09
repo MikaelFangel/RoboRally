@@ -22,17 +22,18 @@ import javafx.util.Callback;
 import java.io.StringReader;
 
 /**
- * @author Christian Andersen
- *
  * this will create a new window with a listview of the servers available.
  * This is runned as a seperate window and thread to allow the player to browse games while in a game him self.
+ *
+ * @author Christian Andersen
  */
-public class ServerListView{
+public class ServerListView {
     private Stage stage;
     private TableView<Server> table = new TableView<>();
     private ObservableList<Server> data = FXCollections.observableArrayList();
     AppController app;
-    public ServerListView(Client c, AppController app){
+
+    public ServerListView(Client c, AppController app) {
         this.app = app;
         stage = new Stage();
         Scene scene = new Scene(new Group());
@@ -75,7 +76,10 @@ public class ServerListView{
         table.getColumns().addAll(id, serverName, players, maxPlayers);
 
         Button button = new Button("Join Game");
-        button.setOnAction(e -> {app.stopGame(); if(!table.getSelectionModel().isEmpty())app.joinGame(table.getSelectionModel().getSelectedItem().getId());});
+        button.setOnAction(e -> {
+            app.stopGame();
+            if (!table.getSelectionModel().isEmpty()) app.joinGame(table.getSelectionModel().getSelectedItem().getId());
+        });
 
         Button refresh = new Button("Refresh");
         refresh.setOnAction(e -> addServer(c.listGames()));
@@ -92,22 +96,21 @@ public class ServerListView{
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Here we update the list of data for the listview. This is done by taking the string from the server, and using Json converting.
      * This can be done, because we have the Server object on client side, so it knows how the server constructed the list.
      *
      * @param s list of servers in a Json string format
+     * @author Christian Andersen
      */
-    public void addServer(String s){
+    public void addServer(String s) {
         Gson test = new Gson();
         JsonReader jReader = new JsonReader(new StringReader(s));
-        Server[] servers = test.fromJson(jReader,Server[].class);
+        Server[] servers = test.fromJson(jReader, Server[].class);
         data.clear();
         data.addAll(servers);
     }
 
-    public void viewTable(){
+    public void viewTable() {
         stage.show();
     }
 }

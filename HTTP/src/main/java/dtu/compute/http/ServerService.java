@@ -11,12 +11,12 @@ import java.util.Objects;
  * @author Christian Andersen
  */
 @Service
-public class ServerService implements IStatusComm{
+public class ServerService implements IStatusComm {
     ArrayList<Server> servers = new ArrayList<>();
     private int id = 0;
 
     /**
-     * @param id of the game
+     * @param id        of the game
      * @param gameState of the game
      */
     @Override
@@ -82,7 +82,7 @@ public class ServerService implements IStatusComm{
 
     /**
      * @param serverId of the Game
-     * @param robot that the player control
+     * @param robot    that the player control
      */
     @Override
     public void leaveGame(String serverId, int robot) {
@@ -100,7 +100,7 @@ public class ServerService implements IStatusComm{
      * @param serverId of the game that we need to find
      * @return the memory location of that game
      */
-    private Server findServer(String serverId){
+    private Server findServer(String serverId) {
         for (Server e : servers) {
             if (Objects.equals(e.getId(), serverId)) {
                 return e;

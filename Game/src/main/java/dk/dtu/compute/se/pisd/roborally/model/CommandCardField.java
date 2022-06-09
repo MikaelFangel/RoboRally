@@ -24,10 +24,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 /**
- * ...
+ * Creates the field for players to place their command cards in
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class CommandCardField extends Subject {
 

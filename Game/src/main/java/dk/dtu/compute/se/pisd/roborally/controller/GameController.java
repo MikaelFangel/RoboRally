@@ -126,6 +126,10 @@ public class GameController {
         }
     }
 
+    /**
+     * @return
+     * @author Ahmad Sandhu
+     */
     public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands).subList(0, 9));
@@ -134,8 +138,9 @@ public class GameController {
     }
 
     /**
-     * Changes the phase
-     * @author Mikaelfrom programming to activation.
+     * Changes the phase from programming to activation.
+     *
+     * @author Ekkart Kindler, Mikael Fangel
      */
     public void finishProgrammingPhase() {
         if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1 ||
@@ -170,6 +175,7 @@ public class GameController {
 
     /**
      * Shows programming fields for a specific player
+     *
      * @param register player register to show
      */
     private void makeProgramFieldsVisible(int register) {
@@ -226,6 +232,8 @@ public class GameController {
 
     /**
      * Generates a new board view when board is changed
+     *
+     * @author Mikael Fangel
      */
     public void updateBoard() {
         appController.getRoboRally().createBoardView(this);
@@ -242,6 +250,8 @@ public class GameController {
 
     /**
      * Executes the next step in the players register
+     *
+     * @author Ekkart Kindler, Mikael Fangel
      */
     protected void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
@@ -268,12 +278,20 @@ public class GameController {
 
     /**
      * Ends the current game and stops the gui
+     *
+     * @author Frederik Greve Petersen
      */
     public void endGame() {
         Platform.runLater(appController::disconnectFromServer);
         Platform.runLater(appController::stopGame);
     }
 
+    /**
+     * Calculate the players' priority by determining the distance to the closest players and then
+     * changes the player arraylist to be in the prioritized order.
+     *
+     * @author Frederik Greve Petersen
+     */
     public void assertPlayerPriorityAndChangeBoardPlayers() {
         Space antennaSpace = board.getPriorityAntennaSpace();
         antennaSpace.getActions().get(0).doAction(this, antennaSpace);
@@ -312,8 +330,9 @@ public class GameController {
 
     /**
      * Change the player and the step of the board
+     *
      * @param currentPlayer which player turn it is
-     * @param step the current step of the game
+     * @param step          the current step of the game
      */
     private void changePlayer(Player currentPlayer, int step) {
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
@@ -334,6 +353,13 @@ public class GameController {
         refreshUpdater();
     }
 
+    /**
+     * Takes a command from a command card and the player which is executing that given command
+     *
+     * @param player  executing the command
+     * @param command command to be executed
+     * @author Ekkart Kindler, Mikael Fangel, Emil Hansen, Christian Andersen
+     */
     private void executeCommand(@NotNull Player player, Command command) {
         if (player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
@@ -349,7 +375,7 @@ public class GameController {
                 case UTURN -> rmc.uTurn(player);
                 case MOVEBACK -> rmc.moveBackward(player);
                 case AGAIN, REPEATROUTINE -> rmc.again(player, board.getStep());
-                case SPAM -> Removespam(player);
+                case SPAM -> removeSpam(player);
                 case ENERGYROUTINE -> energyRoutine(player);
                 default -> {
                 }
@@ -380,18 +406,40 @@ public class GameController {
         }
     }
 
+    /**
+     * Increases the player's energy count
+     *
+     * @param player to give more energy
+     * @return the players energy count
+     * @author Emil Hansen
+     */
     public int energyRoutine(@NotNull Player player) {
         int playerEnergyCount = player.getEnergyCount();
         playerEnergyCount++;
         return playerEnergyCount;
     }
 
+    /**
+     * @author Frederik Greve Petersen
+     */
     public void recreatePlayersView() {
         BoardView boardView = appController.getRoboRally().getBoardView();
         boardView.updatePlayersView();
     }
 
     /**
+     * Executes the board space in the order:
+     * 1. ConveyorBelts
+     * 2. PushPanels
+     * 3. Gears
+     * 4. Lasers
+     * 5. Reboot Tokens
+     * 6. Pits
+     * 7. Energy
+     * 8. Checkpoints
+     * <p>
+     * And while executing the order of spaces it ensures that robot movement rules for conveyor belts is held
+     *
      * @author Christian Andersen
      */
     private void boardElementsActivationOrder() {
@@ -481,6 +529,10 @@ public class GameController {
 
 
     /**
+     * Switches the updater between fetching the game state or not
+     * it is used to ensure not active players are polling and
+     * players taking their turn are not pulling.
+     *
      * @author Frederik Greve Petersen, Mikael Fangel
      */
     public void refreshUpdater() {
@@ -495,6 +547,8 @@ public class GameController {
     }
 
     /**
+     * Pushes the current game state to the connected server id
+     *
      * @author Frederik Greve Petersen
      */
     public void pushGameState() {
@@ -503,8 +557,10 @@ public class GameController {
     }
 
     /**
+     * Checks if a player connected to an online game has his/hers turn
+     * this is determined by their id given from the server
      *
-     * @return
+     * @return true if is the player with a matching client id's turn
      * @author Frederik Greve Petersen, Mikael Fangel
      */
     public boolean isMyTurn() {
@@ -520,7 +576,7 @@ public class GameController {
         return playerNum;
     }
 
-    private void Removespam(Player player){
+    private void removeSpam(Player player) {
         player.getDmgcards().remove(Command.SPAM);
     }
 }

@@ -12,20 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Frederik G. Petersen (s215834)
+ * Can serialize instances of RoboRally Boards into JSON and reverse.
  *
- * Can serialize instances of Roborally Boards into JSON and reverse.
+ * @author Frederik G. Petersen (s215834)
  */
 public class SerializeState {
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * Serializes the board into a String in JSON format.
+     *
      * @param board board to to be serialized
      * @return String of serialized board in JSON format
+     * @author Frederik G. Petersen (s215834)
      */
-    public static String serializeGame(Board board){
+    public static String serializeGame(Board board) {
         // Setting up the board template
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
@@ -35,9 +35,9 @@ public class SerializeState {
         template.stepMode = board.stepMode;
         template.gameOver = board.gameOver;
 
-        for (int i=0; i<board.width; i++) {
-            for (int j=0; j<board.height; j++) {
-                Space space = board.getSpace(i,j);
+        for (int i = 0; i < board.width; i++) {
+            for (int j = 0; j < board.height; j++) {
+                Space space = board.getSpace(i, j);
                 if (!space.getWalls().isEmpty() || !space.getActions().isEmpty()) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
@@ -143,16 +143,16 @@ public class SerializeState {
     }
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * Deserializes a  string in JSON format to a Board.
      * This function behaves differently based on the board to be loaded has values about player state or not. Therefore
      * we can specify if such informations shall be loaded.
+     *
      * @param jsonString The JSON String do be deserialized.
-     * @param savedGame Boolean telling if the board to be loaded has been saved from a previous game or not
+     * @param savedGame  Boolean telling if the board to be loaded has been saved from a previous game or not
      * @return Board class of deserialized string
+     * @author Frederik G. Petersen (s215834)
      */
-    public static Board deserializeGame(String jsonString, boolean savedGame){
+    public static Board deserializeGame(String jsonString, boolean savedGame) {
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
 
@@ -164,14 +164,14 @@ public class SerializeState {
         // Actual Loading of the board
         result = new Board(template.width, template.height);
 
-        if (savedGame){
+        if (savedGame) {
             result.phase = Phase.valueOf(template.phase);
             result.step = template.step;
             result.stepMode = template.stepMode;
             result.gameOver = template.gameOver;
         }
 
-        for (SpaceTemplate spaceTemplate: template.spaces) {
+        for (SpaceTemplate spaceTemplate : template.spaces) {
             Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
             if (space != null) {
                 space.getActions().addAll(spaceTemplate.actions);
@@ -200,7 +200,7 @@ public class SerializeState {
             // Loading players cards
             for (int j = 0; j < playerTemplate.cards.length; j++) {
                 String commandName = playerTemplate.cards[j].card.command.type;
-                if (commandName.equals("")){
+                if (commandName.equals("")) {
                     CommandCardField ccf = new CommandCardField(newPlayer);
                     newCards[j] = ccf;
                 } else {
@@ -216,7 +216,7 @@ public class SerializeState {
             // loading players program
             for (int j = 0; j < playerTemplate.program.length; j++) {
                 String commandName = playerTemplate.program[j].card.command.type;
-                if (commandName.equals("")){
+                if (commandName.equals("")) {
                     CommandCardField ccf = new CommandCardField(newPlayer);
                     newProgram[j] = ccf;
                 } else {
@@ -234,7 +234,7 @@ public class SerializeState {
             newPlayer.program = newProgram;
         }
 
-        if (savedGame){
+        if (savedGame) {
             int currentPlayerIndex = template.currentPlayer;
             result.setCurrentPlayer(result.getPlayer(currentPlayerIndex));
         }

@@ -33,10 +33,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * ...
+ * Starts the game roborally and sets up the scene
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class RoboRally extends Application {
 
@@ -75,7 +74,8 @@ public class RoboRally extends Application {
         stage.setOnCloseRequest(
                 e -> {
                     e.consume();
-                    appController.exit();} );
+                    appController.exit();
+                });
         stage.setResizable(true);
         stage.sizeToScene();
         stage.show();
@@ -97,18 +97,13 @@ public class RoboRally extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-
-        // XXX just in case we need to do something here eventually;
-        //     but right now the only way for the user to exit the app
-        //     is delegated to the exit() method in the AppController,
-        //     so that the AppController can take care of that.
     }
 
-    public BoardView getBoardView(){
+    public BoardView getBoardView() {
         return boardView;
     }
 
-    public PopupBoxes getPopupBoxes(){
+    public PopupBoxes getPopupBoxes() {
         return popupBoxes;
     }
 

@@ -75,6 +75,7 @@ public class AppController implements Observer {
 
     /**
      * Creates a new game and shows the game
+     *
      * @param numPlayers the numbers of players to start the game with
      * @param prevFailed if previous board attempt falied
      */
@@ -105,7 +106,7 @@ public class AppController implements Observer {
         String dialog = roboRally.getPopupBoxes().getStringInput(s);
 
         if (dialog != null)
-            SaveLoadGame.saveBoardToDisk(gameController.board,dialog);
+            SaveLoadGame.saveBoardToDisk(gameController.board, dialog);
     }
 
     /**
@@ -120,7 +121,6 @@ public class AppController implements Observer {
     }
 
     /**
-     *
      * @author Frederik Petersen
      */
     private void createLoadedGame() {
@@ -144,7 +144,6 @@ public class AppController implements Observer {
      * Hosts a new game on the server and starts the game afterwards
      *
      * @param errorMessage errormessage from last earlier
-     *
      * @author Christian Andersen, Mikael Fangel
      */
     public void hostGame(String... errorMessage) {
@@ -167,7 +166,6 @@ public class AppController implements Observer {
      * Joins the chosen game
      *
      * @param id which id to join
-     *
      * @author Mikael Fangel, Christian Andersen
      */
     public void joinGame(String id) {
@@ -208,6 +206,7 @@ public class AppController implements Observer {
 
     /**
      * Sets up a new game and shows the ui
+     *
      * @param board which board to create the game with
      */
     private void setupGameController(Board board) {
@@ -260,6 +259,7 @@ public class AppController implements Observer {
 
     /**
      * Tells if the game is running of not
+     *
      * @return true if game is running
      */
     public boolean isGameRunning() {

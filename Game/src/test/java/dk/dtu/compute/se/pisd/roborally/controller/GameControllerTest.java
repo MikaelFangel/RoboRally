@@ -23,9 +23,9 @@ class GameControllerTest {
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
-        gameController = new GameController(null ,board, null);
+        gameController = new GameController(null, board, null);
         for (int i = 0; i < 6; i++) {
-            Player player = new Player(board, null,"Player " + i);
+            Player player = new Player(board, null, "Player " + i);
             board.addPlayer(player);
             player.setSpace(board.getSpace(i, i));
             player.setHeading(Heading.values()[i % Heading.values().length]);
@@ -48,7 +48,7 @@ class GameControllerTest {
 
         Assertions.assertEquals(player1, board.getSpace(0, 4).getPlayer(), "Player " + player1.getName() + " should beSpace (0,4)!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
-        Assertions.assertEquals(player2, board.getCurrentPlayer(), "Current player should be " + player2.getName() +"!");
+        Assertions.assertEquals(player2, board.getCurrentPlayer(), "Current player should be " + player2.getName() + "!");
     }
 
     @Test
@@ -62,21 +62,22 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
+
     @Test
-    void energyRoutine(){
+    void energyRoutine() {
         Board board = gameController.board;
-        Player player = new Player(board,null,"Player");
+        Player player = new Player(board, null, "Player");
         int energyCount = player.getEnergyCount();
-        Assertions.assertEquals(5,energyCount);
+        Assertions.assertEquals(5, energyCount);
         energyCount = gameController.energyRoutine(player);
-        Assertions.assertEquals(6,energyCount);
+        Assertions.assertEquals(6, energyCount);
     }
 
     /**
      * @author Frederik Greve Petersen
      */
     @Test
-    void testPriorityAntenna(){
+    void testPriorityAntenna() {
         try {
             Board board = SaveLoadGame.newBoard(3, "dizzy_highway");
             board.setPlayers(new ArrayList<>());
@@ -84,9 +85,9 @@ class GameControllerTest {
 
             // Create players
             for (int i = 3; i > 0; i--) {
-                Player player = new Player(board, null,"Player " + i);
+                Player player = new Player(board, null, "Player " + i);
                 board.addPlayer(player);
-                player.setSpace(board.getSpace(i+1, 5));
+                player.setSpace(board.getSpace(i + 1, 5));
                 player.setHeading(Heading.values()[i % Heading.values().length]);
             }
             List<Player> playersBefore = board.getPlayers();
@@ -94,14 +95,14 @@ class GameControllerTest {
             List<Player> playersAfter = board.getPlayers();
 
             if (playersBefore.get(0) == playersAfter.get(2) &&
-                playersBefore.get(1) == playersAfter.get(1) &&
-                playersBefore.get(2) == playersAfter.get(0)){
+                    playersBefore.get(1) == playersAfter.get(1) &&
+                    playersBefore.get(2) == playersAfter.get(0)) {
                 Assertions.assertTrue(true);
             } else {
                 Assertions.fail();
             }
 
-        } catch (BoardNotFoundException e){
+        } catch (BoardNotFoundException e) {
             System.out.println("Board not found for test");
             Assertions.fail();
         }
@@ -111,7 +112,7 @@ class GameControllerTest {
      * @author Frederik Greve Petersen
      */
     @Test
-    void testCheckPointsInCorrectOrder(){
+    void testCheckPointsInCorrectOrder() {
         Board board = null;
         try {
             board = SaveLoadGame.newBoard(3, "dodge_this");
@@ -125,9 +126,9 @@ class GameControllerTest {
 
             gc.moveCurrentPlayerToSpace(board.getSpace(8, 3)); // Will cause exception
 
-        } catch (BoardNotFoundException e){
+        } catch (BoardNotFoundException e) {
             Assertions.fail(); // Board not found
-        } catch (ExceptionInInitializerError e2){
+        } catch (ExceptionInInitializerError e2) {
             Assertions.assertEquals(3, board.getCurrentPlayer().checkPoints);
         }
     }
@@ -136,7 +137,7 @@ class GameControllerTest {
      * @author Frederik Greve Petersen
      */
     @Test
-    void testCheckPointsInWrongOrder(){
+    void testCheckPointsInWrongOrder() {
         Board board = null;
         try {
             board = SaveLoadGame.newBoard(3, "dodge_this");
@@ -150,9 +151,9 @@ class GameControllerTest {
 
             gc.moveCurrentPlayerToSpace(board.getSpace(8, 6)); // Will cause exception
 
-        } catch (BoardNotFoundException e){
+        } catch (BoardNotFoundException e) {
             Assertions.fail(); // Board not found
-        } catch (ExceptionInInitializerError e2){
+        } catch (ExceptionInInitializerError e2) {
             Assertions.assertEquals(1, board.getCurrentPlayer().checkPoints);
         }
     }

@@ -38,7 +38,7 @@ import java.util.Objects;
 /**
  * Creates the StackPane for each space and clears the player from the space after each move
  *
- * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Ekkart Kindler, ekki@dtu.dk, Mikael Fangel
  */
 public class SpaceView extends StackPane implements ViewObserver {
 

@@ -12,9 +12,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Frederik G. Petersen (s215834)
- *
  * Manages Saving and Loading games of Roborally to the and from the drive.
+ *
+ * @author Frederik G. Petersen (s215834)
  */
 public class SaveLoadGame {
     final static private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
@@ -40,13 +40,13 @@ public class SaveLoadGame {
     }
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * Load's a saved Board from a file.
      * Everything gets saved. This includes:
      * Player's state, Board layout, currentPlayer and more
+     *
      * @param name the file name of the board to get loaded
      * @return the instance of Board loaded from a file.
+     * @author Frederik G. Petersen (s215834)
      */
     public static Board loadBoard(String name) throws BoardNotFoundException {
         String resourcePath = SAVED_BOARDS_FOLDER + "/" + name + "." + JSON_EXT;
@@ -57,13 +57,13 @@ public class SaveLoadGame {
     }
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * The function create a totally new board where only the board layout is determined by input.
      * There are no such thing saved a players state in this.
+     *
      * @param numPlayers number of players for the new game
      * @param boardName  the filename of the board that should be loaded
      * @return the new Board instance with the board layout of the parameter as well as corresponding player number
+     * @author Frederik G. Petersen (s215834)
      */
     public static Board newBoard(int numPlayers, String boardName) throws BoardNotFoundException {
         newBoardCreated = true;
@@ -87,11 +87,11 @@ public class SaveLoadGame {
     }
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * Places Player randomly on the provided possible spaces.
-     * @param players Player to be placed
+     *
+     * @param players        Player to be placed
      * @param possibleSpaces Possible spaces that the players should be able to be placed on.
+     * @author Frederik G. Petersen (s215834)
      */
     private static void placePlayersRandomly(List<Player> players, List<Space> possibleSpaces) {
         // TODO Make it random
@@ -109,12 +109,12 @@ public class SaveLoadGame {
     }
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * Gets a List of Spaces that has an instance of FieldAction.
-     * @param board Board to search through
+     *
+     * @param board  Board to search through
      * @param action The action the spaces have that you are looking for.
      * @return List of Spaces that has instances of that FieldAction
+     * @author Frederik G. Petersen (s215834)
      */
     private static List<Space> getAllSpacesOfTypeByFieldAction(Board board, FieldAction action) {
         List<Space> spaces = new ArrayList<>();

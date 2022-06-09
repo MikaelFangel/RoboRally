@@ -22,7 +22,6 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,20 +29,17 @@ import java.util.ArrayList;
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.*;
 
 /**
- * ...
+ * Holds all the data about a player
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Player extends Subject {
-
     final public static int NO_REGISTERS = 5;
     final public static int NO_CARDS = 8;
     final public static int ENERGY_START_COUNT = 5;
 
 
     final public Board board;
-
     public String name;
     public String color;
     public int energyCount;
@@ -55,8 +51,7 @@ public class Player extends Subject {
 
     public CommandCardField[] program;
     public CommandCardField[] cards;
-    private ArrayList<Command> damagecards;
-
+    private final ArrayList<Command> damagecards;
 
 
     public Player(@NotNull Board board, String color, @NotNull String name) {
@@ -94,24 +89,8 @@ public class Player extends Subject {
         }
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
     public String getColor() {
         return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-        notifyChange();
-        if (space != null) {
-            space.playerChanged();
-        }
     }
 
     public Space getSpace() {
@@ -164,14 +143,14 @@ public class Player extends Subject {
     }
 
     /**
-     * @author Ahmad Sandhu
-     *
      * @param card contains the chosen Command card
+     * @author Ahmad Sandhu
      */
-    public void setDmgcards(Command card){
+    public void setDmgcards(Command card) {
         this.damagecards.add(card);
     }
-    public ArrayList<Command> getDmgcards(){
+
+    public ArrayList<Command> getDmgcards() {
         return this.damagecards;
     }
 
