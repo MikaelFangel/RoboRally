@@ -1,9 +1,7 @@
 package dtu.compute.http;
 
-import org.springframework.stereotype.Service;
-
 public class Server {
-    private String id;
+    private final String id;
     private final String title;
     private transient String gameState;
     private int amountOfPlayers;

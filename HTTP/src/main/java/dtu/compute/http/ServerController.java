@@ -13,7 +13,13 @@ public class ServerController {
     @Autowired
     private IStatusComm statusComm;
 
-    //host Game
+
+    /**
+     * @author Christian Andersen
+     *
+     * @param s contains the players chosen title of the game
+     * @return http response
+     */
     @PostMapping(value = "/game")
     public ResponseEntity<String> createGame(@RequestBody String s){
         String newServerID = statusComm.hostGame(s);
@@ -22,6 +28,11 @@ public class ServerController {
         return ResponseEntity.ok().body(newServerID);
     }
 
+    /**
+     * @author Christian Andersen
+     *
+     * @return http response where body contains a list of servers
+     */
     //listOfGame
     @GetMapping(value = "/game")
     public ResponseEntity<String> listOfGame(){
@@ -40,22 +51,43 @@ public class ServerController {
 
     }
 
+    /**
+     * @author Christian Andersen
+     *
+     * Removes the player from the game
+     *
+     * @param id of the game
+     * @param robot number in the game
+     */
     //leave game
     @PostMapping(value = "/game/{id}/{robot}")
     public void leaveGame(@PathVariable String id, @PathVariable String robot){
         statusComm.leaveGame(id, Integer.parseInt(robot));
     }
 
+    /**
+     * @author Christian Andersen
+     *
+     * @param id of the game
+     * @return http response where body contains a Json string format
+     */
     @GetMapping(value = "/gameState/{id}")
     public ResponseEntity<String> getGameState(@PathVariable String id)
     {
         return ResponseEntity.ok().body(statusComm.getGameState(id));
     }
 
+    /**
+     * @author Christian Andersen
+     *
+     * @param id of the game
+     * @param game Json string that contain the game state
+     * @return http response
+     */
     @PutMapping(value = "/gameState/{id}")
-    public ResponseEntity<String> setGameState(@PathVariable String id, @RequestBody String g)
+    public ResponseEntity<String> setGameState(@PathVariable String id, @RequestBody String game)
     {
-        statusComm.updateGame(id,g);
+        statusComm.updateGame(id,game);
         return ResponseEntity.ok().body("ok");
     }
 }

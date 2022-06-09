@@ -1,5 +1,10 @@
 package dtu.compute.http;
 
+/**
+ * @author Christian Andersen
+ *
+ * Interface between client and server
+ */
 public interface IStatusComm {
     void updateGame(String id, String gameState);
 
