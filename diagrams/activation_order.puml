@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Activate ConveyorBelt with 2 arrows;
+:Activate ConveyorBelt with 1 arrow;
+:Activate PushPanel;
+:Activate Gears;
+:Activate BoardLasers;
+:Activate Checkpoint;
+stop
+
+@enduml
