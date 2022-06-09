@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/class-diagram
+interface IStatusComm {
+    + updateGame(gameState: String)
+    + getGameState(): String
+    + hostGame(gameTitle: String): String
+    + listGames(): String
+    + joinGame(serverToJoin: String): String
+    + leaveGame()
+}
+
+class Client
+class ServerService {
+    ~ servers: ArrayList
+    - finderServer(serverId: String): Server
+}
+class ServerController {
+    + createGame(s String): String
+    + listOfGame(): String
+    + joinGame(id: String): String
+    + leaveGame(id: String, robot: String)
+    + getGameState(id: String): String
+    + setGameState(id: String, gameState: String): String
+
+}
+class Server {
+    + addPlayer()
+    + removePlayer()
+    + isEmpty(): boolean
+    + getAmountOfPlayers(): int
+    + getGameState(): String
+    + setGameState
+    + getId(): String
+    + getMaxAmountOfPlayers(): int
+    + getARobot(): int
+    + setPlayerSpotFilled(i: int, flag: boolean)
+}
+
+IStatusComm <|.r. Client
+IStatusComm <|.l.ServerService : \t\t
+IStatusComm <..ServerController : Uses
+ServerService -- Server
+
+@enduml
