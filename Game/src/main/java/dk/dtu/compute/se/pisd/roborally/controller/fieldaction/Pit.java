@@ -29,19 +29,17 @@ public class Pit extends FieldAction {
                 switch (pit.boardNum) {
                     case 1:
 
-                        board.getSpace(4,9).setPlayer(space.getPlayer());
-                        reboot.doAction(gameController, space);
+                        board.getSpace(4,9).setPlayer(player);
+                        reboot.doAction(gameController, player.getSpace());
                         player.setDmgcards(Command.SPAM);
                         player.setDmgcards(Command.SPAM);
-                        //boardNum = 0;
                         break;
 
                     case 2:
-                        board.getSpace(7,0).setPlayer(space.getPlayer());
-                        reboot.doAction(gameController, space);
+                        board.getSpace(7,0).setPlayer(player);
+                        reboot.doAction(gameController, player.getSpace());
                         player.setDmgcards(Command.SPAM);
                         player.setDmgcards(Command.SPAM);
-                        //boardNum = 0;
                         break;
 
 

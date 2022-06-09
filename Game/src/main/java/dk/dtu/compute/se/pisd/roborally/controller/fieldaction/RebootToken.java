@@ -10,6 +10,14 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 public class RebootToken extends FieldAction {
     @Override
     public boolean doAction(GameController gameController, Space space) {
-        return true;
+        if (space.getActions().size() > 0) {
+            Player player = space.getPlayer();
+
+            if (player != null) {
+                gameController.rmc.moveForward(player, 1); //TODO midlertidligt løsning ( kigger på det imorgen)
+            }
+
+        }
+        return false;
     }
 }
