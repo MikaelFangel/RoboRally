@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Author: Frederik G. Petersen (s215834)
+ * @author Frederik G. Petersen (s215834)
  *
  * Manages Saving and Loading games of Roborally to the and from the drive.
  */
@@ -24,7 +24,7 @@ public class SaveLoadGame {
     private static boolean newBoardCreated = false;
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Saves the games state into a file.
      * Captures the players states, board layout and other metadata in the game.
@@ -40,7 +40,7 @@ public class SaveLoadGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Load's a saved Board from a file.
      * Everything gets saved. This includes:
@@ -57,7 +57,7 @@ public class SaveLoadGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * The function create a totally new board where only the board layout is determined by input.
      * There are no such thing saved a players state in this.
@@ -87,7 +87,7 @@ public class SaveLoadGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Places Player randomly on the provided possible spaces.
      * @param players Player to be placed
@@ -109,7 +109,7 @@ public class SaveLoadGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Gets a List of Spaces that has an instance of FieldAction.
      * @param board Board to search through
