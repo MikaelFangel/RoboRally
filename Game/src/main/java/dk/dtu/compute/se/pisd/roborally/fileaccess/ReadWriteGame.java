@@ -12,13 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Frederik G. Petersen (s215834)
+ *
+ * Can Read serialized Roborally boards from the drive and Write serialized board to the drive.
+ * Provides functionality for getting files in specific folder needed for the game.
+ */
 public class ReadWriteGame {
     private static final String SAVED_BOARDS_FOLDER = "savedBoards";
     private static final String DEFAULT_BOARDS_FOLDER = "boards";
     private static final String JSON_EXT = "json";
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Writes a deserialized Board in form of a string to a specific directory for saved boards
      * The functions is only usable for saving boards and cannot be used for general purpose for saving.
@@ -65,7 +71,7 @@ public class ReadWriteGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Reads a String from a file in the target directory.
      * @param resourcePath The path to the folder containing the boards.
@@ -84,7 +90,7 @@ public class ReadWriteGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Gets the names of saved boards in an already specified folder.
      * @return List of string, with names of each file, without .json extension
@@ -101,7 +107,7 @@ public class ReadWriteGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Gets the names of default boards in an already specified folder.
      * @return List of string, with names of each file, without .json extension
@@ -118,7 +124,7 @@ public class ReadWriteGame {
     }
 
     /**
-     * Author: Frederik G. Petersen (s215834)
+     * @author Frederik G. Petersen (s215834)
      *
      * Extracts all files in a folder located on the highest level in resources.
      * @param folderName The name of the folder

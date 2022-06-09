@@ -7,26 +7,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
- *
- * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Frederik G. Petersen (s215834)
  */
 public class PriorityAntenna extends FieldAction {
-
-    private Heading heading;
-
-    public Heading getHeading() {
-        return heading;
-    }
-
-    public void setHeading(Heading heading) {
-        this.heading = heading;
-    }
-
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
-
         return true;
     }
-
 }
