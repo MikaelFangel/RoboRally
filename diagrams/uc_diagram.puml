@@ -1,5 +1,5 @@
 @startuml
-rectangle "Robo Rally" {
+rectangle "RoboRally" {
     usecase (Play Robo Rally) as play
     usecase (Do Upgrade Phase) as phase1
     usecase (Do Programming Phase) as phase2
