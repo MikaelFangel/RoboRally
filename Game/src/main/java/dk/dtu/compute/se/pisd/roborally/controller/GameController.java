@@ -133,24 +133,10 @@ public class GameController {
         return new CommandCard(commandList.get(random));
     }
 
-    public static CommandCard generateRandomDamageCard() {
-        Command[] commands = Command.values();
-        ArrayList<Command> dmgCommandList = new ArrayList<>(Arrays.asList(commands).subList(9, 13));
-        int random = (int) (Math.random() * dmgCommandList.size()); //TODO bruger måske
-        return new CommandCard(dmgCommandList.get(random));
-    }
-
-    public CommandCard generateRandomSpecialCard() {
-        Command[] commands = Command.values();
-        //TODO bruger måske
-        ArrayList<Command> specCommandList = new ArrayList<>(Arrays.asList(commands).subList(13, 19));
-        int random = (int) (Math.random() * specCommandList.size());
-        return new CommandCard(specCommandList.get(random));
-    }
-
-
     /**
-     * Changes the phase from programming to activation.
+     * Changes the phase      * @param server ip of server to communicate with
+     * @throws IllegalIPException throws illegal ip exception if ip is not valid
+     * @author Mikaelfrom programming to activation.
      */
     public void finishProgrammingPhase() {
         if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1 ||
@@ -405,6 +391,9 @@ public class GameController {
         boardView.updatePlayersView();
     }
 
+    /**
+     * @author Christian Andersen
+     */
     private void boardElementsActivationOrder() {
         List<Player> players = board.getPlayers();
         ArrayDeque<Player> actionsToBeHandled = new ArrayDeque<>(board.getPlayersNumber());
@@ -479,6 +468,9 @@ public class GameController {
     }
 
 
+    /**
+     * @author Frederik Greve Petersen, Mikael Fangel
+     */
     public void refreshUpdater() {
         if (client != null) {
             updater.setUpdate(isMyTurn());
@@ -490,11 +482,19 @@ public class GameController {
             updater.setUpdate(false);
     }
 
+    /**
+     * @author Frederik Greve Petersen
+     */
     public void pushGameState() {
         if (client != null)
             client.updateGame(SerializeState.serializeGame(board));
     }
 
+    /**
+     *
+     * @return
+     * @author Frederik Greve Petersen, Mikael Fangel
+     */
     public boolean isMyTurn() {
         return board.getCurrentPlayer() != board.getPlayer(playerNum) && client != null;
 

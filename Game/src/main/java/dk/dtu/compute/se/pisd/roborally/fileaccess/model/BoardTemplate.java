@@ -26,10 +26,7 @@ import java.util.List;
 
 
 /**
- * ...
- *
- * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Frederik G. Petersen (s215834)
  */
 public class BoardTemplate {
 
@@ -45,5 +42,4 @@ public class BoardTemplate {
     public int currentPlayer;
 
     public List<SpaceTemplate> spaces = new ArrayList<>();
-
 }

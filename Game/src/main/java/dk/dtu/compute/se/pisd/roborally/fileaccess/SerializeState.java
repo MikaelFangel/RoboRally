@@ -11,9 +11,16 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Frederik G. Petersen (s215834)
+ *
+ * Can serialize instances of Roborally Boards into JSON and reverse.
+ */
 public class SerializeState {
 
     /**
+     * @author Frederik G. Petersen (s215834)
+     *
      * Serializes the board into a String in JSON format.
      * @param board board to to be serialized
      * @return String of serialized board in JSON format
@@ -136,6 +143,8 @@ public class SerializeState {
     }
 
     /**
+     * @author Frederik G. Petersen (s215834)
+     *
      * Deserializes a  string in JSON format to a Board.
      * This function behaves differently based on the board to be loaded has values about player state or not. Therefore
      * we can specify if such informations shall be loaded.
