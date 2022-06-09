@@ -1,5 +1,5 @@
 @startuml
-skinparam groupInheritance 2
+skinparam groupInheritance 0
 
 object Board
 object Robot
@@ -69,7 +69,7 @@ object PushPanel
 object EnergySpace
 object Gears
 
-Board <-- Space
+Board *-- Space
 Space <|-- Checkpoint
 Space <|-- PriorityAntenna
 Space <|-- WhiteGear
