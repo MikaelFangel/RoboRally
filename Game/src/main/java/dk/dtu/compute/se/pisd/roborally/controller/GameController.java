@@ -449,6 +449,12 @@ public class GameController {
                     space1.getActions().get(0).doAction(this, space1);
             }
         }
+        //activate RebootToken
+        for (Player player : players) {
+            if (!player.getSpace().getActions().isEmpty() &&
+                    player.getSpace().getActions().get(0) instanceof RebootToken) //TODO Tjek lige om det rigtigt
+                player.getSpace().getActions().get(0).doAction(this, player.getSpace());
+        }
 
         //TODO implement robot Lasers fire here
 
