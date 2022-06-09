@@ -7,10 +7,10 @@ package roborally{
      -baordview : BoardView
      -popupBoxes : PopupBoxes
 
-     +init : void
+     +init() : void
      +start(Stage primaryStage) : void
      +createBoardview(GameController gameController) : void
-     +stop : void
+     +stop() : void
 
   }
   class StartRoboRally{
@@ -20,5 +20,7 @@ package roborally{
   note Right: JavaFX class
 
 }
+
+BoardView *-- Roborally
 
 @enduml
