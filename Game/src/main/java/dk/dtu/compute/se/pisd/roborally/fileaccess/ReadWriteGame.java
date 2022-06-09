@@ -39,6 +39,7 @@ public class ReadWriteGame {
 
         FileWriter fileWriter = null;
         JsonWriter writer = null;
+        filename = filename.replaceAll("%20"," ");
         try {
             fileWriter = new FileWriter(filename);
             writer = gson.newJsonWriter(fileWriter);
