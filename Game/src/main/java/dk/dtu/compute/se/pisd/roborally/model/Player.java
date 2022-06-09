@@ -57,11 +57,7 @@ public class Player extends Subject {
     public CommandCardField[] cards;
     private ArrayList<Command> damagecards;
 
-    private ArrayList<CommandCard> cardPile = new ArrayList<>();
 
-    public ArrayList<CommandCard> getCardPile() {
-        return cardPile;
-    }
 
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
@@ -167,16 +163,11 @@ public class Player extends Subject {
         this.energyCount = energyCount;
     }
 
-    public void populateCards(GameController gameController){
 
-        for (int i = 0; i < 8; i++){
-            getCardPile().add(gameController.generateRandomCommandCard());
-        }
-    }
-    public void setDamagecards(Command card){
+    public void setDmgcards(Command card){
         this.damagecards.add(card);
     }
-    public ArrayList<Command> getDamagecards(){
+    public ArrayList<Command> getDmgcards(){
         return this.damagecards;
     }
 
