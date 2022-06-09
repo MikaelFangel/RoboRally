@@ -14,7 +14,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Command.AGAIN;
  */
 public class RobotMovementController {
 
-    final private GameController gameController;
+    final GameController gameController;
 
     public RobotMovementController(GameController gameController) {
         this.gameController = gameController;
@@ -111,13 +111,14 @@ public class RobotMovementController {
             player.getProgramField(step).setCard(new CommandCard(AGAIN));
         }
     }
-    public void Removespam(Player player){
-        player.getDmgcards().remove(Command.SPAM);
-    }
 
 
     // ------- private methods --------
 
+    /**
+     * @param space that we want to determinate if occupied
+     * @return if the space is occupied or not
+     */
     private boolean isOccupied(Space space) {
         Space target = gameController.board.getSpace(space.x, space.y);
         return target.getPlayer() != null;
