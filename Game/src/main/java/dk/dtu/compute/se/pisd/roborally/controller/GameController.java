@@ -150,7 +150,9 @@ public class GameController {
 
 
     /**
-     * Changes the phase from programming to activation.
+     * Changes the phase      * @param server ip of server to communicate with
+     * @throws IllegalIPException throws illegal ip exception if ip is not valid
+     * @author Mikaelfrom programming to activation.
      */
     public void finishProgrammingPhase() {
         if (board.getPlayerNumber(board.getCurrentPlayer()) == board.getPlayers().size() - 1 ||
@@ -405,6 +407,9 @@ public class GameController {
         boardView.updatePlayersView();
     }
 
+    /**
+     * @author Christian Andersen
+     */
     private void boardElementsActivationOrder() {
         List<Player> players = board.getPlayers();
         ArrayDeque<Player> actionsToBeHandled = new ArrayDeque<>(board.getPlayersNumber());
@@ -479,6 +484,9 @@ public class GameController {
     }
 
 
+    /**
+     * @author Frederik Greve Petersen, Mikael Fangel
+     */
     public void refreshUpdater() {
         if (client != null) {
             updater.setUpdate(isMyTurn());
@@ -490,11 +498,19 @@ public class GameController {
             updater.setUpdate(false);
     }
 
+    /**
+     * @author Frederik Greve Petersen
+     */
     public void pushGameState() {
         if (client != null)
             client.updateGame(SerializeState.serializeGame(board));
     }
 
+    /**
+     *
+     * @return
+     * @author Frederik Greve Petersen, Mikael Fangel
+     */
     public boolean isMyTurn() {
         return board.getCurrentPlayer() != board.getPlayer(playerNum) && client != null;
 
