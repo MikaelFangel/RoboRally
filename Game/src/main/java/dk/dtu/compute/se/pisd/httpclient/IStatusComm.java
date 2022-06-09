@@ -1,7 +1,7 @@
 package dk.dtu.compute.se.pisd.httpclient;
 
 /**
- * @author Christian Andersen
+ * @author Christian Andersen, Mikael Fangel
  *
  * This interface is used to ensure that we have the methods on both client and server side.
  */

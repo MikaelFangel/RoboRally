@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Controls the conveyor belt and represents both types of conveyor belts
  *
- * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Ekkart Kindler, ekki@dtu.dkm, Mikael Fangel
  */
 public class ConveyorBelt extends FieldAction {
 
