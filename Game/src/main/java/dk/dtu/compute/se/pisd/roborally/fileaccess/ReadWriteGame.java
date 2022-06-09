@@ -18,6 +18,8 @@ public class ReadWriteGame {
     private static final String JSON_EXT = "json";
 
     /**
+     * Author: Frederik G. Petersen (s215834)
+     *
      * Writes a deserialized Board in form of a string to a specific directory for saved boards
      * The functions is only usable for saving boards and cannot be used for general purpose for saving.
      * @param saveName The name of the .json file to be saved.
@@ -62,6 +64,8 @@ public class ReadWriteGame {
     }
 
     /**
+     * Author: Frederik G. Petersen (s215834)
+     *
      * Reads a String from a file in the target directory.
      * @param resourcePath The path to the folder containing the boards.
      * @return Full string of everything that is contained within the file.
@@ -78,6 +82,12 @@ public class ReadWriteGame {
         }
     }
 
+    /**
+     * Author: Frederik G. Petersen (s215834)
+     *
+     * Gets the names of saved boards in an already specified folder.
+     * @return List of string, with names of each file, without .json extension
+     */
     public static List<String> getNamesOfSavedBoards(){
         File[] listOfFiles = getFilesInFolder(SAVED_BOARDS_FOLDER);
         List<String> fileNames = new ArrayList<>();
@@ -88,7 +98,13 @@ public class ReadWriteGame {
 
         return fileNames;
     }
-    
+
+    /**
+     * Author: Frederik G. Petersen (s215834)
+     *
+     * Gets the names of default boards in an already specified folder.
+     * @return List of string, with names of each file, without .json extension
+     */
     public static List<String> getNamesOfDefaultBoard(){
         File[] listOfFiles = getFilesInFolder(DEFAULT_BOARDS_FOLDER);
         List<String> fileNames = new ArrayList<>();
@@ -100,6 +116,13 @@ public class ReadWriteGame {
         return fileNames;
     }
 
+    /**
+     * Author: Frederik G. Petersen (s215834)
+     *
+     * Extracts all files in a folder located on the highest level in resources.
+     * @param folderName The name of the folder
+     * @return File Array with all files in that folder
+     */
     private static File[] getFilesInFolder(String folderName){
         ClassLoader classLoader = ReadWriteGame.class.getClassLoader();
         String fullPath = Objects.requireNonNull(classLoader.getResource(folderName)).getPath();
