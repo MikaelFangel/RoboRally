@@ -118,27 +118,6 @@ public class RobotMovementController {
 
     // ------- private methods --------
 
-    private boolean isPushable(Player player, Heading headed) {
-        //TODO
-        //should contain a method to determinate if a player can push another player.
-        //need to check on the player getting pushed, but also any other player that might be a part of a chain of pushes.
-        Space target = gameController.board.getNeighbour(player.getSpace(), headed);
-        //if (hitting a wall)
-
-        if (target.getPlayer() != null) {
-            //TODO recursive call until last player found
-        }
-
-        return true;
-    }
-
-    private boolean isConveyet(Player player, Heading headed) {
-        //TODO
-        //Litle different the the normal push, since here we need to only check if the player we are might hit
-        //is going to get moved by a conveyer, and is not getting blocked from that movement them self.
-        return true;
-    }
-
     private boolean isOccupied(Space space) {
         Space target = gameController.board.getSpace(space.x, space.y);
         return target.getPlayer() != null;
