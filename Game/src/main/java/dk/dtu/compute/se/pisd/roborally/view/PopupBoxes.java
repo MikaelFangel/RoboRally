@@ -9,14 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * This class handle all the different styles of popup boxes.
+ *
  * @author Christian Andersen
  */
 public class PopupBoxes {
 
-    /*public Optional<String> desicionBox(String[] input){
-        return Optional<String>;
-    }
-    */
+    /**
+     * Creates an option box using 2 buttons: 'OK' or 'cancel'
+     *
+     * @param input the data that should be displayed
+     * @return the descision of the player
+     */
     public Optional<ButtonType> warningBox(String[] input){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(input[0]);
@@ -24,6 +28,11 @@ public class PopupBoxes {
         return alert.showAndWait();
     }
 
+    /**
+     *
+     * @param input the data that should be displayed
+     * @return the descision of the player
+     */
     public String getStringInput(String[] input){
         TextInputDialog serverCreation = new TextInputDialog();
         serverCreation.setTitle(input[0]);
@@ -34,6 +43,12 @@ public class PopupBoxes {
         return null;
     }
 
+    /**
+     * Creates a dropdown menu of the available choices
+     *
+     * @param list of data that should be selectable
+     * @return the descision of the player
+     */
     public Optional<Integer> askUserForNumberOfPlayers(List<Integer> list) {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(list.get(0), list);
         dialog.setTitle("Player number");
@@ -42,6 +57,12 @@ public class PopupBoxes {
         return dialog.showAndWait();
     }
 
+    /**
+     * Creates a dropdown menu of the available choices
+     *
+     * @param list of data that should be selectable
+     * @return the descision of the player
+     */
     public Optional<String> askUserForBoardName(List<String> list) {
         ChoiceDialog<String> dialog = new ChoiceDialog<>(list.get(0), list);
         dialog.setTitle("CHOOSE BOARD");
