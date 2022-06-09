@@ -96,7 +96,9 @@ public class AppController implements Observer {
     }
 
     /**
-     * The menu button to save the game
+     * The action to be taken when a player click on the saveGame button
+     *
+     * @author Christian Andersen
      */
     public void saveGame() {
         String[] s = new String[]{"SAVE GAME", "Enter a Save game name"};
@@ -108,14 +110,20 @@ public class AppController implements Observer {
 
     /**
      * Loads a pre-existing game
+     *
+     * @author Frederik Petersen
      */
     public void loadGame() {
         if (gameController == null) {
-            createLoadedGame(false);
+            createLoadedGame();
         }
     }
 
-    private void createLoadedGame(boolean prevFailed) {
+    /**
+     *
+     * @author Frederik Petersen
+     */
+    private void createLoadedGame() {
         Optional<String> chosenBoard = roboRally.getPopupBoxes().askUserForBoardName(ReadWriteGame.getNamesOfSavedBoards());
 
         if (chosenBoard.isPresent()) {
@@ -127,14 +135,16 @@ public class AppController implements Observer {
                 Board board = SaveLoadGame.loadBoard(chosenBoard.get());
                 setupGameController(board);
             } catch (BoardNotFoundException e) {
-                createLoadedGame(true);
+                createLoadedGame();
             }
         }
     }
 
     /**
      * Hosts a new game on the server and starts the game afterwards
+     *
      * @param errorMessage errormessage from last earlier
+     *
      * @author Christian Andersen, Mikael Fangel
      */
     public void hostGame(String... errorMessage) {
@@ -155,7 +165,9 @@ public class AppController implements Observer {
 
     /**
      * Joins the chosen game
+     *
      * @param id which id to join
+     *
      * @author Mikael Fangel, Christian Andersen
      */
     public void joinGame(String id) {
@@ -172,20 +184,22 @@ public class AppController implements Observer {
 
     /**
      * Gets a list of available servers
+     *
      * @author Christian Andersen
      */
     public void connectToServer() {
-        String serverList = client.listGames();
-        if (serverList.equals("server timeout")) {
+        String serverList = client.listGames(); //gets the list of servers
+        if (serverList.equals("server timeout")) { //if server is unreachable
             roboRally.getPopupBoxes().warningBox(new String[]{"error", serverList, "try again"});
             return;
         }
-        slv.addServer(serverList);
-        slv.viewTable();
+        slv.addServer(serverList); //adds the servers to the view
+        slv.viewTable(); //creates the view
     }
 
     /**
      * Disconnects the player from the server
+     *
      * @author Christian Andersen
      */
     public void disconnectFromServer() {
