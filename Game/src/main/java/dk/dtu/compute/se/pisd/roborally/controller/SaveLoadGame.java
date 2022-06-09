@@ -24,12 +24,12 @@ public class SaveLoadGame {
     private static boolean newBoardCreated = false;
 
     /**
-     * @author Frederik G. Petersen (s215834)
-     *
      * Saves the games state into a file.
      * Captures the players states, board layout and other metadata in the game.
+     *
      * @param board the instance of the game board in play.
      * @param name  the file name the game should be saved as.
+     * @author Frederik Greve Petersen
      */
     public static void saveBoardToDisk(Board board, String name) {
         // Setting up the board template

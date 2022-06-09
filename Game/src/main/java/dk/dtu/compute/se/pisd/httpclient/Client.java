@@ -17,9 +17,9 @@ import java.util.regex.Pattern;
 import static java.util.concurrent.TimeUnit.*;
 
 /**
- * @author Christian Andersen
- *
  * Create a simple http client that can interact with the RoboRally game server
+ *
+ * @author Mikael Fangel,  Christian Andersen
  */
 public class Client implements IStatusComm {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
@@ -28,16 +28,16 @@ public class Client implements IStatusComm {
     private String serverID = "";                       //will be used after creating the connection, to inform the server what game we are in.
     private boolean connectedToServer = false;          //used to easily check if we already connected to a server, so that we can disconnect from that one first.
     private int robotNumber;                            //Is only used to free up our given robot in case we want to leave a game that has not yet concluded.
-    public boolean isConnectedToServer(){
+
+    public boolean isConnectedToServer() {
         return connectedToServer;
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Updates the game state on the game server with a JSON string
      *
      * @param gameState JSON string to update state with
+     * @author Mikael Fangel
      */
     @Override
     public void updateGame(String gameState) {
@@ -58,11 +58,10 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Gets the current game state as a JSON string
      *
      * @return JSON string with game state
+     * @author Mikael Fangel
      */
     @Override
     public String getGameState() {
@@ -85,12 +84,11 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Hosts a new game on the server and sets the server id to future communication
      *
      * @param title the title of the new server
      * @return serverId string
+     * @author Mikael Fangel, Christian Andersen
      */
     @Override
     public String hostGame(String title) {
@@ -119,11 +117,10 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Lists all games available on the server
      *
      * @return list of available games
+     * @author Mikael Fangel
      */
     @Override
     public String listGames() {
@@ -146,12 +143,11 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Joins a game and get the current game state
      *
      * @param serverToJoin the id of the server to join
      * @return gamestate and empty string if game is not up yet
+     * @author Christian Andersen
      */
     @Override
     public String joinGame(String serverToJoin) {
@@ -179,9 +175,9 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * @author Christian Andersen
-     *
      * Tells the server that we want to leave our current game
+     *
+     * @author Christian Andersen
      */
     @Override
     public void leaveGame() {
@@ -206,7 +202,7 @@ public class Client implements IStatusComm {
                 } catch (TimeoutException e) {
                     tries++;
                 }
-            }while(tries != 10);
+            } while (tries != 10);
         }).start();
         try {
             Thread.sleep(100);
@@ -217,12 +213,11 @@ public class Client implements IStatusComm {
     }
 
     /**
-     * @author Mikael
-     *
      * Sets the ip address of the server
      *
      * @param server ip of server to communicate with
      * @throws IllegalIPException throws illegal ip exception if ip is not valid
+     * @author Mikael Fangel
      */
     public void setServer(String server) throws IllegalIPException {
         // Simple regex pattern to check for string contains ip
@@ -236,9 +231,8 @@ public class Client implements IStatusComm {
 
 
     /**
-     * @author Christian Andersen
-     *
      * @return the robot number given by the server
+     * @author Frederik Greve Petersen
      */
     public int getRobotNumber() {
         return robotNumber;
