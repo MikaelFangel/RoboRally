@@ -194,7 +194,6 @@ public class AppController implements Observer {
      */
     private void setupGameController(Board board) {
         gameController = new GameController(this, Objects.requireNonNull(board), serverClientMode ? client : null);
-        //initializePlayers(board);
         board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
 
@@ -305,12 +304,7 @@ public class AppController implements Observer {
         // XXX do nothing for now
     }
 
-    public void initializePlayers(Board board) {
-        for (int i = 0; i < board.getPlayersNumber(); i++) {
-            board.getPlayer(i).populateCards(gameController);
-        }
 
-    }
 
     public RoboRally getRoboRally() {
         return roboRally;

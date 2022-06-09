@@ -112,7 +112,7 @@ public class RobotMovementController {
         }
     }
     public void Removespam(Player player){
-        player.getDamagecards().remove(Command.SPAM);
+        player.getDmgcards().remove(Command.SPAM);
     }
 
 
