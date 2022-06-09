@@ -133,22 +133,6 @@ public class GameController {
         return new CommandCard(commandList.get(random));
     }
 
-    public static CommandCard generateRandomDamageCard() {
-        Command[] commands = Command.values();
-        ArrayList<Command> dmgCommandList = new ArrayList<>(Arrays.asList(commands).subList(9, 13));
-        int random = (int) (Math.random() * dmgCommandList.size()); //TODO bruger måske
-        return new CommandCard(dmgCommandList.get(random));
-    }
-
-    public CommandCard generateRandomSpecialCard() {
-        Command[] commands = Command.values();
-        //TODO bruger måske
-        ArrayList<Command> specCommandList = new ArrayList<>(Arrays.asList(commands).subList(13, 19));
-        int random = (int) (Math.random() * specCommandList.size());
-        return new CommandCard(specCommandList.get(random));
-    }
-
-
     /**
      * Changes the phase      * @param server ip of server to communicate with
      * @throws IllegalIPException throws illegal ip exception if ip is not valid
