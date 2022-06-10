@@ -31,7 +31,7 @@ public class GameListView {
     private Stage stage;
     private TableView<Game> table = new TableView<>();
     private ObservableList<Game> data = FXCollections.observableArrayList();
-    AppController app;
+    private AppController app;
 
     public GameListView(Client c, AppController app) {
         this.app = app;
