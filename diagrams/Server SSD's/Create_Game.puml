@@ -5,15 +5,15 @@ hide footbox
 
 Participant ":Client" as client
 Participant ":ServerController" as server
-Participant ":GameController" as gameController
+Participant ":GameService" as gameService
 participant ":Game" as game
 
 -> client : createGame(String name)
 client -> server : POST/game
-server -> gameController : createGame(String name)
-gameController -> game ** : init(String name)
-gameController <-- game : String gameID
-server <-- gameController : string gameID
+server -> gameServer : createGame(String name)
+gameServer -> game ** : init(String name)
+gameServer <-- game : String gameID
+server <-- gameServer : string gameID
 client <-- server : String gameID
 <-- client
 -> client : updateGame()
