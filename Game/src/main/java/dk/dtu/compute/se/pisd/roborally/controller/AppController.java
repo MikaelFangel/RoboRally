@@ -36,10 +36,7 @@ import javafx.application.Platform;
 import javafx.scene.control.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Controls the application before the game is started
@@ -64,6 +61,8 @@ public class AppController implements Observer {
     public void newGame() {
         Optional<Integer> numPlayers = roboRally.getPopupBoxes().askUserForNumberOfPlayers(PLAYER_NUMBER_OPTIONS);
 
+        if (numPlayers.isEmpty())
+            client.leaveGame();
         if (numPlayers.isPresent()) {
             // The UI should not allow this, but in case this happens anyway.
             // give the user the option to save the game or abort this operation!
@@ -84,6 +83,8 @@ public class AppController implements Observer {
 
 
         Optional<String> chosenBoard = roboRally.getPopupBoxes().askUserForBoardName(ReadWriteGame.getNamesOfDefaultBoard());
+        if (chosenBoard.isEmpty())
+            client.leaveGame();
         if (chosenBoard.isPresent()) {
             try {
                 Board board = SaveLoadGame.newBoard(numPlayers, chosenBoard.get());
@@ -158,7 +159,20 @@ public class AppController implements Observer {
             hostGame(response);
         else {
             serverClientMode = true;
-            newGame();
+            box[0] = "Start new or continue?:";
+            box[1] = "Start new or continue?:" ;
+            List<String> list = new ArrayList<>();
+            list.add("new game");
+            list.add("load game");
+            Optional<String> out = roboRally.getPopupBoxes().askUserForBoardName(list);
+            if (out.isEmpty()) {
+                client.leaveGame();
+                return;
+            }
+            if (out.get().equals("new game"))
+                newGame();
+            else
+                loadGame();
         }
     }
 

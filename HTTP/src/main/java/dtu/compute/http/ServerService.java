@@ -89,7 +89,8 @@ public class ServerService implements IStatusComm {
         Server server = findServer(serverId);
         if (server == null)
             return;
-        server.setPlayerSpotFilled(robot, false);
+        if (server.getMaxAmountOfPlayers() != 0)
+            server.setPlayerSpotFilled(robot, false);
         server.removePlayer();
         if (server.isEmpty())
             servers.remove(server);
