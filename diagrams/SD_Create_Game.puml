@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+hide footbox
+
+Participant ":Player" as  Player
+Participant ":Client" as  Client
+Participant ":Server" as game
+
+Player -> Client: Create Game(Server name)
+Client -> game: Create Game(Server name)
+Client <-- game: code, message, Server ID)
+Player <-- Client: message
+Player -> Client: StartGame(Max players, Board)
+Client -> game: setGameState(Game, ServerID)
+Client <-- game: Status code, message
+
+@enduml
