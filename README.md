@@ -98,7 +98,7 @@ When the game is launched. Please proceed to the next instruction.
 ### How to Host an Online Game
 To host an online game you need to launch the RoboRally application.  
 - On the top menu bar, open the "Multiplayer" section.  
-- Select Host Game  
+- Select Host Game.  
 - Configure number of players and boards as you wish.  
 
 When the board is shown the game is now open for players to join.  
@@ -109,14 +109,14 @@ To join an online game you need to launch the a seperate RoboRally application, 
 If your IntelliJ does not already support multiple Instances of application running. Follow the next instruction.  
 
 When you have another application of the game running, follow these steps:  
-- On the top menu bar, open the "Multiplayer" section.
-- Click "Connect to Server"
-- Select the game on the list you want to join and press "Join"
+- On the top menu bar, open the "Multiplayer" section.  
+- Click "Connect to Server".
+- Select the game on the list you want to join and press "Join".
 - When all players have joined, then the game can start.
 
 ### Setup IntelliJ to run multiple Applications simultaneously.
-(This is done on IntelliJ IDEA 2022.1.2 (Ultimate Edition))  
-- Open the application configrations window (Edit configurations).
-- Under "Build and run" section, select "Modify options".
-- Enable "Allow Multiple Instances"
-- Apply and Exit
+(This is done on IntelliJ IDEA 2022.1.2 (Ultimate Edition)).  
+- Open the application configurations window (Edit configurations).  
+- Under "Build and run" menu, select "Modify options".  
+- Enable "Allow Multiple Instances".  
+- Apply and Exit.  
