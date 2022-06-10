@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Queue of players on convery belts;
+:i=queue.size\nj=0;
+while (i is not empty AN j < i?)
+  :currentPlayer = queue.pop\nj++;
+  :get the space the player\nshould be moved to;
+  if (spaceEmpty) is (false) then
+    :re add player to queue;
+  else (true)
+    :move player;
+    :j = 0;
+    :i = queue.size;
+  endif
+endwhile
+
+stop
+
+@enduml
