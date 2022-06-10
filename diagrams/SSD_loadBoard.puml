@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+
+Participant ":SaveLoadGame" as save
+Participant ":SerializeState" as seri
+Participant ":ReadWriteGame" as read
+
+-> save : LoadGame()
+save -> read : ReadFromDisk(fileName : String)
+save <-- read : JSON : String
+save -> seri : DeserializeGame(JSON)
+save <-- seri : Board
+
+@enduml
