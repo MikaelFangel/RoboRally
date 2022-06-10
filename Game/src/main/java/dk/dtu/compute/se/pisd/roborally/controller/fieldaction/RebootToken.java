@@ -1,12 +1,13 @@
 package dk.dtu.compute.se.pisd.roborally.controller.fieldaction;
 
+import dk.dtu.compute.se.pisd.httpclient.Game;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.util.ArrayList;
 
 /**
- * @author Mikael Fangel
+ * @author Ahmad Sandhu, Frederik Petersen
  */
 public class RebootToken extends FieldAction {
     @Override
@@ -15,10 +16,17 @@ public class RebootToken extends FieldAction {
         return true;
     }
 
-    public static void respawnPlayer(Board board, Player player){
+    public static void respawnPlayer(GameController gameController, Player player){
+        Board board = gameController.board;
+
         Space rebootToken = findToken(board);
 
         if (rebootToken != null){
+            if (rebootToken.getPlayer() != null){
+
+                gameController.rmc.moveForward(rebootToken.getPlayer(), 1);
+            }
+
             // Place player on space
             player.setSpace(rebootToken);
 
