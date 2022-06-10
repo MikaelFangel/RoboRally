@@ -4,7 +4,7 @@ hide footbox
 
 Participant ":Player" as  Player
 Participant ":Client" as  Client
-Participant ":Server" as game
+Participant ":Game" as game
 
 Player -> Client: Create Game(Server name)
 Client -> game: Create Game(Server name)
