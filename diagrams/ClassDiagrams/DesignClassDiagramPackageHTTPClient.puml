@@ -3,49 +3,44 @@ skinparam groupInheritance 2
 skinparam linetype polyline
 
 package httpclient{
-   class Client{
-      {Static} -HTTP_CLIENT : HttpClient
-      -server : String
-      -ServerID : String
-      -connectedToServer : boolean
-      -rootnumber : int
-
-      +updateGame(String gameState) : void
-      +getGameState() : String
-      +hostGame(String title) : String
-      +listGames() : String
-      +joinGame(String serverToJoin) : String
-      +leaveGame() : void
-   }
-   interface IStatusComm{
-     +updateGame(String gameState) : void
-     +getGameState() : String
-     +hostGame(String title) : String
-     +listGames() : String
-     +joinGame(String serverToJoin) : String
-     +leaveGame() : void
-   }
-   class Game{
-      -id : String
-      -title : String'
-      -gameState : String
-      -amountOfPlayers : int
-      -maxAmountOfPlayers : int
-      -playerSpotFilled : boolean
-   }
-   class GameListView{
-       -stage : Stage
-       -table : Tableview<Server>
-       -data : ObservableList<Server>
-        -app : AppController
-
-        +addserver(String s) : void
-        +viewTable() : void
-   }
+interface IStatusComm {
+    + updateGame(gameState: String)
+    + getGameState(): String
+    + hostGame(gameTitle: String): String
+    + listGames(): String
+    + joinGame(serverToJoin: String): String
+    + leaveGame()
 }
 
-AppController -d- GameListView
-IStatusComm <|.d. Client
-Client - GameListView
+class GameService {
+    ~ servers: ArrayList
+    - finderServer(serverId: String): Game
+}
+class ServerController {
+    + createGame(s String): String
+    + listOfGame(): String
+    + joinGame(id: String): String
+    + leaveGame(id: String, robot: String)
+    + getGameState(id: String): String
+    + setGameState(id: String, gameState: String): String
+
+}
+class Game {
+    + addPlayer()
+    + removePlayer()
+    + isEmpty(): boolean
+    + getAmountOfPlayers(): int
+    + getGameState(): String
+    + setGameState
+    + getId(): String
+    + getMaxAmountOfPlayers(): int
+    + getARobot(): int
+    + setPlayerSpotFilled(i: int, flag: boolean)
+}
+
+IStatusComm <|.l.GameService : \t\t
+IStatusComm <..ServerController : Uses
+GameService -- Game
+}
 
 @enduml
