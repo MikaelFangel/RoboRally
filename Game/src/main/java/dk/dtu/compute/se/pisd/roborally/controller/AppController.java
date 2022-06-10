@@ -25,7 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.httpclient.Client;
-import dk.dtu.compute.se.pisd.httpclient.ServerListView;
+import dk.dtu.compute.se.pisd.httpclient.GameListView;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.exceptions.BoardNotFoundException;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.ReadWriteGame;
@@ -49,7 +49,7 @@ public class AppController implements Observer {
     private GameController gameController;
     private final Client client = new Client();
     private boolean serverClientMode = false;
-    private final ServerListView slv = new ServerListView(client, this);
+    private final GameListView slv = new GameListView(client, this);
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
