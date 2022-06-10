@@ -26,5 +26,6 @@ else player abandon game creation
     server <-- service : string errorMessage
 end
 client <-- server : string robotID
+<-- client: String statusMessage
 
 @enduml
