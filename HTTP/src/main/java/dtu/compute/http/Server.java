@@ -4,7 +4,8 @@ package dtu.compute.http;
  * @author Christian Andersen
  */
 public class Server {
-    private final String id;
+    private String id;
+    private String title; //is used in the Gson Json converter
     private transient String gameState;
     private int amountOfPlayers;
     private int maxAmountOfPlayers;
@@ -12,6 +13,7 @@ public class Server {
 
     public Server(String title, int id) {
         this.id = String.valueOf(id);
+        this.title = title;
         this.amountOfPlayers = 1;
     }
 
