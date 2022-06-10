@@ -5,9 +5,9 @@ hide footbox
 
 Participant ":Player" as player
 Participant ":Client" as client
-Participant ":Server" as server
+Participant ":Game" as game
 
 player -> client : leaveGame()
-client -> server : leaveGame(Server ID, Player ID)
-client <-- server : Status code, message
+client -> game : leaveGame(Server ID, Player ID)
+client <-- game : Status code, message
 @enduml
