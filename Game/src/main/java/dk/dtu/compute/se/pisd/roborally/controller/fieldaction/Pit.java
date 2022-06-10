@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 
 /**
- * @author Ahmad Sandhu, Frederik Petersen
+ * @author Ahmad Sandhu, Frederik Petersen, Mikael Fangel
  */
 public class Pit extends FieldAction {
     @Override
