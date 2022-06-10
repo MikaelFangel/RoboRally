@@ -15,39 +15,11 @@ import java.util.Objects;
  * @author Ahmad Sandhu, Mikael Fangel
  */
 public class Pit extends FieldAction {
-    public int boardNum;
-    RebootToken reboot = new RebootToken();
     @Override
     public boolean doAction(GameController gameController, Space space) {
-        Pit pit = (Pit) space.getActions().get(0);
-        Board board = gameController.board;
+        // Find reboot token.
+        RebootToken.respawnPlayer(gameController.board, space.getPlayer());
 
-        if (space.getActions().size() > 0) {
-            Player player = space.getPlayer();
-
-            if (player != null) {
-                switch (pit.boardNum) {
-                    case 1:
-
-                        board.getSpace(4,9).setPlayer(player);
-                        reboot.doAction(gameController, player.getSpace());
-                        player.setDmgcards(Command.SPAM);
-                        player.setDmgcards(Command.SPAM);
-                        break;
-
-                    case 2:
-                        board.getSpace(7,0).setPlayer(player);
-                        reboot.doAction(gameController, player.getSpace());
-                        player.setDmgcards(Command.SPAM);
-                        player.setDmgcards(Command.SPAM);
-                        break;
-
-
-
-                }
-            }
-
-        }
         return true;
     }
 }

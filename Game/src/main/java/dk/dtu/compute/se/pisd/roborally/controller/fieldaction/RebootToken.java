@@ -1,8 +1,9 @@
 package dk.dtu.compute.se.pisd.roborally.controller.fieldaction;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
+
+import java.util.ArrayList;
 
 /**
  * @author Mikael Fangel
@@ -10,14 +11,35 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 public class RebootToken extends FieldAction {
     @Override
     public boolean doAction(GameController gameController, Space space) {
-        if (space.getActions().size() > 0) {
-            Player player = space.getPlayer();
 
-            if (player != null) {
-                gameController.rmc.moveForward(player, 1); //TODO midlertidligt løsning ( kigger på det imorgen)
-            }
+        return true;
+    }
 
+    public static void respawnPlayer(Board board, Player player){
+        Space rebootToken = findToken(board);
+
+        if (rebootToken != null){
+            // Place player on space
+            player.setSpace(rebootToken);
+
+            // Deactive Registers
+            player.setRegistersDisabled(true);
+
+            // Give 2 SPAM
+            player.setDmgcards(Command.SPAM);
+            player.setDmgcards(Command.SPAM);
         }
-        return false;
+    }
+
+    private static Space findToken(Board board){
+        for (int i = 0; i < board.getSpaces().length; i++) {
+            for (int j = 0; j < board.getSpaces()[0].length; j++) {
+                Space curSpace = board.getSpace(j, i);
+                if (curSpace.getActions().size() > 0 && curSpace.getActions().get(0) instanceof RebootToken){
+                    return curSpace;
+                }
+            }
+        }
+        return null;
     }
 }
