@@ -3,7 +3,7 @@ skinparam groupInheritance 2
 skinparam linetype polyline
 
 package httpclient{
-   class Client implements IStatusComm {
+   class Client{
       {Static} -HTTP_CLIENT : HttpClient
       -server : String
       -ServerID : String
@@ -42,7 +42,10 @@ package httpclient{
         +addserver(String s) : void
         +viewTable() : void
    }
-   note "This is the package that handlers the RESTfull API aspect of the game" as note1
 }
+
+AppController -d- ServerListView
+IStatusComm <|.d. Client
+Client - ServerListView
 
 @enduml
