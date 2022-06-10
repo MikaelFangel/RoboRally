@@ -5,25 +5,25 @@ hide footbox
 
 Participant ":Client" as client
 Participant ":ServerController" as server
-Participant ":GameController" as gameController
+Participant ":GameService" as gameService
 participant ":Game" as game
 
 -> client : listGame()
 client -> server : GET/game
-server -> gameController : listGame()
-server <-- gameController : string listOfGames
+server -> gameService : listGame()
+server <-- gameService : string listOfGames
 client <-- server : string listOfGames
 <-- client : string listOfGames
 -> client : joinGame(string serverID)
 client -> server : PUT/game
-server -> gameController : joinGame(string serverID)
+server -> gameService : joinGame(string serverID)
 alt !serverFull && serverStillExist
-    gameController -> game : addPlayer()
-    gameController -> game : getRobot()
-    gameController <-- game : string robotID
-    server <-- gameController : string robotID
+    gameService -> game : addPlayer()
+    gameService -> game : getRobot()
+    gameService <-- game : string robotID
+    server <-- gameService : string robotID
 else player abandon game creation
-    server <-- gameController : string errorMessage
+    server <-- gameService : string errorMessage
 end
 client <-- server : string robotID
 <-- client: String statusMessage

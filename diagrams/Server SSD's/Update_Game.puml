@@ -5,13 +5,13 @@ hide footbox
 
 Participant ":Client" as client
 Participant ":ServerController" as server
-Participant ":GameController" as gameController
+Participant ":GameService" as gameService
 participant ":Game" as game
 
 -> client : setGameState()
 client -> server : PUT/gameState/{serverID}
 client <-- server : ACK
-server -> gameController : setGameState(serverID, game)
-gameController -> game : setGameState(game)
+server -> gameService : setGameState(serverID, game)
+gameService -> game : setGameState(game)
 
 @enduml
