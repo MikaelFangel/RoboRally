@@ -5,13 +5,13 @@ hide footbox
 
 Participant ":Player" as player
 Participant ":Client" as client
-Participant ":Server" as server
+Participant ":Game" as game
 
 player -> client : getServerList()
-client  -> server : getServerList()
-client <-- server : Status code, message, List of servers
+client  -> game : getServerList()
+client <-- game : Status code, message, List of servers
 player <-- client : Server list
 player -> client : Join Server(Server ID)
-client -> server : Join Server(Server ID)
-client <-- server : Status code, message
+client -> game : Join Server(Server ID)
+client <-- game : Status code, message
 @enduml
