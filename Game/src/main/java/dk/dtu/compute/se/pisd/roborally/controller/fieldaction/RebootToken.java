@@ -7,7 +7,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import java.util.ArrayList;
 
 /**
- * @author Ahmad Sandhu, Frederik Petersen
+ * @author Ahmad Sandhu, Frederik Petersen, Mikael Fangel
  */
 public class RebootToken extends FieldAction {
     @Override
