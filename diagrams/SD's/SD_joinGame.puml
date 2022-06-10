@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+
+Participant ":Player" as player
+Participant ":Client" as client
+Participant ":Server" as server
+
+player -> client : getServerList()
+client  -> server : getServerList()
+client <-- server : Status code, message, List of servers
+player <-- client : Server list
+player -> client : Join Server(Server ID)
+client -> server : Join Server(Server ID)
+client <-- server : Status code, message
+@enduml
