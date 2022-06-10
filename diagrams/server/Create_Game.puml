@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+
+Participant ":Client" as client
+Participant ":ServerController" as server
+Participant ":ServerService" as service
+participant ":Server" as game
+
+-> client : createGame(String name)
+client -> server : POST/game
+server -> service : createGame(String name)
+service -> game ** : init(String name)
+service <-- game : String gameID
+server <-- service : string gameID
+client <-- server : String gameID
+<-- client
+-> client : updateGame()
+alt startGame
+    client->client : complete updateGame sequence
+else player abandon game creation
+    client->client : complete leaveGame sequence
+end
+
+@enduml
