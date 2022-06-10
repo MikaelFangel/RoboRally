@@ -22,19 +22,15 @@ public class Updater extends TimerTask {
     public void run() {
         if (update) {
             gameController.refreshUpdater();
-            updateBoardUi();
-        }
-    }
+            if (!gameController.board.gameOver) {
+                String jsonBoard = client.getGameState();
+                if (!jsonBoard.contains("error")) {
+                    gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
+                    Platform.runLater(this::updateBoard);
+                } else
+                    cancel();
 
-    public void updateBoardUi() {
-        if (!gameController.board.gameOver) {
-            String jsonBoard = client.getGameState();
-            if (!jsonBoard.contains("error")) {
-                gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
-                Platform.runLater(this::updateBoard);
-            } else
-                cancel();
-
+            }
         }
     }
 
