@@ -27,13 +27,13 @@ import java.io.StringReader;
  *
  * @author Christian Andersen
  */
-public class ServerListView {
+public class GameListView {
     private Stage stage;
     private TableView<Game> table = new TableView<>();
     private ObservableList<Game> data = FXCollections.observableArrayList();
     AppController app;
 
-    public ServerListView(Client c, AppController app) {
+    public GameListView(Client c, AppController app) {
         this.app = app;
         stage = new Stage();
         Scene scene = new Scene(new Group());
@@ -79,6 +79,7 @@ public class ServerListView {
         button.setOnAction(e -> {
             app.stopGame();
             if (!table.getSelectionModel().isEmpty()) app.joinGame(table.getSelectionModel().getSelectedItem().getId());
+            stage.close();
         });
 
         Button refresh = new Button("Refresh");
