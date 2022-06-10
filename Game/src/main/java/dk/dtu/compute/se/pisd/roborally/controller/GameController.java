@@ -99,6 +99,7 @@ public class GameController {
 
             for (int i = 0; i < board.getPlayersNumber(); i++) {
                 Player player = board.getPlayer(i);
+                player.setRegistersDisabled(false);
                 if (player != null) {
                     for (int j = 0; j < Player.NO_REGISTERS; j++) {
                         CommandCardField field = player.getProgramField(j);
@@ -250,7 +251,7 @@ public class GameController {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
-                if (card != null) {
+                if (card != null && !currentPlayer.isRegistersDisabled()) {
                     Command command = card.command;
                     executeCommand(currentPlayer, command);
                 }

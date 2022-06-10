@@ -49,6 +49,7 @@ public class Player extends Subject {
     public Space space;
     public Heading heading = SOUTH;
 
+    public boolean registersDisabled = false;
     public CommandCardField[] program;
     public CommandCardField[] cards;
     private final ArrayList<Command> damagecards;
@@ -142,6 +143,10 @@ public class Player extends Subject {
         this.energyCount = energyCount;
     }
 
+    public void setProgram(CommandCardField[] program) {
+        this.program = program;
+    }
+
     /**
      * @param card contains the chosen Command card
      * @author Ahmad Sandhu
@@ -154,5 +159,12 @@ public class Player extends Subject {
         return this.damagecards;
     }
 
+    public boolean isRegistersDisabled() {
+        return registersDisabled;
+    }
+
+    public void setRegistersDisabled(boolean registersDisabled) {
+        this.registersDisabled = registersDisabled;
+    }
 }
 
