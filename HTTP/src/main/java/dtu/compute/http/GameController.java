@@ -5,14 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * @author Christian Andersen
  */
 @Service
-public class ServerService implements IStatusComm {
-    ArrayList<Server> servers = new ArrayList<>();
+public class GameController implements IStatusComm {
+    ArrayList<Game> games = new ArrayList<>();
     private int id = 0;
 
     /**
@@ -21,11 +20,11 @@ public class ServerService implements IStatusComm {
      */
     @Override
     public void updateGame(String id, String gameState) {
-        Server server = findServer(id);
-        server.setGameState(gameState);
-        if (server.getMaxAmountOfPlayers() != 0) //if the max amount of player is set, we are done
+        Game game = findServer(id);
+        game.setGameState(gameState);
+        if (game.getMaxAmountOfPlayers() != 0) //if the max amount of player is set, we are done
             return;
-        server.setMaxAmountOfPlayers(StringUtils.countOccurrencesOf(gameState, "Player "));
+        game.setMaxAmountOfPlayers(StringUtils.countOccurrencesOf(gameState, "Player "));
     }
 
     /**
@@ -43,7 +42,7 @@ public class ServerService implements IStatusComm {
      */
     @Override
     public String hostGame(String title) {
-        servers.add(new Server(title, id));
+        games.add(new Game(title, id));
         String newServerId = String.valueOf(id);
         id++;
         return newServerId;
@@ -56,13 +55,13 @@ public class ServerService implements IStatusComm {
     public String listGames() {
         Gson gson = new Gson();
 
-        ArrayList<Server> server = new ArrayList<>();
-        servers.forEach(e -> {
+        ArrayList<Game> game = new ArrayList<>();
+        games.forEach(e -> {
             if (e.getAmountOfPlayers() != e.getMaxAmountOfPlayers()) {
-                server.add(e);
+                game.add(e);
             }
         });
-        return gson.toJson(server);
+        return gson.toJson(game);
     }
 
     /**
@@ -71,7 +70,7 @@ public class ServerService implements IStatusComm {
      */
     @Override
     public String joinGame(String serverToJoin) {
-        Server s = findServer(serverToJoin);
+        Game s = findServer(serverToJoin);
         if (s == null)
             return "Server doesn't exist";
         if (s.getAmountOfPlayers() >= s.getMaxAmountOfPlayers())
@@ -86,14 +85,14 @@ public class ServerService implements IStatusComm {
      */
     @Override
     public void leaveGame(String serverId, int robot) {
-        Server server = findServer(serverId);
-        if (server == null)
+        Game game = findServer(serverId);
+        if (game == null)
             return;
-        if (server.getMaxAmountOfPlayers() != 0)
-            server.setPlayerSpotFilled(robot, false);
-        server.removePlayer();
-        if (server.isEmpty())
-            servers.remove(server);
+        if (game.getMaxAmountOfPlayers() != 0)
+            game.setPlayerSpotFilled(robot, false);
+        game.removePlayer();
+        if (game.isEmpty())
+            games.remove(game);
     }
 
     /**
@@ -102,8 +101,8 @@ public class ServerService implements IStatusComm {
      * @param serverId of the game that we need to find
      * @return the memory location of that game
      */
-    private Server findServer(String serverId) {
-        return servers.stream()
+    private Game findServer(String serverId) {
+        return games.stream()
                 .filter(s -> s.getId().equals(serverId))
                 .findFirst()
                 .orElse(null);
