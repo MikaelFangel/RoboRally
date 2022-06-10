@@ -43,7 +43,6 @@ public class GameController {
     final private AppController appController;
     public final Client client;
     private boolean skipProgrammingPhase = true;
-    private Updater updater;
 
     public GameController(AppController appController, @NotNull Board board, Client client) {
         this.appController = appController;
@@ -54,10 +53,10 @@ public class GameController {
         if (client != null) {
             client.updateGame(SerializeState.serializeGame(board));
             playerNum = client.getRobotNumber();
-            updater = new Updater();
-            updater.setGameController(this);
-            updater.setClient(client);
-            updater.start();
+            Updater.setGameController(this);
+            Updater.setAppController(appController);
+            Updater.setClient(client);
+            new Timer().schedule(new Updater(), 0, 1000);
         }
     }
 
@@ -230,14 +229,6 @@ public class GameController {
         changePlayer(currentPlayer, board.getStep());
     }
 
-    /**
-     * Generates a new board view when board is changed
-     *
-     * @author Mikael Fangel
-     */
-    public void updateBoard() {
-        appController.getRoboRally().createBoardView(this);
-    }
 
     /**
      * Runs the programmed cards either in step mode or continually
@@ -537,13 +528,13 @@ public class GameController {
      */
     public void refreshUpdater() {
         if (client != null) {
-            updater.setUpdate(isMyTurn());
+            Updater.setUpdate(isMyTurn());
 
             if (board.gameOver) endGame(); // Needed to ensure it closes
         }
 
         if (board.gameOver)
-            updater.setUpdate(false);
+            Updater.setUpdate(false);
     }
 
     /**
