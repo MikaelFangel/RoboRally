@@ -125,6 +125,12 @@ public class PlayerView extends Tab implements ViewObserver {
         }
     }
 
+    /**
+     *
+     *
+     * @param subject
+     * @author Ekkart Kindler, Mikael Fangel
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == player.board) {
@@ -190,11 +196,6 @@ public class PlayerView extends Tab implements ViewObserver {
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-                    // TODO Assignment P3: these buttons should be shown only when there is
-                    //      an interactive command card, and the buttons should represent
-                    //      the player's choices of the interactive command card. The
-                    //      following is just a mockup showing two options
-
                     Command current = player.getProgramField(player.board.getStep()).getCard().command;
                     if (current.isInteractive()) {
                         for (Command command : current.getOptions()) {
