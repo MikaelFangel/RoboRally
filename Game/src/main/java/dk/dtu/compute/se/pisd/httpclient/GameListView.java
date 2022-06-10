@@ -39,8 +39,8 @@ public class GameListView {
         Scene scene = new Scene(new Group());
 
         stage.setTitle("List of Games");
-        stage.setWidth(600);
-        stage.setHeight(550);
+        stage.setWidth(650);
+        stage.setHeight(580);
 
         final Label label = new Label("Available games\nselect one");
         label.setFont(new Font("Arial", 20));
@@ -48,25 +48,25 @@ public class GameListView {
         table.setEditable(false);
 
         TableColumn id = new TableColumn("ID");
-        id.setMaxWidth(50);
+        id.setPrefWidth(50);
         id.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getId())
         );
 
         TableColumn serverName = new TableColumn("Server Name");
-        serverName.setMaxWidth(200);
+        serverName.setPrefWidth(450);
         serverName.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getTitle())
         );
 
         TableColumn players = new TableColumn("Players");
-        players.setMaxWidth(100);
+        players.setPrefWidth(50);
         players.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, Integer>, ObservableValue<Integer>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getAmountOfPlayers())
         );
 
         TableColumn maxPlayers = new TableColumn("Max Players");
-        maxPlayers.setMaxWidth(100);
+        maxPlayers.setPrefWidth(50);
         maxPlayers.setResizable(false);
         maxPlayers.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, Integer>, ObservableValue<Integer>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getMaxAmountOfPlayers())
