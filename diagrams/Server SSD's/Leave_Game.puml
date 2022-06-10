@@ -5,13 +5,13 @@ hide footbox
 
 Participant ":Client" as client
 Participant ":ServerController" as server
-Participant ":GameController" as gameController
+Participant ":GameService" as gameService
 participant ":Game" as game
 
 -> client : leaveGame()
 client -> server : POST/game/{serverID}/{robotID}
 client <-- server : ACK
-server -> gameController : leaveGame(serverID,robotID)
-gameController -> game : removeRobot(robotID)
+server -> gameService : leaveGame(serverID,robotID)
+gameService -> game : removeRobot(robotID)
 
 @enduml
