@@ -5,15 +5,15 @@ hide footbox
 
 Participant ":Client" as client
 Participant ":ServerController" as server
-Participant ":GameController" as gameController
+Participant ":GameService" as gameService
 participant ":Game" as game
 
 -> client : getGameState()
 client -> server : GET/gameState/{serverID}
-server -> gameController : getGameState(serverID)
-gameController -> game : getGameState()
-gameController <-- game : string gameState
-server <-- gameController : string gameState
+server -> gameServioce : getGameState(serverID)
+gameServioce -> game : getGameState()
+gameServioce <-- game : string gameState
+server <-- gameServioce : string gameState
 client <-- server : string gameState
 
 @enduml
