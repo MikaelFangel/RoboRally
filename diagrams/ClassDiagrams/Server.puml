@@ -10,9 +10,9 @@ interface IStatusComm {
 }
 
 class Client
-class ServerService {
+class GameController {
     ~ servers: ArrayList
-    - finderServer(serverId: String): Server
+    - finderServer(serverId: String): Game
 }
 class ServerController {
     + createGame(s String): String
@@ -23,7 +23,7 @@ class ServerController {
     + setGameState(id: String, gameState: String): String
 
 }
-class Server {
+class Game {
     + addPlayer()
     + removePlayer()
     + isEmpty(): boolean
@@ -37,8 +37,8 @@ class Server {
 }
 
 IStatusComm <|.r. Client
-IStatusComm <|.l.ServerService : \t\t
+IStatusComm <|.l.GameController : \t\t
 IStatusComm <..ServerController : Uses
-ServerService -- Server
+GameController -- Game
 
 @enduml
