@@ -38,11 +38,11 @@ public class ServerListView {
         stage = new Stage();
         Scene scene = new Scene(new Group());
 
-        stage.setTitle("List of Servers");
+        stage.setTitle("List of Games");
         stage.setWidth(600);
         stage.setHeight(550);
 
-        final Label label = new Label("Pick a server");
+        final Label label = new Label("Available games\nselect one");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(false);
