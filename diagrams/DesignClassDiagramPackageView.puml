@@ -46,9 +46,9 @@ package view{
   }
   'Inner class of CardFieldView end'
   class PlayersView extends TabPane implements viewObserver {
-    board : Board
-    gamecontroller : Gamecontroller
-    playerviews : Playersview[]
+    -board : Board
+    -gamecontroller : Gamecontroller
+    -playerviews : Playersview[]
 
     +createPlayersView() : void
     +updateView(Subject subject) : void
@@ -85,7 +85,7 @@ package view{
 
   }
   class spaceView extends StackPane implements viewObserver{
-    space : space
+    +space : space
 
     -updatePlayer() : void
     +updateView(Subject subject) : void
