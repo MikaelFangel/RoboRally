@@ -12,10 +12,10 @@ import javafx.application.Platform;
  * @author Mikael Fangel
  */
 public class Updater extends Thread {
-    GameController gameController;
-    boolean update = true;
-    boolean run = true;
-    Client client;
+    private GameController gameController;
+    private boolean update = true;
+    private boolean run = true;
+    private Client client;
 
     public void run() {
         while (run) {

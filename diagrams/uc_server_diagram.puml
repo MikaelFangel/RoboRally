@@ -1,6 +1,6 @@
 @startuml
 rectangle "RoboRally Server" {
-    usecase (Play Robo Rally Online) as play
+    usecase (Play RoboRally Online) as play
     usecase (Create Game) as create
     usecase (Join Game) as join
     usecase (Leave Game) as leave
