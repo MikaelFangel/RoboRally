@@ -482,13 +482,13 @@ public class GameController {
         }
 
         //activate lasers
-        for (Space[] space : board.getSpaces()) {
-            for (Space space1 : space) {
-                if (!space1.getActions().isEmpty() &&
-                        space1.getActions().get(0) instanceof Laser)
-                    space1.getActions().get(0).doAction(this, space1);
-            }
-        }
+        Arrays.stream(board.getSpaces())
+                .parallel()
+                .flatMap(Arrays::stream)
+                .filter(e -> !e.getActions().isEmpty())
+                .filter(e -> e.getActions().get(0) instanceof Laser)
+                .forEach(e -> e.getActions().get(0).doAction(this,e));
+
         //activate RebootToken
         for (Player player : players) {
             if (!player.getSpace().getActions().isEmpty() &&
