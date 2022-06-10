@@ -5,7 +5,7 @@ package dk.dtu.compute.se.pisd.httpclient;
  *
  * @author Christian Andersen
  */
-public class Server {
+public class Game {
     private String id;
     private String title;
     private transient String gameState;
