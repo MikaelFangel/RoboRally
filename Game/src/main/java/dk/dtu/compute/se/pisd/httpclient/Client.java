@@ -51,8 +51,7 @@ public class Client implements IStatusComm {
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         try {
-            String result = response.thenApply(HttpResponse::body).get(5, HOURS);
-            // Result ignorer for now
+            String result = response.thenApply(HttpResponse::body).get(5, SECONDS);
         } catch (InterruptedException | TimeoutException | ExecutionException e) {
             throw new RuntimeException(e);
         }
