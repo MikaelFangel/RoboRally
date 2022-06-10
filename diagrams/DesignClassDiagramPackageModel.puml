@@ -15,16 +15,8 @@ Package model{
    +height : int
    +boardName : String
 
-   +getGameId() : Integer
-   +setGameIdI(int gameId) : void
-   +getSpace(int x, int y) : Space
    +addPlayer(Player player) : void
-   +getPlayer(int i) : Player
-   +setCurrentPlayer(Player player) : void
-   +getPriorityAntennaSpace() : Space
-   +setPhase(Phase phase) : void
    +getNeighbour(Space space, Heading heading) : Space
-   +getStatusMessage() : String
    +nextPlayer(Player player) : void
  }
  class CommandCard extends Subject{
