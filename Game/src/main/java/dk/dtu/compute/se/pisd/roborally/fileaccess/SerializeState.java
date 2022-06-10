@@ -153,6 +153,7 @@ public class SerializeState {
      * @author Frederik G. Petersen (s215834)
      */
     public static Board deserializeGame(String jsonString, boolean savedGame) {
+        System.out.println(jsonString);
         GsonBuilder simpleBuilder = new GsonBuilder().registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
 
