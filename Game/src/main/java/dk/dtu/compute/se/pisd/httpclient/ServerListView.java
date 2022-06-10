@@ -29,8 +29,8 @@ import java.io.StringReader;
  */
 public class ServerListView {
     private Stage stage;
-    private TableView<Server> table = new TableView<>();
-    private ObservableList<Server> data = FXCollections.observableArrayList();
+    private TableView<Game> table = new TableView<>();
+    private ObservableList<Game> data = FXCollections.observableArrayList();
     AppController app;
 
     public ServerListView(Client c, AppController app) {
@@ -49,26 +49,26 @@ public class ServerListView {
 
         TableColumn id = new TableColumn("ID");
         id.setMaxWidth(50);
-        id.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Server, String>, ObservableValue<String>>)
+        id.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getId())
         );
 
         TableColumn serverName = new TableColumn("Server Name");
         serverName.setMaxWidth(200);
-        serverName.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Server, String>, ObservableValue<String>>)
+        serverName.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getTitle())
         );
 
         TableColumn players = new TableColumn("Players");
         players.setMaxWidth(100);
-        players.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Server, Integer>, ObservableValue<Integer>>)
+        players.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, Integer>, ObservableValue<Integer>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getAmountOfPlayers())
         );
 
         TableColumn maxPlayers = new TableColumn("Max Players");
         maxPlayers.setMaxWidth(100);
         maxPlayers.setResizable(false);
-        maxPlayers.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Server, Integer>, ObservableValue<Integer>>)
+        maxPlayers.setCellValueFactory((Callback<TableColumn.CellDataFeatures<Game, Integer>, ObservableValue<Integer>>)
                 p -> new ReadOnlyObjectWrapper(p.getValue().getMaxAmountOfPlayers())
         );
 
@@ -105,9 +105,9 @@ public class ServerListView {
     public void addServer(String s) {
         Gson test = new Gson();
         JsonReader jReader = new JsonReader(new StringReader(s));
-        Server[] servers = test.fromJson(jReader, Server[].class);
+        Game[] games = test.fromJson(jReader, Game[].class);
         data.clear();
-        data.addAll(servers);
+        data.addAll(games);
     }
 
     public void viewTable() {

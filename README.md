@@ -50,14 +50,14 @@ There is instructions on how to setup Online Multiplayer.
 The Instructions are to guide the player to setup Online player.
 
 ### How to launch a Server
-To launch a server you will have to open a seperate application  
+To launch a game you will have to open a seperate application  
 The application, HttpApplication, can be found in project at: HTTP/src/main/java/dtu/compute.http/HttpApplication.  
 - Please run the HttpApplication.  
 This Application will be running in the background on the machine.  
-All computers on the same subnet can connect to the server if the IP address is changed to the servers IP.  
+All computers on the same subnet can connect to the game if the IP address is changed to the games IP.  
 The standard is that all application running on the same machine can connect, because it is the same localhost.  
 
-When the server is launched. Please proceed to the next instruction.  
+When the game is launched. Please proceed to the next instruction.  
 
 ### How to Host an Online Game
 To host an online game you need to launch the RoboRally application.  
@@ -75,7 +75,7 @@ If your IntelliJ does not already support multiple Instances of application runn
 When you have another application of the game running, follow these steps:  
 - On the top menu bar, open the "Multiplayer" section.
 - Click "Connect to Server"
-- Select the server on the list you want to join and press "Join"
+- Select the game on the list you want to join and press "Join"
 - When all players have joined, then the game can start.
 
 ### Setup IntelliJ to run multiple Applications simultaneously.
