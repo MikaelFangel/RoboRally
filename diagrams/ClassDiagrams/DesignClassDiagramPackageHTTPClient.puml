@@ -25,7 +25,7 @@ package httpclient{
      +joinGame(String serverToJoin) : String
      +leaveGame() : void
    }
-   class Server{
+   class Game{
       -id : String
       -title : String'
       -gameState : String
@@ -33,19 +33,19 @@ package httpclient{
       -maxAmountOfPlayers : int
       -playerSpotFilled : boolean
    }
-   class ServerListView{
+   class GameListView{
        -stage : Stage
        -table : Tableview<Server>
        -data : ObservableList<Server>
-        app : AppController
+        -app : AppController
 
         +addserver(String s) : void
         +viewTable() : void
    }
 }
 
-AppController -d- ServerListView
+AppController -d- GameListView
 IStatusComm <|.d. Client
-Client - ServerListView
+Client - GameListView
 
 @enduml
