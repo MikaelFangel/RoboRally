@@ -9,8 +9,8 @@ interface IStatusComm {
     + leaveGame()
 }
 
-class Client
-class GameController {
+class "Client\n(Not on server)" as Client
+class GameService {
     ~ servers: ArrayList
     - finderServer(serverId: String): Game
 }
@@ -37,8 +37,8 @@ class Game {
 }
 
 IStatusComm <|.r. Client
-IStatusComm <|.l.GameController : \t\t
+IStatusComm <|.l.GameService : \t\t
 IStatusComm <..ServerController : Uses
-GameController -- Game
+GameService -- Game
 
 @enduml
