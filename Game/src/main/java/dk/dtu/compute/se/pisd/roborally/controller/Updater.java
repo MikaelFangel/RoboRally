@@ -4,6 +4,8 @@ import dk.dtu.compute.se.pisd.httpclient.Client;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.SerializeState;
 import javafx.application.Platform;
 
+import java.util.TimerTask;
+
 /**
  * The updater is a runnable thread that about every 1 second gets the latest game state from the server
  * and when the game state is received it the deserializes the json file and sends an async message
@@ -11,50 +13,55 @@ import javafx.application.Platform;
  *
  * @author Mikael Fangel
  */
-public class Updater extends Thread {
-    private GameController gameController;
-    private boolean update = true;
-    private boolean run = true;
-    private Client client;
+public class Updater extends TimerTask {
+    private static GameController gameController;
+    private static AppController appController;
+    private static boolean update = true;
+    private static Client client;
 
     public void run() {
-        while (run) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (update) {
-                gameController.refreshUpdater();
-                updateBoardUi();
-            }
+        if (update) {
+            gameController.refreshUpdater();
+            updateBoardUi();
         }
     }
 
     public void updateBoardUi() {
         if (!gameController.board.gameOver) {
-            gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
-            Platform.runLater(gameController::updateBoard);
+            String jsonBoard = client.getGameState();
+            if (!jsonBoard.contains("error")) {
+                gameController.board = SerializeState.deserializeGame(client.getGameState(), true);
+                Platform.runLater(this::updateBoard);
+            } else
+                cancel();
+
         }
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    /**
+     * Generates a new board view when board is changed
+     */
+    public void updateBoard() {
+        appController.getRoboRally().createBoardView(gameController);
     }
 
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
+    public static void setClient(Client client) {
+        Updater.client = client;
     }
 
-    public boolean getUpdate() {
+    public static void setGameController(GameController gameController) {
+        Updater.gameController = gameController;
+    }
+
+    public static boolean getUpdate() {
         return update;
     }
 
-    public void setUpdate(boolean update) {
-        this.update = update;
+    public static void setUpdate(boolean update) {
+        Updater.update = update;
     }
 
-    public void setRun(boolean run) {
-        this.run = run;
+    public static void setAppController(AppController appController) {
+        Updater.appController = appController;
     }
 }
