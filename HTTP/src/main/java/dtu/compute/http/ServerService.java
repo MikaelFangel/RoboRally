@@ -87,7 +87,8 @@ public class ServerService implements IStatusComm {
     @Override
     public void leaveGame(String serverId, int robot) {
         Server server = findServer(serverId);
-        assert server != null;
+        if (server == null)
+            return;
         server.setPlayerSpotFilled(robot, false);
         server.removePlayer();
         if (server.isEmpty())
@@ -101,11 +102,9 @@ public class ServerService implements IStatusComm {
      * @return the memory location of that game
      */
     private Server findServer(String serverId) {
-        for (Server e : servers) {
-            if (Objects.equals(e.getId(), serverId)) {
-                return e;
-            }
-        }
-        return null;
+        return servers.stream()
+                .filter(s -> s.getId().equals(serverId))
+                .findFirst()
+                .orElse(null);
     }
 }
