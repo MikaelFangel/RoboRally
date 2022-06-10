@@ -133,7 +133,7 @@ public class GameController {
     public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands).subList(0, 9));
-        int random = (int) (Math.random() * commandList.size()); //TODO her er du
+        int random = (int) (Math.random() * commandList.size());
         return new CommandCard(commandList.get(random));
     }
 
@@ -492,13 +492,13 @@ public class GameController {
         //activate RebootToken
         for (Player player : players) {
             if (!player.getSpace().getActions().isEmpty() &&
-                    player.getSpace().getActions().get(0) instanceof RebootToken) //TODO Tjek lige om det rigtigt
+                    player.getSpace().getActions().get(0) instanceof RebootToken) //
                 player.getSpace().getActions().get(0).doAction(this, player.getSpace());
         }
         //activate Pit
         for (Player player : players) {
             if (!player.getSpace().getActions().isEmpty() &&
-                    player.getSpace().getActions().get(0) instanceof Pit) //TODO Tjek lige om det rigtigt
+                    player.getSpace().getActions().get(0) instanceof Pit) //
                 player.getSpace().getActions().get(0).doAction(this, player.getSpace());
         }
 
