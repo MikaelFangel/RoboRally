@@ -1,0 +1,154 @@
+{
+  "width": 9,
+  "height": 9,
+  "spaces": [
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 1,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
+          "INSTANCE": {"boardNum" : 1}
+        }
+      ],
+      "x": 2,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
+          "INSTANCE": {"boardNum" : 1}
+        }
+      ],
+      "x": 3,
+      "y": 1
+    },{
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
+          "INSTANCE": {"boardNum" : 1}
+        }
+      ],
+      "x": 4,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.RebootToken",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 5,
+      "y": 6
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [],
+      "x": 7,
+      "y": 5
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [],
+      "x": 8,
+      "y": 6
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 7,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.StartGear",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 1,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
+          "INSTANCE": {"boardNum" : 1}
+        }
+      ],
+      "x": 2,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
+          "INSTANCE": {"boardNum" : 1}
+        }
+      ],
+      "x": 3,
+      "y": 4
+    },{
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.Pit",
+          "INSTANCE": {"boardNum" : 1}
+        }
+      ],
+      "x": 4,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.fieldaction.PriorityAntenna",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 7,
+      "y": 0
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+  ]
+}
