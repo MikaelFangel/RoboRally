@@ -139,4 +139,8 @@ public class SaveLoadGame {
     public static boolean getNewBoardCreated() {
         return newBoardCreated;
     }
+
+    public static void setNewBoardCreated(boolean newBoardCreated) {
+        SaveLoadGame.newBoardCreated = newBoardCreated;
+    }
 }

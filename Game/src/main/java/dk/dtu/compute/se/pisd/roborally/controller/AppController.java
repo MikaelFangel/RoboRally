@@ -242,7 +242,7 @@ public class AppController implements Observer {
      */
     public boolean stopGame() {
         if (gameController != null) {
-
+            SaveLoadGame.setNewBoardCreated(false);
             gameController = null;
             roboRally.createBoardView(null);
             return true;
