@@ -19,7 +19,7 @@
         {
           "card": {
             "command": {
-              "type": ""
+              "type": "MOVE1"
             }
           },
           "visible": true
@@ -153,7 +153,7 @@
         {
           "card": {
             "command": {
-              "type": ""
+              "type": "MOVE2"
             }
           },
           "visible": true
@@ -161,7 +161,7 @@
         {
           "card": {
             "command": {
-              "type": ""
+              "type": "MOVE2"
             }
           },
           "visible": true
@@ -169,7 +169,7 @@
         {
           "card": {
             "command": {
-              "type": ""
+              "type": "MOVE2"
             }
           },
           "visible": true
@@ -241,9 +241,128 @@
           "visible": true
         }
       ]
+    },
+    {
+      "name": "Player 3",
+      "color": "purple",
+      "energyCount": 5,
+      "checkPoints": 0,
+      "priority": 0,
+      "spaceX": 6,
+      "spaceY": 6,
+      "heading": "EAST",
+      "program": [
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": ""
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVE1"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "LEFT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVE3"
+            }
+          },
+          "visible": true
+        }
+      ],
+      "cards": [
+        {
+          "card": {
+            "command": {
+              "type": "LEFT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "UTURN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "UTURN"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVEBACK"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "OPTION_LEFT_RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "OPTION_LEFT_RIGHT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "LEFT"
+            }
+          },
+          "visible": true
+        },
+        {
+          "card": {
+            "command": {
+              "type": "MOVE1"
+            }
+          },
+          "visible": true
+        }
+      ]
     }
   ],
   "currentPlayer": 0,
+
   "spaces": [
     {
       "walls": [],
