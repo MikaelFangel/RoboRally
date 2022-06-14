@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Christian Andersen
  */
 @Service
-public class GameController implements IStatusComm {
+public class GameService implements IStatusComm {
     ArrayList<Game> games = new ArrayList<>();
     private int id = 0;
 
